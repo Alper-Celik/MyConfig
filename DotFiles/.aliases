@@ -1,0 +1,12 @@
+alias  c=clear
+alias  lg=lazygit
+alias  nv=nvim
+alias  th=touch
+alias  py=python
+alias  ytdl=yt-dlp
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
