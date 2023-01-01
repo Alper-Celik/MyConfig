@@ -96,10 +96,10 @@
       "docker"
     ];
   };
-  home-manager.users.alper = import ../home-manager/home.nix;
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-
+  # home-manager.users.alper = import ../home-manager/home.nix;
+  # home-manager.useGlobalPkgs = true;
+  # home-manager.useUserPackages = true;
+  #
 
 
 

@@ -8,7 +8,7 @@
 -- vim.g.vscode_disable_nvimtree_bg = true
 -- vim.cmd("colorscheme vscode")
 -- vim.opt.background = "dark" -- set this to dark or light
--- vim.cmd.colorscheme("carbonfox")
+vim.cmd.colorscheme("carbonfox")
 local my_filename = {
 	"filename",
 	file_status = true,

@@ -11,7 +11,7 @@ in
   environment.systemPackages = with pkgs; [
 
 
-
+    ark
     libsForQt5.bismuth
     libsForQt5.kdeconnect-kde
 

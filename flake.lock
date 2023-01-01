@@ -89,24 +89,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
-        "nur": "nur",
-        "submodule": "submodule"
-      }
-    },
-    "submodule": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1672527758,
-        "narHash": "sha256-8X88vRCdQP4/wLrpGQGcW1IUKrCIp+UICtHMDVYAFXQ=",
-        "ref": "refs/heads/main",
-        "rev": "8e9d4d89655528406e70cfedc60fc4b491c8a4e9",
-        "revCount": 27,
-        "type": "git",
-        "url": "file:./Configs/Neovim"
-      },
-      "original": {
-        "type": "git",
-        "url": "file:./Configs/Neovim"
+        "nur": "nur"
       }
     },
     "utils": {
