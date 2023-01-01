@@ -1,3 +1,0 @@
-[submodule "Configs/Neovim"]
-	path = Configs/Neovim
-	url = git@github.com:Alper-Celik/MyNeovimConfig.git

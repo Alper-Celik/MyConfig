@@ -1,6 +1,6 @@
-{ inputs, lib, config, pkgs, pkgs-u, pkgs-s, ... }: {
+{ inputs, lib, config, pkgs, pkgs-u, pkgs-s, specialArgs, ... }: {
   home.file =
     {
-      ".aliases" = ./.aliases;
+      ".aliases".source = ./.aliases;
     };
 }

@@ -1,7 +1,8 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 
-{ inputs, lib, config, pkgs, pkgs-u, pkgs-s, ... }: {
+
+{ inputs, lib, config, pkgs, pkgs-u, pkgs-s, specialArgs, ... }: {
   imports = [
     ../DotFiles/dotfiles.nix
 

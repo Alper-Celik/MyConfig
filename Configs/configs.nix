@@ -1,6 +1,9 @@
-{ inputs, lib, config, pkgs, pkgs-u, pkgs-s, ... }: {
+{ inputs, lib, config, pkgs, pkgs-u, pkgs-s, specialArgs, ... }: {
   imports = [ ./Git/git.nix ];
   xdg.configFile = {
-    "nvim" = ./Neovim;
+    "nvim" = {
+      source = ./Neovim;
+      # inputs = specialArgs.inputs;
+    };
   };
 }

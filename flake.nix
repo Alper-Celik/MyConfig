@@ -1,6 +1,5 @@
 {
   description = "Your new nix config";
-
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -17,6 +16,9 @@
   };
 
   outputs = { nixpkgs, nixpkgs-stable, home-manager, nixos-hardware, nur, ... }@inputs: rec {
+
+    submodules = true;
+    type = "git";
     # This instantiates nixpkgs for each system listed
     # Allowing you to configure it (e.g. allowUnfree)
     # Our configurations will use these instances
@@ -64,14 +66,14 @@
       };
     };
 
-    # homeConfigurations = {
-    #   # FIXME replace with your username@hostname
-    #   "alper@nixos" = home-manager.lib.homeManagerConfiguration {
-    #     pkgs = legacyPackages.x86_64-linux;
-    #     extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
-    #     # > Our main home-manager configuration file <
-    #     modules = [ ./home-manager/home.nix ];
-    #   };
-    # };
+    homeConfigurations = {
+      "alper@nixos" = home-manager.lib.homeManagerConfiguration {
+        pkgs = legacyPackages.x86_64-linux;
+        # extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
+
+        extraSpecialArgs = specialArgs;
+        modules = [ ./home-manager/home.nix ];
+      };
+    };
   };
 }

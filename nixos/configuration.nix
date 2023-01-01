@@ -7,7 +7,6 @@
 {
 
   imports = [
-    (import "${inputs.home-manager}/nixos")
 
     # Import your generated (nixos-generate-config) hardware configuration
     (./${specialArgs.hardware}/hardware-configuration.nix)
