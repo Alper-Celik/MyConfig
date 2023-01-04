@@ -13,7 +13,10 @@
 
     ./display.nix
 
-    ./applications.nix
+
+    ../Programs/Cli/nixos-configrations.nix
+    ../Programs/Gui/nixos-configrations.nix
+
   ];
 
   nix = {

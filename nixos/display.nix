@@ -9,14 +9,11 @@
   };
 
 
-  # Optionally, you may need to select the appropriate driver version for your specific GPU.
-  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
   # Enable the Plasma 5 Desktop Environment.
 
   # default wayland
   # services.xserver.displayManager.defaultSession = "plasmawayland";
-  # services.xserver.displayManager.sddm.enable = true;
 
   services.xserver.displayManager.gdm.wayland = true;
   services.xserver.displayManager.gdm.enable = true;
@@ -28,6 +25,8 @@
   services.xserver.desktopManager.plasma5.useQtScaling = true;
   services.xserver.desktopManager.plasma5.phononBackend = "vlc";
 
+  ## tiling
+  environment.systemPackages = with pkgs;[ libsForQt5.bismuth ];
 
 
   programs.dconf.enable = true;
