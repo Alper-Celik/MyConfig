@@ -29,5 +29,6 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  # xdg.mimeApps.enable = true;
 
 }

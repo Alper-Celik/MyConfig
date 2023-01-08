@@ -2,7 +2,8 @@
   description = "Your new nix config";
   inputs = {
     # Nixpkgs
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.follows = "nixpkgs-stable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
@@ -15,42 +16,26 @@
 
   };
 
-  outputs = { nixpkgs, nixpkgs-stable, home-manager, nixos-hardware, nur, ... }@inputs: rec {
+  outputs = { nixpkgs, nixpkgs-unstable, nixpkgs-stable, home-manager, nixos-hardware, nur, ... }@inputs: rec {
 
-    submodules = true;
-    type = "git";
     # This instantiates nixpkgs for each system listed
     # Allowing you to configure it (e.g. allowUnfree)
     # Our configurations will use these instances
-    legacyPackages = nixpkgs.lib.genAttrs [ "x86_64-linux" "x86_64-darwin" ] (system:
-      import inputs.nixpkgs {
-        inherit system;
+    legacyPackages = nixpkgs.lib.genAttrs [ "nixpkgs-stable" "nixpkgs-unstable" "nixpkgs" ]
+      (channel:
+        nixpkgs.lib.genAttrs [ "x86_64-linux" "x86_64-darwin" ] (system:
+          import inputs.${channel} {
+            inherit system;
 
-        # NOTE: Using `nixpkgs.config` in your NixOS config won't work
-        # Instead, you should set nixpkgs configs here
-        # (https://nixos.org/manual/nixpkgs/stable/#idm140737322551056)
-        config.allowUnfree = true;
-      }
-    );
+            config.allowUnfree = true;
+          }));
 
 
-
-    legacyPackages-stable = nixpkgs-stable.lib.genAttrs [ "x86_64-linux" "x86_64-darwin" ] (system:
-      import inputs.nixpkgs-stable {
-        inherit system;
-
-        # NOTE: Using `nixpkgs.config` in your NixOS config won't work
-        # Instead, you should set nixpkgs configs here
-        # (https://nixos.org/manual/nixpkgs/stable/#idm140737322551056)
-        config.allowUnfree = true;
-      }
-    );
-
-    pkgs = legacyPackages.x86_64-linux;
+    pkgs = legacyPackages.nixpkgs-stable.x86_64-linux;
     specialArgs = {
       inherit inputs; # Pass flake inputs to our config
-      pkgs-s = legacyPackages-stable.x86_64-linux;
-      pkgs-u = pkgs;
+      pkgs-s = legacyPackages.nixpkgs-stable.x86_64-linux;
+      pkgs-u = legacyPackages.nixpkgs-unstable.x86_64-linux;
     };
     nixosConfigurations = {
       lenovo-ideapad-510 = nixpkgs.lib.nixosSystem {
@@ -68,7 +53,7 @@
 
     homeConfigurations = {
       "alper@nixos" = home-manager.lib.homeManagerConfiguration {
-        pkgs = legacyPackages.x86_64-linux;
+        pkgs = legacyPackages.nixpkgs-stable.x86_64-linux;
         # extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
 
         extraSpecialArgs = specialArgs;
