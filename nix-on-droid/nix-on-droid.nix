@@ -8,12 +8,12 @@
   environment.etcBackupExtension = ".bak";
 
   # Read the changelog before changing this value
-  system.stateVersion = "22.11";
+  system.stateVersion = "22.05";
 
-  home-manager.extraSpecialArgs = specialArgs;
-  home-manager.config = ../home-manager/home.nix;
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
+  # home-manager.extraSpecialArgs = specialArgs;
+  # home-manager.config = ../home-manager/home.nix;
+  # home-manager.useGlobalPkgs = true;
+  # home-manager.useUserPackages = true;
 
 
   # Set up nix for flakes                                 

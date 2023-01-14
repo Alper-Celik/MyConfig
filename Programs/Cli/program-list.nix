@@ -55,7 +55,7 @@
   neovim
   nano
   ## compilers and runtimes
-  gcc12
+  (hiPrio gcc12)
   clang_14
 
   rustc

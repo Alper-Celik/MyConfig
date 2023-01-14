@@ -35,14 +35,18 @@
 
               config.allowUnfree = true;
             }));
-      pkgs = legacyPackages.nixpkgs-stable.x86_64-linux;
 
 
-      specialArgs = {
-        inherit inputs; # Pass flake inputs to our config
-        pkgs-s = legacyPackages.nixpkgs-stable.x86_64-linux;
-        pkgs-u = legacyPackages.nixpkgs-unstable.x86_64-linux;
-      };
+
+      specialArgs =
+        nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ] (system:
+          rec{
+            inherit inputs; # Pass flake inputs to our config
+            pkgs-s = legacyPackages.nixpkgs-stable.${system};
+            pkgs-u = legacyPackages.nixpkgs-unstable.${system};
+
+            pkgs = pkgs-s;
+          });
     in
     rec {
 
@@ -50,8 +54,7 @@
 
       nixosConfigurations = {
         lenovo-ideapad-510 = nixpkgs.lib.nixosSystem {
-          inherit pkgs;
-          specialArgs = specialArgs // {
+          specialArgs = specialArgs.x86_64-linux // {
             hardware = "lenovo-ideapad-510";
           };
           modules = [
@@ -62,19 +65,20 @@
         };
       };
 
+
       homeConfigurations = {
         "alper@nixos" = home-manager.lib.homeManagerConfiguration {
           pkgs = legacyPackages.nixpkgs-stable.x86_64-linux;
           # extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
 
-          extraSpecialArgs = specialArgs;
+          extraSpecialArgs = specialArgs.x86_64-linux;
           modules = [ ./home-manager/home.nix ];
         };
       };
 
 
       nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
-        extraSpecialArgs = specialArgs;
+        extraSpecialArgs = specialArgs.aarch64-linux;
         # _module.args = {
         #   inherit specialArgs;
         # } // specialArgs;
