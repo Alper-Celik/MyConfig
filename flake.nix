@@ -11,12 +11,18 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    # nix on droid
+    nix-on-droid = {
+      url = "github:t184256/nix-on-droid/release-22.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # NUR
     nur.url = "github:nix-community/NUR";
 
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, nixpkgs-stable, home-manager, nixos-hardware, nur, ... }@inputs: rec {
+  outputs = { nixpkgs, nixpkgs-unstable, nixpkgs-stable, home-manager, nixos-hardware, nur, nix-on-droid, ... }@inputs: rec {
 
     # This instantiates nixpkgs for each system listed
     # Allowing you to configure it (e.g. allowUnfree)
@@ -59,6 +65,15 @@
         extraSpecialArgs = specialArgs;
         modules = [ ./home-manager/home.nix ];
       };
+    };
+
+
+    nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
+      extraSpecialArgs = specialArgs;
+      # _module.args = {
+      #   inherit specialArgs;
+      # } // specialArgs;
+      modules = [ ./nix-on-droid/nix-on-droid.nix ];
     };
   };
 }
