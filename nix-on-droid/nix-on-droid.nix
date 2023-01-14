@@ -11,7 +11,7 @@
   system.stateVersion = "22.11";
 
   home-manager.extraSpecialArgs = specialArgs;
-  home-manager.users.alper = ../home-manager/home.nix;
+  home-manager.config = ../home-manager/home.nix;
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
 
