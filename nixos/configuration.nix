@@ -8,6 +8,9 @@
 
   imports = [
 
+    # home manager
+    inputs.home-manager.nixosModules.home-manager
+
     # Import your generated (nixos-generate-config) hardware configuration
     (./${specialArgs.hardware}/hardware-configuration.nix)
 
@@ -99,10 +102,11 @@
       "docker"
     ];
   };
-  # home-manager.users.alper = import ../home-manager/home.nix;
-  # home-manager.useGlobalPkgs = true;
-  # home-manager.useUserPackages = true;
-  #
+  home-manager.extraSpecialArgs = specialArgs;
+  home-manager.users.alper = ../home-manager/home.nix;
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+
 
 
 
