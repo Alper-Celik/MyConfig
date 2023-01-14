@@ -9,13 +9,6 @@
     ../Configs/configs.nix
   ];
 
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
-  home.username = "alper";
-  home.homeDirectory = "/home/alper";
-
-
-
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
