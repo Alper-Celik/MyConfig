@@ -22,58 +22,63 @@
 
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, nixpkgs-stable, home-manager, nixos-hardware, nur, nix-on-droid, ... }@inputs: rec {
+  outputs = { nixpkgs, nixpkgs-unstable, nixpkgs-stable, home-manager, nixos-hardware, nur, nix-on-droid, ... }@inputs:
+    let
+      # This instantiates nixpkgs for each system listed
+      # Allowing you to configure it (e.g. allowUnfree)
+      # Our configurations will use these instances
+      legacyPackages = nixpkgs.lib.genAttrs [ "nixpkgs-stable" "nixpkgs-unstable" "nixpkgs" ]
+        (channel:
+          nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ] (system:
+            import inputs.${channel} {
+              inherit system;
 
-    # This instantiates nixpkgs for each system listed
-    # Allowing you to configure it (e.g. allowUnfree)
-    # Our configurations will use these instances
-    legacyPackages = nixpkgs.lib.genAttrs [ "nixpkgs-stable" "nixpkgs-unstable" "nixpkgs" ]
-      (channel:
-        nixpkgs.lib.genAttrs [ "x86_64-linux" "x86_64-darwin" ] (system:
-          import inputs.${channel} {
-            inherit system;
-
-            config.allowUnfree = true;
-          }));
+              config.allowUnfree = true;
+            }));
+      pkgs = legacyPackages.nixpkgs-stable.x86_64-linux;
 
 
-    pkgs = legacyPackages.nixpkgs-stable.x86_64-linux;
-    specialArgs = {
-      inherit inputs; # Pass flake inputs to our config
-      pkgs-s = legacyPackages.nixpkgs-stable.x86_64-linux;
-      pkgs-u = legacyPackages.nixpkgs-unstable.x86_64-linux;
-    };
-    nixosConfigurations = {
-      lenovo-ideapad-510 = nixpkgs.lib.nixosSystem {
-        inherit pkgs;
-        specialArgs = specialArgs // {
-          hardware = "lenovo-ideapad-510";
+      specialArgs = {
+        inherit inputs; # Pass flake inputs to our config
+        pkgs-s = legacyPackages.nixpkgs-stable.x86_64-linux;
+        pkgs-u = legacyPackages.nixpkgs-unstable.x86_64-linux;
+      };
+    in
+    rec {
+
+      inherit legacyPackages;
+
+      nixosConfigurations = {
+        lenovo-ideapad-510 = nixpkgs.lib.nixosSystem {
+          inherit pkgs;
+          specialArgs = specialArgs // {
+            hardware = "lenovo-ideapad-510";
+          };
+          modules = [
+            nur.nixosModules.nur
+            ./nixos/configuration.nix
+          ];
+
         };
-        modules = [
-          nur.nixosModules.nur
-          ./nixos/configuration.nix
-        ];
-
       };
-    };
 
-    homeConfigurations = {
-      "alper@nixos" = home-manager.lib.homeManagerConfiguration {
-        pkgs = legacyPackages.nixpkgs-stable.x86_64-linux;
-        # extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
+      homeConfigurations = {
+        "alper@nixos" = home-manager.lib.homeManagerConfiguration {
+          pkgs = legacyPackages.nixpkgs-stable.x86_64-linux;
+          # extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
 
+          extraSpecialArgs = specialArgs;
+          modules = [ ./home-manager/home.nix ];
+        };
+      };
+
+
+      nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
         extraSpecialArgs = specialArgs;
-        modules = [ ./home-manager/home.nix ];
+        # _module.args = {
+        #   inherit specialArgs;
+        # } // specialArgs;
+        modules = [ ./nix-on-droid/nix-on-droid.nix ];
       };
     };
-
-
-    nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
-      extraSpecialArgs = specialArgs;
-      # _module.args = {
-      #   inherit specialArgs;
-      # } // specialArgs;
-      modules = [ ./nix-on-droid/nix-on-droid.nix ];
-    };
-  };
 }

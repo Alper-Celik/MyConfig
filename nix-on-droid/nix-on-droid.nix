@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-u, pkgs-s, ... }:
+{ config, lib, pkgs, pkgs-u, pkgs-s, specialArgs, ... }:
 
 {
 
@@ -10,11 +10,17 @@
   # Read the changelog before changing this value
   system.stateVersion = "22.11";
 
+  home-manager.extraSpecialArgs = specialArgs;
+  home-manager.users.alper = ../home-manager/home.nix;
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+
+
   # Set up nix for flakes                                 
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
 
   # Set your time zone
-  #time.timeZone = "Europe/Berlin";
+  time.timeZone = "Europe/Istanbul";
 }
