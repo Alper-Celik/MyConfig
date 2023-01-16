@@ -61,7 +61,7 @@
   rustc
 
   nodejs
-  jdk
+  (hiPrio jdk)
   jdk8
   ## debuggers
   lldb
