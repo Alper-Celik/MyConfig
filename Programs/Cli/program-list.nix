@@ -17,6 +17,7 @@
   tldr
 
   gnupg
+  openssh
 
   bash
   fish
