@@ -63,5 +63,20 @@
       firenvim
     ];
   };
+  home.packages = with pkgs;[
+    ## lsp s
+    rnix-lsp
+    sumneko-lua-language-server
+    cmake-language-server
+    nil
+    clang-tools # also formatter and static analysis
+
+
+    ## formatters
+    nixpkgs-fmt
+    stylua
+    python310Packages.autopep8
+    cmake-format
+  ];
   xdg.configFile.nvim.source = ./.;
 }

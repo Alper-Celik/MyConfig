@@ -38,23 +38,12 @@
   zstd
 
   # dev tools
-  ## lsp s
-  rnix-lsp
-  sumneko-lua-language-server
-  cmake-language-server
-  nil
-  clang-tools
-
-
-  python310Packages.argcomplete
-  ## formatters
-  nixpkgs-fmt
-  stylua
-  python310Packages.autopep8
-  cmake-format
   ## editors
   pkgs-u.neovim
   nano
+
+
+  python310Packages.argcomplete
   ## compilers and runtimes
   (hiPrio gcc12)
   clang_14
