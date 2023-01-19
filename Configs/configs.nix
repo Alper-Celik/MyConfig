@@ -2,10 +2,6 @@
   imports = [
     ./Git/git.nix
     ./Kitty/kitty.nix
+    ./Neovim/Neovim.nix
   ];
-  xdg.configFile = {
-    "nvim" = {
-      source = ./Neovim;
-    };
-  };
 }

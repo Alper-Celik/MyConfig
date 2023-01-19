@@ -53,7 +53,7 @@
   python310Packages.autopep8
   cmake-format
   ## editors
-  neovim
+  pkgs-u.neovim
   nano
   ## compilers and runtimes
   (hiPrio gcc12)

@@ -45,7 +45,7 @@ in
   wl-clipboard
   xclip
 
-  cmakeWithGui
+  (hiPrio cmakeWithGui)
 
 
   # games

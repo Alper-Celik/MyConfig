@@ -21,10 +21,12 @@
     # NUR
     nur.url = "github:nix-community/NUR";
 
+
   };
 
   outputs = { nixpkgs, nixpkgs-unstable, nixpkgs-stable, home-manager, nixos-hardware, nur, nix-on-droid, ... }@inputs:
     let
+
       # This instantiates nixpkgs for each system listed
       # Allowing you to configure it (e.g. allowUnfree)
       # Our configurations will use these instances
@@ -51,7 +53,6 @@
     in
     rec {
 
-      inherit legacyPackages;
 
       nixosConfigurations = {
         lenovo-ideapad-510 = nixpkgs.lib.nixosSystem {
