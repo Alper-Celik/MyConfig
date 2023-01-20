@@ -22,7 +22,7 @@
   bash
   fish
   any-nix-shell
-
+  (hiPrio coreutils-full)
 
   direnv
   nix-direnv
@@ -39,7 +39,7 @@
 
   # dev tools
   ## editors
-  pkgs-u.neovim
+  (lowPrio pkgs-u.neovim)
   nano
 
 
