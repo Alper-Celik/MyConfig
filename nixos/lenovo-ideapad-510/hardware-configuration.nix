@@ -53,11 +53,11 @@
     };
 
   #fileSystems."/mnt/winssd" =
-   # {
-    #  device = "/dev/disk/by-partuuid/50fd3a5a-97ce-4da6-a349-536dd02946b3";
-     # fsType = "ntfs3";
-      #options = [ "noatime" ];
-   # };
+  # {
+  #  device = "/dev/disk/by-partuuid/50fd3a5a-97ce-4da6-a349-536dd02946b3";
+  # fsType = "ntfs3";
+  #options = [ "noatime" ];
+  # };
 
 
   swapDevices =
