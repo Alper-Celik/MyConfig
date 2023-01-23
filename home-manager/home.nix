@@ -7,6 +7,7 @@
     ../DotFiles/dotfiles.nix
 
     ../Configs/configs.nix
+    inputs.nix-index-database.hmModules.nix-index
   ];
 
 
@@ -26,4 +27,8 @@
   programs.home-manager.enable = true;
   # xdg.mimeApps.enable = true;
 
+  programs.nix-index = {
+    enable = true;
+    enableFishIntegration = true;
+  };
 }

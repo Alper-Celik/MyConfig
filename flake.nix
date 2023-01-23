@@ -18,6 +18,11 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # NUR
     nur.url = "github:nix-community/NUR";
 
