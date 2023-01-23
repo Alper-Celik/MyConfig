@@ -63,6 +63,7 @@
 
   cargo
   ## containers
+  distrobox
   docker
   act
 
