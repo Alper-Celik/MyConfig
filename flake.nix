@@ -5,11 +5,14 @@
     nixpkgs.follows = "nixpkgs-stable";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
+
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     # Home manager
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # nix on droid
     nix-on-droid = {
@@ -18,7 +21,7 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-
+    # nix index
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
