@@ -3,6 +3,6 @@
     ./Git.nix
     ./Kitty.nix
     ./Neovim/Neovim.nix
-    ./Fish.nix
+    ./Fish/Fish.nix
   ];
 }
