@@ -98,6 +98,7 @@
       "wheel" # Enable ‘sudo’ for the user.
       "docker"
     ];
+    shell = pkgs.fish;
   };
   home-manager.extraSpecialArgs = specialArgs;
   home-manager.users.alper = ../home-manager/home.nix;
