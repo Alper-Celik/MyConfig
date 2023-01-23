@@ -22,7 +22,8 @@
   bash
   fish
   any-nix-shell
-  (hiPrio coreutils-full)
+  ncurses
+  findutils
 
   direnv
   nix-direnv
@@ -47,6 +48,7 @@
   ## compilers and runtimes
   (hiPrio gcc12)
   clang_14
+  python310Packages.python
 
   rustc
 

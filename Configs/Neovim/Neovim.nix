@@ -69,6 +69,7 @@
     sumneko-lua-language-server
     cmake-language-server
     nil
+    nodePackages.pyright
     clang-tools # also formatter and static analysis
 
 
