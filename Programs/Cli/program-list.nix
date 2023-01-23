@@ -27,7 +27,6 @@
 
   direnv
   nix-direnv
-  nix-index
 
   bat
   tree
