@@ -3,7 +3,6 @@
     enable = true;
     settings = {
       allow_remote_control = true;
-      shell = "fish";
     };
     font = {
       package = pkgs-s.nerdfonts;
