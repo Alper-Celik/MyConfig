@@ -21,6 +21,7 @@
         text = "pinentry-program ${pkgs.pinentry}/bin/pinentry";
       };
   }];
+  home-manager.backupFileExtension = "backup";
 
   # Set up nix for flakes                                 
   nix = {
