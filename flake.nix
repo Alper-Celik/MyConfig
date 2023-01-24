@@ -57,11 +57,11 @@
             pkgs-u = legacyPackages.nixpkgs-unstable.${system};
 
             pkgs = pkgs-s;
+
+            stateVersion = "22.05";
           });
     in
-    rec {
-
-
+    {
       nixosConfigurations = {
         lenovo-ideapad-510 = nixpkgs.lib.nixosSystem {
           specialArgs = specialArgs.x86_64-linux // {
