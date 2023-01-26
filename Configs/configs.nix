@@ -4,5 +4,6 @@
     ./Kitty.nix
     ./Neovim/Neovim.nix
     ./Fish/Fish.nix
+    ./Kde/Kde.nix
   ];
 }

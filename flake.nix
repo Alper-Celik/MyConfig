@@ -14,6 +14,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     # nix on droid
     nix-on-droid = {
       url = "github:t184256/nix-on-droid/release-22.11";
@@ -79,10 +85,12 @@
       homeConfigurations = {
         "alper@nixos" = home-manager.lib.homeManagerConfiguration {
           pkgs = legacyPackages.nixpkgs-stable.x86_64-linux;
-          # extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
 
           extraSpecialArgs = specialArgs.x86_64-linux;
-          modules = [ ./home-manager/home.nix ];
+          modules = [
+            ./home-manager/home.nix
+            inputs.plasma-manager.homeManagerModules.plasma-manager
+          ];
         };
       };
 

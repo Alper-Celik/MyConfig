@@ -8,6 +8,8 @@
 
     ../Configs/configs.nix
     inputs.nix-index-database.hmModules.nix-index
+
+    inputs.plasma-manager.homeManagerModules.plasma-manager
   ];
 
 

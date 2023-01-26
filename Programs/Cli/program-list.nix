@@ -33,6 +33,8 @@
   ripgrep
   comma
 
+  htop
+  btop
   # compression
   unzip
   gnutar
