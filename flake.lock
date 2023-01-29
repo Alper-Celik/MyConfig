@@ -1,5 +1,53 @@
 {
   "nodes": {
+    "autopair-fish": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1656950411,
+        "narHash": "sha256-qt3t1iKRRNuiLWiVoiAYOu+9E7jsyECyIqZJ/oRIT1A=",
+        "owner": "jorgebucaran",
+        "repo": "autopair.fish",
+        "rev": "4d1752ff5b39819ab58d7337c69220342e9de0e2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jorgebucaran",
+        "repo": "autopair.fish",
+        "type": "github"
+      }
+    },
+    "bang-bang-fish": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1669582361,
+        "narHash": "sha256-35xXBWCciXl4jJrFUUN5NhnHdzk6+gAxetPxXCv4pDc=",
+        "owner": "oh-my-fish",
+        "repo": "plugin-bang-bang",
+        "rev": "816c66df34e1cb94a476fa6418d46206ef84e8d3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oh-my-fish",
+        "repo": "plugin-bang-bang",
+        "type": "github"
+      }
+    },
+    "fzf-fish": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1674674469,
+        "narHash": "sha256-i9FcuQdmNlJnMWQp7myF3N0tMD/2I0CaMs/PlD8o1gw=",
+        "owner": "PatrickF1",
+        "repo": "fzf.fish",
+        "rev": "63c8f8e65761295da51029c5b6c9e601571837a1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "PatrickF1",
+        "repo": "fzf.fish",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -242,6 +290,9 @@
     },
     "root": {
       "inputs": {
+        "autopair-fish": "autopair-fish",
+        "bang-bang-fish": "bang-bang-fish",
+        "fzf-fish": "fzf-fish",
         "home-manager": "home-manager",
         "nix-index-database": "nix-index-database",
         "nix-on-droid": "nix-on-droid",

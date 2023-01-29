@@ -16,6 +16,18 @@
         name = "my settings";
         src = ./.;
       }
+      {
+        name = "fzf.fish";
+        src = inputs.fzf-fish;
+      }
+      {
+        name = "autopair.fish";
+        src = inputs.autopair-fish;
+      }
+      {
+        name = "bang bang";
+        src = inputs.bang-bang-fish;
+      }
     ];
 
     shellAbbrs = {
@@ -32,4 +44,6 @@
     };
 
   };
+
+  home.packages = with pkgs;[ fzf fd bat ];
 }

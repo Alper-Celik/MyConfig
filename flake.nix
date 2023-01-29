@@ -1,42 +1,56 @@
 {
-  description = "Your new nix config";
-  inputs = {
-    # Nixpkgs
-    nixpkgs.follows = "nixpkgs-stable";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
+  description = "all of my configurations";
+  inputs =
+    {
+      # Nixpkgs
+      nixpkgs.follows = "nixpkgs-stable";
+      nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+      nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
 
-    nixos-hardware.url = "github:nixos/nixos-hardware";
+      nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    # Home manager
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # Home manager
+      home-manager = {
+        url = "github:nix-community/home-manager";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+
+      plasma-manager = {
+        url = "github:pjones/plasma-manager";
+        inputs.nixpkgs.follows = "nixpkgs";
+        inputs.home-manager.follows = "home-manager";
+      };
+
+      # nix on droid
+      nix-on-droid = {
+        url = "github:t184256/nix-on-droid/release-22.11";
+        inputs.nixpkgs.follows = "nixpkgs";
+        inputs.home-manager.follows = "home-manager";
+      };
+
+      # nix index
+      nix-index-database = {
+        url = "github:Mic92/nix-index-database";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+      # NUR
+      nur.url = "github:nix-community/NUR";
+
+      # fish plugins
+      fzf-fish = {
+        url = "github:PatrickF1/fzf.fish";
+        flake = false;
+      };
+      autopair-fish = {
+        url = "github:jorgebucaran/autopair.fish";
+        flake = false;
+      };
+      bang-bang-fish = {
+        url = "github:oh-my-fish/plugin-bang-bang";
+        flake = false;
+      };
+
     };
-
-    plasma-manager = {
-      url = "github:pjones/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-
-    # nix on droid
-    nix-on-droid = {
-      url = "github:t184256/nix-on-droid/release-22.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-
-    # nix index
-    nix-index-database = {
-      url = "github:Mic92/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # NUR
-    nur.url = "github:nix-community/NUR";
-
-
-  };
 
   outputs = { nixpkgs, nixpkgs-unstable, nixpkgs-stable, home-manager, nixos-hardware, nur, nix-on-droid, ... }@inputs:
     let
