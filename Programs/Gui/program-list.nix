@@ -39,6 +39,8 @@ in
   virt-manager
   ## accessibility 
   gnome.accerciser
+  ## debuggers
+  seer
 
 
   # cli depend on gui env

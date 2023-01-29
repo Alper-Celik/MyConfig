@@ -31,7 +31,9 @@
   bat
   tree
   ripgrep
+  fd
   comma
+  fzf
 
   htop
   btop
