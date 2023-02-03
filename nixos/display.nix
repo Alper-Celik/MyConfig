@@ -11,7 +11,6 @@
 
   environment.systemPackages = with pkgs;[
     libsForQt5.bismuth #plasma tiling
-    wayfire
   ];
 
 
@@ -37,17 +36,4 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
-
-
-  ## wayfire
-  # services.xserver.displayManager.sessionPackages = [ pkgs.wayfire ];
-
-  programs.hyprland = {
-    enable = true;
-    xwayland = {
-      enable = true;
-      hidpi = true;
-    };
-    nvidiaPatches = false;
-  };
 }

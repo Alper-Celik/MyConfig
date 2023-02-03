@@ -9,6 +9,8 @@
 
       nixos-hardware.url = "github:nixos/nixos-hardware";
 
+      nix-alien.url = "github:thiagokokada/nix-alien";
+
       # Home manager
       home-manager = {
         url = "github:nix-community/home-manager";
@@ -34,7 +36,7 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
       # NUR
-      nur.url = "github:nix-community/NUR";
+      # nur.url = "github:nix-community/NUR";
 
       # fish plugins
       fzf-fish = {
@@ -77,8 +79,9 @@
             pkgs-u = legacyPackages.nixpkgs-unstable.${system};
 
             pkgs = pkgs-s;
-
             stateVersion = "22.05";
+
+            inherit system;
           });
     in
     {
@@ -89,6 +92,7 @@
           };
           modules = [
             nur.nixosModules.nur
+            # hyprland.nixosModules.default
             ./nixos/configuration.nix
           ];
 
