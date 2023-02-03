@@ -31,6 +31,7 @@
     ];
 
     shellAbbrs = {
+
       c = "clear";
       lg = "lazygit";
       nv = "nvim";

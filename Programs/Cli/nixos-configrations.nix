@@ -1,7 +1,10 @@
 { inputs, lib, config, pkgs, pkgs-u, pkgs-s, specialArgs, ... }:
 {
 
-  environment.systemPackages = import ./program-list.nix { inherit pkgs pkgs-u pkgs-s; };
+  environment.systemPackages = import ./program-list.nix { inherit pkgs pkgs-u pkgs-s; } ++ (with inputs.nix-alien.packages.${specialArgs.system};
+    [
+      nix-alien
+    ]);
   environment.sessionVariables = {
     XDG_CACHE_HOME = "\${HOME}/.cache";
     XDG_CONFIG_HOME = "\${HOME}/.config";
@@ -24,4 +27,6 @@
   virtualisation.libvirtd.enable = true;
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "overlay2";
+
+  programs.nix-ld.enable = true;
 }

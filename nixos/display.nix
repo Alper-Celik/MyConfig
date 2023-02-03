@@ -2,12 +2,17 @@
 {
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  programs.xwayland.enable = true;
 
   hardware.opengl = {
     driSupport32Bit = true;
     enable = true;
   };
 
+  environment.systemPackages = with pkgs;[
+    libsForQt5.bismuth #plasma tiling
+    wayfire
+  ];
 
 
   # Enable the Plasma 5 Desktop Environment.
@@ -25,8 +30,6 @@
   services.xserver.desktopManager.plasma5.useQtScaling = true;
   services.xserver.desktopManager.plasma5.phononBackend = "vlc";
 
-  ## tiling
-  environment.systemPackages = with pkgs;[ libsForQt5.bismuth ];
 
 
   programs.dconf.enable = true;
@@ -34,4 +37,17 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
+
+
+  ## wayfire
+  # services.xserver.displayManager.sessionPackages = [ pkgs.wayfire ];
+
+  programs.hyprland = {
+    enable = true;
+    xwayland = {
+      enable = true;
+      hidpi = true;
+    };
+    nvidiaPatches = false;
+  };
 }

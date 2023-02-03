@@ -24,6 +24,7 @@ in
   libsForQt5.kirigami-addons # needed for kclock
   libsForQt5.kclock
 
+
   ## book managment
   calibre
 

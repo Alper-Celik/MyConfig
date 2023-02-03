@@ -28,6 +28,8 @@
   direnv
   nix-direnv
 
+  cachix
+
   bat
   tree
   ripgrep
