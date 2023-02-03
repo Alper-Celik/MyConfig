@@ -57,7 +57,7 @@
 
   systemd.oomd.enable = false; #dont kill running programms pleaaaaaaase !!
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = specialArgs.hardware; # Define your hostname.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
