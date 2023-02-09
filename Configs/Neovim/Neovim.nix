@@ -72,9 +72,6 @@
     nodePackages.pyright
     clang-tools # also formatter and static analysis
 
-    #Diagnostics
-    editorconfig-checker
-
     ## formatters
     nixpkgs-fmt
     stylua

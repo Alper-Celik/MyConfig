@@ -16,6 +16,7 @@
 
     ./display.nix
     ./printing.nix
+    ./ccache.nix
 
     ../Programs/Cli/nixos-configrations.nix
     ../Programs/Gui/nixos-configrations.nix
