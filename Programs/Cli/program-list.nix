@@ -11,10 +11,15 @@
   wget
   curl
 
+  python310Packages.yt-dlp
+  ffmpeg
+
   # manual
   man
   cht-sh
   tldr
+  man-pages
+  man-pages-posix
 
   gnupg
   openssh

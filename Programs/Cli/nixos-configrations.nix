@@ -15,6 +15,8 @@
       "\${XDG_BIN_HOME}"
     ];
   };
+  documentation.dev.enable = true;
+
   programs.fish.enable = true;
   programs.fish.promptInit = ''
     any-nix-shell fish --info-right | source
