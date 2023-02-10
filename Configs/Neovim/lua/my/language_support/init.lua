@@ -105,7 +105,7 @@ require("lspconfig").sumneko_lua.setup({
 --generic
 
 local language_servers =
-{ "cmake", "jsonls", "pyright", "bashls", "texlab", "eslint", "html", "cssls", "nil_ls", "qmlls" }
+{ "cmake", "jsonls", "pyright", "bashls", "texlab", "eslint", "html", "cssls", "nil_ls", "qmlls", "taplo" }
 
 for _, value in pairs(language_servers) do
   require("lspconfig")[value].setup({ capabilities = lsp_capabilities, on_attach = on_attach })
