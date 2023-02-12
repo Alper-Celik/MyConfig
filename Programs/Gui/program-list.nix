@@ -9,6 +9,7 @@ in
   # media players
   vlc
 
+  pkgs-u.musescore
   # utulities
   ## browsers 
   pkgs-s.firefox
