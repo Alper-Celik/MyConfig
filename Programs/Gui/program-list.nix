@@ -1,9 +1,4 @@
 { pkgs-u, pkgs-s, pkgs ? pkgs-s, nur }: with pkgs;
-let
-  vscode-with-env = (pkgs.vscode.override
-    { commandLineArgs = "--enable-features=Vulkan"; }).fhsWithPackages (ps: with ps;with pkgs; [ libgnome-keyring rustup zlib openssl.dev pkg-config ]);
-
-in
 [
 
   # media players
@@ -34,7 +29,6 @@ in
   ## editors 
   kate
   qtcreator
-  vscode-with-env
   ## terminal emulators
   kitty
   ## virtualization

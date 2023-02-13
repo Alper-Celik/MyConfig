@@ -72,7 +72,7 @@
     nodePackages.pyright
     clang-tools # also formatter and static analysis
     nodePackages.bash-language-server
-    taplo
+    # taplo
 
     ## formatters
     nixpkgs-fmt

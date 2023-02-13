@@ -16,21 +16,44 @@
           {
             inherit system;
           });
+        dependencies = with pkgs;[
+          ## lsp s
+          # rnix-lsp
+          nil # nix lsp
+          sumneko-lua-language-server
+          cmake-language-server
+          nodePackages.pyright # python lsp
+          clang-tools # also formatter and static analysis
+          nodePackages.bash-language-server
+          taplo #toml lsp
+
+          ## formatters
+          nixpkgs-fmt
+          stylua
+          python310Packages.autopep8
+          cmake-format
+
+        ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
+          xclip
+          wl-clipboard
+        ];
       in
       {
-        packages.default = pkgs.neovim.override
-          {
-            config = {
-              customRC =
-                ''
-                  lua << EOF
-                    package.path = "${self}/?.lua;" .. package.path
-                ''
-                + pkgs.lib.readFile ./init.lua
-                + ''
-                  EOF
-                '';
-            };
+        packages.default = pkgs.neovim.override {
+          viAlias = true;
+          vimAlias = true;
+
+          extraMakeWrapperArgs = ''--prefix PATH : "${pkgs.lib.makeBinPath dependencies}"'';
+          configure = {
+            customRC =
+              ''
+                lua << EOF
+                  package.path = "${self}/?.lua;" .. package.path
+              ''
+              + pkgs.lib.readFile ./init.lua
+              + ''
+                EOF
+              '';
             packages.myVimPackage = with pkgs.vimPlugins; {
               # see examples below how to use custom packages
               start = [
@@ -88,11 +111,14 @@
                 # nvim in browser
                 firenvim
               ];
+
               # If a Vim plugin has a dependency that is not explicitly listed in
               # opt that dependency will always be added to start to avoid confusion.
               opt = [ ];
             };
 
           };
+
+        };
       });
 }
