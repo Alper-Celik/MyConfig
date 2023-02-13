@@ -78,7 +78,7 @@
             pkgs-s = legacyPackages.nixpkgs-stable.${system};
             pkgs-u = legacyPackages.nixpkgs-unstable.${system};
 
-            pkgs = pkgs-s;
+            # pkgs = pkgs-s;
             stateVersion = "22.05";
 
             inherit system;
@@ -119,6 +119,13 @@
         #   inherit specialArgs;
         # } // specialArgs;
         modules = [ ./nix-on-droid/nix-on-droid.nix ];
+
+        # modules = [
+        #   (input: {
+        #
+        #     system.stateVersion = "22.05";
+        #   })
+        # ];
       };
     };
 }
