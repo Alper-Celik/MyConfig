@@ -1,7 +1,7 @@
-{ inputs, lib, config, pkgs, pkgs-u, pkgs-s, specialArgs, ... }:
+{ inputs, lib, config, pkgs, specialArgs, ... }:
 {
 
-  environment.systemPackages = import ./program-list.nix { inherit pkgs pkgs-u pkgs-s; } ++ (with inputs.nix-alien.packages.${specialArgs.system};
+  environment.systemPackages = import ./program-list.nix { inherit pkgs; } ++ (with inputs.nix-alien.packages.${specialArgs.system};
     [
       nix-alien
     ]);

@@ -1,4 +1,4 @@
-{ inputs, lib, config, pkgs, pkgs-u, pkgs-s, specialArgs, ... }:
+{ inputs, lib, config, pkgs, specialArgs, ... }:
 {
   programs.neovim = {
     enable = true;
@@ -7,8 +7,8 @@
     vimAlias = true;
     vimdiffAlias = true;
 
-    package = pkgs-u.neovim-unwrapped;
-    plugins = with pkgs-u.vimPlugins ;[
+    package = pkgs.neovim-unwrapped;
+    plugins = with pkgs.vimPlugins ;[
       # Utulities
       ## for reload functionality and some plugins
       plenary-nvim

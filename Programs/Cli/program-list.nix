@@ -1,4 +1,4 @@
-{ pkgs-u, pkgs-s, pkgs ? pkgs-s }: with pkgs ;
+{ pkgs }: with pkgs ;
 [
   patchelf
 
@@ -51,7 +51,7 @@
 
   # dev tools
   ## editors
-  (lowPrio pkgs-u.neovim)
+  (lowPrio pkgs.neovim)
   nano
 
 
@@ -83,6 +83,6 @@
 
 
   # Fonts
-  pkgs-s.nerdfonts
+  pkgs.nerdfonts
 
 ]

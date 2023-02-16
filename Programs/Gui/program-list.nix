@@ -1,13 +1,13 @@
-{ pkgs-u, pkgs-s, pkgs ? pkgs-s, nur }: with pkgs;
+{ pkgs, nur }: with pkgs;
 [
 
   # media players
   vlc
 
-  pkgs-u.musescore
+  pkgs.musescore
   # utulities
   ## browsers 
-  pkgs-s.firefox
+  pkgs.firefox
   chromium
   ## 2 steap auth
   authy

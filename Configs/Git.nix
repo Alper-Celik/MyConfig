@@ -1,4 +1,4 @@
-{ inputs, lib, config, pkgs, pkgs-u, pkgs-s, specialArgs, ... }: {
+{ inputs, lib, config, pkgs, specialArgs, ... }: {
   programs.git = {
     enable = true;
     userName = "Alper Çelik";

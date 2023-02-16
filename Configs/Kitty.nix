@@ -1,13 +1,13 @@
-{ inputs, lib, config, pkgs, pkgs-u, pkgs-s, specialArgs, ... }: {
+{ inputs, lib, config, pkgs, specialArgs, ... }: {
   programs.kitty = {
     enable = true;
     settings = {
       allow_remote_control = true;
     };
     font = {
-      package = pkgs-s.nerdfonts;
+      package = pkgs.nerdfonts;
       name = "JetBrainsMono Nerd Font";
-      size = 9;
+      # size = 9;
     };
 
 

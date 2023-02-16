@@ -3,9 +3,11 @@
   inputs =
     {
       # Nixpkgs
-      nixpkgs.follows = "nixpkgs-stable";
-      nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-      nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
+      nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+      # nixpkgs.follows = "nixpkgs-stable";
+      # nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+      # nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
 
       nixos-hardware.url = "github:nixos/nixos-hardware";
 
@@ -56,13 +58,13 @@
 
     };
 
-  outputs = { nixpkgs, nixpkgs-unstable, nixpkgs-stable, home-manager, nixos-hardware, nur, nix-on-droid, ... }@inputs:
+  outputs = { nixpkgs, home-manager, nixos-hardware, nur, nix-on-droid, ... }@inputs:
     let
 
       # This instantiates nixpkgs for each system listed
       # Allowing you to configure it (e.g. allowUnfree)
       # Our configurations will use these instances
-      legacyPackages = nixpkgs.lib.genAttrs [ "nixpkgs-stable" "nixpkgs-unstable" "nixpkgs" ]
+      legacyPackages = nixpkgs.lib.genAttrs [ "nixpkgs" ]
         (channel:
           nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ] (system:
             import inputs.${channel} {
@@ -77,8 +79,8 @@
         nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ] (system:
           rec{
             inherit inputs; # Pass flake inputs to our config
-            pkgs-s = legacyPackages.nixpkgs-stable.${system};
-            pkgs-u = legacyPackages.nixpkgs-unstable.${system};
+            # pkgs-s = legacyPackages.nixpkgs.${system};
+            # pkgs-u = legacyPackages.nixpkgs-unstable.${system};
 
             # pkgs = pkgs-s;
             stateVersion = "22.05";
