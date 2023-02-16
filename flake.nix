@@ -11,6 +11,7 @@
 
       nix-alien.url = "github:thiagokokada/nix-alien";
 
+      flake-utils.url = "github:numtide/flake-utils";
       # Home manager
       home-manager = {
         url = "github:nix-community/home-manager";
@@ -22,6 +23,7 @@
         inputs.nixpkgs.follows = "nixpkgs";
         inputs.home-manager.follows = "home-manager";
       };
+
 
       # nix on droid
       nix-on-droid = {

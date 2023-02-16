@@ -1,4 +1,5 @@
-{ inputs, lib, config, pkgs, pkgs-u, pkgs-s, specialArgs, ... }: {
+{ inputs, lib, config, pkgs, pkgs-u, pkgs-s, specialArgs, ... }:
+{
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -63,22 +64,24 @@
       firenvim
     ];
   };
-  home.packages = with pkgs;[
-    ## lsp s
-    rnix-lsp
-    sumneko-lua-language-server
-    cmake-language-server
-    nil
-    nodePackages.pyright
-    clang-tools # also formatter and static analysis
-    nodePackages.bash-language-server
-    # taplo
+  home.packages = with pkgs;
+    [
+      ## lsp s
+      rnix-lsp
+      sumneko-lua-language-server
+      cmake-language-server
+      nil
+      nodePackages.pyright
+      clang-tools # also formatter and static analysis
+      nodePackages.bash-language-server
+      taplo
 
-    ## formatters
-    nixpkgs-fmt
-    stylua
-    python310Packages.autopep8
-    cmake-format
-  ];
+      ## formatters
+      nixpkgs-fmt
+      stylua
+      python310Packages.autopep8
+      cmake-format
+
+    ];
   xdg.configFile.nvim.source = ./.;
 }
