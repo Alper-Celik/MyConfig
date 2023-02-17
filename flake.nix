@@ -123,14 +123,14 @@
 
 
       nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
-        extraSpecialArgs = specialArgs.aarch64-linux;
+        extraSpecialArgs = specialArgs.aarch64-linux // { isFlake = true; };
         # _module.args = {
         #   inherit specialArgs;
         # } // specialArgs;
         modules = [
           ./nix-on-droid/nix-on-droid.nix
-          overlay_module
         ];
+        pkgs = legacyPackages.nixpkgs.aarch64-linux;
 
         # modules = [
         #   (input: {

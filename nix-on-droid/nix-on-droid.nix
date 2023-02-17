@@ -46,5 +46,5 @@
   user.shell = pkgs.writeShellScript "init.sh" ''
     ${pkgs.fish}/bin/fish -C "export GPG_TTY=$(tty)"
   '';
-  terminal.font = "${pkgs-s.nerdfonts}/share/fonts/truetype/NerdFonts/JetBrains Mono Bold Italic Nerd Font Complete Mono.ttf";
+  terminal.font = "${pkgs.test}/share/fonts/truetype/NerdFonts/JetBrains Mono Bold Italic Nerd Font Complete Mono.ttf";
 }
