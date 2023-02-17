@@ -58,46 +58,50 @@
 
     };
 
-  outputs = { nixpkgs, home-manager, nixos-hardware, nur, nix-on-droid, ... }@inputs:
+  # dont add nixpkgs to list might broke defined modules
+  outputs = { home-manager, nixos-hardware, nur, nix-on-droid, ... }@inputs:
     let
+      overlays = import ./Overlays/allOverlays.nix;
+      overlay_module = { ... }:
+        {
+          nixpkgs.overlays = overlays;
+
+        };
+
 
       # This instantiates nixpkgs for each system listed
       # Allowing you to configure it (e.g. allowUnfree)
       # Our configurations will use these instances
-      legacyPackages = nixpkgs.lib.genAttrs [ "nixpkgs" ]
+      legacyPackages = inputs.nixpkgs.lib.genAttrs [ "nixpkgs" ]
         (channel:
-          nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ] (system:
+          inputs.nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ] (system:
             import inputs.${channel} {
-              inherit system;
-
+              inherit system overlays;
               config.allowUnfree = true;
             }));
 
 
 
       specialArgs =
-        nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ] (system:
-          rec{
-            inherit inputs; # Pass flake inputs to our config
-            # pkgs-s = legacyPackages.nixpkgs.${system};
-            # pkgs-u = legacyPackages.nixpkgs-unstable.${system};
+        inputs.nixpkgs.lib.genAttrs
+          [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ]
+          (system:
+            rec{
+              inherit inputs overlays system; # Pass flake inputs to our config
+              stateVersion = "22.05";
 
-            # pkgs = pkgs-s;
-            stateVersion = "22.05";
-
-            inherit system;
-          });
+            });
     in
     {
       nixosConfigurations = {
-        lenovo-ideapad-510 = nixpkgs.lib.nixosSystem {
+        lenovo-ideapad-510 = inputs.nixpkgs.lib.nixosSystem {
           specialArgs = specialArgs.x86_64-linux // {
             hardware = "lenovo-ideapad-510";
           };
           modules = [
             nur.nixosModules.nur
-            # hyprland.nixosModules.default
             ./nixos/configuration.nix
+            overlay_module
           ];
 
         };
@@ -112,6 +116,7 @@
           modules = [
             ./home-manager/home.nix
             inputs.plasma-manager.homeManagerModules.plasma-manager
+            overlay_module
           ];
         };
       };
@@ -122,7 +127,10 @@
         # _module.args = {
         #   inherit specialArgs;
         # } // specialArgs;
-        modules = [ ./nix-on-droid/nix-on-droid.nix ];
+        modules = [
+          ./nix-on-droid/nix-on-droid.nix
+          overlay_module
+        ];
 
         # modules = [
         #   (input: {

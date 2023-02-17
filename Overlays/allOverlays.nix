@@ -1,0 +1,3 @@
+[
+  (import ./NerdFonts.nix)
+]
