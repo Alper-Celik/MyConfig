@@ -83,7 +83,7 @@
           (system:
             rec{
               inherit inputs overlays system; # Pass flake inputs to our config
-              stateVersion = "22.05";
+              stateVersion = "22.11";
 
             });
     in
