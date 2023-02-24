@@ -7,7 +7,7 @@
     font = {
       package = pkgs.nerdfonts;
       name = "JetBrainsMono Nerd Font";
-      # size = 9;
+      size = 9;
     };
 
 

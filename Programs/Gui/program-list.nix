@@ -17,7 +17,6 @@
   ## file mangement
   ark
   ## time
-  libsForQt5.kirigami-addons # needed for kclock
   libsForQt5.kclock
 
 

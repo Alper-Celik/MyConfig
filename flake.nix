@@ -5,13 +5,10 @@
       # Nixpkgs
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-      # nixpkgs.follows = "nixpkgs-stable";
-      # nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-      # nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
 
       nixos-hardware.url = "github:nixos/nixos-hardware";
 
-      nix-alien.url = "github:thiagokokada/nix-alien";
+      nvimplugins.url = "path:./Configs/Neovim";
 
       flake-utils.url = "github:numtide/flake-utils";
       # Home manager
@@ -22,8 +19,6 @@
 
       plasma-manager = {
         url = "github:pjones/plasma-manager";
-        inputs.nixpkgs.follows = "nixpkgs";
-        inputs.home-manager.follows = "home-manager";
       };
 
 
@@ -40,7 +35,7 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
       # NUR
-      # nur.url = "github:nix-community/NUR";
+      nur.url = "github:nix-community/NUR";
 
       # fish plugins
       fzf-fish = {
@@ -61,7 +56,7 @@
   # dont add nixpkgs to list might broke defined modules
   outputs = { home-manager, nixos-hardware, nur, nix-on-droid, ... }@inputs:
     let
-      overlays = import ./Overlays/allOverlays.nix;
+      overlays = import ./Overlays/allOverlays.nix ++ [ inputs.nvimplugins.overlays.default ];
       overlay_module = { ... }:
         {
           nixpkgs.overlays = overlays;
@@ -103,7 +98,7 @@
             ./nixos/configuration.nix
             overlay_module
           ];
-
+          check = false; # can speed up evlatioun about 5 seconds
         };
       };
 

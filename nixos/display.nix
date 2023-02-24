@@ -11,6 +11,7 @@
 
   environment.systemPackages = with pkgs;[
     libsForQt5.bismuth #plasma tiling
+    orca
   ];
 
 
@@ -25,6 +26,7 @@
   #   enable = true;
   # };
   services.gnome.at-spi2-core.enable = true;
+
   services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.desktopManager.plasma5.useQtScaling = true;
   services.xserver.desktopManager.plasma5.phononBackend = "vlc";
