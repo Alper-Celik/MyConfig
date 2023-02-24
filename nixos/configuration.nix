@@ -84,6 +84,7 @@
   };
   hardware.bluetooth.enable = true;
   environment.systemPackages = with pkgs;[ libsForQt5.bluedevil libsForQt5.bluez-qt pkgs.openobex pkgs.obexftp ];
+
   nixpkgs.config.allowUnfree = true;
   hardware.enableAllFirmware = true;
 

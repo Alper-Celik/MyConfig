@@ -24,8 +24,13 @@
   };
 
   virtualisation.libvirtd.enable = true;
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "overlay2";
+
+  virtualisation.podman = {
+    enable = true;
+
+    dockerCompact = true;
+    dockerSocket.enable = true;
+  };
 
   programs.nix-ld.enable = true;
 }
