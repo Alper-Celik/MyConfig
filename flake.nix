@@ -119,6 +119,7 @@
 
       nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
         extraSpecialArgs = specialArgs.aarch64-linux // { isFlake = true; };
+
         modules = [
           ./nix-on-droid/nix-on-droid.nix
         ];

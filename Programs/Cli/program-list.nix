@@ -6,6 +6,7 @@
   git
   lazygit
   git-lfs
+  gh # github cli
 
   # networking
   wget
@@ -77,7 +78,7 @@
   cargo
   ## containers
   distrobox
-  docker
+  podman
   act
 
 
