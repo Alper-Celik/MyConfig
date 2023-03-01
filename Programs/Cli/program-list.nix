@@ -43,6 +43,8 @@
   comma
   fzf
 
+  glib # for gsettings
+
   htop
   btop
   # compression

@@ -14,7 +14,7 @@
 
     ];
 
-  boot.initrd.systemd.enable = true; ####
+  # boot.initrd.systemd.enable = true; ##### hibernate is broken on systemd-boot 
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "rtsx_usb_sdmmc" ];
   boot.initrd.kernelModules = [ ];

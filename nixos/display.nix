@@ -27,9 +27,17 @@
   # };
   services.gnome.at-spi2-core.enable = true;
 
-  services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.desktopManager.plasma5.useQtScaling = true;
-  services.xserver.desktopManager.plasma5.phononBackend = "vlc";
+  services.xserver.desktopManager.gnome = {
+    enable = true;
+    flashback.enableMetacity = true;
+  };
+
+  programs.ssh.askPassword = lib.mkForce "${pkgs.libsForQt5.plasma5.ksshaskpass.out}/bin/ksshaskpass}";
+  services.xserver.desktopManager.plasma5 = {
+    enable = true;
+    useQtScaling = true;
+    phononBackend = "vlc";
+  };
 
 
 
