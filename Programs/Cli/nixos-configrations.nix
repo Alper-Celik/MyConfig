@@ -33,4 +33,7 @@
   };
 
   programs.nix-ld.enable = true;
+  programs.firejail = {
+    enable = true;
+  };
 }
