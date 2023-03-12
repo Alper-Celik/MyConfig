@@ -47,13 +47,6 @@
       device = "/dev/disk/by-uuid/0556-F3C6";
       fsType = "vfat";
     };
-  fileSystems."/mnt/fedora" =
-    {
-      device = "/dev/disk/by-uuid/7a82dd02-6f2a-4177-a83b-74a2a566d334";
-      fsType = "ext4";
-      options = [ "noatime" ];
-    };
-
   #fileSystems."/mnt/winssd" =
   # {
   #  device = "/dev/disk/by-partuuid/50fd3a5a-97ce-4da6-a349-536dd02946b3";
