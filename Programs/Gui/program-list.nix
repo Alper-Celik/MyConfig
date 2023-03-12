@@ -48,6 +48,7 @@
   # games
   grapejuice
   steam
+  wineWowPackages.staging
   protonup-ng
 
   prismlauncher # minecraft
