@@ -43,6 +43,8 @@
   comma
   fzf
 
+  smartmontools
+
   glib # for gsettings
 
   htop
