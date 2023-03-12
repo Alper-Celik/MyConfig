@@ -30,6 +30,9 @@
       }
     ];
 
+    shellAliases = {
+      make = "make -j (nproc)";
+    };
     shellAbbrs = {
 
       c = "clear";
