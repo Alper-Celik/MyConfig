@@ -31,9 +31,10 @@
     ];
 
     shellAliases = {
-      make = "make -j (nproc)";
+      trash = "gio trash";
     };
     shellAbbrs = {
+      make = "make -j (nproc)";
 
       c = "clear";
       lg = "lazygit";
