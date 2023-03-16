@@ -29,6 +29,7 @@
       stylua
       python310Packages.autopep8
       cmake-format
+      yamllint
 
     ];
   xdg.configFile.nvim.source = ./.;
