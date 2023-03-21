@@ -29,6 +29,9 @@
       ## rainbow 
       nvim-ts-rainbow2 = { url = "gitlab:HiPhish/nvim-ts-rainbow2"; flake = false; };
 
+      #flat sesion (like in git commit)
+      flatten-nvim = { url = "github:willothy/flatten.nvim"; flake = false; };
+
       # ui costumization
       nightfox-nvim = { url = "github:EdenEast/nightfox.nvim"; flake = false; };
       lualine-nvim = { url = "github:nvim-lualine/lualine.nvim"; flake = false; };

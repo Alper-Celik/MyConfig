@@ -96,6 +96,22 @@
         "type": "github"
       }
     },
+    "flatten-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1679267168,
+        "narHash": "sha256-pzxkdVnYKtMCProHzfn0JB+5xEJOe9pZh0EM4ISmvcs=",
+        "owner": "willothy",
+        "repo": "flatten.nvim",
+        "rev": "6a11200f7cda8490577438b26f724a80d41f7460",
+        "type": "github"
+      },
+      "original": {
+        "owner": "willothy",
+        "repo": "flatten.nvim",
+        "type": "github"
+      }
+    },
     "flutter-tools-nvim": {
       "flake": false,
       "locked": {
@@ -344,6 +360,7 @@
         "comment-nvim": "comment-nvim",
         "dressing-nvim": "dressing-nvim",
         "firenvim": "firenvim",
+        "flatten-nvim": "flatten-nvim",
         "flutter-tools-nvim": "flutter-tools-nvim",
         "impatient-nvim": "impatient-nvim",
         "lualine-lsp-progress": "lualine-lsp-progress",
