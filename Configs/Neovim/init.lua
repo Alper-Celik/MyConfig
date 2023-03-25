@@ -2,14 +2,6 @@ pcall(function()
 	require("impatient")
 end)
 
--- If opening from inside neovim terminal then do not load all the other plugins
-if os.getenv("NVIM") ~= nil then
-	require("lazy").setup({
-		{ "willothy/flatten.nvim", config = true },
-	})
-	return
-end
-
 require("my.plugins")
 
 require("my.themes")

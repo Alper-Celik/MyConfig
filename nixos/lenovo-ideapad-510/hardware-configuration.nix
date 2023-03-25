@@ -35,6 +35,14 @@
       options = [ "subvol=home" "compress=zstd" "noatime" ];
     };
 
+  fileSystems."/home/alper/Archive" =
+    {
+      device = "/dev/disk/by-uuid/90ef9884-2bbc-4d6d-af4b-61e80fa4f6ef";
+      fsType = "btrfs";
+      options = [ "subvol=/home/alper/Archive" "compress=zstd:7" "noatime" ];
+    };
+
+
   fileSystems."/nix" =
     {
       device = "/dev/disk/by-uuid/90ef9884-2bbc-4d6d-af4b-61e80fa4f6ef";
