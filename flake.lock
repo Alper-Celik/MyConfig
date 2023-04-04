@@ -199,11 +199,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1679480702,
-        "narHash": "sha256-npuRD61YmxUPitI1TqKwlxLrU6iGl5E+BPT196LgUDo=",
+        "lastModified": 1680549487,
+        "narHash": "sha256-9Sbk3OJF9Y3EICGetwcO2vaOdovJrOywHinn4GBWAsw=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "363c46b2480f1b73ec37cf68caac61f5daa82a2e",
+        "rev": "ccf650bb5badcf48054cf77f74ac85ea87c6f84c",
         "type": "github"
       },
       "original": {
@@ -401,15 +401,15 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1679437018,
-        "narHash": "sha256-vOuiDPLHSEo/7NkiWtxpHpHgoXoNmrm+wkXZ6a072Fc=",
-        "owner": "NixOS",
+        "lastModified": 1680613204,
+        "narHash": "sha256-3TMgRFtP8HDYOGBcIR+HR7jHtuY6Kwmn/AXzyhgdSRA=",
+        "owner": "Alper-Celik",
         "repo": "nixpkgs",
-        "rev": "19cf008bb18e47b6e3b4e16e32a9a4bdd4b45f7e",
+        "rev": "845bb676b693030900c5c6c4906118ffa7459cdb",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
+        "owner": "Alper-Celik",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
