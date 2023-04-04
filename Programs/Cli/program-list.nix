@@ -45,7 +45,7 @@
 
   smartmontools
 
-  glib # for gsettings
+  # glib # for gsettings
 
   htop
   btop
