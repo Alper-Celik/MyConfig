@@ -39,7 +39,7 @@
     phononBackend = "vlc";
   };
 
-
+  i18n.inputMethod.enabled = "ibus";
 
   programs.dconf.enable = true;
 
