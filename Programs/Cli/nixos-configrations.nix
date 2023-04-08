@@ -1,7 +1,10 @@
 { inputs, lib, config, pkgs, specialArgs, ... }:
 {
 
-  environment.systemPackages = import ./program-list.nix { inherit pkgs; };
+  environment.systemPackages = (import ./program-list.nix { inherit pkgs; }) ++ [
+    config.boot.kernelPackages.perf
+
+  ];
   environment.sessionVariables = {
     XDG_CACHE_HOME = "\${HOME}/.cache";
     XDG_CONFIG_HOME = "\${HOME}/.config";
