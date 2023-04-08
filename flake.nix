@@ -21,7 +21,6 @@
         url = "github:pjones/plasma-manager";
       };
 
-
       # nix on droid
       nix-on-droid = {
         url = "github:t184256/nix-on-droid/release-22.11";
@@ -34,6 +33,10 @@
         url = "github:Mic92/nix-index-database";
         inputs.nixpkgs.follows = "nixpkgs";
       };
+
+      # debug info
+      nixseparatedebuginfod.url = "github:symphorien/nixseparatedebuginfod";
+      dwarffs = { url = "github:edolstra/dwarffs"; inputs.nixpkgs.follows = "nixpkgs"; };
       # NUR
       nur.url = "github:nix-community/NUR";
 
@@ -56,13 +59,22 @@
   # dont add nixpkgs to list might broke defined modules
   outputs = { home-manager, nixos-hardware, nur, nix-on-droid, ... }@inputs:
     let
-      overlays = import ./Overlays/allOverlays.nix ++ [ inputs.nvimplugins.overlays.default ];
-      overlay_module = { ... }:
+      overlays = import ./Overlays/allOverlays.nix ++ [
+        inputs.nvimplugins.overlays.default
+      ];
+      overlay_module = ({ ... }:
         {
           nixpkgs.overlays = overlays;
+        });
 
-        };
-
+      caches = {
+        substituters = [
+          "https://nix-community.cachix.org"
+        ];
+        trusted-public-keys = [
+          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        ];
+      };
 
       # This instantiates nixpkgs for each system listed
       # Allowing you to configure it (e.g. allowUnfree)
@@ -82,7 +94,7 @@
           [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ]
           (system:
             rec{
-              inherit inputs overlays system; # Pass flake inputs to our config
+              inherit inputs overlays system caches; # Pass flake inputs to config
               stateVersion = "22.11";
 
             });
@@ -96,25 +108,24 @@
           modules = [
             nur.nixosModules.nur
             ./nixos/configuration.nix
-            overlay_module
-          ];
-          check = false; # can speed up evlatioun about 5 seconds
-        };
-      };
-
-
-      homeConfigurations = {
-        "alper@nixos" = home-manager.lib.homeManagerConfiguration {
-          pkgs = legacyPackages.nixpkgs-stable.x86_64-linux;
-
-          extraSpecialArgs = specialArgs.x86_64-linux;
-          modules = [
-            ./home-manager/home.nix
-            inputs.plasma-manager.homeManagerModules.plasma-manager
+            inputs.nixseparatedebuginfod.nixosModules.default
+            inputs.dwarffs.nixosModules.dwarffs
             overlay_module
           ];
         };
       };
+
+
+      homeConfigurations.alper = home-manager.lib.homeManagerConfiguration {
+        pkgs = legacyPackages.nixpkgs.x86_64-linux;
+
+        extraSpecialArgs = specialArgs.x86_64-linux;
+        modules = [
+          ./home-manager/home.nix
+          overlay_module
+        ];
+      };
+
 
 
       nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
