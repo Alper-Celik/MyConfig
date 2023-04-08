@@ -37,7 +37,11 @@
       experimental-features = "nix-command flakes";
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
-
+    } // specialArgs.caches;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d --max-freed 10G";
     };
   };
 
