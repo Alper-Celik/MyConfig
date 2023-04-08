@@ -13,13 +13,9 @@
   authy
   ## office suits
   libreoffice-qt
-  onlyoffice-bin
+  # onlyoffice-bin
   ## file mangement
   ark
-  ## time
-  libsForQt5.kclock
-
-
   ## book managment
   calibre
 
@@ -27,7 +23,7 @@
   # dev tools
   ## editors 
   kate
-  qtcreator
+  # qtcreator
   ## terminal emulators
   kitty
   ## virtualization
@@ -36,6 +32,7 @@
   gnome.accerciser
   ## debuggers
   seer
+  hotspot
 
 
   # cli depend on gui env
@@ -47,7 +44,6 @@
 
   # games
   grapejuice
-  steam
   wineWowPackages.staging
   protonup-ng
 
@@ -55,7 +51,4 @@
   nur.repos.xeals.atlauncher #minecraft
   mindustry
   superTuxKart
-
-
-
 ]

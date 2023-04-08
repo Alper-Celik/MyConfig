@@ -34,8 +34,6 @@
   direnv
   nix-direnv
 
-  cachix
-
   bat
   tree
   ripgrep
@@ -44,8 +42,6 @@
   fzf
 
   smartmontools
-
-  # glib # for gsettings
 
   htop
   btop
@@ -56,36 +52,27 @@
 
   # dev tools
   ## editors
-  (lowPrio pkgs.neovim)
+  # (lowPrio pkgs.neovim) use home manager
   nano
 
 
   python310Packages.argcomplete
   ## compilers and runtimes
   (hiPrio gcc12)
-  clang_14
   python310Packages.python
 
-  rustc
-
-  nodejs
   (hiPrio jdk)
   jdk8
   ## debuggers
-  lldb
   gdb
   ## build tools
   cmakeCurses
   gnumake
   ninja
 
-  cargo
   ## containers
   distrobox
   podman
-  act
-
-
 
   # Fonts
   pkgs.nerdfonts
