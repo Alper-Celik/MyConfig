@@ -20,10 +20,11 @@
   # the Home Manager release notes for a list of state version
   # changes in each release.
   home.stateVersion = specialArgs.stateVersion;
+  home.username = "alper";
+  home.homeDirectory = "/home/alper";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  # xdg.mimeApps.enable = true;
 
   programs.nix-index = {
     enableFishIntegration = false; #broken on fish shell for some reason
