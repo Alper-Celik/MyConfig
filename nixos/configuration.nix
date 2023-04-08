@@ -107,11 +107,13 @@
     ];
     shell = pkgs.fish;
   };
-  home-manager.extraSpecialArgs = specialArgs;
-  home-manager.users.alper = ../home-manager/home.nix;
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.backupFileExtension = "backup";
+  # home-manager = {
+  #   extraSpecialArgs = specialArgs;
+  #   users.alper = ../home-manager/home.nix;
+  #   useGlobalPkgs = true;
+  #   useUserPackages = true;
+  #   backupFileExtension = "backup";
+  # };
 
 
 
@@ -133,10 +135,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = specialArgs.stateVersion; # Did you read the comment?
-
-
-
-
-
 
 }
