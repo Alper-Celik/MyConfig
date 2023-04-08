@@ -31,7 +31,7 @@
   virtualisation.podman = {
     enable = true;
 
-    dockerCompact = true;
+    dockerCompat = true;
     dockerSocket.enable = true;
   };
 
