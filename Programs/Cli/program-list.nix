@@ -59,7 +59,9 @@
   python310Packages.argcomplete
   ## compilers and runtimes
   (hiPrio gcc12)
+  ghc
   python310Packages.python
+
 
   (hiPrio jdk)
   jdk8

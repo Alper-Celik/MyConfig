@@ -22,6 +22,9 @@
         clang-tools # also formatter and static analysis
         nodePackages.bash-language-server
         taplo
+        haskell-language-server
+        haskellPackages.fast-tags
+        haskellPackages.hoogle
 
         ## formatters
         nixpkgs-fmt

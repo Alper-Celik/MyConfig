@@ -5,7 +5,6 @@ local on_attach = require((...) .. ".keybindings")
 require("nvim-treesitter.configs").setup({
 	highlight = {
 		enable = true,
-
 		-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
 		-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
 		-- Using this option may slow down your editor, and you may see some duplicate highlights.
@@ -13,15 +12,6 @@ require("nvim-treesitter.configs").setup({
 		additional_vim_regex_highlighting = { "cmake" },
 	},
 	-- extensions
-	-- rainbow = {
-	-- 	enable = true,
-	-- 	-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-	-- 	extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-	-- 	max_file_lines = nil, -- Do not enable for files with more than n lines, int
-	-- 	colors = { "#f7d700", "#da70a8", "#179fdb" }, -- table of hex strings
-	-- 	termcolors = { "Yellow", "Magenta", "Blue" }, -- table of colour name strings
-	-- },
-	--
 	rainbow = {
 		enable = true,
 		-- Which query to use for finding delimiters
@@ -33,22 +23,19 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
--- [[Language Servers]]
---require("mason").setup({    --[[ PATH = "prepend", ]]}) --use nix for now
---require("mason-lspconfig").setup({ automatic_installation = true })
---local mason_registry = require("mason-registry") -- pacthing for nixos
---mason_registry:on("package:install:success", function(pkg)
---    pkg:get_receipt():if_present(function(receipt)
---        for _, rel_path in pairs(receipt.links.bin) do
---            local bin_abs_path = pkg:get_install_path() ..
---                                     "/extension/server/bin/" .. rel_path
---            os.execute(
---                'patchelf --set-interpreter "$(patchelf --print-interpreter $(grep -oE \\/nix\\/store\\/[a-z0-9]+-neovim-unwrapped-[0-9]+\\.[0-9]+\\.[0-9]+\\/bin\\/nvim $(which nvim)))" ' ..
---                    bin_abs_path)
---        end
---    end)
---end)
-
+-- Haskell
+local ht = require("haskell-tools")
+local def_opts = { noremap = true, silent = true }
+ht.setup({
+	hls = {
+		on_attach = function(client, bufnr)
+			local opts = { noremap = true, silent = true, buffer = bufnr }
+			vim.keymap.set("n", "<space>hs", ht.hoogle.hoogle_signature, opts)
+			vim.keymap.set("n", "<space>ea", ht.lsp.buf_eval_all, opts)
+		end,
+	},
+	-- repl = { handler = "toggleterm" },
+})
 --C++/c
 require("clangd_extensions").setup({
 	server = {
@@ -59,14 +46,6 @@ require("clangd_extensions").setup({
 })
 
 require("rust-tools").setup({ server = { on_attach = on_attach, capabilities = lsp_capabilities } })
-
---flutter dart
-require("flutter-tools").setup({
-	widget_guides = {
-		enabled = false,
-	},
-	on_attach = on_attach,
-})
 
 --#region lua
 local runtime_path = vim.split(package.path, ";")
@@ -168,7 +147,6 @@ cmp.setup({
 		entries = "custom",
 	},
 	window = {
-
 		completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
 	},
@@ -190,6 +168,46 @@ cmp.setup({
 		end,
 	},
 })
+
+-- Repl
+local iron = require("iron.core")
+iron.setup({
+	config = {
+		repl_definition = {
+			haskell = {
+				command = function(meta)
+					local file = vim.api.nvim_buf_get_name(meta.current_bufnr)
+					-- call `require` in case iron is set up before haskell-tools
+					cmd = require("haskell-tools").repl.mk_repl_cmd(file)
+
+					local last_cmd = ""
+					for key, value in pairs(cmd) do
+						last_cmd = last_cmd .. " " .. value
+					end
+					print(last_cmd)
+					return last_cmd
+				end,
+			},
+		},
+		repl_open_cmd = require("iron.view").split.vertical.botright(0.4),
+	},
+	keymaps = {
+		visual_send = "<space>sc",
+		send_file = "<space>sf",
+		send_line = "<space>sl",
+		exit = "<space>sq",
+		clear = "<space>cl",
+	},
+	-- If the highlight is on, you can change how it looks
+	-- For the available options, check nvim_set_hl
+	highlight = {
+		italic = true,
+	},
+	ignore_blank_lines = true, -- ignore blank lines when sending visual select lines
+})
+vim.keymap.set("n", "<space>rr", "<cmd>IronRepl<cr>")
+vim.keymap.set("n", "<space>rf", "<cmd>IronFocus<cr>")
+vim.keymap.set("n", "<space>rh", "<cmd>IronHide<cr>")
 
 -- [[Commenting]]
 require("Comment").setup()

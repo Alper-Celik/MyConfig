@@ -44,17 +44,19 @@
       # language support
       nvim-lspconfig = { url = "github:neovim/nvim-lspconfig"; flake = false; };
       null-ls-nvim = { url = "github:jose-elias-alvarez/null-ls.nvim"; flake = false; };
-      clangd_extensions-nvim = {
-        url = "sourcehut:~p00f/clangd_extensions.nvim";
-        flake = false;
-      };
+      clangd_extensions-nvim = { url = "sourcehut:~p00f/clangd_extensions.nvim"; flake = false; };
       rust-tools-nvim = { url = "github:simrat39/rust-tools.nvim"; flake = false; };
-      toggleterm-nvim = { url = "github:akinsho/toggleterm.nvim"; flake = false; };
-      flutter-tools-nvim = { url = "github:akinsho/flutter-tools.nvim"; flake = false; };
+      haskell-tools-nvim = { url = "github:mrcjkb/haskell-tools.nvim/1.x.x"; flake = false; };
 
+      iron-nvim = { url = "github:Vigemus/iron.nvim"; flake = false; };
+
+      toggleterm-nvim = { url = "github:akinsho/toggleterm.nvim"; flake = false; };
 
       # completion
-      nvim-cmp = { url = "github:hrsh7th/nvim-cmp"; flake = false; };
+      nvim-cmp = {
+        url = "github:hrsh7th/nvim-cmp";
+        flake = false;
+      };
       cmp-nvim-lsp = { url = "github:hrsh7th/cmp-nvim-lsp"; flake = false; };
       cmp_luasnip = { url = "github:saadparwaiz1/cmp_luasnip"; flake = false; };
       luasnip = { url = "github:L3MON4D3/LuaSnip"; flake = false; };
