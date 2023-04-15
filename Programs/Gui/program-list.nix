@@ -38,6 +38,7 @@
 
 
   # cli depend on gui env
+  clipboard-jh
   wl-clipboard
   xclip
 
