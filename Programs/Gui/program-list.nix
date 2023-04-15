@@ -9,6 +9,8 @@
   ## browsers 
   firefox
   chromium
+  ## mail clint
+  thunderbird
   ## 2 steap auth
   authy
   ## office suits
