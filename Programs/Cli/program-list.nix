@@ -77,6 +77,6 @@
   podman
 
   # Fonts
-  pkgs.nerdfonts
+  nerdfonts
 
 ]

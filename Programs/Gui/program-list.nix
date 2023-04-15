@@ -7,7 +7,7 @@
   pkgs.musescore
   # utulities
   ## browsers 
-  pkgs.firefox
+  firefox
   chromium
   ## 2 steap auth
   authy
