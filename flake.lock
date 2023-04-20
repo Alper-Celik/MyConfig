@@ -89,11 +89,11 @@
     },
     "get-flake": {
       "locked": {
-        "lastModified": 1681997478,
+        "lastModified": 1682001304,
         "narHash": "sha256-wigaPTqhnM5wfiSivLMWTOb/VCi0Q7xxVOTZ+KVq31c=",
         "owner": "Alper-Celik",
         "repo": "get-flake",
-        "rev": "3312beb8c24f09c486b6d77583bf035d2c404766",
+        "rev": "a70caeb64b733b6caff380d51cb3ff884be694f1",
         "type": "github"
       },
       "original": {
