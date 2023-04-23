@@ -34,6 +34,8 @@
       trash = "gio trash";
     };
     shellAbbrs = {
+      shelp = "nix-shell -p";
+
       make = "make -j (nproc)";
 
       c = "clear";
