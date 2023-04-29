@@ -4,13 +4,15 @@
   # media players
   vlc
 
-  pkgs.musescore
+  obs-studio
+  musescore
   # utulities
   ## browsers 
   firefox
   chromium
-  ## mail clint
+  ## mail and chat
   thunderbird
+  telegram-desktop
   ## 2 steap auth
   authy
   ## office suits
