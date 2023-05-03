@@ -27,6 +27,7 @@
         haskellPackages.hoogle
 
         ## formatters
+        nodePackages.cspell
         nixpkgs-fmt
         stylua
         python310Packages.autopep8
