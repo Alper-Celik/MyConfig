@@ -1,6 +1,6 @@
-pcall(function()
-	require("impatient")
-end)
+-- pcall(function()
+--   require("impatient")
+-- end)
 
 require("my.plugins")
 
