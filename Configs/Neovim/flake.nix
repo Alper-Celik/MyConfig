@@ -35,6 +35,8 @@
       lualine-nvim = { url = "github:nvim-lualine/lualine.nvim"; flake = false; };
       lualine-lsp-progress = { url = "github:arkav/lualine-lsp-progress"; flake = false; };
 
+      dressing-nvim = { url = "github:stevearc/dressing.nvim"; flake = false; };
+
       noice-nvim = { url = "github:folke/noice.nvim"; flake = false; };
       nui-nvim = { url = "github:MunifTanjim/nui.nvim"; flake = false; };
       nvim-notify = { url = "github:rcarriga/nvim-notify"; flake = false; };

@@ -64,6 +64,22 @@
         "type": "github"
       }
     },
+    "dressing-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1682140416,
+        "narHash": "sha256-4BW6D7zlOeZU2EV8m323vJ3/cUeArWOAGbb5mPa/wpY=",
+        "owner": "stevearc",
+        "repo": "dressing.nvim",
+        "rev": "f5d7fa1fa5ce6bcebc8f07922f39b1eda4d01e37",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stevearc",
+        "repo": "dressing.nvim",
+        "type": "github"
+      }
+    },
     "firenvim": {
       "flake": false,
       "locked": {
@@ -407,6 +423,7 @@
         "cmp-nvim-lsp": "cmp-nvim-lsp",
         "cmp_luasnip": "cmp_luasnip",
         "comment-nvim": "comment-nvim",
+        "dressing-nvim": "dressing-nvim",
         "firenvim": "firenvim",
         "flatten-nvim": "flatten-nvim",
         "haskell-tools-nvim": "haskell-tools-nvim",

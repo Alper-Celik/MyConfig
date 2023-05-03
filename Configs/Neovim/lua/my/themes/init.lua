@@ -11,6 +11,10 @@
 
 vim.opt.termguicolors = true
 
+require("dressing").setup({
+	input = { enabled = false }, -- i find noice version better
+})
+
 -- from https://github.com/folke/noice.nvim
 require("noice").setup({
 	lsp = {
