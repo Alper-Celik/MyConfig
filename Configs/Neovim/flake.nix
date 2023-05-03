@@ -20,8 +20,6 @@
       #   flake = false;
       # }; # add from nixpkgs
 
-      ## fancy ui
-      dressing-nvim = { url = "github:stevearc/dressing.nvim"; flake = false; };
       ## file explorer
       nvim-tree-lua = { url = "github:nvim-tree/nvim-tree.lua"; flake = false; };
       ## multi cursor
@@ -36,6 +34,10 @@
       nightfox-nvim = { url = "github:EdenEast/nightfox.nvim"; flake = false; };
       lualine-nvim = { url = "github:nvim-lualine/lualine.nvim"; flake = false; };
       lualine-lsp-progress = { url = "github:arkav/lualine-lsp-progress"; flake = false; };
+
+      noice-nvim = { url = "github:folke/noice.nvim"; flake = false; };
+      nui-nvim = { url = "github:MunifTanjim/nui.nvim"; flake = false; };
+      nvim-notify = { url = "github:rcarriga/nvim-notify"; flake = false; };
 
       # debugging support
       nvim-dap = { url = "github:mfussenegger/nvim-dap"; flake = false; };
@@ -91,6 +93,7 @@
               bash
               fish
               lua
+              vim
               nix
               haskell
               terraform

@@ -64,22 +64,6 @@
         "type": "github"
       }
     },
-    "dressing-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1680895317,
-        "narHash": "sha256-yrkkcSUCxZY1kYeF9lkFqNc9h0NiGl8q7kwx5nZ5nCU=",
-        "owner": "stevearc",
-        "repo": "dressing.nvim",
-        "rev": "91b9ba8a9474d2c4156dc2f3e858e07ae8faecf0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "stevearc",
-        "repo": "dressing.nvim",
-        "type": "github"
-      }
-    },
     "firenvim": {
       "flake": false,
       "locked": {
@@ -225,6 +209,38 @@
         "type": "github"
       }
     },
+    "noice-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1683006342,
+        "narHash": "sha256-erGyYNEEbMOBkutujNp9NL/eYjWeGDxmbb6xBriiWG4=",
+        "owner": "folke",
+        "repo": "noice.nvim",
+        "rev": "d31fe940e0866686718822aaac45527412c45134",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "noice.nvim",
+        "type": "github"
+      }
+    },
+    "nui-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1682892447,
+        "narHash": "sha256-wVGshQpYx7lz6gl/MDSGkSQJriUbZ0J0OnTFALrXsxk=",
+        "owner": "MunifTanjim",
+        "repo": "nui.nvim",
+        "rev": "698e75814cd7c56b0dd8af4936bcef2d13807f3c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MunifTanjim",
+        "repo": "nui.nvim",
+        "type": "github"
+      }
+    },
     "null-ls-nvim": {
       "flake": false,
       "locked": {
@@ -305,6 +321,22 @@
         "type": "github"
       }
     },
+    "nvim-notify": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1681892404,
+        "narHash": "sha256-TEjd5Ikq0QFkmamlCRUgAMd6f53Cz/+2n6mfNEaxZQs=",
+        "owner": "rcarriga",
+        "repo": "nvim-notify",
+        "rev": "159c6cf1be25a933f35e97499314c9faab55c98f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rcarriga",
+        "repo": "nvim-notify",
+        "type": "github"
+      }
+    },
     "nvim-tree-lua": {
       "flake": false,
       "locked": {
@@ -375,7 +407,6 @@
         "cmp-nvim-lsp": "cmp-nvim-lsp",
         "cmp_luasnip": "cmp_luasnip",
         "comment-nvim": "comment-nvim",
-        "dressing-nvim": "dressing-nvim",
         "firenvim": "firenvim",
         "flatten-nvim": "flatten-nvim",
         "haskell-tools-nvim": "haskell-tools-nvim",
@@ -385,11 +416,14 @@
         "lualine-nvim": "lualine-nvim",
         "luasnip": "luasnip",
         "nightfox-nvim": "nightfox-nvim",
+        "noice-nvim": "noice-nvim",
+        "nui-nvim": "nui-nvim",
         "null-ls-nvim": "null-ls-nvim",
         "nvim-autopairs": "nvim-autopairs",
         "nvim-cmp": "nvim-cmp",
         "nvim-dap": "nvim-dap",
         "nvim-lspconfig": "nvim-lspconfig",
+        "nvim-notify": "nvim-notify",
         "nvim-tree-lua": "nvim-tree-lua",
         "nvim-ts-rainbow2": "nvim-ts-rainbow2",
         "nvim-web-devicons": "nvim-web-devicons",
