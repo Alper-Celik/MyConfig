@@ -180,14 +180,7 @@ iron.setup({
 				command = function(meta)
 					local file = vim.api.nvim_buf_get_name(meta.current_bufnr)
 					-- call `require` in case iron is set up before haskell-tools
-					cmd = require("haskell-tools").repl.mk_repl_cmd(file)
-
-					local last_cmd = ""
-					for key, value in pairs(cmd) do
-						last_cmd = last_cmd .. " " .. value
-					end
-					print(last_cmd)
-					return last_cmd
+					return require("haskell-tools").repl.mk_repl_cmd(file)
 				end,
 			},
 		},
