@@ -39,6 +39,11 @@ in
     ] ++ builtins.attrValues pkgs.otherNeovimPlugins;
     extraPackages = language-tools;
   };
-  xdg.configFile.nvim.source = ./.;
   home.packages = language-tools;
+
+  xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink (
+    if builtins.hasAttr "configDir" specialArgs
+    then "${specialArgs.configDir}/Configs/Neovim"
+    else ./.
+  );
 }

@@ -119,7 +119,7 @@
       homeConfigurations.alper = home-manager.lib.homeManagerConfiguration {
         pkgs = legacyPackages.nixpkgs.x86_64-linux;
 
-        extraSpecialArgs = specialArgs.x86_64-linux;
+        extraSpecialArgs = specialArgs.x86_64-linux // { configDir = "/home/alper/MyConfig"; };
         modules = [
           ./home-manager/home.nix
           overlay_module
