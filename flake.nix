@@ -8,9 +8,9 @@
 
       nixos-hardware.url = "github:nixos/nixos-hardware";
 
-      nvimplugins.url = "path:./Configs/Neovim";
-
       flake-utils.url = "github:numtide/flake-utils";
+      get-flake.url = "github:Alper-Celik/get-flake";
+
       # Home manager
       home-manager = {
         url = "github:nix-community/home-manager";
@@ -57,10 +57,10 @@
     };
 
   # dont add nixpkgs to list might broke defined modules
-  outputs = { home-manager, nixos-hardware, nur, nix-on-droid, ... }@inputs:
+  outputs = { home-manager, get-flake, nixos-hardware, nur, nix-on-droid, ... }@inputs:
     let
       overlays = import ./Overlays/allOverlays.nix ++ [
-        inputs.nvimplugins.overlays.default
+        (get-flake ./Configs/Neovim).overlays.default
       ];
       overlay_module = ({ ... }:
         {
