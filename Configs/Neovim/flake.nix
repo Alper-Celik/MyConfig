@@ -92,6 +92,7 @@
               fish
               lua
               nix
+              haskell
               terraform
 
               regex
