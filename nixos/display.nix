@@ -27,10 +27,10 @@
   # };
   services.gnome.at-spi2-core.enable = true;
 
-  # services.xserver.desktopManager.gnome = {
-  #   # enable = true;
-  #   # flashback.enableMetacity = true;
-  # };
+  qt = {
+    enable = true;
+    platformTheme = "kde";
+  };
 
   programs.ssh.askPassword = lib.mkForce "${pkgs.libsForQt5.plasma5.ksshaskpass.out}/bin/ksshaskpass}";
   services.xserver.desktopManager.plasma5 = {
