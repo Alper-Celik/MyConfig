@@ -57,8 +57,10 @@
     };
 
   # dont add nixpkgs to list might broke defined modules
-  outputs = { home-manager, get-flake, nixos-hardware, nur, nix-on-droid, ... }@inputs:
+  outputs = { nixpkgs, home-manager, get-flake, nixos-hardware, nur, nix-on-droid, ... }@inputs:
     let
+      my-lib = import ./my-lib/my-lib.nix { inherit (nixpkgs) lib; };
+
       overlays = import ./Overlays/allOverlays.nix ++ [
         (get-flake ./Configs/Neovim).overlays.default
       ];
@@ -93,8 +95,8 @@
         inputs.nixpkgs.lib.genAttrs
           [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ]
           (system:
-            rec{
-              inherit inputs overlays system caches; # Pass flake inputs to config
+            {
+              inherit inputs overlays system caches my-lib; # Pass flake inputs to config
               stateVersion = "22.11";
 
             });
