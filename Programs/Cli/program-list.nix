@@ -26,8 +26,6 @@
   openssh
 
   bash
-  fish
-  any-nix-shell
   ncurses
   findutils
 

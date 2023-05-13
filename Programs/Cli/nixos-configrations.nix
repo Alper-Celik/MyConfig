@@ -17,10 +17,6 @@
   };
   documentation.dev.enable = true;
 
-  programs.fish.enable = true;
-  programs.fish.promptInit = ''
-    any-nix-shell fish --info-right | source
-  '';
   programs.gnupg.agent = {
     enable = true;
     pinentryFlavor = "qt";
