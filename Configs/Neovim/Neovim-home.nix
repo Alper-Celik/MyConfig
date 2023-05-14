@@ -42,6 +42,7 @@ in
   home.packages = language-tools;
 
   xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink (
+    # TODO: extract to lib somehow
     if builtins.hasAttr "configDir" specialArgs
     then "${specialArgs.configDir}/Configs/Neovim"
     else ./.
