@@ -27,6 +27,7 @@
   programs.home-manager.enable = true;
 
   programs.nix-index = {
+    enable = true;
     enableFishIntegration = false; #broken on fish shell for some reason
   };
 }
