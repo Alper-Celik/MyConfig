@@ -1,15 +1,35 @@
 # default config bellow
 
+from os.path import isfile
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from qtile_extras.resources import wallpapers
+import qtile_extras.widget
+import libqtile.hook
+
+
+@libqtile.hook.subscribe.startup_once
+def startup():
+    from pathlib import Path
+    from subprocess import run
+    for script in (Path(__file__).parent / "autostart.d").iterdir():
+        if script.is_file:
+            run(script)
 
 
 mod = "mod4"
-terminal = guess_terminal()
+terminal = guess_terminal("kitty")
 
 keys = [
+    Key([mod], "d", lazy.spawn("rofi -show drun"),
+        desc="launch desktop file selector (programs)"),
+    # Key([mod], ".", lazy.spawn("rofimoji"), desc="emoji selector"),
+
+    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+
+
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
     # Switch between windows
@@ -46,7 +66,6 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
@@ -119,20 +138,25 @@ screens = [
                     },
                     name_transform=lambda name: name.upper(),
                 ),
-                widget.TextBox("default config", name="default"),
-                widget.TextBox("Press &lt;M-r&gt; to spawn",
-                               foreground="#d75f5f"),
+                # widget.TextBox("default config", name="default"),
+                # widget.TextBox("Press &lt;M-r&gt; to spawn",
+                #                foreground="#d75f5f"),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
                 # widget.StatusNotifier(),
+                widget.PulseVolume(),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.QuickExit(),
+                # widget.QuickExit(),
             ],
             24,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
+        wallpaper=wallpapers.WALLPAPER_TRIANGLES_ROUNDED.__str__(),
+        wallpaper_mode="fill"
+
     ),
+
 ]
 
 # Drag floating layouts.
@@ -159,6 +183,7 @@ floating_layout = layout.Floating(
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
+        Match(title="Friends List"),  # steam
     ]
 )
 auto_fullscreen = True
@@ -167,7 +192,7 @@ reconfigure_screens = True
 
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?
-auto_minimize = True
+auto_minimize = False
 
 # When using the Wayland backend, this can be used to configure input devices.
 wl_input_rules = None
