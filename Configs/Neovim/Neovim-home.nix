@@ -11,6 +11,7 @@ let
       nodePackages.pyright
       clang-tools # also formatter and static analysis
       nodePackages.bash-language-server
+      nodePackages_latest.vscode-json-languageserver
       taplo
       haskell-language-server
       haskellPackages.fast-tags

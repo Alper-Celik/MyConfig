@@ -1,0 +1,30 @@
+{
+  "clock": {
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "on-click-right": "mode"
+    },
+    "format": "{:%Y/%B/%A %H:%M}",
+    "interval": 1,
+    "timezone": "Europe/Istanbul",
+    "tooltip-format": "<tt>{calendar}</tt>"
+  },
+  "height": 25,
+  "layer": "top",
+  "modules-center": ["clock"],
+  "modules-left": ["wlr/workspaces"],
+  "modules-right": ["pulseaudio"],
+  "position": "top",
+  "network": {
+    "interface": "enp1s0"
+  },
+  "wlr/workspaces": {
+    "all-outputs": true,
+    "format": "{icon}",
+    "on-click": "activate",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "sort-by-number": true
+  }
+}

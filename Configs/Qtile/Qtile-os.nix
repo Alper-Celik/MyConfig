@@ -14,11 +14,11 @@
   programs.light.enable = true;
   users.users.alper.extraGroups = [ "video" ];
 
-  services.picom = {
-    enable = true;
-    vSync = true;
-    backend = "glx";
-  };
+  # services.picom = {
+  #   enable = true;
+  #   vSync = true;
+  #   backend = "glx";
+  # };
 
   services.xserver = {
     libinput = {
