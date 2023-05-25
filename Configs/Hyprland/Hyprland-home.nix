@@ -21,8 +21,6 @@ in
   };
 
   xdg.configFile."avizo/config.ini".source = outOfStrore "avizo-config.ini";
-
-
   xdg.configFile."waybar/config".source = outOfStrore "waybar.json";
 
   services.dunst.enable = true;
