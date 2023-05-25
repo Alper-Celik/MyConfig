@@ -1,4 +1,11 @@
 {
+  "height": 25,
+  "layer": "top",
+  "modules-center": ["clock"],
+  "modules-left": ["wlr/workspaces"],
+  "modules-right": ["wireplumber", "network", "idle_inhibitor"],
+  "position": "top",
+
   "clock": {
     "calendar": {
       "mode": "year",
@@ -10,14 +17,34 @@
     "timezone": "Europe/Istanbul",
     "tooltip-format": "<tt>{calendar}</tt>"
   },
-  "height": 25,
-  "layer": "top",
-  "modules-center": ["clock"],
-  "modules-left": ["wlr/workspaces"],
-  "modules-right": ["pulseaudio"],
-  "position": "top",
+  "wireplumber": {
+    "tooltip": false,
+    "format": "{volume}% {icon}",
+    "format-muted": "󰝟",
+    "format-icons": ["", "󰕾", ""],
+    "on-click": "volumectl %",
+    "on-click-middle": "pavucontrol",
+    "on-scroll-up": "volumectl + 1",
+    "on-scroll-down": "volumectl - 1"
+  },
   "network": {
-    "interface": "enp1s0"
+    "interface": "wlp2s0",
+    "format": "{ifname}",
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-ethernet": "{ipaddr}/{cidr} ",
+    "format-disconnected": "󰤭",
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
   },
   "wlr/workspaces": {
     "all-outputs": true,

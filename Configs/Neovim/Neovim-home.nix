@@ -1,5 +1,9 @@
-{ inputs, lib, config, pkgs, specialArgs, ... }:
+{ inputs, lib, config, pkgs, my-lib, specialArgs, ... }:
 let
+  current-dir = "Configs/Neovim";
+  outOfStrore = x: config.lib.file.mkOutOfStoreSymlink
+    (my-lib.maybeOutOfStore specialArgs current-dir x);
+
   language-tools = with pkgs;
     [
       ## lsp s
@@ -42,10 +46,5 @@ in
   };
   home.packages = language-tools;
 
-  xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink (
-    # TODO: extract to lib somehow
-    if builtins.hasAttr "configDir" specialArgs
-    then "${specialArgs.configDir}/Configs/Neovim"
-    else ./.
-  );
+  xdg.configFile.nvim.source = outOfStrore ".";
 }
