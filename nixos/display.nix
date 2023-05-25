@@ -9,10 +9,6 @@
 
 
 
-  qt = {
-    enable = true;
-    platformTheme = "kde";
-  };
   i18n.inputMethod.enabled = "ibus";
 
   programs.dconf.enable = true;
