@@ -3,6 +3,11 @@ let
   current-dir = "Configs/Hyprland";
   outOfStrore = x: config.lib.file.mkOutOfStoreSymlink
     (my-lib.maybeOutOfStore specialArgs current-dir x);
+  wrapped-hyprland = (import ./wrap-hyprland.nix)
+    {
+      inherit (pkgs) rsync runCommand;
+      hyprland = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    };
 in
 {
   imports = [
@@ -10,6 +15,7 @@ in
   ];
 
   home.packages = [
+    pkgs.rofi-wayland
     pkgs.avizo # osd
     pkgs.pavucontrol # sound settings
   ];
@@ -27,7 +33,7 @@ in
 
   wayland.windowManager.hyprland = {
     enable = true;
-
+    package = wrapped-hyprland;
     nvidiaPatches = true;
 
     recommendedEnvironment = true;
