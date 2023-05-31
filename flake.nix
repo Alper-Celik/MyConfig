@@ -115,7 +115,7 @@
             nur.nixosModules.nur
             ./nixos/configuration.nix
             inputs.nixseparatedebuginfod.nixosModules.default
-            inputs.dwarffs.nixosModules.dwarffs
+            ({ ... }: { services.nixseparatedebuginfod.enable = true; })
             overlay_module
           ];
         };
