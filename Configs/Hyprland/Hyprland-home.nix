@@ -8,6 +8,20 @@ let
       inherit (pkgs) rsync runCommand;
       hyprland = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     };
+
+  fetch-walpaper = pkgs.writeShellApplication
+    {
+      name = "fetch-walpaper";
+
+      runtimeInputs = with pkgs; [ curl jq ];
+
+      text = ''
+        curl -L 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US' \
+        | jq ".images[0].url" -r \
+        | sed "s/^/https:\/\/www.bing.com/" \
+        | xargs curl -Lo lastest-bing.jpg
+      '';
+    };
 in
 {
   imports = [
@@ -15,8 +29,11 @@ in
   ];
 
   home.packages = [
+    fetch-walpaper
     pkgs.rofi-wayland
     pkgs.avizo # osd
+    pkgs.jq
+    pkgs.swww
     pkgs.pavucontrol # sound settings
   ];
 
