@@ -13,6 +13,8 @@
   ## mail and chat
   thunderbird
   telegram-desktop
+  discord
+  element-desktop
   ## 2 steap auth
   authy
   ## office suits
@@ -50,6 +52,7 @@
   # games
   grapejuice
   wineWowPackages.staging
+  protontricks
   protonup-ng
 
   prismlauncher # minecraft
