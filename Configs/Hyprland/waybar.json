@@ -3,7 +3,7 @@
   "layer": "top",
   "modules-center": ["clock"],
   "modules-left": ["wlr/workspaces"],
-  "modules-right": ["wireplumber", "network", "idle_inhibitor"],
+  "modules-right": ["tray", "wireplumber", "network", "idle_inhibitor"],
   "position": "top",
 
   "clock": {
