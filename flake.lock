@@ -372,16 +372,16 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1684570954,
-        "narHash": "sha256-FX5y4Sm87RWwfu9PI71XFvuRpZLowh00FQpIJ1WfXqE=",
-        "owner": "nixos",
+        "lastModified": 1685483861,
+        "narHash": "sha256-XtGibApPv5migvsZQ8WFVH9bQrVlapYlUoKnQ1vb/3g=",
+        "owner": "Alper-Celik",
         "repo": "nixpkgs",
-        "rev": "3005f20ce0aaa58169cdee57c8aa12e5f1b6e1b3",
+        "rev": "5165daef6d6361674d5c3e87c5b093b9cd3217b4",
         "type": "github"
       },
       "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
+        "owner": "Alper-Celik",
+        "ref": "kde-accessibility-fix",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -404,16 +404,16 @@
     },
     "nixseparatedebuginfod": {
       "locked": {
-        "lastModified": 1684178955,
-        "narHash": "sha256-8AnMp7QABzun643gm4RP5uwCm/jSs1p0Hn6U2rgsEZE=",
-        "owner": "symphorien",
-        "repo": "nixseparatedebuginfod",
-        "rev": "a675bf89bce6c0d424c309232ab9efa0556b6abd",
+        "lastModified": 1685565045,
+        "narHash": "sha256-X1xVVIsQp9DNNdoJHwFdBX/bJZej6masLf6tSR0+epA=",
+        "owner": "Alper-Celik",
+        "repo": "nixseparatedebuginfod-without-gdb-etc",
+        "rev": "19eaef4cd2b74d2f0c3250df5501e7299c44384b",
         "type": "github"
       },
       "original": {
-        "owner": "symphorien",
-        "repo": "nixseparatedebuginfod",
+        "owner": "Alper-Celik",
+        "repo": "nixseparatedebuginfod-without-gdb-etc",
         "type": "github"
       }
     },

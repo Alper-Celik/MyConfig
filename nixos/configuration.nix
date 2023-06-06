@@ -80,6 +80,7 @@
 
     extraGroups = [
       "wheel" # Enable ‘sudo’ for the user.
+      "networkmanager"
       "podman"
     ];
   };

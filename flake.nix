@@ -3,7 +3,7 @@
   inputs =
     {
       # Nixpkgs
-      nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+      nixpkgs.url = "github:Alper-Celik/nixpkgs/kde-accessibility-fix";
 
 
       nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -35,7 +35,7 @@
       };
 
       # debug info
-      nixseparatedebuginfod.url = "github:symphorien/nixseparatedebuginfod";
+      nixseparatedebuginfod.url = "github:Alper-Celik/nixseparatedebuginfod-without-gdb-etc";
       dwarffs = { url = "github:edolstra/dwarffs"; inputs.nixpkgs.follows = "nixpkgs"; };
       # NUR
       nur.url = "github:nix-community/NUR";
