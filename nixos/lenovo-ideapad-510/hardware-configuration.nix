@@ -45,7 +45,7 @@
 
   fileSystems."/nix" =
     {
-      device = "/dev/disk/by-uuid/90ef9884-2bbc-4d6d-af4b-61e80fa4f6ef";
+      device = "/dev/disk/by-label/btrfs-ssd";
       fsType = "btrfs";
       options = [ "subvol=nix" "compress=zstd" "noatime" ];
     };
