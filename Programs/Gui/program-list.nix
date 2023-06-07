@@ -50,6 +50,7 @@
 
 
   # games
+  lutris
   grapejuice
   wineWowPackages.staging
   protontricks
