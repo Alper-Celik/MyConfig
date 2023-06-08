@@ -51,6 +51,7 @@
 
   # games
   lutris
+  heroic
   grapejuice
   wineWowPackages.staging
   protontricks
