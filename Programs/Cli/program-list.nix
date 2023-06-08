@@ -12,6 +12,8 @@
   wget
   curl
 
+  networkmanagerapplet
+
   python310Packages.yt-dlp
   ffmpeg
 
