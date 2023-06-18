@@ -122,15 +122,27 @@
       };
 
 
-      homeConfigurations.alper = home-manager.lib.homeManagerConfiguration {
-        pkgs = legacyPackages.nixpkgs.x86_64-linux;
+      homeConfigurations =
+        let
+          generic-args = specialArgs.x86_64-linux // {
+            configDir = "/home/alper/MyConfig";
+            hardware = "unknown";
+          };
 
-        extraSpecialArgs = specialArgs.x86_64-linux // { configDir = "/home/alper/MyConfig"; };
-        modules = [
-          ./home-manager/home.nix
-          overlay_module
-        ];
-      };
+          generic-home = {
+            pkgs = legacyPackages.nixpkgs.x86_64-linux;
+            extraSpecialArgs = generic-args;
+            modules = [
+              ./home-manager/home.nix
+              overlay_module
+            ];
+          };
+        in
+        {
+          "alper" = home-manager.lib.homeManagerConfiguration generic-home;
+          "alper@lenovo-ideapad-510" = home-manager.lib.homeManagerConfiguration (generic-home //
+            { extraSpecialArgs = generic-args // { hardware = "lenovo-ideapad-510"; }; });
+        };
 
 
 
