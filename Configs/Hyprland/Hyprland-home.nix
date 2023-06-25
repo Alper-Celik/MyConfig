@@ -35,6 +35,7 @@ in
     pkgs.jq
     pkgs.swww
     pkgs.pavucontrol # sound settings
+    pkgs.wlr-randr
   ];
 
   programs.waybar = {
