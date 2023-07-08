@@ -42,6 +42,14 @@
       options = [ "subvol=/home/alper/Archive" "compress=zstd:7" "noatime" ];
     };
 
+  fileSystems."/home/alper/Games" =
+    {
+      device = "/dev/disk/by-label/btrfs-ssd";
+      fsType = "btrfs";
+      options = [ "subvol=Games" "compress=none" "noatime" ];
+    };
+
+
 
   fileSystems."/nix" =
     {
