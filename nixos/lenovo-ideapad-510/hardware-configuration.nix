@@ -41,6 +41,19 @@
       fsType = "btrfs";
       options = [ "subvol=/home/alper/Archive" "compress=zstd:7" "noatime" ];
     };
+  fileSystems."/home/alper/Projects" =
+    {
+      device = "/dev/disk/by-label/btrfs-ssd";
+      fsType = "btrfs";
+      options = [ "subvol=alper-Projects" "compress=zstd" "noatime" ];
+
+    };
+  fileSystems."/home/alper/.cache" =
+    {
+      device = "/dev/disk/by-label/btrfs-ssd";
+      fsType = "btrfs";
+      options = [ "subvol=alper-cache" "compress=zstd" "noatime" ];
+    };
 
   fileSystems."/home/alper/Games" =
     {
@@ -48,8 +61,6 @@
       fsType = "btrfs";
       options = [ "subvol=Games" "compress=none" "noatime" ];
     };
-
-
 
   fileSystems."/nix" =
     {
@@ -63,13 +74,6 @@
       device = "/dev/disk/by-uuid/0556-F3C6";
       fsType = "vfat";
     };
-  #fileSystems."/mnt/winssd" =
-  # {
-  #  device = "/dev/disk/by-partuuid/50fd3a5a-97ce-4da6-a349-536dd02946b3";
-  # fsType = "ntfs3";
-  #options = [ "noatime" ];
-  # };
-
 
   swapDevices =
     [{ device = "/dev/disk/by-uuid/6a154e7e-079e-428e-af9b-0684592de93f"; }];

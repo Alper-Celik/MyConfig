@@ -63,8 +63,8 @@
   python310Packages.python
 
 
-  (hiPrio jdk)
-  jdk8
+  (hiPrio jdk8)
+  jdk
   ## debuggers
   gdb
   ## build tools

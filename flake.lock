@@ -372,16 +372,16 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1688679045,
-        "narHash": "sha256-t3xGEfYIwhaLTPU8FLtN/pLPytNeDwbLI6a7XFFBlGo=",
-        "owner": "nixos",
+        "lastModified": 1689686067,
+        "narHash": "sha256-KrRgikEOe4cyPmQ7GDDPd6yxLKeevXJuNWZCaZ+pRtU=",
+        "owner": "Alper-Celik",
         "repo": "nixpkgs",
-        "rev": "3c7487575d9445185249a159046cc02ff364bff8",
+        "rev": "cd7eedfcfa17e18789118c8d065a48aba139d600",
         "type": "github"
       },
       "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
+        "owner": "Alper-Celik",
+        "ref": "kde-accessibility-fix",
         "repo": "nixpkgs",
         "type": "github"
       }
