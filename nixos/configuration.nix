@@ -32,7 +32,7 @@
 
   boot.plymouth.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.supportedFilesystems = [ "ntfs3" ];
   zramSwap.enable = true;
 
