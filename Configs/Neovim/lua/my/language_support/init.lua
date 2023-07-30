@@ -3,6 +3,77 @@ local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local on_attach = require((...) .. ".keybindings")
 
 require("nvim-treesitter.configs").setup({
+	_ensure_installed = {
+		"bibtex",
+		"latex",
+
+		"bash",
+		"fish",
+		"lua",
+		"vim",
+		"nix",
+		"haskell",
+		"terraform",
+
+		"regex",
+		"markdown",
+		"markdown_inline",
+		"rst",
+
+		"c",
+		"cpp",
+		"cmake",
+		"make",
+		"ninja",
+		"c_sharp",
+		"qmljs",
+		"rust",
+
+		"llvm",
+		"cuda",
+
+		"css",
+		"scss",
+		"html",
+		"javascript",
+		"jsdoc",
+		"tsx",
+		"typescript",
+
+		"json",
+		"toml",
+		"yaml",
+
+		"htmldjango",
+		"dart",
+		"sql",
+
+		"diff",
+		"git_rebase",
+		"gitattributes",
+		"gitcommit",
+		"gitignore",
+
+		"ruby",
+		"go",
+		"gomod",
+		"julia",
+		"kotlin",
+		"java",
+		"scala",
+
+		"glsl",
+		"hlsl",
+		"wgsl",
+		"wgsl_bevy",
+
+		"capnp",
+		"proto",
+		"dockerfile",
+
+		"dot",
+	},
+
 	highlight = {
 		enable = true,
 		-- Setting this to true will run `:h syntax` and tree-sitter at the same time.

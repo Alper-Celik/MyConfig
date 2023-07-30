@@ -42,7 +42,6 @@ in
     package = pkgs.neovim-unwrapped;
     plugins = with pkgs.vimPlugins ;[
     ] ++ builtins.attrValues pkgs.otherNeovimPlugins;
-    extraPackages = language-tools;
   };
   home.packages = language-tools;
 
