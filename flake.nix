@@ -21,6 +21,8 @@
         url = "github:pjones/plasma-manager";
       };
 
+      impermanence.url = "github:nix-community/impermanence";
+
       # nix on droid
       nix-on-droid = {
         url = "github:t184256/nix-on-droid/release-22.11";
@@ -115,6 +117,7 @@
             nur.nixosModules.nur
             ./nixos/configuration.nix
             inputs.nixseparatedebuginfod.nixosModules.default
+            inputs.impermanence.nixosModules.impermanence
             ({ ... }: { services.nixseparatedebuginfod.enable = true; })
             overlay_module
           ];

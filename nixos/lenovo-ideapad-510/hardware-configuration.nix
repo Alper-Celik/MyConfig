@@ -21,11 +21,26 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  # fileSystems."/" =
+  #   {
+  #     device = "/dev/disk/by-label/btrfs-hdd";
+  #     fsType = "btrfs";
+  #     options = [ "subvol=root" "compress=zstd" "noatime" ];
+  #   };
   fileSystems."/" =
+    {
+      device = "none";
+      fsType = "tmpfs";
+      options = [ "defaults" "size=8G" "mode=755" ];
+    };
+
+
+  fileSystems."/persistent" =
     {
       device = "/dev/disk/by-label/btrfs-hdd";
       fsType = "btrfs";
-      options = [ "subvol=root" "compress=zstd" "noatime" ];
+      neededForBoot = true;
+      options = [ "subvol=persistent" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/home" =
