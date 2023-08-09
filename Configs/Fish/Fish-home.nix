@@ -45,7 +45,7 @@
       py = "python";
 
       #ls aliases
-      ll = "ls -alF";
+      ll = "ls -alFh";
       la = "ls -A";
       l = "ls -CF";
     };

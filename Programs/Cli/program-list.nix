@@ -26,6 +26,14 @@
 
   gnupg
   openssh
+  (pass-wayland.withExtensions (exts: with exts;
+  [
+    pass-update
+    pass-otp
+    pass-import
+    pass-audit
+  ]
+  ))
 
   bash
   ncurses
