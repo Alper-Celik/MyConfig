@@ -23,21 +23,21 @@
 
   fileSystems."/" =
     {
-      device = "/dev/disk/by-uuid/90ef9884-2bbc-4d6d-af4b-61e80fa4f6ef";
+      device = "/dev/disk/by-label/btrfs-hdd";
       fsType = "btrfs";
       options = [ "subvol=root" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/home" =
     {
-      device = "/dev/disk/by-uuid/90ef9884-2bbc-4d6d-af4b-61e80fa4f6ef";
+      device = "/dev/disk/by-label/btrfs-hdd";
       fsType = "btrfs";
       options = [ "subvol=home" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/home/alper/Archive" =
     {
-      device = "/dev/disk/by-uuid/90ef9884-2bbc-4d6d-af4b-61e80fa4f6ef";
+      device = "/dev/disk/by-label/btrfs-hdd";
       fsType = "btrfs";
       options = [ "subvol=/home/alper/Archive" "compress=zstd:7" "noatime" ];
     };
@@ -71,12 +71,11 @@
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-uuid/0556-F3C6";
+      device = "/dev/disk/by-label/BOOT-NIXOS";
       fsType = "vfat";
     };
 
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/6a154e7e-079e-428e-af9b-0684592de93f"; }];
+  swapDevices = [{ device = "/dev/disk/by-label/swap-nixos"; }];
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
