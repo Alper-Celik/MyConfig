@@ -8,7 +8,7 @@
   musescore
   # utulities
   ## browsers 
-  firefox
+  (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
   chromium
   ## mail and chat
   thunderbird
