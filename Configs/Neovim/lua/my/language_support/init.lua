@@ -153,7 +153,7 @@ require("lspconfig").lua_ls.setup({
 --generic
 
 local language_servers =
-	{ "cmake", "jsonls", "pyright", "bashls", "texlab", "eslint", "html", "cssls", "nixd", "qmlls", "taplo" }
+	{ "cmake", "jsonls", "pyright", "bashls", "texlab", "eslint", "html", "cssls", "nil_ls", "qmlls", "taplo" }
 
 for _, value in pairs(language_servers) do
 	require("lspconfig")[value].setup({ capabilities = lsp_capabilities, on_attach = on_attach })

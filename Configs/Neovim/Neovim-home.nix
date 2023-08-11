@@ -11,8 +11,7 @@ let
       rnix-lsp
       sumneko-lua-language-server
       cmake-language-server
-      # nil
-      nixd
+      nil
       nodePackages.pyright
       clang-tools # also formatter and static analysis
       nodePackages.bash-language-server
