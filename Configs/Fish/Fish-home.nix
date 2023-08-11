@@ -34,6 +34,7 @@
       trash = "gio trash";
     };
     shellAbbrs = {
+      ":q" = "exit"; # yes i accidently type :q intead of exit on terminal
       shelp = "nix-shell -p";
 
       make = "make -j (nproc)";
