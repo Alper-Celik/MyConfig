@@ -167,8 +167,8 @@ require("null-ls").setup({
 		require("null-ls").builtins.formatting.stylua,
 		require("null-ls").builtins.formatting.nixpkgs_fmt,
 		require("null-ls").builtins.formatting.prettier,
-		-- require("null-ls").builtins.diagnostics.cspell,
-		-- require("null-ls").builtins.code_actions.cspell,
+		require("null-ls").builtins.diagnostics.cspell,
+		require("null-ls").builtins.code_actions.cspell,
 	},
 })
 
