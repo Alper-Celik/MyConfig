@@ -25,6 +25,7 @@
   ## book managment
   calibre
 
+  kcalc
 
   # dev tools
   ## editors 
@@ -53,7 +54,7 @@
   lutris
   heroic
   grapejuice
-  wineWowPackages.staging
+  wineWowPackages.stagingFull
   protontricks
   protonup-ng
 

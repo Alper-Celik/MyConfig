@@ -21,6 +21,8 @@
         url = "github:pjones/plasma-manager";
       };
 
+      stylix.url = "github:danth/stylix";
+
       impermanence.url = "github:nix-community/impermanence";
 
       # nix on droid
@@ -114,6 +116,7 @@
             ./nixos/configuration.nix
             inputs.nixseparatedebuginfod.nixosModules.default
             inputs.impermanence.nixosModules.impermanence
+            inputs.stylix.nixosModules.stylix
             ({ ... }: { services.nixseparatedebuginfod.enable = true; })
             overlay_module
           ];
@@ -132,6 +135,7 @@
             pkgs = legacyPackages.nixpkgs.x86_64-linux;
             extraSpecialArgs = generic-args;
             modules = [
+              inputs.stylix.homeManagerModules.stylix
               ./home-manager/home.nix
               overlay_module
             ];
