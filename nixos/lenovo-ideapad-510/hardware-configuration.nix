@@ -90,7 +90,18 @@
       fsType = "vfat";
     };
 
-  swapDevices = [{ device = "/dev/disk/by-label/swap-nixos"; }];
+  services.beesd.filesystems =
+    {
+      brfs-ssd = {
+        spec = "LABEL=btrf-ssd";
+        hashTableSizeMB = 16 * 12;
+        extraOptions = [ "--loadavg-target" "2" ];
+      };
+    };
+
+  swapDevices = [{
+    device = "/dev/disk/by-label/swap-nixos";
+  }];
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
