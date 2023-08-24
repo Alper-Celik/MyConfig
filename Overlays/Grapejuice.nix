@@ -16,7 +16,7 @@ final: prev: {
       , xdg-user-dirs
       , gettext
       , winetricks
-      , wine-staging
+      , wineWowPackages
       , glxinfo
       , xrandr
       , bash
@@ -63,7 +63,7 @@ final: prev: {
         dontWrapGApps = true;
 
         makeWrapperArgs = [
-          "--prefix PATH : ${lib.makeBinPath [ xdg-user-dirs wine-staging winetricks pciutils glxinfo xrandr ]}"
+          "--prefix PATH : ${lib.makeBinPath [ xdg-user-dirs wineWowPackages.stagingFull winetricks pciutils glxinfo xrandr ]}"
           # make xdg-open overrideable at runtime
           "--suffix PATH : ${lib.makeBinPath [ xdg-utils ]}"
         ];
@@ -90,7 +90,7 @@ final: prev: {
             --replace 'return local_share() / "locale"' 'return Path("${placeholder "out"}/share/locale")'
 
           substituteInPlace src/grapejuice_common/models/settings_model.py \
-            --replace 'default_wine_home: Optional[str] = ""' 'default_wine_home: Optional[str] = "${wine-staging}"'
+            --replace 'default_wine_home: Optional[str] = ""' 'default_wine_home: Optional[str] = "${wineWowPackages.stagingFull}"'
 
           substituteInPlace src/grapejuice_packaging/builders/linux_package_builder.py \
             --replace '"--no-dependencies",' '"--no-dependencies", "--no-build-isolation",'
