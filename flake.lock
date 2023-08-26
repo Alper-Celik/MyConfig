@@ -50,6 +50,22 @@
         "type": "github"
       }
     },
+    "base16-oxocarbon": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1678563546,
+        "narHash": "sha256-zdXNP+8ch0nXB128fNMP4h3ksH4S2HChY0vsbGhm8SY=",
+        "owner": "nyoom-engineering",
+        "repo": "base16-oxocarbon",
+        "rev": "23497e43ad4553dad4ad1a4d3fb7eb2e5bbbb313",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nyoom-engineering",
+        "repo": "base16-oxocarbon",
+        "type": "github"
+      }
+    },
     "dwarffs": {
       "inputs": {
         "nix": "nix",
@@ -565,6 +581,7 @@
       "inputs": {
         "autopair-fish": "autopair-fish",
         "bang-bang-fish": "bang-bang-fish",
+        "base16-oxocarbon": "base16-oxocarbon",
         "dwarffs": "dwarffs",
         "flake-parts": "flake-parts",
         "fzf-fish": "fzf-fish",

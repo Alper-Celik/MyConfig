@@ -21,6 +21,8 @@
       };
 
       stylix.url = "github:danth/stylix";
+      base16-oxocarbon = { url = "github:nyoom-engineering/base16-oxocarbon"; flake = false; };
+
 
       impermanence.url = "github:nix-community/impermanence";
 
