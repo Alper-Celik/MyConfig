@@ -15,6 +15,7 @@
   telegram-desktop
   discord
   element-desktop
+  neochat
   ## 2 steap auth
   authy
   ## office suits
