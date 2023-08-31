@@ -11,6 +11,7 @@
   # networking
   wget
   curl
+  speedtest-go
 
   networkmanagerapplet
 
@@ -41,6 +42,7 @@
   fd
   comma
   fzf
+  jq
 
   smartmontools
 
