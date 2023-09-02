@@ -94,9 +94,9 @@
   services.beesd.filesystems =
     {
       brfs-ssd = {
-        spec = "LABEL=btrf-ssd";
+        spec = "/nix";
         hashTableSizeMB = 16 * 12;
-        extraOptions = [ "--loadavg-target" "2" ];
+        extraOptions = [ "--loadavg-target" "3" ];
       };
     };
 
