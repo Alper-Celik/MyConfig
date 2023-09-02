@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, config, ... }:
 {
 
   stylix = {
@@ -13,6 +13,10 @@
         package = pkgs.nerdfonts;
         name = "JetBrainsMono Nerd Font Mono";
       };
+      serif = config.stylix.fonts.monospace;
+      sansSerif = config.stylix.fonts.monospace;
+      emoji = config.stylix.fonts.monospace;
+
       sizes.terminal = 9;
     };
   };
