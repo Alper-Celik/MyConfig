@@ -60,9 +60,7 @@
       };
 
     };
-
-  # dont add nixpkgs to list might broke defined modules
-  outputs = { self, flake-parts, get-flake, nixpkgs, home-manager, nix-on-droid, ... }@inputs:
+    outputs = { self, flake-parts, get-flake, nixpkgs, home-manager, nix-on-droid, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, ... }: {
       systems = [ "x86_64-linux" "aarch64-linux" ];
 
@@ -112,7 +110,10 @@
           lenovo-ideapad-510 = withSystem "x86_64-linux"
             ({ my-specialArgs, ... }:
               nixpkgs.lib.nixosSystem {
-                specialArgs = my-specialArgs // { hardware = "lenovo-ideapad-510"; };
+                specialArgs = my-specialArgs // {
+
+                  configDir = "/home/alper/MyConfig"; #TODO: abstract it ?
+                hardware = "lenovo-ideapad-510"; };
                 modules = [
                   self.nixosModules.default-modules
                   ./nixos/configuration.nix
