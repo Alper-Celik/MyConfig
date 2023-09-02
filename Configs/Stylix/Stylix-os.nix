@@ -1,2 +1,5 @@
 { ... }:
-{ imports = [ ./Stylix-generic.nix ]; }
+{
+  imports = [ ./Stylix-generic.nix ];
+  stylix.targets.plymouth.enable = false;
+}
