@@ -29,6 +29,8 @@
   kcalc
 
   # dev tools
+  godot_4
+  libresprite
   ## editors 
   kate
   # qtcreator

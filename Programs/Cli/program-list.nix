@@ -32,6 +32,7 @@
   bash
   ncurses
   findutils
+  psmisc
 
   direnv
   nix-direnv
