@@ -43,6 +43,7 @@
   comma
   fzf
   jq
+  exa # fancy ls
 
   smartmontools
 

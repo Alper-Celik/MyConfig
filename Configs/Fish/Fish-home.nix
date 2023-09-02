@@ -32,6 +32,9 @@
 
     shellAliases = {
       trash = "gio trash";
+      ll = "exa -a -l --icons";
+      ls = "exa --icons -1 -a";
+
     };
     shellAbbrs = {
       ":q" = "exit"; # yes i accidently type :q intead of exit on terminal
@@ -44,11 +47,6 @@
       nv = "nvim";
       th = "touch";
       py = "python";
-
-      #ls aliases
-      ll = "ls -alFh";
-      la = "ls -A";
-      l = "ls -CF";
     };
 
   };
