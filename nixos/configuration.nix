@@ -26,16 +26,13 @@
 
 
 
-  boot.loader.grub = {
-    enable = true;
-    device = "nodev";
-    efiSupport = true;
-    useOSProber = true;
-    default = "saved";
-  };
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.timeout = 0;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.plymouth.enable = true;
+  boot.consoleLogLevel = 0;
+  boot.kernelParams = [ "quiet" ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.supportedFilesystems = [ "ntfs3" ];
@@ -89,13 +86,13 @@
       "podman"
     ];
   };
-  # home-manager = {
-  #   extraSpecialArgs = specialArgs;
-  #   users.alper = ../home-manager/home.nix;
-  #   useGlobalPkgs = true;
-  #   useUserPackages = true;
-  #   backupFileExtension = "backup";
-  # };
+  home-manager = {
+    extraSpecialArgs = specialArgs;
+    users.alper = ../home-manager/home.nix;
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup";
+  };
 
 
 
