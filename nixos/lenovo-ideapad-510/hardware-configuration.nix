@@ -91,14 +91,14 @@
       fsType = "vfat";
     };
 
-  services.beesd.filesystems =
-    {
-      brfs-ssd = {
-        spec = "/nix";
-        hashTableSizeMB = 16 * 12;
-        extraOptions = [ "--loadavg-target" "3" ];
-      };
-    };
+  # services.beesd.filesystems =
+  #   {
+  #     brfs-ssd = {
+  #       spec = "/nix";
+  #       hashTableSizeMB = 16 * 12;
+  #       extraOptions = [ "--loadavg-target" "3" ];
+  #     };
+  #   };
 
   swapDevices = [{
     device = "/dev/disk/by-label/swap-nixos";
