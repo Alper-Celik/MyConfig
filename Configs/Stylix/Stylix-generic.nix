@@ -13,11 +13,16 @@
         package = pkgs.nerdfonts;
         name = "JetBrainsMono Nerd Font Mono";
       };
-      serif = config.stylix.fonts.monospace;
-      sansSerif = config.stylix.fonts.monospace;
-      emoji = config.stylix.fonts.monospace;
+      # serif = config.stylix.fonts.monospace;
+      # sansSerif = config.stylix.fonts.monospace;
+      # emoji = config.stylix.fonts.monospace;
 
-      sizes.terminal = 9;
+      sizes = {
+        popups = 9;
+        applications = 9;
+        desktop = 9;
+        terminal = 9;
+      };
     };
   };
 
