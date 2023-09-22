@@ -63,8 +63,6 @@
 
   python310Packages.argcomplete
   ## compilers and runtimes
-  (hiPrio gcc12)
-  haskell.compiler.ghc96
   python310Packages.python
 
 

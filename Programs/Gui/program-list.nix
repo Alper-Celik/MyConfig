@@ -9,10 +9,8 @@
   # utulities
   ## browsers 
   (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
-  chromium
   ## mail and chat
   thunderbird
-  telegram-desktop
   discord
   element-desktop
   neochat
@@ -33,7 +31,6 @@
   libresprite
   ## editors 
   kate
-  # qtcreator
   ## terminal emulators
   kitty
   ## virtualization
@@ -54,15 +51,12 @@
 
 
   # games
-  lutris
   heroic
   grapejuice
   wineWowPackages.stagingFull
-  protontricks
   protonup-ng
 
   prismlauncher # minecraft
   nur.repos.xeals.atlauncher #minecraft
   mindustry
-  superTuxKart
 ]
