@@ -44,7 +44,7 @@
   comma
   fzf
   jq
-  exa # fancy ls
+  eza # fancy ls
 
   smartmontools
 

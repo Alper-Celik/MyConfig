@@ -32,8 +32,8 @@
 
     shellAliases = {
       trash = "gio trash";
-      ll = "exa -a -l --icons";
-      ls = "exa --icons -1 -a";
+      ll = "eza -a -l --icons";
+      ls = "eza --icons -1 -a";
 
     };
     shellAbbrs = {
