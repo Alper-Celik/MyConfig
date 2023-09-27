@@ -152,20 +152,6 @@ require("lspconfig").lua_ls.setup({
 })
 --#endregion
 
---#region nix
-
-require("lspconfig").nixd.setup({
-	capabilities = lsp_capabilities,
-	on_attach = on_attach,
-	settings = {
-		eval = { target = { args = { "-f", "default.nix" } } },
-		formatting = {
-			command = "nixpkgs-fmt",
-		},
-	},
-})
---#endregion
-
 --generic
 
 local language_servers = {
@@ -177,7 +163,7 @@ local language_servers = {
 	"eslint",
 	"html",
 	"cssls",
-	-- "nil_ls",
+	"nil_ls",
 	"qmlls",
 	"taplo",
 	"gdscript",
