@@ -1,11 +1,19 @@
-{ ... }:
+{ lib, my-lib }:
 with builtins;{
-  endsWith = x: y: (
+  endsWith = string: suffix:
     let
-      y-length = stringLength y;
-      x-length = stringLength x;
+      suffix-length = stringLength suffix;
+      string-length = stringLength string;
     in
-    substring (x-length - y-length) y-length x
-  ) == y;
+    if (string-length >= suffix-length)
+    then (substring (string-length - suffix-length) suffix-length string) == suffix
+    else false;
 
+  endsWithAny = string: suffixes:
+    let
+      cheked-all = map (suffix: my-lib.endsWith string suffix) suffixes;
+    in
+    foldl' (x: y: x || y) false cheked-all;
+
+  flattenListOfLists = xs: foldl' (x: y: x ++ y) [ ] xs;
 }

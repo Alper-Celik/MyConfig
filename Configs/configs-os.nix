@@ -1,4 +1,4 @@
-{ my-lib, ... }:
+{ my-lib, hardware, ... }:
 {
-  imports = my-lib.getConfigs { removed-files = [ "configs-home.nix" "configs-os.nix" ]; suffix = "-os.nix"; base-dir = ./.; };
+  imports = my-lib.getConfigs { removed-files = [ "configs-home.nix" "configs-os.nix" ]; suffixes = [ "-os" "-os-${hardware}" ]; base-dir = ./.; };
 }
