@@ -20,8 +20,6 @@
   # the Home Manager release notes for a list of state version
   # changes in each release.
   home.stateVersion = specialArgs.stateVersion;
-  home.username = lib.mkDefault "alper";
-  home.homeDirectory = lib.mkDefault "/home/alper";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
