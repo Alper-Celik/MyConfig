@@ -98,7 +98,7 @@
             imports = [
               inputs.nur.nixosModules.nur
               inputs.impermanence.nixosModules.impermanence
-              inputs.stylix.nixosModules.stylix
+              # inputs.stylix.nixosModules.stylix
 
               self.nixosModules.apply-my-overlays
               self.nixosModules.enable-nixseparatedebuginfod
@@ -135,7 +135,7 @@
                   inherit pkgs;
                   extraSpecialArgs = generic-args;
                   modules = [
-                    inputs.stylix.homeManagerModules.stylix
+                    # inputs.stylix.homeManagerModules.stylix
                     ./home-manager/home.nix
                   ];
                 };
