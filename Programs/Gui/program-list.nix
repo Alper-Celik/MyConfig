@@ -9,6 +9,7 @@
   # utulities
   ## browsers 
   (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
+  chromium
   ## mail and chat
   thunderbird
   discord

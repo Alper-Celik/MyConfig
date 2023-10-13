@@ -77,6 +77,7 @@
 
   ## containers
   distrobox
+  toolbox
   podman
 
   # Fonts
