@@ -62,9 +62,12 @@
     };
   outputs = { self, flake-parts, get-flake, nixpkgs, home-manager, nix-on-droid, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, ... }: {
+
       systems = [ "x86_64-linux" "aarch64-linux" ];
 
-      perSystem = { pkgs, system, ... }: {
+      perSystem = { config, pkgs, system, ... }: {
+
+        packages = import ./my-pkgs/my-pkgs.nix { inherit pkgs; my-lib = self.lib; };
 
         _module.args.pkgs = import nixpkgs {
           inherit system;
