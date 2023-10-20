@@ -52,7 +52,8 @@
 
 
   # games
-  heroic
+  # heroic
+  legendary-gl
   grapejuice
   wineWowPackages.stagingFull
   protonup-ng
