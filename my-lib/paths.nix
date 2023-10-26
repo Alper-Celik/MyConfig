@@ -1,6 +1,6 @@
 { lib, my-lib }: {
 
-  getConfigs = { removed-files, suffixes ? [ ], base-dir, extension ? ".nix" }:
+  getConfigs = { removed-files, suffixes ? [ "" ], base-dir, extension ? ".nix" }:
     with  builtins; let
       allowed-files-endings = map (x: x + extension) suffixes;
 
