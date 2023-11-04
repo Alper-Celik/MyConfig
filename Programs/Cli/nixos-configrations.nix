@@ -1,7 +1,7 @@
-{ inputs, lib, config, pkgs, specialArgs, ... }:
+{ inputs, lib, config, pkgs, my-pkgs, specialArgs, ... }:
 {
 
-  environment.systemPackages = (import ./program-list.nix { inherit pkgs; }) ++ [
+  environment.systemPackages = (import ./program-list.nix { inherit pkgs my-pkgs; }) ++ [
     config.boot.kernelPackages.perf
 
   ];

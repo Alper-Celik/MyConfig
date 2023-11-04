@@ -1,4 +1,4 @@
-{ pkgs }: with pkgs ;
+{ pkgs, my-pkgs }: with pkgs ;
 [
   patchelf
 
@@ -45,6 +45,8 @@
   fzf
   jq
   eza # fancy ls
+
+  trickle
 
   smartmontools
 

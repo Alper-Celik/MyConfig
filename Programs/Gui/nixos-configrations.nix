@@ -1,7 +1,7 @@
-{ inputs, lib, config, pkgs, specialArgs, ... }:
+{ inputs, lib, config, pkgs, my-pkgs, specialArgs, ... }:
 {
 
-  environment.systemPackages = import ./program-list.nix { inherit pkgs; nur = config.nur; };
+  environment.systemPackages = import ./program-list.nix { inherit pkgs my-pkgs; nur = config.nur; };
 
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
 

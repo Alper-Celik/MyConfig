@@ -65,7 +65,7 @@
 
       systems = [ "x86_64-linux" "aarch64-linux" ];
 
-      perSystem = { config, pkgs, system, ... }: {
+      perSystem = { config, pkgs, system, ... }: rec {
 
         packages = import ./my-pkgs/my-pkgs.nix { inherit pkgs; my-lib = self.lib; };
 
@@ -78,6 +78,7 @@
         # TODO: maybe use let in ?
         _module.args.my-specialArgs = {
           my-lib = self.lib;
+          my-pkgs = packages;
           inherit inputs system;
           inherit (self.my) stateVersion overlays caches;
 

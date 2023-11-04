@@ -1,4 +1,4 @@
-{ pkgs, nur }: with pkgs;
+{ pkgs, my-pkgs, nur }: with pkgs;
 [
 
   # media players
@@ -8,7 +8,8 @@
   musescore
   # utulities
   ## browsers 
-  (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
+  (firefox.override { extraNativeMessagingHosts = [ passff-host my-pkgs.firefox-pwa ]; })
+  my-pkgs.firefox-pwa
   chromium
   ## mail and chat
   thunderbird
