@@ -3,6 +3,7 @@
 
   # media players
   vlc
+  haruna
 
   obs-studio
   musescore
