@@ -46,6 +46,9 @@
   ## networking
   protonvpn-gui
 
+  ## download managers
+  qbittorrent
+
   # cli depend on gui env
   clipboard-jh
   wl-clipboard
