@@ -28,7 +28,6 @@
   calibre
 
   kcalc
-
   # dev tools
   godot_4
   libresprite
@@ -44,6 +43,8 @@
   seer
   hotspot
 
+  ## networking
+  protonvpn-gui
 
   # cli depend on gui env
   clipboard-jh
