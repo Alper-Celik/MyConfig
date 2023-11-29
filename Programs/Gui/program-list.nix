@@ -10,7 +10,6 @@
   # utulities
   ## browsers 
   (firefox.override { extraNativeMessagingHosts = [ passff-host my-pkgs.firefox-pwa ]; })
-  my-pkgs.firefox-pwa
   chromium
   ## mail and chat
   thunderbird
