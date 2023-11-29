@@ -9,7 +9,7 @@
   musescore
   # utulities
   ## browsers 
-  (firefox.override { extraNativeMessagingHosts = [ passff-host my-pkgs.firefox-pwa ]; })
+  (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
   chromium
   ## mail and chat
   thunderbird
