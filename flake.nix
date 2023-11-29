@@ -45,6 +45,11 @@
       # NUR
       nur.url = "github:nix-community/NUR";
 
+      spacemacs-git = {
+        url = "github:syl20bnr/spacemacs";
+        flake = false;
+      };
+
       # fish plugins
       fzf-fish = {
         url = "github:PatrickF1/fzf.fish";
