@@ -5,6 +5,8 @@
 
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
 
+  programs.droidcam.enable = true;
+
   programs.kclock.enable = true;
   programs.kdeconnect.enable = true;
 
