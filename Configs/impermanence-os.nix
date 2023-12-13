@@ -18,10 +18,4 @@
       "/etc/machine-id"
     ];
   };
-  environment.etc = {
-    # override user module 
-    "passwd".source = "/persistent/etc/passwd";
-    "group".source = "/persistent/etc/group";
-    "shadow".source = "/persistent/etc/shadow";
-  };
 }
