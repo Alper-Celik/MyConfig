@@ -28,9 +28,9 @@
       filtered-nix-files ++ [ ]
     );
 
-  maybeOutOfStore = configDir-attr: current-dir: file: ./${file}; #broken form some reason
-  # if builtins.hasAttr "configDir" configDir-attr
-  # then "${configDir-attr.configDir}/${current-dir}/${file}"
-  # else ./${file};
+  maybeOutOfStore = configDir-attr: current-dir: file: ##./${file}; #broken form some reason
+    if builtins.hasAttr "configDir" configDir-attr
+    then "${configDir-attr.configDir}/${current-dir}/${file}"
+    else ./${file};
 
 }

@@ -46,7 +46,7 @@ in
   };
   home.packages = language-tools;
 
-  #xdg.configFile.nvim.source = outOfStrore ".";
-  xdg.configFile.nvim.source = ./.;
+  xdg.configFile.nvim.source = outOfStrore ".";
+  #xdg.configFile.nvim.source = ./.;
 
 }

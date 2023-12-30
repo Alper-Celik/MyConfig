@@ -109,7 +109,7 @@ ht.setup({
 	-- repl = { handler = "toggleterm" },
 })
 --C++/c
-require("clangd_extensions").setup({
+require("lspconfig").clangd.setup({
 	server = {
 		on_attach = on_attach,
 		capabilities = lsp_capabilities,
