@@ -25,7 +25,7 @@ let
       nodePackages.cspell
       nixpkgs-fmt
       stylua
-      python310Packages.autopep8
+      python3Packages.autopep8
       cmake-format
       nodePackages.prettier
 

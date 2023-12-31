@@ -15,7 +15,7 @@
 
   networkmanagerapplet
 
-  python310Packages.yt-dlp
+  python3Packages.yt-dlp
   ffmpeg
 
   # manual
@@ -63,9 +63,9 @@
   nano
 
 
-  python310Packages.argcomplete
+  python3Packages.argcomplete
   ## compilers and runtimes
-  python310Packages.python
+  python3Packages.python
 
 
   (hiPrio jdk8)
