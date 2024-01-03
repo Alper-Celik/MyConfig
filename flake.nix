@@ -4,6 +4,7 @@
     {
       # Nixpkgs
       nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+      kde2nix.url = "github:nix-community/kde2nix";
 
       nixos-hardware.url = "github:nixos/nixos-hardware";
 
@@ -108,6 +109,7 @@
               inputs.nur.nixosModules.nur
               inputs.impermanence.nixosModules.impermanence
               # inputs.stylix.nixosModules.stylix
+              inputs.kde2nix.nixosModules.plasma6
 
               self.nixosModules.apply-my-overlays
               self.nixosModules.enable-nixseparatedebuginfod
