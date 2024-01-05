@@ -1,7 +1,7 @@
 { inputs, lib, config, pkgs, my-pkgs, specialArgs, ... }:
 {
 
-  environment.systemPackages = import ./program-list.nix { inherit pkgs my-pkgs; nur = config.nur; };
+  environment.systemPackages = import ./program-list.nix { inherit pkgs my-pkgs; nur = config.nur; kdePackages = inputs.kde2nix.packages.${pkgs.stdenv.system}; };
 
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
 

@@ -1,7 +1,7 @@
 { inputs, lib, config, pkgs, my-pkgs, specialArgs, ... }:
 {
 
-  environment.systemPackages = (import ./program-list.nix { inherit pkgs my-pkgs; }) ++ [
+  environment.systemPackages = (import ./program-list.nix { inherit pkgs my-pkgs; kdePackages = inputs.kde2nix.packages.${pkgs.stdenv.system}; }) ++ [
     config.boot.kernelPackages.perf
 
   ];

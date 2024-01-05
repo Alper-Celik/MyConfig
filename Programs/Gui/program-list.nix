@@ -1,4 +1,4 @@
-{ pkgs, my-pkgs, nur }: with pkgs;
+{ pkgs, my-pkgs, nur, kdePackages ? { } }: with pkgs ;with kdePackages;
 [
 
   # media players

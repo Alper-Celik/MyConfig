@@ -1,4 +1,4 @@
-{ pkgs, my-pkgs }: with pkgs ;
+{ pkgs, my-pkgs, kdePackages ? { } }: with pkgs ; with kdePackages;
 [
   patchelf
 
