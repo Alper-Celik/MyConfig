@@ -11,7 +11,12 @@ in {
     package = pkgs.emacs-gtk;
     extraPackages = epkgs: [ epkgs.vterm ];
   };
-  home.packages = with pkgs; [ nixfmt ];
+  home.packages = with pkgs; [
+    nixfmt
+    cmake-language-server
+    clang-tools
+  lldb
+  ];
   home.file.".emacs.d" = {
     source = inputs.spacemacs-git;
     recursive = true;

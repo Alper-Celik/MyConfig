@@ -45,18 +45,28 @@ This function should only modify configuration layer settings."
      git
      helm
      lsp
+     dap
      multiple-cursors
 
 
      markdown
 
      (nixos :variables nix-backend 'lsp
-            :variable nixos-format-on-save 't)
+            :variable nixos-format-on-save t)
+
+     (cmake :variables cmake-backend 'lsp)
+     (c-c++ :variables
+            c-c++-backend 'lsp-clangd
+            c-c++-lsp-enable-semantic-highlight 'rainbow
+            c-c++-enable-clang-format-on-save t
+            c-c++-adopt-subprojects t
+            c-c++-dap-adapters '(dap-lldb))
+
 
      ;; org
      (shell :variables
             shell-default-shell 'vterm
-            shell-default-height 30
+            shell-default-height 40
             shell-default-position 'bottom)
      ;; spell-checking
      ;; syntax-checking
@@ -576,6 +586,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  (define-key evil-normal-state-map (kbd "İ") #'evil-insert-line)
 )
 
 
