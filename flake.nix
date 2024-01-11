@@ -40,8 +40,6 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
-      # debug info
-      nixseparatedebuginfod.url = "github:Alper-Celik/nixseparatedebuginfod-without-gdb-etc";
       dwarffs = { url = "github:edolstra/dwarffs"; inputs.nixpkgs.follows = "nixpkgs"; };
       # NUR
       nur.url = "github:nix-community/NUR";
@@ -100,7 +98,6 @@
         nixosModules = {
           apply-my-overlays = { nixpkgs.overlays = self.my.overlays; };
           enable-nixseparatedebuginfod = {
-            imports = [ inputs.nixseparatedebuginfod.nixosModules.default ];
             services.nixseparatedebuginfod.enable = true;
           };
 
