@@ -1,10 +1,13 @@
 { inputs, lib, config, pkgs, specialArgs, ... }: {
   programs.git = {
     enable = true;
+
     userName = "Alper Çelik";
-    userEmail = "dev.alpercelik@gmail.com";
+    userEmail = "alper@alper-celik.dev";
+
+    signing.key = config.programs.git.userEmail;
     signing.signByDefault = true;
-    signing.key = "Alper Çelik";
+
     extraConfig =
       {
         init.defaultBranch = "main";
