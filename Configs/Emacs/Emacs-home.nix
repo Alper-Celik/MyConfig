@@ -3,20 +3,26 @@ let
   current-dir = "Configs/Emacs";
   outOfStrore = x:
     config.lib.file.mkOutOfStoreSymlink
-    (my-lib.maybeOutOfStore specialArgs current-dir x);
+      (my-lib.maybeOutOfStore specialArgs current-dir x);
 
-in {
+  emacs = with pkgs;
+    (emacsPackagesFor emacs-gtk).emacsWithPackages (epkgs: [ epkgs.vterm ]);
+in
+{
   programs.emacs = {
     enable = true;
     package = pkgs.emacs-gtk;
     extraPackages = epkgs: [ epkgs.vterm ];
   };
-  home.packages = with pkgs; [
-    nixfmt
-    cmake-language-server
-    clang-tools
-  lldb
-  ];
+
+  services.emacs = {
+    # package = emacs;
+    enable = true;
+    client.enable = true;
+  };
+
+  home.packages = with pkgs; [ nixfmt cmake-language-server clang-tools lldb ];
+
   home.file.".emacs.d" = {
     source = inputs.spacemacs-git;
     recursive = true;
