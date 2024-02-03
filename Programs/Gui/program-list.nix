@@ -30,6 +30,7 @@
   # dev tools
   godot_4
   libresprite
+  pixelorama
   ## editors 
   kate
   ## terminal emulators
