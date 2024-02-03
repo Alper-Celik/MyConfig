@@ -4,9 +4,6 @@ let
   outOfStrore = x:
     config.lib.file.mkOutOfStoreSymlink
       (my-lib.maybeOutOfStore specialArgs current-dir x);
-
-  emacs = with pkgs;
-    (emacsPackagesFor emacs-gtk).emacsWithPackages (epkgs: [ epkgs.vterm ]);
 in
 {
   programs.emacs = {
