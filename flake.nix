@@ -40,7 +40,7 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
-      dwarffs = { url = "github:edolstra/dwarffs"; inputs.nixpkgs.follows = "nixpkgs"; };
+      dwarffs = { url = "github:edolstra/dwarffs"; };
       # NUR
       nur.url = "github:nix-community/NUR";
 
@@ -110,6 +110,7 @@
 
               self.nixosModules.apply-my-overlays
               self.nixosModules.enable-nixseparatedebuginfod
+              inputs.dwarffs.nixosModules.dwarffs
             ];
           };
         };
