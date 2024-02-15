@@ -110,7 +110,7 @@
 
               self.nixosModules.apply-my-overlays
               self.nixosModules.enable-nixseparatedebuginfod
-              inputs.dwarffs.nixosModules.dwarffs
+              # inputs.dwarffs.nixosModules.dwarffs
             ];
           };
         };
