@@ -96,9 +96,8 @@ require("nvim-treesitter.configs").setup({
 })
 
 -- Haskell
-local ht = require("haskell-tools")
 local def_opts = { noremap = true, silent = true }
-ht.setup({
+vim.g.haskell_tools ={
 	hls = {
 		on_attach = function(client, bufnr)
 			local opts = { noremap = true, silent = true, buffer = bufnr }
@@ -107,7 +106,7 @@ ht.setup({
 		end,
 	},
 	-- repl = { handler = "toggleterm" },
-})
+}
 --C++/c
 require("lspconfig").clangd.setup({
 	server = {

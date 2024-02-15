@@ -45,7 +45,7 @@ require("lazy").setup({
   "jose-elias-alvarez/null-ls.nvim",
   "https://git.sr.ht/~p00f/clangd_extensions.nvim",
   "simrat39/rust-tools.nvim",
-  { "mrcjkb/haskell-tools.nvim", branch = "1.x.x" },
+  "mrcjkb/haskell-tools.nvim",
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
