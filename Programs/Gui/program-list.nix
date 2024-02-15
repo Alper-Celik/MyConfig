@@ -33,6 +33,7 @@
   pixelorama
   ## editors 
   kate
+  vscode
   ## terminal emulators
   kitty
   ## virtualization
