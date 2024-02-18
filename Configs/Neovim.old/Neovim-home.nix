@@ -30,15 +30,22 @@ let
       cmake-format
       nodePackages.prettier
 
-      #compilers
-      gcc
-      gnumake
     ];
 in
 {
   home.sessionVariables.EDITOR = "nvim";
-  
-  home.packages = language-tools ++ [pkgs.neovim];
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
+
+    package = pkgs.neovim-unwrapped;
+    plugins = with pkgs.vimPlugins ;[
+    ] ++ builtins.attrValues pkgs.otherNeovimPlugins;
+  };
+  home.packages = language-tools;
 
   xdg.configFile.nvim.source = outOfStrore ".";
   #xdg.configFile.nvim.source = ./.;

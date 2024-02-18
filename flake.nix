@@ -168,7 +168,7 @@
         ## nonstandard outputs
         my = {
           overlays = import ./Overlays/allOverlays.nix ++ [
-            (get-flake ./Configs/Neovim).overlays.default
+            # (get-flake ./Configs/Neovim).overlays.default
           ];
 
           caches = {

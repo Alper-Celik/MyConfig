@@ -65,7 +65,9 @@
 
   python3Packages.argcomplete
   ## compilers and runtimes
-  python3Packages.python
+  (pkgs.python3.withPackages (p: [
+    p.pyside6
+  ]))
 
 
   (hiPrio jdk8)
