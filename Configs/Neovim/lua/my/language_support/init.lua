@@ -166,6 +166,7 @@ local language_servers = {
 	"qmlls",
 	"taplo",
 	"gdscript",
+  "qmlls",
 }
 
 for _, value in pairs(language_servers) do

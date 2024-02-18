@@ -20,6 +20,7 @@ let
       haskell-language-server
       haskellPackages.fast-tags
       haskellPackages.hoogle
+      qt6.qtdeclarative
 
       ## formatters
       nodePackages.cspell
