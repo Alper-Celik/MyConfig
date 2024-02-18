@@ -2,6 +2,13 @@ local colorscheme = "carbonfox"
 
 vim.opt.termguicolors = true
 
+-- global status bar
+vim.opt.laststatus = 3
+
+--line numbers
+vim.opt.number = true;
+vim.opt.relativenumber = true;
+
 return{
   
   
