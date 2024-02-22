@@ -1,7 +1,7 @@
 local silent = { silent = true }
 
 
-vim.opt.clipboard="unnamedplus"
+vim.opt.clipboard = "unnamedplus"
 
 --turkish keyboard layout support
 vim.keymap.set("n", "İ", "I", { remap = true })
@@ -37,3 +37,4 @@ return {
     }
   }
 }
+
