@@ -81,11 +81,12 @@
 
         # TODO: maybe use let in ?
         _module.args.my-specialArgs = {
+          hardware = "unknown";
           my-lib = self.lib;
           my-pkgs = packages;
           inherit inputs system;
           inherit (self.my) stateVersion overlays caches;
-
+          
         };
 
       };
@@ -137,7 +138,6 @@
               let
                 generic-args = my-specialArgs // {
                   configDir = "/home/alper/MyConfig"; #TODO: abstract it ?
-                  hardware = "unknown";
                 };
 
                 generic-home = {

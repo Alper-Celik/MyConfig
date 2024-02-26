@@ -1,9 +1,9 @@
-{ config, lib, pkgs, specialArgs, inputs, ... }:
+{ config, lib, pkgs,my-pkgs, specialArgs, inputs, ... }:
 
 {
 
   # Simply install just the packages
-  environment.packages = (import ../Programs/Cli/program-list.nix { inherit pkgs; }) ++ [ pkgs.pinentry ];
+  environment.packages = (import ../Programs/Cli/program-list.nix { inherit pkgs my-pkgs; }) ++ [ pkgs.pinentry ];
   # Backup etc files instead of failing to activate generation if a file already exists in /etc
   environment.etcBackupExtension = ".bak";
 
