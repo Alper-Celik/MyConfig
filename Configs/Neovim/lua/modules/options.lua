@@ -19,8 +19,5 @@ vim.opt.smartindent = true
 --#region
 vim.opt.guifont = "JetBrains Mono:h10"
 
-vim.opt.shell = "/usr/bin/env fish"
-
 
 return {}
-

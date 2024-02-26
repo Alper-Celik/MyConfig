@@ -5,11 +5,11 @@ vim.keymap.set("n", "<Leader>fg", ":Telescope live_grep<cr>", silent)
 vim.keymap.set("n", "<Leader>fs", ":Telescope treesitter<cr>", silent)
 
 
-vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
-vim.keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
-vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
-vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
-vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
+vim.keymap.set("n", "<leader>xx", ":TroubleToggle<cr>", silent)
+vim.keymap.set("n", "<leader>xw", ":TroubleToggle workspace_diagnostics<cr>", silent)
+vim.keymap.set("n", "<leader>xd", ":TroubleToggle document_diagnostics<cr>", silent)
+vim.keymap.set("n", "<leader>xq", ":TroubleToggle quickfix", silent)
+vim.keymap.set("n", "<leader>xl", ":TroubleToggle loclist", silent)
 
 vim.keymap.set("n", "<leader>xt", ":TodoTrouble<CR>", silent)
 
@@ -87,4 +87,3 @@ return {
     end,
   }
 }
-

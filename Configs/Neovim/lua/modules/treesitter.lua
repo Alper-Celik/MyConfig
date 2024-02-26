@@ -81,5 +81,9 @@ return {
         indent = { enable = true },
       })
     end
+  },
+
+  {
+    "https://gitlab.com/HiPhish/rainbow-delimiters.nvim"
   }
 }
