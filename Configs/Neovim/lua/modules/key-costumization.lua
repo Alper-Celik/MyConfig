@@ -9,6 +9,9 @@ vim.keymap.set("n", "İ", "I", { remap = true })
 --switch to nornal mode in terminal using escape
 vim.keymap.set("t", "<esc><esc>", "<C-\\><C-N>", {})
 
+-- press esc to disable search highlight
+vim.keymap.set("n", "<esc>", ":noh<CR>", silent)
+
 --#region tab bindings
 vim.keymap.set("n", "<Leader>tl", ":tabnext<CR>", silent)
 vim.keymap.set("n", "<Leader>tt", ":tabnext<CR>", silent)

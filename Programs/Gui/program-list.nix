@@ -6,7 +6,8 @@
   haruna
 
   obs-studio
-  musescore
+  # musescore
+
   # utulities
   ## browsers 
   (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
