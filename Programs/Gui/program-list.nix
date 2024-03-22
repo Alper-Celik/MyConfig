@@ -68,5 +68,5 @@
 
   prismlauncher # minecraft
   nur.repos.xeals.atlauncher #minecraft
-  mindustry
+  # mindustry
 ]
