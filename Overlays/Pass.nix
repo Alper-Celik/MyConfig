@@ -4,7 +4,7 @@ final: prev: {
       pass-update
       pass-otp
       pass-import
-      # pass-audit
+      pass-audit
     ]);
   passff-host = prev.passff-host.override { pass = final.my-pass; };
 }

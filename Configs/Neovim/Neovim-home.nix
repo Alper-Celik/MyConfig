@@ -8,6 +8,7 @@ let
     [
       ## lsp s
 
+      rnix-lsp
       sumneko-lua-language-server
       cmake-language-server
       nil

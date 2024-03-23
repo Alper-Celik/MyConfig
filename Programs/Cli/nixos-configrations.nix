@@ -19,7 +19,7 @@
 
   programs.gnupg.agent = {
     enable = true;
-    # pinentryFlavor = "qt";
+    pinentryFlavor = "qt";
   };
 
   virtualisation.libvirtd.enable = true;

@@ -17,8 +17,6 @@
   discord
   element-desktop
   neochat
-  ## 2 steap auth
-  authy
   ## office suits
   libreoffice-qt
   # onlyoffice-bin
@@ -68,5 +66,5 @@
 
   prismlauncher # minecraft
   nur.repos.xeals.atlauncher #minecraft
-  # mindustry
+  mindustry
 ]
