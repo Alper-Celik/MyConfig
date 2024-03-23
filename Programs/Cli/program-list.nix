@@ -31,6 +31,7 @@
 
   bash
   ncurses
+  tmux
   findutils
   psmisc
 
