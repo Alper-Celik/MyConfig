@@ -1,5 +1,8 @@
 { pkgs, lib, ... }:
 {
+  
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
   # default wayland
   services.xserver.displayManager.defaultSession = "plasma";
 
