@@ -12,6 +12,7 @@ let
       sumneko-lua-language-server
       cmake-language-server
       nil
+      nixpkgs-fmt
       nodePackages.pyright
       clang-tools # also formatter and static analysis
       nodePackages.bash-language-server

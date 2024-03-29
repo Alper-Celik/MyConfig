@@ -48,6 +48,19 @@ return {
         },
       })
 
+      -- nix
+      require('lspconfig').nil_ls.setup {
+        autostart = true,
+        capabilities = lsp_capabilities,
+        settings = {
+          ['nil'] = {
+            formatting = {
+              command = { "nixpkgs-fmt" },
+            },
+          },
+        },
+      }
+
       -- generic servers
       local language_servers = {
         "cmake",
@@ -58,7 +71,6 @@ return {
         "eslint",
         "html",
         "cssls",
-        "nil_ls",
         "qmlls",
         "taplo",
         "gdscript",
