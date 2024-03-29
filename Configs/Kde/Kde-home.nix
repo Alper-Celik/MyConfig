@@ -8,9 +8,9 @@
       "kitty.desktop"._launch = "Ctrl+Alt+T";
 
     };
-    files = {
-      "baloofilerc"."Basic Settings"."Indexing-Enabled" = false; #disable indexing
-      "kxkbrc"."Layout"."Options" = "caps:escape_shifted_capslock"; # capslock to esc
+    configFile = {
+      "baloofilerc"."Basic Settings"."Indexing-Enabled".value = false; #disable indexing
+      "kxkbrc"."Layout"."Options".value = "caps:escape_shifted_capslock"; # capslock to esc
     };
   };
 }
