@@ -37,6 +37,7 @@
 
   direnv
   nix-direnv
+  deploy-rs
 
   bat
   tree
