@@ -6,7 +6,7 @@
 
     hotkeys.commands."launch-kitty" = {
       name = "Launch Kitty";
-      key = "Ctrl+Alt+T";
+      key = "Alt+Shift+T";
       command = "kitty";
     };
 
