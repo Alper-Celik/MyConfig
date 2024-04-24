@@ -16,7 +16,7 @@
   thunderbird
   discord
   element-desktop
-  neochat
+  # neochat
   ## office suits
   libreoffice-qt
   # onlyoffice-bin
