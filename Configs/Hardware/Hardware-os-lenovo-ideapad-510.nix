@@ -31,7 +31,7 @@
 
   hardware.enableAllFirmware = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  # boot.kernelPackages = pkgs.linuxPackages_zen;
   zramSwap.enable = true;
 
   swapDevices = [{
