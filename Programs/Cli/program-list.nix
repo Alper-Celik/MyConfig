@@ -72,8 +72,6 @@
   ]))
 
 
-  (hiPrio jdk8)
-  jdk
   ## debuggers
   gdb
   ## build tools
