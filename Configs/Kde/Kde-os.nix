@@ -8,10 +8,10 @@
   security.rtkit.enable = true;
 
   # default wayland
-  services.xserver.displayManager.defaultSession = "plasma";
+  services.displayManager.defaultSession = "plasma";
 
   # programs.ssh.askPassword = lib.mkForce "${pkgs.libsForQt5.plasma5.ksshaskpass.out}/bin/ksshaskpass}";
-  services.xserver.desktopManager.plasma6 = {
+  services.desktopManager.plasma6 = {
     enable = true;
     # useQtScaling = true;
     # phononBackend = "vlc";

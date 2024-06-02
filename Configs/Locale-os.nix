@@ -10,7 +10,7 @@
     keyMap = "trq";
     # useXkbContrg = true; # use xkbOptions in tty.
   };
-  services.xserver.layout = "tr";
+  services.xserver.xkb.layout = "tr";
 
 
 }

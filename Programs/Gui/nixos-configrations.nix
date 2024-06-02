@@ -3,8 +3,6 @@
 
   environment.systemPackages = import ./program-list.nix { inherit pkgs my-pkgs; nur = config.nur; kdePackages = pkgs.kdePackages; };
 
-  nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
-
   programs.droidcam.enable = true;
 
   programs.kclock.enable = true;

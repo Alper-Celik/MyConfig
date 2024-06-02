@@ -10,7 +10,7 @@
 
   # utulities
   ## browsers 
-  (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
+  (firefox.override { nativeMessagingHosts = [ plasma-browser-integration passff-host ]; })
   chromium
   ## mail and chat
   thunderbird
