@@ -6,8 +6,14 @@ let
 
   language-tools = with pkgs;
     [
-      ## lsp s
+      # tools for configration loading
+      git
+      gnutar
+      gzip
+      gcc
+      gnumake
 
+      ## lsp s
       # rnix-lsp
       sumneko-lua-language-server
       cmake-language-server
@@ -31,15 +37,12 @@ let
       cmake-format
       nodePackages.prettier
 
-      #compilers
-      gcc
-      gnumake
     ];
 in
 {
   home.sessionVariables.EDITOR = "nvim";
-  
-  home.packages = language-tools ++ [pkgs.neovim];
+
+  home.packages = language-tools ++ [ pkgs.neovim ];
 
   xdg.configFile.nvim.source = outOfStrore ".";
   #xdg.configFile.nvim.source = ./.;
