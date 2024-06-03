@@ -85,7 +85,7 @@
           my-pkgs = packages;
           inherit inputs system;
           inherit (self.my) stateVersion overlays caches;
-          
+
         };
 
       };
@@ -154,7 +154,10 @@
               });
 
         nixOnDroidConfigurations.default = withSystem "aarch64-linux" ({ my-specialArgs, pkgs, ... }: nix-on-droid.lib.nixOnDroidConfiguration {
-          extraSpecialArgs = my-specialArgs // { isFlake = true; };
+          extraSpecialArgs = my-specialArgs // {
+            configDir = "/data/data/com.termux.nix/files/home/MyConfig";
+            isFlake = true;
+          };
 
           modules = [
             ./nix-on-droid/nix-on-droid.nix
