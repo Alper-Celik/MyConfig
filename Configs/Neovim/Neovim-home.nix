@@ -19,9 +19,9 @@ let
       cmake-language-server
       nil
       nixpkgs-fmt
-      nodePackages.pyright
+      pyright
       clang-tools # also formatter and static analysis
-      nodePackages.bash-language-server
+      bash-language-server
       nodePackages_latest.vscode-json-languageserver
       taplo
       haskell-language-server
