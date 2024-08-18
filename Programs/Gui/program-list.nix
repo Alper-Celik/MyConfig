@@ -68,6 +68,6 @@
   (hiPrio jdk8)
   jdk
   prismlauncher # minecraft
-  nur.repos.xeals.atlauncher #minecraft
+  atlauncher #minecraft
   mindustry
 ]

@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 {
 
-  sound.enable = true;
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.support32Bit = true;
   hardware.pulseaudio.extraConfig = "unload-module module-suspend-on-idle";
