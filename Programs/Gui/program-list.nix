@@ -38,7 +38,7 @@
   ## virtualization
   virt-manager
   ## accessibility 
-  gnome.accerciser
+  accerciser
   ## debuggers
   seer
   hotspot
