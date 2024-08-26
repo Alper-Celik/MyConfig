@@ -12,7 +12,6 @@
 
     configFile = {
       "baloofilerc"."Basic Settings"."Indexing-Enabled".value = false; #disable indexing
-      "kxkbrc"."Layout"."Options".value = "caps:escape_shifted_capslock"; # capslock to esc
     };
   };
 }
