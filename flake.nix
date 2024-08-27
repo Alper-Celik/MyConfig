@@ -128,6 +128,20 @@
                   ./nixos/configuration.nix
                 ];
               });
+
+              strix-scar-17 = withSystem "x86_64-linux"
+            ({ my-specialArgs, ... }:
+              nixpkgs.lib.nixosSystem {
+                specialArgs = my-specialArgs // {
+
+                  configDir = "/home/alper/MyConfig"; #TODO: abstract it ?
+                  hardware = "strix-scar-17";
+                };
+                modules = [
+                  self.nixosModules.default-modules
+                  ./nixos/configuration.nix
+                ];
+              });
         };
 
         homeConfigurations =
