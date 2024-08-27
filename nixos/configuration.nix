@@ -7,13 +7,6 @@
 {
 
   imports = [
-
-
-    # Import your generated (nixos-generate-config) hardware configuration
-    (./${specialArgs.hardware}/hardware-configuration.nix)
-
-    ./display.nix
-
     ../Programs/Cli/nixos-configrations.nix
     ../Programs/Gui/nixos-configrations.nix
 
