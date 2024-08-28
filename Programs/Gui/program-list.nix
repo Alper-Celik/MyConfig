@@ -25,7 +25,8 @@
   ## book managment
   calibre
 
-  kcalc
+  # kcalc
+  qalculate-qt
   # dev tools
   godot_4
   libresprite
