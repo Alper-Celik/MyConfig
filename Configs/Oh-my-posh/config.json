@@ -17,7 +17,7 @@
         {
           "type": "path",
           "style": "powerline",
-          "background" : "lightMagenta",
+          "background" : "lightWhite",
           "foreground": "black",
           "powerline_symbol": "",
           "properties": {
@@ -91,7 +91,7 @@
           "style": "diamond",
           "foreground":"black",
           "background":"lightWhite",
-          "template": " $ ",
+          "template": " ../{{ .Folder }} ",
           "trailing_diamond": " "
         }
       ]
