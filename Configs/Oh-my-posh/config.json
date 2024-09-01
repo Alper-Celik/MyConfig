@@ -1,0 +1,101 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 2,
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "text",
+          "style": "powerline",
+          "background": "blue",
+          "foreground": "black",
+          "template": " {{ .UserName }}@{{ .HostName }} "
+        },
+
+        {
+          "type": "path",
+          "style": "powerline",
+          "background" : "lightMagenta",
+          "foreground": "black",
+          "powerline_symbol": "",
+          "properties": {
+            "style": "agnoster_full"
+          }
+        },
+        {
+          "type": "git",
+          "style": "powerline",
+          "powerline_symbol": "",
+          "foreground": "black",
+          "background": "yellow",
+          "template": "{{ .UpstreamIcon }} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}",
+          "properties": {
+            "fetch_status": true,
+            "fetch_upstream_icon": true,
+            "git_icon": "󰊢 "
+          }
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "right",
+      "segments": [
+        {
+          "type": "nix-shell",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": " ",
+          "foreground": "black",
+          "background": "green",
+          "template": "inside nix-shell"
+        },
+        {
+          "type": "executiontime",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "foreground": "black",
+          "background": "lightCyan",
+          "template": " <#fefefe></> {{ .FormattedMs }} ",
+          "properties": {
+            "threshold": 500,
+            "style": "austin",
+            "always_enabled": true
+          }
+        },
+        {
+          "type": "status",
+          "style": "diamond",
+          "foreground": "black",
+          "background": "green",
+          "background_templates": [
+            "{{ if .Error }}red{{ end }}"
+          ],
+          "trailing_diamond": "",
+          "properties": {
+            "always_enabled": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "text",
+          "style": "diamond",
+          "foreground":"black",
+          "background":"lightWhite",
+          "template": " $ ",
+          "trailing_diamond": " "
+        }
+      ]
+    }
+   
+  ]
+}
