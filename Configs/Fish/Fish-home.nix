@@ -51,5 +51,5 @@
 
   };
 
-  home.packages = with pkgs;[ fzf fd bat ];
+  home.packages = with pkgs;[ fzf fd bat glib ];
 }
