@@ -44,6 +44,8 @@
 
   systemd.oomd.enable = false; #dont kill running programms pleaaaaaaase !!
 
+
+  hardware.nvidia-container-toolkit.enable = true;
   hardware.nvidia = {
     powerManagement = {
       enable = true;

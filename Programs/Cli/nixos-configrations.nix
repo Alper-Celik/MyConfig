@@ -1,7 +1,7 @@
 { inputs, lib, config, pkgs, my-pkgs, specialArgs, ... }:
 {
 
-  environment.systemPackages = (import ./program-list.nix { inherit pkgs my-pkgs; kdePackages =pkgs.kdePackages; }) ++ [
+  environment.systemPackages = (import ./program-list.nix { inherit pkgs my-pkgs; kdePackages = pkgs.kdePackages; }) ++ [
     config.boot.kernelPackages.perf
 
   ];
@@ -27,6 +27,7 @@
 
   virtualisation.podman = {
     enable = true;
+    enableNvidia = config.hardware.nvidia-container-toolkit.enable;
 
     dockerCompat = true;
     dockerSocket.enable = true;
