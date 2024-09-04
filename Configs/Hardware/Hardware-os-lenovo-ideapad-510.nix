@@ -44,7 +44,6 @@
   systemd.oomd.enable = false; #dont kill running programms pleaaaaaaase !!
 
   hardware.bluetooth.enable = true;
-  environment.systemPackages = with pkgs;[ libsForQt5.bluedevil libsForQt5.bluez-qt pkgs.openobex pkgs.obexftp ];
 
 
 
