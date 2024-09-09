@@ -22,10 +22,16 @@ local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
         },
       }
 
+      -- json
+      require'lspconfig'.jsonls.setup {
+                capabilities = lsp_capabilities,
+cmd = { "vscode-json-languageserver", "--stdio" }
+
+      }
+
       -- generic servers
       local language_servers = {
         "cmake",
-        "jsonls",
         "pyright",
         "bashls",
         "texlab",
