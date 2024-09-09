@@ -32,8 +32,9 @@ let
       qt6.qtdeclarative
       jdt-language-server.out
 
-      ## formatters
-      nodePackages.cspell
+      ## formatters and linters
+      deadnix
+      codespell
       nixpkgs-fmt
       stylua
       python3Packages.autopep8

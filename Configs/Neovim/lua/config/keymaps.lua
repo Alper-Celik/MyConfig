@@ -59,6 +59,5 @@ vim.keymap.set("n", "<Leader>lrn", vim.lsp.buf.rename, silent)
 vim.keymap.set("n", "<Leader>lca", vim.lsp.buf.code_action, silent)
 vim.keymap.set("n", "<Leader>lcc", vim.lsp.codelens.run, silent)
 vim.keymap.set("n", "<Leader>lf", function()
-  vim.lsp.buf.format({ --[[ async = true  ]]
-  })
+  require("conform").format({})
 end, silent)
