@@ -6,22 +6,15 @@ let
 
   language-tools = with pkgs;
     [
-      # tools for configration loading
-      git
-      gnutar
-      gzip
-      gcc
-      gnumake
-
       ## lsp s
-      # rnix-lsp
+
+      rnix-lsp
       sumneko-lua-language-server
       cmake-language-server
       nil
-      nixpkgs-fmt
-      pyright
+      nodePackages.pyright
       clang-tools # also formatter and static analysis
-      bash-language-server
+      nodePackages.bash-language-server
       nodePackages_latest.vscode-json-languageserver
       taplo
       haskell-language-server
@@ -41,8 +34,18 @@ let
 in
 {
   home.sessionVariables.EDITOR = "nvim";
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
 
-  home.packages = language-tools ++ [ pkgs.neovim ];
+    package = pkgs.neovim-unwrapped;
+    plugins = with pkgs.vimPlugins ;[
+    ] ++ builtins.attrValues pkgs.otherNeovimPlugins;
+  };
+  home.packages = language-tools;
 
   xdg.configFile.nvim.source = outOfStrore ".";
   #xdg.configFile.nvim.source = ./.;
