@@ -7,8 +7,8 @@ vim.opt.termguicolors = true
 vim.opt.laststatus = 3
 
 --line numbers
-vim.opt.number = true;
-vim.opt.relativenumber = true;
+vim.opt.number = true
+vim.opt.relativenumber = true
 
 vim.cmd.colorscheme("carbonfox")
 
@@ -27,6 +27,4 @@ vim.opt.tabstop = 2
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 
-
 vim.opt.guifont = "JetBrains Mono:h10"
-

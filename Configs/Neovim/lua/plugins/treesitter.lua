@@ -1,89 +1,89 @@
 return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function()
-      local configs = require("nvim-treesitter.configs")
+	{
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+		config = function()
+			local configs = require("nvim-treesitter.configs")
 
-      configs.setup({
-        ensure_installed = {
-          "bibtex",
-          "latex",
+			configs.setup({
+				ensure_installed = {
+					"bibtex",
+					"latex",
 
-          "bash",
-          "fish",
-          "lua",
-          "vim",
-          "nix",
-          "haskell",
-          "terraform",
+					"bash",
+					"fish",
+					"lua",
+					"vim",
+					"nix",
+					"haskell",
+					"terraform",
 
-          "regex",
-          "markdown",
-          "markdown_inline",
-          "rst",
+					"regex",
+					"markdown",
+					"markdown_inline",
+					"rst",
 
-          "c",
-          "cpp",
-          "cmake",
-          "make",
-          "ninja",
-          "c_sharp",
-          "qmljs",
-          "rust",
+					"c",
+					"cpp",
+					"cmake",
+					"make",
+					"ninja",
+					"c_sharp",
+					"qmljs",
+					"rust",
 
-          "llvm",
-          "cuda",
+					"llvm",
+					"cuda",
 
-          "css",
-          "scss",
-          "html",
-          "javascript",
-          "jsdoc",
-          "tsx",
-          "typescript",
+					"css",
+					"scss",
+					"html",
+					"javascript",
+					"jsdoc",
+					"tsx",
+					"typescript",
 
-          "json",
-          "toml",
-          "yaml",
+					"json",
+					"toml",
+					"yaml",
 
-          "htmldjango",
-          "dart",
-          "sql",
+					"htmldjango",
+					"dart",
+					"sql",
 
-          "diff",
-          "git_rebase",
-          "gitattributes",
-          "gitcommit",
-          "gitignore",
+					"diff",
+					"git_rebase",
+					"gitattributes",
+					"gitcommit",
+					"gitignore",
 
-          "ruby",
-          "go",
-          "gomod",
-          "julia",
-          "kotlin",
-          "java",
-          "scala",
+					"ruby",
+					"go",
+					"gomod",
+					"julia",
+					"kotlin",
+					"java",
+					"scala",
 
-          "glsl",
-          "hlsl",
-          "wgsl",
-          "wgsl_bevy",
+					"glsl",
+					"hlsl",
+					"wgsl",
+					"wgsl_bevy",
 
-          "capnp",
-          "proto",
-          "dockerfile",
+					"capnp",
+					"proto",
+					"dockerfile",
 
-          "dot",
-        },
-        sync_install = false,
-        highlight = { enable = true },
-        indent = { enable = true },
-      })
-    end
-  },
+					"dot",
+				},
+				sync_install = false,
+				highlight = { enable = true },
+				indent = { enable = true },
+			})
+		end,
+	},
 
-  {
-    "https://gitlab.com/HiPhish/rainbow-delimiters.nvim"
-  }
+	{
+		"https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
+	},
 }

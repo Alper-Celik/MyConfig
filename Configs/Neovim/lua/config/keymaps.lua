@@ -39,7 +39,6 @@ vim.keymap.set("n", "<leader>xt", ":TodoTrouble<CR>", silent)
 vim.keymap.set("n", "<C-e>", ":NvimTreeFindFile<CR>", silent)
 vim.keymap.set("n", "<C-f>", ":NvimTreeToggle<CR>", silent)
 
-
 -- lsp and such
 vim.api.nvim_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -52,12 +51,12 @@ vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, silent)
 vim.keymap.set("n", "<Leader>lwa", vim.lsp.buf.add_workspace_folder, silent)
 vim.keymap.set("n", "<Leader>lwr", vim.lsp.buf.remove_workspace_folder, silent)
 vim.keymap.set("n", "<Leader>lwl", function()
-  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+	print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 end, silent)
 vim.keymap.set("n", "<Leader>lD", vim.lsp.buf.type_definition, silent)
 vim.keymap.set("n", "<Leader>lrn", vim.lsp.buf.rename, silent)
 vim.keymap.set("n", "<Leader>lca", vim.lsp.buf.code_action, silent)
 vim.keymap.set("n", "<Leader>lcc", vim.lsp.codelens.run, silent)
 vim.keymap.set("n", "<Leader>lf", function()
-  require("conform").format({})
+	require("conform").format({})
 end, silent)
