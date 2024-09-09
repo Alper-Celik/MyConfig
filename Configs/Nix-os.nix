@@ -1,5 +1,15 @@
 { inputs, pkgs, config, lib, specialArgs, ... }:
 {
+  environment.systemPackages = with pkgs; [
+    nix-output-monitor
+    nvd
+  ];
+
+  programs.nh = {
+    enable = true;
+    flake = lib.mkIf (builtins.hasAttr "configDir" specialArgs) specialArgs.configDir;
+  };
+
   nix = {
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
