@@ -16,7 +16,7 @@
     # phononBackend = "vlc";
   };
 
-  environment.systemPackages = with pkgs;[
+  environment.systemPackages = with pkgs; [
     # libsForQt5.bismuth #plasma tiling
   ];
 

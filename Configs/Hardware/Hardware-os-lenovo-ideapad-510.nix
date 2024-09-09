@@ -1,4 +1,10 @@
-{ lib, config, inputs, pkgs, ... }:
+{
+  lib,
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 {
 
   imports = [
@@ -13,8 +19,14 @@
   powerManagement.cpuFreqGovernor = "ondemand";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "rtsx_usb_sdmmc" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "usb_storage"
+    "usbhid"
+    "sd_mod"
+    "rtsx_usb_sdmmc"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
@@ -32,22 +44,21 @@
     nvidiaBusId = "PCI:3:0:0";
   };
 
-
   hardware.enableAllFirmware = true;
 
   # boot.kernelPackages = pkgs.linuxPackages_zen;
   zramSwap.enable = true;
 
-  swapDevices = [{
-    device = "/dev/disk/by-label/swap-nixos";
-  }];
+  swapDevices = [
+    {
+      device = "/dev/disk/by-label/swap-nixos";
+    }
+  ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
-  systemd.oomd.enable = false; #dont kill running programms pleaaaaaaase !!
+  systemd.oomd.enable = false; # dont kill running programms pleaaaaaaase !!
 
   hardware.bluetooth.enable = true;
-
-
 
 }

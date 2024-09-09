@@ -1,4 +1,12 @@
-{ inputs, lib, config, pkgs, specialArgs, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  specialArgs,
+  ...
+}:
+{
   imports = [
     ../DotFiles/dotfiles.nix
 
@@ -7,9 +15,6 @@
 
     inputs.plasma-manager.homeManagerModules.plasma-manager
   ];
-
-
-
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

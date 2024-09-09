@@ -1,4 +1,5 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+{
   environment.persistence."/persistent".directories = [ "/var/lib/flatpak" ];
   services.flatpak.enable = true;
 
@@ -9,7 +10,11 @@
       mkRoSymBind = path: {
         device = path;
         fsType = "fuse.bindfs"; # bindfs instead of bind because it resolves symlinks i think
-        options = [ "ro" "resolve-symlinks" "x-gvfs-hide" ];
+        options = [
+          "ro"
+          "resolve-symlinks"
+          "x-gvfs-hide"
+        ];
       };
       aggregatedFonts = pkgs.buildEnv {
         name = "system-fonts";

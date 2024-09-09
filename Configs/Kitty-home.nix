@@ -1,4 +1,12 @@
-{ inputs, lib, config, pkgs, specialArgs, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  specialArgs,
+  ...
+}:
+{
   programs.kitty = {
     enable = true;
     settings = {
@@ -9,7 +17,6 @@
       name = "JetBrainsMono Nerd Font Mono";
       size = 9;
     };
-
 
     extraConfig = ''
       # Nightfox colors for Kitty

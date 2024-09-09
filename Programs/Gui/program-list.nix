@@ -1,4 +1,11 @@
-{ pkgs, my-pkgs, nur, kdePackages ? { } }: with pkgs ;with kdePackages;
+{
+  pkgs,
+  my-pkgs,
+  nur,
+  kdePackages ? { },
+}:
+with pkgs;
+with kdePackages;
 [
 
   # media players
@@ -10,7 +17,12 @@
 
   # utulities
   ## browsers 
-  (firefox.override { nativeMessagingHosts = [ plasma-browser-integration passff-host ]; })
+  (firefox.override {
+    nativeMessagingHosts = [
+      plasma-browser-integration
+      passff-host
+    ];
+  })
   chromium
   ## mail and chat
   thunderbird
@@ -56,7 +68,6 @@
 
   (hiPrio cmakeWithGui)
 
-
   # games
   # heroic
   legendary-gl
@@ -64,10 +75,9 @@
   wineWowPackages.stagingFull
   protonup-ng
 
-
   (hiPrio jdk8)
   jdk
   prismlauncher # minecraft
-  atlauncher #minecraft
+  atlauncher # minecraft
   mindustry
 ]

@@ -1,8 +1,14 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
 
-{ inputs, lib, config, pkgs, specialArgs, ... }:
-
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  specialArgs,
+  ...
+}:
 
 {
 
@@ -13,19 +19,12 @@
     ../Configs/configs-os.nix
   ];
 
-
-
-
-
-
   nixpkgs.config.allowUnfree = true;
 
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

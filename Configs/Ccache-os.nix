@@ -1,4 +1,11 @@
-{ inputs, lib, config, pkgs, specialArgs, ... }:
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  specialArgs,
+  ...
+}:
 {
   programs.ccache.enable = true;
   nixpkgs.overlays = [

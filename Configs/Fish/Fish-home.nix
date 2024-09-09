@@ -1,4 +1,12 @@
-{ inputs, lib, config, pkgs, specialArgs, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  specialArgs,
+  ...
+}:
+{
   programs.fish = {
 
     enable = true;
@@ -51,5 +59,10 @@
 
   };
 
-  home.packages = with pkgs;[ fzf fd bat glib ];
+  home.packages = with pkgs; [
+    fzf
+    fd
+    bat
+    glib
+  ];
 }

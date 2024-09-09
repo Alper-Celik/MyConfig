@@ -1,4 +1,11 @@
-{ inputs, pkgs, config, lib, specialArgs, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  lib,
+  specialArgs,
+  ...
+}:
 {
   environment.systemPackages = with pkgs; [
     nix-output-monitor

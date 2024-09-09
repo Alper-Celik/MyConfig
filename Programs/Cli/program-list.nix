@@ -1,4 +1,10 @@
-{ pkgs, my-pkgs, kdePackages ? { } }: with pkgs ; with kdePackages;
+{
+  pkgs,
+  my-pkgs,
+  kdePackages ? { },
+}:
+with pkgs;
+with kdePackages;
 [
   patchelf
 
@@ -64,13 +70,11 @@
   # (lowPrio pkgs.neovim) use home manager
   nano
 
-
   python3Packages.argcomplete
   ## compilers and runtimes
   (pkgs.python3.withPackages (p: [
     p.pyside6
   ]))
-
 
   ## debuggers
   gdb

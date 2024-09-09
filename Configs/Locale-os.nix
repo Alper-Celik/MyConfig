@@ -12,5 +12,4 @@
   };
   services.xserver.xkb.layout = "tr";
 
-
 }

@@ -1,4 +1,9 @@
-{ pkgs, inputs, config, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
 {
 
   stylix = {
@@ -7,7 +12,7 @@
       sha256 = "sha256-pE+pvdznEgrusie1bgarjzAC3I1aQF1RinoSCJK2FYc=";
     };
     polarity = "dark";
-    base16Scheme = "${inputs.base16-oxocarbon}/base16-oxocarbon-dark.yaml"; #TODO: maybe port from nightfox
+    base16Scheme = "${inputs.base16-oxocarbon}/base16-oxocarbon-dark.yaml"; # TODO: maybe port from nightfox
     fonts = {
       monospace = {
         package = pkgs.nerdfonts;

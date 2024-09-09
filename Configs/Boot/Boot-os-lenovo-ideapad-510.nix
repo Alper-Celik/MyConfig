@@ -12,6 +12,4 @@
   boot.initrd.systemd.enable = true;
   boot.resumeDevice = "/dev/disk/by-label/swap-nixos";
 
-
-
 }

@@ -1,10 +1,23 @@
-{ inputs, lib, config, pkgs, my-pkgs, specialArgs, ... }:
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  my-pkgs,
+  specialArgs,
+  ...
+}:
 {
 
-  environment.systemPackages = (import ./program-list.nix { inherit pkgs my-pkgs; kdePackages = pkgs.kdePackages; }) ++ [
-    config.boot.kernelPackages.perf
+  environment.systemPackages =
+    (import ./program-list.nix {
+      inherit pkgs my-pkgs;
+      kdePackages = pkgs.kdePackages;
+    })
+    ++ [
+      config.boot.kernelPackages.perf
 
-  ];
+    ];
   environment.sessionVariables = {
     XDG_CACHE_HOME = "\${HOME}/.cache";
     XDG_CONFIG_HOME = "\${HOME}/.config";

@@ -1,4 +1,12 @@
-{ inputs, lib, config, pkgs, specialArgs, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  specialArgs,
+  ...
+}:
+{
   programs.plasma = {
     enable = true;
 
@@ -11,7 +19,7 @@
     };
 
     configFile = {
-      "baloofilerc"."Basic Settings"."Indexing-Enabled".value = false; #disable indexing
+      "baloofilerc"."Basic Settings"."Indexing-Enabled".value = false; # disable indexing
     };
   };
 }
