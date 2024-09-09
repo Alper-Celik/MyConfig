@@ -1,0 +1,7 @@
+require("config.lazy")
+require("config.keymaps")
+require("config.sudo-write")
+require("config.hacks")
+require("config.options")
+require("config.lsp")
+require("config.autocmds")
