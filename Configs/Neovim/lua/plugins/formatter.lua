@@ -2,7 +2,7 @@ return {
 	"stevearc/conform.nvim",
 	opts = {
 		formatters_by_ft = {
-			nix = { "nixpkgs-fmt" },
+			nix = { "nixfmt" },
 			lua = { "stylua" },
 			python = { "autopep8" },
 			cmake = { "cmake_format" },

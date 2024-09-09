@@ -20,7 +20,6 @@ let
       sumneko-lua-language-server
       cmake-language-server
       nil
-      nixpkgs-fmt
       pyright
       clang-tools # also formatter and static analysis
       bash-language-server
@@ -35,7 +34,7 @@ let
       ## formatters and linters
       deadnix
       codespell
-      nixpkgs-fmt
+      nixfmt-rfc-style
       stylua
       python3Packages.autopep8
       cmake-format

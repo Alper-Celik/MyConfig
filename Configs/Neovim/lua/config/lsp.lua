@@ -13,13 +13,6 @@ require("lspconfig").clangd.setup({
 require("lspconfig").nil_ls.setup({
 	autostart = true,
 	capabilities = lsp_capabilities,
-	settings = {
-		["nil"] = {
-			formatting = {
-				command = { "nixpkgs-fmt" },
-			},
-		},
-	},
 })
 
 -- json
