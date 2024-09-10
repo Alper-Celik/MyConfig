@@ -27,7 +27,7 @@ let
     sumneko-lua-language-server
     cmake-language-server
     nil
-    pyright
+    basedpyright
     clang-tools # also formatter and static analysis
     bash-language-server
     nodePackages_latest.vscode-json-languageserver

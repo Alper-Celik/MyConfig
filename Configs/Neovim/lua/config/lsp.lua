@@ -24,7 +24,7 @@ require("lspconfig").jsonls.setup({
 -- generic servers
 local language_servers = {
 	"cmake",
-	"pyright",
+	"basedpyright",
 	"bashls",
 	"texlab",
 	"eslint",
