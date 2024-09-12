@@ -7,10 +7,9 @@
 {
 
   stylix = {
-    image = pkgs.fetchurl {
-      url = "https://www.bing.com//th?id=OHR.StartPointLight_ROW3327480520_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp";
-      sha256 = "sha256-pE+pvdznEgrusie1bgarjzAC3I1aQF1RinoSCJK2FYc=";
-    };
+    enable = true;
+
+    image = "${pkgs.kdePackages.breeze}/share/wallpapers/Next/contents/images_dark/3840x2160.png";
     polarity = "dark";
     base16Scheme = "${inputs.base16-oxocarbon}/base16-oxocarbon-dark.yaml"; # TODO: maybe port from nightfox
     fonts = {
@@ -23,12 +22,14 @@
       # emoji = config.stylix.fonts.monospace;
 
       sizes = {
-        popups = 9;
-        applications = 9;
-        desktop = 9;
-        terminal = 9;
+        popups = 10;
+        applications = 10;
+        desktop = 10;
+        terminal = 10;
       };
     };
+
+    targets.gnome.enable = false;
   };
 
 }

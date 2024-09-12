@@ -13,9 +13,9 @@
       allow_remote_control = true;
     };
     font = {
-      package = pkgs.nerdfonts;
-      name = "JetBrainsMono Nerd Font Mono";
-      size = 9;
+      package = lib.mkForce pkgs.nerdfonts;
+      name = lib.mkForce "JetBrainsMono Nerd Font Mono";
+      size = lib.mkForce 9;
     };
 
     extraConfig = ''
