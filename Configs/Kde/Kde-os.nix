@@ -1,10 +1,14 @@
 { pkgs, lib, ... }:
 {
 
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
-  hardware.pulseaudio.extraConfig = "unload-module module-suspend-on-idle";
   security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
 
   # default wayland
   services.displayManager.defaultSession = "plasma";
