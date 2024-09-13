@@ -7,7 +7,7 @@
 {
 
   stylix = {
-    enable = true;
+    # enable = true;
 
     image = "${pkgs.kdePackages.breeze}/share/wallpapers/Next/contents/images_dark/3840x2160.png";
     polarity = "dark";
@@ -29,7 +29,6 @@
       };
     };
 
-    targets.gnome.enable = false;
   };
 
 }
