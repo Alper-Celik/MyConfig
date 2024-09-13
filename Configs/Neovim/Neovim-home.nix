@@ -47,6 +47,10 @@ let
     cmake-format
     nodePackages.prettier
 
+    ## debuggers
+    gdb
+    lldb
+
   ];
 in
 {
