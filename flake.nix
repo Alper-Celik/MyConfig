@@ -21,6 +21,16 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    MyConfigSecrets = {
+      url = "git+ssh://git@github.com/Alper-Celik/MyConfigSecrets.git";
+      flake = false;
+    };
+
     stylix.url = "github:danth/stylix";
     base16-oxocarbon = {
       url = "github:nyoom-engineering/base16-oxocarbon";

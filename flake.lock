@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "MyConfigSecrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1726241365,
+        "narHash": "sha256-2binfWl4n2SbLHpiEWj38TFHIp+gKM0QInKuh68pZ2A=",
+        "ref": "refs/heads/main",
+        "rev": "2a1d2e41f1e1dbd325e3057149230e5d08ebe806",
+        "revCount": 1,
+        "type": "git",
+        "url": "ssh://git@github.com/Alper-Celik/MyConfigSecrets.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/Alper-Celik/MyConfigSecrets.git"
+      }
+    },
     "autopair-fish": {
       "flake": false,
       "locked": {
@@ -557,6 +573,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1725762081,
+        "narHash": "sha256-vNv+aJUW5/YurRy1ocfvs4q/48yVESwlC/yHzjkZSP8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "dc454045f5b5d814e5862a6d057e7bb5c29edc05",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "release-24.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1725983898,
@@ -677,6 +709,7 @@
     },
     "root": {
       "inputs": {
+        "MyConfigSecrets": "MyConfigSecrets",
         "autopair-fish": "autopair-fish",
         "bang-bang-fish": "bang-bang-fish",
         "base16-oxocarbon": "base16-oxocarbon",
@@ -692,8 +725,30 @@
         "nixpkgs": "nixpkgs_2",
         "nur": "nur",
         "plasma-manager": "plasma-manager",
+        "sops-nix": "sops-nix",
         "spacemacs-git": "spacemacs-git",
         "stylix": "stylix"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-stable": "nixpkgs-stable"
+      },
+      "locked": {
+        "lastModified": 1726218807,
+        "narHash": "sha256-z7CoWbSOtsOz8TmRKDnobURkKfv6nPZCo3ayolNuQGc=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "f30b1bac192e2dc252107ac8a59a03ad25e1b96e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
       }
     },
     "spacemacs-git": {
