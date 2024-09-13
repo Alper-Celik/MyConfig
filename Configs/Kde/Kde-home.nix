@@ -25,40 +25,40 @@
 
     shortcuts = {
 
-      "kwin"."Grid View" = "Meta+Tab,Meta+G,Toggle Grid View";
+      "kwin"."Grid View" = "Meta+Tab";
 
       "kwin"."Switch One Desktop Down" = [
         "Ctrl+Alt+Down"
-        "Ctrl+Alt+S,Meta+Ctrl+Down,Switch One Desktop Down"
+        "Ctrl+Alt+S"
       ];
       "kwin"."Switch One Desktop Up" = [
         "Ctrl+Alt+W"
-        "Ctrl+Alt+Up,Meta+Ctrl+Up,Switch One Desktop Up"
+        "Ctrl+Alt+Up"
       ];
       "kwin"."Switch One Desktop to the Left" = [
         "Ctrl+Alt+A"
-        "Ctrl+Alt+Left,Meta+Ctrl+Left,Switch One Desktop to the Left"
+        "Ctrl+Alt+Left"
       ];
       "kwin"."Switch One Desktop to the Right" = [
         "Ctrl+Alt+Right"
-        "Ctrl+Alt+D,Meta+Ctrl+Right,Switch One Desktop to the Right"
+        "Ctrl+Alt+D"
       ];
 
       "kwin"."Window One Desktop Down" = [
         "Ctrl+Alt+Shift+S"
-        "Ctrl+Alt+Shift+Down,Meta+Ctrl+Shift+Down,Window One Desktop Down"
+        "Ctrl+Alt+Shift+Down"
       ];
       "kwin"."Window One Desktop Up" = [
         "Ctrl+Alt+Shift+W"
-        "Ctrl+Alt+Shift+Up,Meta+Ctrl+Shift+Up,Window One Desktop Up"
+        "Ctrl+Alt+Shift+Up"
       ];
       "kwin"."Window One Desktop to the Left" = [
         "Ctrl+Alt+Shift+A"
-        "Ctrl+Alt+Shift+Left,Meta+Ctrl+Shift+Left,Window One Desktop to the Left"
+        "Ctrl+Alt+Shift+Left"
       ];
       "kwin"."Window One Desktop to the Right" = [
         "Ctrl+Alt+Shift+D"
-        "Ctrl+Alt+Shift+Right,Meta+Ctrl+Shift+Right,Window One Desktop to the Right"
+        "Ctrl+Alt+Shift+Right"
       ];
     };
   };
