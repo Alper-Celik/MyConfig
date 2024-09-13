@@ -33,6 +33,7 @@
   fileSystems."/home" = {
     device = "/dev/disk/by-label/btrfs-hdd";
     fsType = "btrfs";
+    neededForBoot = true; # for letting sops-nix access age key for decrypting secrets
     options = [
       "subvol=home"
       "compress=zstd"
