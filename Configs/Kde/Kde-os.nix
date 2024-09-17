@@ -13,7 +13,7 @@
   # default wayland
   services.displayManager.defaultSession = "plasma";
 
-  # programs.ssh.askPassword = lib.mkForce "${pkgs.libsForQt5.plasma5.ksshaskpass.out}/bin/ksshaskpass}";
+  programs.ssh.askPassword = lib.mkForce "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass";
   services.desktopManager.plasma6 = {
     enable = true;
     # useQtScaling = true;
