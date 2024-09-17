@@ -77,6 +77,7 @@ with kdePackages;
 
   (hiPrio jdk8)
   jdk
+  jetbrains-toolbox
   prismlauncher # minecraft
   atlauncher # minecraft
   mindustry
