@@ -2,8 +2,8 @@
 {
   networking.hostName = hardware; # Define your hostname.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
-  networking.nameservers = [ "1.1.1.1" ];
-  networking.networkmanager.dns = "none";
+  # networking.nameservers = [ "1.1.1.1" ];
+  # networking.networkmanager.dns = "none";
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
