@@ -17,12 +17,7 @@ with kdePackages;
 
   # utulities
   ## browsers 
-  (firefox.override {
-    nativeMessagingHosts = [
-      plasma-browser-integration
-      passff-host
-    ];
-  })
+  #firefox moved to home manager
   chromium
   ## mail and chat
   thunderbird
