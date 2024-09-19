@@ -1,5 +1,6 @@
 return {
 	-- completion
+	"github/copilot.vim", -- i have free copilot since i am student yay
 	"mfussenegger/nvim-jdtls",
 	"neovim/nvim-lspconfig",
 	{
