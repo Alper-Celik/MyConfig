@@ -1,6 +1,16 @@
 return {
 	-- completion
 	{
+		"CopilotC-Nvim/CopilotChat.nvim",
+		branch = "canary",
+		dependencies = {
+			{ "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+			{ "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+		},
+		build = "make tiktoken", -- Only on MacOS or Linux
+		opts = {},
+	},
+	{
 		"zbirenbaum/copilot.lua", -- i have free copilot since i am student yay
 		cmd = "Copilot",
 		event = "InsertEnter",
