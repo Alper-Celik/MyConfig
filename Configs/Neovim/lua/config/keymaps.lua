@@ -108,7 +108,7 @@ end)
 
 -- copilot bindings
 vim.cmd("Copilot disable") -- disable copilot by default
-vim.keymap.set("n", "<Leader>cc", ":Copilot<CR>", silent)
+vim.keymap.set("n", "<Leader>cc", ":Copilot panel<CR>", silent)
 vim.keymap.set("n", "<Leader>ce", ":Copilot enable<CR>", silent)
 vim.keymap.set("n", "<Leader>cd", ":Copilot disable<CR>", silent)
 vim.keymap.set("n", "<Leader>cs", ":Copilot status<CR>", silent)

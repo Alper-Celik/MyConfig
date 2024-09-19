@@ -1,6 +1,18 @@
 return {
 	-- completion
-	"github/copilot.vim", -- i have free copilot since i am student yay
+	{
+		"zbirenbaum/copilot.lua", -- i have free copilot since i am student yay
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({
+				suggestion = {
+					auto_trigger = true,
+					hide_during_completion = false,
+				},
+			})
+		end,
+	},
 	"mfussenegger/nvim-jdtls",
 	"neovim/nvim-lspconfig",
 	{
