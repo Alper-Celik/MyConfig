@@ -130,22 +130,6 @@
         "type": "github"
       }
     },
-    "base16-oxocarbon": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1678563546,
-        "narHash": "sha256-zdXNP+8ch0nXB128fNMP4h3ksH4S2HChY0vsbGhm8SY=",
-        "owner": "nyoom-engineering",
-        "repo": "base16-oxocarbon",
-        "rev": "23497e43ad4553dad4ad1a4d3fb7eb2e5bbbb313",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nyoom-engineering",
-        "repo": "base16-oxocarbon",
-        "type": "github"
-      }
-    },
     "base16-tmux": {
       "flake": false,
       "locked": {
@@ -405,6 +389,22 @@
       "original": {
         "owner": "libgit2",
         "repo": "libgit2",
+        "type": "github"
+      }
+    },
+    "nightfox-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1725836615,
+        "narHash": "sha256-fVHC3FfGeRGYtB1MKpmLSITk9TDBY/yDCOlQuKvAH5I=",
+        "owner": "EdenEast",
+        "repo": "nightfox.nvim",
+        "rev": "7557f26defd093c4e9bc17f28b08403f706f5a44",
+        "type": "github"
+      },
+      "original": {
+        "owner": "EdenEast",
+        "repo": "nightfox.nvim",
         "type": "github"
       }
     },
@@ -712,13 +712,13 @@
         "MyConfigSecrets": "MyConfigSecrets",
         "autopair-fish": "autopair-fish",
         "bang-bang-fish": "bang-bang-fish",
-        "base16-oxocarbon": "base16-oxocarbon",
         "dwarffs": "dwarffs",
         "flake-parts": "flake-parts",
         "fzf-fish": "fzf-fish",
         "get-flake": "get-flake",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
+        "nightfox-nvim": "nightfox-nvim",
         "nix-index-database": "nix-index-database",
         "nix-on-droid": "nix-on-droid",
         "nixos-hardware": "nixos-hardware",

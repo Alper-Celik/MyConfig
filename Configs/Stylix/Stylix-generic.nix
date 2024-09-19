@@ -7,11 +7,18 @@
 {
 
   stylix = {
-    # enable = true;
+    enable = true;
 
     image = "${pkgs.kdePackages.breeze}/share/wallpapers/Next/contents/images_dark/3840x2160.png";
     polarity = "dark";
-    base16Scheme = "${inputs.base16-oxocarbon}/base16-oxocarbon-dark.yaml"; # TODO: maybe port from nightfox
+    base16Scheme = "${inputs.nightfox-nvim}/extra/carbonfox/base16.yaml"; # TODO: maybe port from nightfox
+
+    cursor = {
+      package = pkgs.kdePackages.breeze;
+      name = "breeze_cursors";
+      size = 24;
+    };
+
     fonts = {
       monospace = {
         package = pkgs.nerdfonts;
@@ -25,7 +32,7 @@
         popups = 10;
         applications = 10;
         desktop = 10;
-        terminal = 10;
+        terminal = 9;
       };
     };
 

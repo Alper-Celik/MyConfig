@@ -32,8 +32,8 @@
     };
 
     stylix.url = "github:danth/stylix";
-    base16-oxocarbon = {
-      url = "github:nyoom-engineering/base16-oxocarbon";
+    nightfox-nvim = {
+      url = "github:EdenEast/nightfox.nvim";
       flake = false;
     };
 
