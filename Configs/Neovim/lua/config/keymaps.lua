@@ -112,3 +112,17 @@ vim.keymap.set("n", "<Leader>cc", ":Copilot<CR>", silent)
 vim.keymap.set("n", "<Leader>ce", ":Copilot enable<CR>", silent)
 vim.keymap.set("n", "<Leader>cd", ":Copilot disable<CR>", silent)
 vim.keymap.set("n", "<Leader>cs", ":Copilot status<CR>", silent)
+
+-- neotest bindings
+vim.keymap.set("n", "<Leader>nr", require("neotest").run.run, silent)
+vim.keymap.set("n", "<Leader>nf", function()
+	require("neotest").run.run(vim.fn.expand("%"))
+end, silent)
+vim.keymap.set("n", "<Leader>nw", function()
+	require("neotest").run.run(vim.loop.cwd())
+end, silent)
+vim.keymap.set("n", "<Leader>nd", function() -- codespell:ignore nd
+	require("neotest").run.run({ strategy = "dap" })
+end, silent)
+
+vim.keymap.set("n", "<Leader>nc", require("neotest").run.stop, silent)
