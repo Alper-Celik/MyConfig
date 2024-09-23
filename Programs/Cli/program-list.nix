@@ -15,6 +15,7 @@ with kdePackages;
   gh # github cli
 
   rclone
+  onedrive
 
   # networking
   wget

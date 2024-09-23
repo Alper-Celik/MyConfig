@@ -29,6 +29,7 @@ with kdePackages;
   # onlyoffice-bin
   ## file mangement
   ark
+  onedrivegui
   ## book managment
   calibre
 
