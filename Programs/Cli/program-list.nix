@@ -14,6 +14,8 @@ with kdePackages;
   git-lfs
   gh # github cli
 
+  rclone
+
   # networking
   wget
   curl
