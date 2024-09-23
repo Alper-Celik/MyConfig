@@ -17,6 +17,8 @@
 
   programs.kde-pim = {
     enable = true;
+    kontact = true;
+    kmail = true;
     merkuro = true;
   };
 
