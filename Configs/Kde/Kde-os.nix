@@ -14,6 +14,12 @@
   services.displayManager.defaultSession = "plasma";
 
   programs.ssh.askPassword = lib.mkForce "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass";
+
+  programs.kde-pim = {
+    enable = true;
+    merkuro = true;
+  };
+
   services.desktopManager.plasma6 = {
     enable = true;
     # useQtScaling = true;
