@@ -19,6 +19,7 @@
     ];
 
     extraGroups = [
+      "adbusers"
       "wheel" # Enable ‘sudo’ for the user.
       "networkmanager"
       "podman"
