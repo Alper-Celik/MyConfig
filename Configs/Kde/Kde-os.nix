@@ -30,6 +30,7 @@
 
   environment.systemPackages = with pkgs; [
     kdePackages.plasma-vault
+    gocryptfs
     # libsForQt5.bismuth #plasma tiling
   ];
 
