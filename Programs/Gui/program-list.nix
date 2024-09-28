@@ -64,17 +64,5 @@ with kdePackages;
 
   (hiPrio cmakeWithGui)
 
-  # games
-  # heroic
-  legendary-gl
-  # grapejuice
-  wineWowPackages.stagingFull
-  protonup-ng
-
-  (hiPrio jdk8)
-  jdk
   jetbrains-toolbox
-  prismlauncher # minecraft
-  atlauncher # minecraft
-  mindustry
 ]
