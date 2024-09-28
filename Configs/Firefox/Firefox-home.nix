@@ -15,6 +15,7 @@
       type = "stdio";
       allowed_extensions = [ "jid1-AQqSMBYb0a8ADg@jetpack" ];
     };
+  programs.browserpass.enable = true;
 
   programs.firefox = {
     enable = true;
