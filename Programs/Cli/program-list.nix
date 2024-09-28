@@ -20,6 +20,7 @@ with kdePackages;
   # networking
   wget
   curl
+  aria2
   speedtest-go
 
   networkmanagerapplet
