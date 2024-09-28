@@ -43,8 +43,6 @@ with kdePackages;
   kate
   ## terminal emulators
   kitty
-  ## virtualization
-  virt-manager
   ## accessibility 
   accerciser
   ## debuggers

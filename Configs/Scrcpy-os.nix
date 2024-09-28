@@ -9,4 +9,5 @@
     extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
     kernelModules = [ "v4l2loopback" ];
   };
+  users.users.alper.extraGroups = [ "adbusers" ];
 }

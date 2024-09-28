@@ -35,17 +35,6 @@
     # pinentryFlavor = "qt";
   };
 
-  virtualisation.libvirtd.enable = true;
-  virtualisation.waydroid.enable = true;
-
-  virtualisation.podman = {
-    enable = true;
-
-    dockerCompat = true;
-    dockerSocket.enable = true;
-  };
-
-  programs.nix-ld.enable = true;
   programs.firejail = {
     enable = true;
   };
