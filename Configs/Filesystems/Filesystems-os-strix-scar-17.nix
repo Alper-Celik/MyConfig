@@ -21,7 +21,6 @@
   fileSystems."/home" = {
     device = "/dev/mapper/cryptroot";
     fsType = "btrfs";
-    neededForBoot = true; # for letting sops-nix access age key for decrypting secrets
     options = [
       "subvol=home"
       "compress=zstd"
