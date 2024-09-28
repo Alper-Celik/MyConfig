@@ -10,6 +10,8 @@
     jack.enable = true;
   };
 
+  services.power-profiles-daemon.enable = true;
+
   # default wayland
   services.displayManager.defaultSession = "plasma";
 
