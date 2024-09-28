@@ -90,52 +90,75 @@
     configFile = {
       "baloofilerc"."Basic Settings"."Indexing-Enabled".value = false; # disable indexing
       "kdeglobals"."KDE"."AnimationDurationFactor" = 0.35;
+
+      "krunnerrc" = {
+        "General"."FreeFloating" = true;
+        "Plugins/Favorites"."plugins" = "krunner_services";
+      };
+
+      "kwinrc" = {
+        "Effect-overview" = {
+          "BorderActivate" = 9;
+          "GridBorderActivate" = 7;
+        };
+
+        "Plugins"."desktopchangeosdEnabled" = true;
+        "Script-desktopchangeosd"."PopupHideDelay" = 750;
+
+        "Effect-slide" = {
+          "HorizontalGap" = 0;
+          "VerticalGap" = 0;
+        };
+      };
+
     };
 
     shortcuts = {
+      "kwin" = {
 
-      "kwin"."Grid View" = "Meta+Tab";
+        "Grid View" = "Meta+Tab";
 
-      "kwin"."Window Maximize" = "Meta+Up";
-      "kwin"."Window Minimize" = "Meta+Down";
-      "kwin"."Window Close" = [
-        "Meta+C"
-        "Alt+F4"
-      ];
+        "Window Maximize" = "Meta+Up";
+        "Window Minimize" = "Meta+Down";
+        "Window Close" = [
+          "Meta+C"
+          "Alt+F4"
+        ];
 
-      "kwin"."Switch One Desktop Down" = [
-        "Ctrl+Alt+Down"
-        "Ctrl+Alt+S"
-      ];
-      "kwin"."Switch One Desktop Up" = [
-        "Ctrl+Alt+W"
-        "Ctrl+Alt+Up"
-      ];
-      "kwin"."Switch One Desktop to the Left" = [
-        "Ctrl+Alt+A"
-        "Ctrl+Alt+Left"
-      ];
-      "kwin"."Switch One Desktop to the Right" = [
-        "Ctrl+Alt+Right"
-        "Ctrl+Alt+D"
-      ];
+        "Switch One Desktop Down" = [
+          "Ctrl+Alt+Down"
+          "Ctrl+Alt+S"
+        ];
+        "Switch One Desktop Up" = [
+          "Ctrl+Alt+W"
+          "Ctrl+Alt+Up"
+        ];
+        "Switch One Desktop to the Left" = [
+          "Ctrl+Alt+A"
+          "Ctrl+Alt+Left"
+        ];
+        "Switch One Desktop to the Right" = [
+          "Ctrl+Alt+Right"
+          "Ctrl+Alt+D"
+        ];
 
-      "kwin"."Window One Desktop Down" = [
-        "Ctrl+Alt+Shift+S"
-        "Ctrl+Alt+Shift+Down"
-      ];
-      "kwin"."Window One Desktop Up" = [
-        "Ctrl+Alt+Shift+W"
-        "Ctrl+Alt+Shift+Up"
-      ];
-      "kwin"."Window One Desktop to the Left" = [
-        "Ctrl+Alt+Shift+A"
-        "Ctrl+Alt+Shift+Left"
-      ];
-      "kwin"."Window One Desktop to the Right" = [
-        "Ctrl+Alt+Shift+D"
-        "Ctrl+Alt+Shift+Right"
-      ];
+        "Window One Desktop Down" = [
+          "Ctrl+Alt+Shift+S"
+          "Ctrl+Alt+Shift+Down"
+        ];
+        "Window One Desktop Up" = [
+          "Ctrl+Alt+Shift+W"
+          "Ctrl+Alt+Shift+Up"
+        ];
+        "Window One Desktop to the Left" = [
+          "Ctrl+Alt+Shift+A"
+          "Ctrl+Alt+Shift+Left"
+        ];
+        "Window One Desktop to the Right" = [
+          "Ctrl+Alt+Shift+D"
+          "Ctrl+Alt+Shift+Right"
+        ];
+      };
     };
   };
 }
