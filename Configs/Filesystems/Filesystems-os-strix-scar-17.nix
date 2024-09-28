@@ -16,11 +16,12 @@
     ];
   };
 
-  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/d1aaf43e-a688-4e1d-932d-10517434a5e0";
+  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-label/main-luks";
 
   fileSystems."/home" = {
     device = "/dev/mapper/cryptroot";
     fsType = "btrfs";
+    neededForBoot = true; # for letting sops-nix access age key for decrypting secrets
     options = [
       "subvol=home"
       "compress=zstd"
