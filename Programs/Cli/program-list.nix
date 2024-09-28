@@ -7,6 +7,7 @@ with pkgs;
 with kdePackages;
 [
   patchelf
+  libqalculate
 
   # version controll
   git
