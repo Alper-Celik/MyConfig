@@ -58,6 +58,7 @@
 
   hardware.nvidia-container-toolkit.enable = true;
   hardware.nvidia = {
+    dynamicBoost.enable = true;
     open = true;
     powerManagement = {
       enable = true;

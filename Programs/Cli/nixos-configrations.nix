@@ -40,7 +40,6 @@
 
   virtualisation.podman = {
     enable = true;
-    enableNvidia = config.hardware.nvidia-container-toolkit.enable;
 
     dockerCompat = true;
     dockerSocket.enable = true;
