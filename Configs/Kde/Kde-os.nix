@@ -33,6 +33,7 @@
   environment.systemPackages = with pkgs; [
     kdePackages.plasma-vault
     gocryptfs
+    kdePackages.kdepim-addons
     # libsForQt5.bismuth #plasma tiling
   ];
 
