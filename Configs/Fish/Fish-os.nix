@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  documentation.man.generateCaches = false; # needed man completions but takes loong time
   environment.systemPackages = with pkgs; [
     fish
     any-nix-shell
