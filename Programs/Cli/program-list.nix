@@ -38,6 +38,7 @@ with kdePackages;
 
   gnupg
   openssh
+  sshfs
   my-pass
 
   bash
