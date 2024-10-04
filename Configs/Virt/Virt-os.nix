@@ -1,7 +1,9 @@
 { pkgs, ... }:
 {
+
   programs.virt-manager.enable = true;
   virtualisation = {
+    spiceUSBRedirection.enable = true;
     libvirtd = {
       enable = true;
       qemu = {
@@ -23,6 +25,7 @@
   users.users.alper.extraGroups = [
     "podman"
     "libvirtd"
+    "kvm"
   ];
 
 }

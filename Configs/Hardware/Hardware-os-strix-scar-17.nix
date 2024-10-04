@@ -23,7 +23,12 @@
   environment.systemPackages = [
     pkgs.supergfxctl-plasmoid
   ];
-  services.supergfxd.enable = true;
+  services.supergfxd = {
+    enable = true;
+    settings = {
+      gfx_vfio_enable = true;
+    };
+  };
   systemd.services.supergfxd.path = [ pkgs.pciutils ];
   services = {
     asusd = {
