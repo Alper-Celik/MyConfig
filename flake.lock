@@ -137,6 +137,22 @@
         "type": "github"
       }
     },
+    "fastfetch-theme": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1728087082,
+        "narHash": "sha256-IG0fo2PhNqlcsVqjL3vxgUFkqUNLrNkhJbIjU0L4KWU=",
+        "owner": "Alper-Celik",
+        "repo": "fastfetch-theme-backup",
+        "rev": "097db6981f529942523322a1aca3f98a6d4c7815",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Alper-Celik",
+        "repo": "fastfetch-theme-backup",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -665,6 +681,7 @@
         "autopair-fish": "autopair-fish",
         "bang-bang-fish": "bang-bang-fish",
         "dwarffs": "dwarffs",
+        "fastfetch-theme": "fastfetch-theme",
         "flake-parts": "flake-parts",
         "fzf-fish": "fzf-fish",
         "get-flake": "get-flake",

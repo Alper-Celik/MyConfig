@@ -63,6 +63,11 @@
       flake = false;
     };
 
+    fastfetch-theme = {
+      url = "github:Alper-Celik/fastfetch-theme-backup";
+      flake = false;
+    };
+
     # fish plugins
     fzf-fish = {
       url = "github:PatrickF1/fzf.fish";
