@@ -696,7 +696,8 @@
         "plasma-manager": "plasma-manager",
         "sops-nix": "sops-nix",
         "spacemacs-git": "spacemacs-git",
-        "stylix": "stylix"
+        "stylix": "stylix",
+        "tide-fish": "tide-fish"
       }
     },
     "sops-nix": {
@@ -778,6 +779,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tide-fish": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1710210487,
+        "narHash": "sha256-85iU1QzcZmZYGhK30/ZaKwJNLTsx+j3w6St8bFiQWxc=",
+        "owner": "IlanCosman",
+        "repo": "tide",
+        "rev": "44c521ab292f0eb659a9e2e1b6f83f5f0595fcbd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "IlanCosman",
+        "repo": "tide",
         "type": "github"
       }
     },

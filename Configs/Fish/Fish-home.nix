@@ -36,6 +36,10 @@
         name = "bang bang";
         src = inputs.bang-bang-fish;
       }
+      {
+        name = "tide shell";
+        src = inputs.tide-fish;
+      }
     ];
 
     shellAliases = {

@@ -69,6 +69,10 @@
     };
 
     # fish plugins
+    tide-fish = {
+      url = "github:IlanCosman/tide";
+      flake = false;
+    };
     fzf-fish = {
       url = "github:PatrickF1/fzf.fish";
       flake = false;
