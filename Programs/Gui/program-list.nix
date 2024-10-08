@@ -37,6 +37,7 @@ with kdePackages;
   # kcalc
   qalculate-qt
   # dev tools
+  jetbrains-toolbox
   godot_4
   libresprite
   pixelorama
@@ -63,5 +64,4 @@ with kdePackages;
 
   (hiPrio cmakeWithGui)
 
-  jetbrains-toolbox
 ]
