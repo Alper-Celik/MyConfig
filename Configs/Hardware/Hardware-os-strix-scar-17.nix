@@ -63,6 +63,7 @@
 
   hardware.nvidia-container-toolkit.enable = true;
   hardware.nvidia = {
+    modesetting.enable = true;
     dynamicBoost.enable = true;
     open = true;
     powerManagement = {
@@ -71,8 +72,8 @@
     };
 
     prime = {
-      amdgpuBusId = "PCI:5:0:0";
-      nvidiaBusId = "PCI:1:0:1";
+      nvidiaBusId = "PCI:1:0:0";
+      amdgpuBusId = "PCI:8:0:0";
     };
   };
 
