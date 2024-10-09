@@ -46,7 +46,8 @@ with kdePackages;
   ## terminal emulators
   kitty
   ## accessibility 
-  accerciser
+  (accerciser.override { python3 = python311; })
+  kdePackages.accessibility-inspector
   ## debuggers
   seer
   hotspot
