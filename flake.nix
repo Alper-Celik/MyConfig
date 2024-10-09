@@ -68,6 +68,11 @@
       flake = false;
     };
 
+    winapps = {
+      url = "github:winapps-org/winapps/feat-nix-packaging";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # fish plugins
     tide-fish = {
       url = "github:IlanCosman/tide";

@@ -246,6 +246,24 @@
         "type": "github"
       }
     },
+    "flake-utils_2": {
+      "inputs": {
+        "systems": "systems_2"
+      },
+      "locked": {
+        "lastModified": 1710146030,
+        "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "fromYaml": {
       "flake": false,
       "locked": {
@@ -774,7 +792,8 @@
         "sops-nix": "sops-nix",
         "spacemacs-git": "spacemacs-git",
         "stylix": "stylix",
-        "tide-fish": "tide-fish"
+        "tide-fish": "tide-fish",
+        "winapps": "winapps"
       }
     },
     "sops-nix": {
@@ -859,6 +878,21 @@
         "type": "github"
       }
     },
+    "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "tide-fish": {
       "flake": false,
       "locked": {
@@ -920,6 +954,28 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "tinted-tmux",
+        "type": "github"
+      }
+    },
+    "winapps": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1728114956,
+        "narHash": "sha256-GM/JZ1JCW3Hs+CLU1PxeuOOyCBwCsUPZQOHtCxzbFyk=",
+        "owner": "winapps-org",
+        "repo": "winapps",
+        "rev": "e8dc55a83abd3eb6b275990fb19bdb589b6ce13d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "winapps-org",
+        "ref": "feat-nix-packaging",
+        "repo": "winapps",
         "type": "github"
       }
     }

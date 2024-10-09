@@ -1,9 +1,18 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  system,
+  inputs,
+  ...
+}:
 {
 
   programs.appimage.binfmt = true;
   boot.binfmt.emulatedSystems = [
     "aarch64-linux"
+  ];
+  environment.systemPackages = [
+    inputs.winapps.packages.${system}.winapps
+    inputs.winapps.packages.${system}.winapps-launcher # optional
   ];
 
   programs.virt-manager.enable = true;
