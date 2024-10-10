@@ -77,8 +77,22 @@
     };
   };
 
-  zramSwap.enable = true;
-  swapDevices = [ ];
+  zramSwap = {
+    enable = true;
+    priority = 100;
+  };
+  swapDevices = [
+    {
+      priority = 0;
+      device = "/.swap-file";
+      size = 71680; # 70 GiB
+      encrypted = {
+        enable = true;
+        label = "cryptroot";
+        blkDev = "/dev/disk/by-label/main-luks";
+      };
+    }
+  ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
