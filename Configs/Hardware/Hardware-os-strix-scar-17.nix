@@ -61,6 +61,7 @@
 
   systemd.oomd.enable = false; # dont kill running programms pleaaaaaaase !!
 
+  nixpkgs.config.cudaSupport = true;
   hardware.nvidia-container-toolkit.enable = true;
   hardware.nvidia = {
     modesetting.enable = true;
