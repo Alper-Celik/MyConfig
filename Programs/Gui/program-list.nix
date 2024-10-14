@@ -16,6 +16,8 @@ with kdePackages;
   # musescore
 
   # utulities
+  bitwarden-desktop
+  bitwarden-cli
   ## browsers 
   #firefox moved to home manager
   chromium
