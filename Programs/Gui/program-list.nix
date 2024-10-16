@@ -18,6 +18,7 @@ with kdePackages;
   # utulities
   bitwarden-desktop
   bitwarden-cli
+  nextcloud-client
   ## browsers 
   #firefox moved to home manager
   chromium

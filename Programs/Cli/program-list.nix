@@ -14,6 +14,7 @@ with kdePackages;
   lazygit
   git-lfs
   gh # github cli
+  wrangler
 
   rclone
   onedrive
