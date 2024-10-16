@@ -7,7 +7,7 @@
   systemd.user.services.ktailscale = {
     enable = true;
     description = "autostart ktailctl";
-    wantedBy = [ "default.target" ];
+    wantedBy = [ "graphical-session.target" ];
     serviceConfig = {
       ExecStart = "${pkgs.ktailctl}/bin/ktailctl";
     };
