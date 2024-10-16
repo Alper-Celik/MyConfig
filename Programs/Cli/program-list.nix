@@ -72,6 +72,9 @@ with kdePackages;
   zstd
 
   # dev tools
+  jdk
+  (maven.override { jdk_headless = jdk; })
+  (gradle.override { java = jdk; })
   ## editors
   # (lowPrio pkgs.neovim) use home manager
   nano
