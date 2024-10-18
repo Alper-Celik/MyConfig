@@ -10,12 +10,10 @@ in
 {
   environment.systemPackages = with pkgs; [
     heroic
-    lutris
     bottles
     legendary-gl
     prismlauncher # minecraft
 
-    wineWowPackages.stagingFull
     protonup-qt
     steamtinkerlaunch
 

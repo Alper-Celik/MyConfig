@@ -17,7 +17,6 @@ with kdePackages;
 
   # utulities
   bitwarden-desktop
-  bitwarden-cli
   nextcloud-client
   ## browsers 
   #firefox moved to home manager
@@ -29,8 +28,7 @@ with kdePackages;
   element-desktop
   # neochat
   ## office suits
-  libreoffice-qt
-  # onlyoffice-bin
+  onlyoffice-desktopeditors
   ## file mangement
   ark
   onedrivegui
@@ -41,9 +39,7 @@ with kdePackages;
   qalculate-qt
   # dev tools
   jetbrains-toolbox
-  godot_4
   libresprite
-  pixelorama
   ## editors 
   kate
   ## terminal emulators
@@ -62,10 +58,7 @@ with kdePackages;
   qbittorrent
 
   # cli depend on gui env
-  clipboard-jh
   wl-clipboard
   xclip
-
-  (hiPrio cmakeWithGui)
 
 ]
