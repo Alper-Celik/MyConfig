@@ -9,7 +9,7 @@
   stylix = {
     enable = true;
 
-    image = "${pkgs.kdePackages.breeze}/share/wallpapers/Next/contents/images_dark/3840x2160.png";
+    image = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Path/contents/images/2560x1600.jpg";
     polarity = "dark";
     base16Scheme = "${inputs.nightfox-nvim}/extra/carbonfox/base16.yaml"; # TODO: maybe port from nightfox
 
