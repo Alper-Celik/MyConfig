@@ -9,7 +9,14 @@
 {
   programs.kitty = {
     enable = true;
+    shellIntegration = {
+      mode = "enabled";
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      enableFishIntegration = true;
+    };
     settings = {
+      shell_integration = "enabled";
       allow_remote_control = true;
 
       repaint_delay = 3; # 333,33333333333333 fps
