@@ -91,11 +91,6 @@ with kdePackages;
   gnumake
   ninja
 
-  ## containers
-  distrobox
-  toolbox
-  podman
-
   # Fonts
   nerdfonts
 

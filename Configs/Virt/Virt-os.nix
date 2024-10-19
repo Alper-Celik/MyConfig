@@ -11,6 +11,7 @@
   environment.systemPackages = [
     inputs.winapps.packages.${system}.winapps
     inputs.winapps.packages.${system}.winapps-launcher # optional
+    pkgs.distrobox
   ];
 
   programs.virt-manager.enable = true;
@@ -26,16 +27,14 @@
     };
     waydroid.enable = true;
 
-    podman = {
+    oci-containers.backend = "docker";
+    docker = {
       enable = true;
-
-      dockerCompat = true;
-      dockerSocket.enable = true;
     };
   };
 
   users.users.alper.extraGroups = [
-    "podman"
+    "docker"
     "libvirtd"
     "kvm"
   ];
