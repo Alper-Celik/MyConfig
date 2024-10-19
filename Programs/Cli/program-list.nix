@@ -81,10 +81,6 @@ with kdePackages;
 
   python3Packages.argcomplete
   ## compilers and runtimes
-  (pkgs.python3.withPackages (p: [
-    p.pyside6
-  ]))
-
   ## debuggers
   gdb
   ## build tools

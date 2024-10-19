@@ -33,7 +33,7 @@ with kdePackages;
   ark
   onedrivegui
   ## book managment
-  calibre
+  # calibre
 
   # kcalc
   qalculate-qt
