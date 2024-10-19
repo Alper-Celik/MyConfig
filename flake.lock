@@ -3,11 +3,11 @@
     "MyConfigSecrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1726241365,
-        "narHash": "sha256-2binfWl4n2SbLHpiEWj38TFHIp+gKM0QInKuh68pZ2A=",
+        "lastModified": 1729350526,
+        "narHash": "sha256-5+GBWTmhzdjTbxcpVNV8XOZU27KmMD7E03lpuYLM3+c=",
         "ref": "refs/heads/main",
-        "rev": "2a1d2e41f1e1dbd325e3057149230e5d08ebe806",
-        "revCount": 1,
+        "rev": "d2458e778018640441bb818b059bff918859196b",
+        "revCount": 2,
         "type": "git",
         "url": "ssh://git@github.com/Alper-Celik/MyConfigSecrets.git"
       },

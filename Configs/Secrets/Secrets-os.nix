@@ -12,8 +12,11 @@ in
 
   sops = {
     defaultSopsFile = "${secrets}/secrets/secrets.yaml";
-    age.keyFile = "/home/alper/.config/sops/age/keys.txt";
-
+    age = {
+      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      keyFile = "/var/lib/sops-nix/key.txt";
+      generateKey = true;
+    };
     secrets = {
       alper-password = {
         neededForUsers = true;

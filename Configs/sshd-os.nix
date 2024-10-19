@@ -11,4 +11,6 @@
     };
   };
   environment.systemPackages = [ pkgs.waypipe ];
+
+  environment.persistence."/persistent".directories = [ "/etc/ssh" ];
 }
