@@ -11,6 +11,9 @@
     enable = true;
     settings = {
       allow_remote_control = true;
+
+      repaint_delay = 3; # 333,33333333333333 fps
+      input_delay = 0;
     };
     font = {
       package = lib.mkForce pkgs.nerdfonts;
