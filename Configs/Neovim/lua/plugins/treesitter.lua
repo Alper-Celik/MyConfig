@@ -25,7 +25,7 @@ return {
 
 					"c",
 					"cpp",
-					"cmake",
+					-- "cmake",
 					"make",
 					"ninja",
 					"c_sharp",
