@@ -65,7 +65,7 @@
       trash = "gio trash";
       ll = "eza -a -l --icons";
       ls = "eza --icons -a";
-
+      icat = "kitten icat";
     };
     shellAbbrs = {
       ":q" = "exit"; # yes i accidently type :q intead of exit on terminal
