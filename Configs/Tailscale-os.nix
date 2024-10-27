@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+
+  environment.persistence."/persistent".directories = [ "/var/lib/tailscale" ];
   environment.systemPackages = [
     pkgs.ktailctl
   ];

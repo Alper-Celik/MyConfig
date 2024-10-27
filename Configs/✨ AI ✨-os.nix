@@ -1,5 +1,14 @@
 { config, ... }:
 {
+
+  environment.persistence."/persistent".directories = [
+    {
+      directory = "/var/lib/private/ollama";
+      user = "ollama";
+      group = "ollama";
+      mode = "u=rwx,g=rx,o=rx";
+    }
+  ];
   services.ollama = {
     enable = true;
   };

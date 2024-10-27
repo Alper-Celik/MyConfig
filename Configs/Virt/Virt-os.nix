@@ -8,6 +8,11 @@
 
   programs.appimage.binfmt = true;
 
+  environment.persistence."/persistent".directories = [
+    "/var/lib/docker/"
+    "/var/lib/libvirt/"
+    "/var/lib/waydroid/"
+  ];
   environment.systemPackages = [
     inputs.winapps.packages.${system}.winapps
     inputs.winapps.packages.${system}.winapps-launcher # optional

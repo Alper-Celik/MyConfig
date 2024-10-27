@@ -30,6 +30,8 @@
     };
   };
   systemd.services.supergfxd.path = [ pkgs.pciutils ];
+
+  environment.persistence."/persistent".directories = [ "/etc/asusd" ];
   services = {
     asusd = {
       enable = true;
@@ -85,7 +87,7 @@
   swapDevices = [
     {
       priority = 0;
-      device = "/.swap-file";
+      device = "/.swap-files/swap-file";
       size = 71680; # 70 GiB
       encrypted = {
         enable = true;
