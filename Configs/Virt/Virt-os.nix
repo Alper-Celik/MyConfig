@@ -9,8 +9,8 @@
   programs.appimage.binfmt = true;
 
   environment.persistence."/persistent".directories = [
-    "/var/lib/docker/"
     "/var/lib/waydroid/"
+    "/var/lib/containers"
 
     # "/var/lib/libvirt/"
     "/var/lib/libvirt/dnsmasq"
@@ -39,9 +39,12 @@
     };
     waydroid.enable = true;
 
-    oci-containers.backend = "docker";
-    docker = {
+    podman = {
       enable = true;
+      # dockerCompat = true;
+      dockerSocket.enable = true;
+
+      autoPrune.enable = true;
     };
   };
 

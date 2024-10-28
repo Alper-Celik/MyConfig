@@ -9,12 +9,14 @@
       mode = "u=rwx,g=rx,o=rx";
     }
   ];
-  services.ollama = {
+  services.ollama = rec {
     enable = true;
+    user = "ollama";
+    group = user;
   };
 
   virtualisation.oci-containers.containers."open-webui" = {
-    image = "ghcr.io/open-webui/open-webui:0.3.32";
+    image = "ghcr.io/open-webui/open-webui:0.3.35";
     volumes = [ "open-webui:/app/backend/data" ];
     ports = [ "8080:8080" ];
     extraOptions = [ "--network=host" ];
