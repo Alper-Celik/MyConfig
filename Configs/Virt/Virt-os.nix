@@ -10,8 +10,15 @@
 
   environment.persistence."/persistent".directories = [
     "/var/lib/docker/"
-    "/var/lib/libvirt/"
     "/var/lib/waydroid/"
+
+    # "/var/lib/libvirt/"
+    "/var/lib/libvirt/dnsmasq"
+    "/var/lib/libvirt/images"
+    "/var/lib/libvirt/qemu"
+    "/var/lib/libvirt/secrets"
+    "/var/lib/libvirt/storage"
+    "/var/lib/libvirt/swtpm"
   ];
   environment.systemPackages = [
     inputs.winapps.packages.${system}.winapps
