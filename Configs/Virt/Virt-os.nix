@@ -26,6 +26,7 @@
     pkgs.distrobox
   ];
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   programs.virt-manager.enable = true;
   virtualisation = {
     spiceUSBRedirection.enable = true;
