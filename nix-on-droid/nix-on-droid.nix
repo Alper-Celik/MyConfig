@@ -25,6 +25,7 @@
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.sharedModules = [
+    inputs.stylix.homeManagerModules.stylix
     {
       home.file.gpg-config = {
         target = ".gnupg/gpg-agent.conf";
@@ -54,8 +55,8 @@
   # Set your time zone
   time.timeZone = "Europe/Istanbul";
 
-  user.shell = pkgs.writeShellScript "init.sh" ''
+  user.shell = "${pkgs.writeShellScriptBin "init.sh" ''
     ${pkgs.fish}/bin/fish -C "export GPG_TTY=$(tty)"
-  '';
+  ''}/bin/init.sh";
   terminal.font = "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/JetBrains Mono Bold Italic Nerd Font Complete Mono.ttf";
 }
