@@ -12,6 +12,8 @@ with kdePackages;
   vlc
   haruna
 
+  kdePackages.kasts
+
   obs-studio
   # musescore
 
