@@ -16,10 +16,10 @@
     ];
   };
 
-  # services.displayManager.autoLogin = {
-  #   enable = true;
-  #   user = "alper";
-  # };
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "alper";
+  };
   boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-label/main-luks";
 
   # thanks for https://github.com/nix-community/impermanence?tab=readme-ov-file#btrfs-subvolumes for snapshot logic
