@@ -2,12 +2,12 @@
 {
   imports = my-lib.getConfigs {
     removed-files = [
-      "configs-home.nix"
-      "configs-os.nix"
+      "configs.home.nix"
+      "configs.os.nix"
     ];
     suffixes = [
-      "-os"
-      "-os-${hardware}"
+      ".os"
+      ".os.${hardware}"
     ];
     base-dir = ./.;
   };
