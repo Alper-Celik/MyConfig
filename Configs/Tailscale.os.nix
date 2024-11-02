@@ -20,10 +20,5 @@
     useRoutingFeatures = "client";
   };
 
-  networking.nameservers = [
-    "100.100.100.100"
-    "8.8.8.8"
-    "1.1.1.1"
-  ];
-  networking.search = [ "example.ts.net" ];
+  networking.interfaces.tailscale0.useDHCP = false;
 }
