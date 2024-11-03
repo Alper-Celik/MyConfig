@@ -41,11 +41,20 @@
 
   sops.age.keyFile = lib.mkForce "/persistent/keys.txt";
 
-  boot.initrd.systemd.enable = true;
-  boot.loader.systemd-boot.memtest86.enable = true;
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 0;
+  boot.loader = {
+    # systemd-boot = {
+    #   memtest86.enable = true;
+    #   enable = true;
+    # };
+    grub = {
+      enable = true;
+      device = "nodev";
+      efiSupport = true;
+      default = "1";
+    };
+    timeout = 3;
+    efi.canTouchEfiVariables = true;
+  };
 
   boot.plymouth.enable = true;
 

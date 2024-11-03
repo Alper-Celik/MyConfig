@@ -5,7 +5,6 @@
   ...
 }:
 {
-  services.displayManager.defaultSession = "plasma";
   # programs.dconf.profiles.gdm.databases = [
   #   {
   #     settings."org/gnome/desktop/peripherals/keyboard" = {
@@ -19,12 +18,14 @@
   #   enable = true;
   # };
 
-  services.displayManager.sddm = {
-    enable = true;
-    wayland = {
+  specialisation.Kde.configuration = {
+    services.displayManager.sddm = {
       enable = true;
-      compositor = "kwin";
+      wayland = {
+        enable = true;
+        compositor = "kwin";
+      };
+      autoNumlock = true;
     };
-    autoNumlock = true;
   };
 }
