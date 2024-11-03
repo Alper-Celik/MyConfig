@@ -28,7 +28,6 @@
 
     environment.systemPackages = with pkgs; [
       haruna
-      kdePackages.kasts
       ark
       qalculate-qt
       kate

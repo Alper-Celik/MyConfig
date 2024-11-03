@@ -7,7 +7,10 @@
       "Desktop"
     ];
 
-    environment.systemPackages = with pkgs; [ gnome-tweaks ];
+    environment.systemPackages = with pkgs; [
+      gnome-tweaks
+      dconf-editor
+    ];
 
     services.xserver.enable = true;
     services.xserver.desktopManager.gnome.enable = true;

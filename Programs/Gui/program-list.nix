@@ -9,6 +9,7 @@ with pkgs;
   # media players
   vlc
 
+  kdePackages.kasts
   obs-studio
   # musescore
 
