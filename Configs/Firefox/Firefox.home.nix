@@ -35,6 +35,7 @@
     nativeMessagingHosts = with pkgs; [
       gpgme
       kdePackages.plasma-browser-integration
+      gnome-browser-connector
     ];
   };
 }

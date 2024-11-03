@@ -2,17 +2,12 @@
   pkgs,
   my-pkgs,
   nur,
-  kdePackages ? { },
 }:
 with pkgs;
-with kdePackages;
 [
 
   # media players
   vlc
-  haruna
-
-  kdePackages.kasts
 
   obs-studio
   # musescore
@@ -32,18 +27,14 @@ with kdePackages;
   ## office suits
   onlyoffice-desktopeditors
   ## file mangement
-  ark
   onedrivegui
   ## book managment
   # calibre
 
-  # kcalc
-  qalculate-qt
   # dev tools
   jetbrains-toolbox
   libresprite
   ## editors 
-  kate
   ## terminal emulators
   kitty
   ## accessibility 

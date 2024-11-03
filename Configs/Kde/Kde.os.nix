@@ -27,6 +27,12 @@
     };
 
     environment.systemPackages = with pkgs; [
+      haruna
+      kdePackages.kasts
+      ark
+      qalculate-qt
+      kate
+
       kdePackages.plasma-vault
       gocryptfs
       kdePackages.kdepim-addons
@@ -34,5 +40,9 @@
     ];
 
     programs.dconf.enable = true;
+
+    programs.kclock.enable = true;
+    programs.kdeconnect.enable = true;
+    programs.partition-manager.enable = true;
   };
 }

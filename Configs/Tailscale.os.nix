@@ -1,13 +1,22 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
+  isKde = if lib.elem "Kde" config.MyConfig.tags then true else false;
+in
 {
 
   environment.persistence."/persistent".directories = [ "/var/lib/tailscale" ];
   environment.systemPackages = [
     pkgs.ktailctl
+    pkgs.trayscale
   ];
 
-  systemd.user.services.ktailscale = {
-    enable = true;
+  systemd.user.services.tailscale-gui = {
+    enable = isKde;
     description = "autostart ktailctl";
     wantedBy = [ "graphical-session.target" ];
     serviceConfig = {

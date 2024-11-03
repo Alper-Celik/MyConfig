@@ -12,15 +12,7 @@
   environment.systemPackages = import ./program-list.nix {
     inherit pkgs my-pkgs;
     nur = config.nur;
-    kdePackages = pkgs.kdePackages;
   };
-
-  programs.droidcam.enable = true;
-
-  programs.kclock.enable = true;
-  programs.kdeconnect.enable = true;
-
-  programs.partition-manager.enable = true;
 
   programs.gamemode.enable = true;
   # programs.steam = {

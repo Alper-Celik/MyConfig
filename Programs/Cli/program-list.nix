@@ -1,10 +1,8 @@
 {
   pkgs,
   my-pkgs,
-  kdePackages ? { },
 }:
 with pkgs;
-with kdePackages;
 [
   patchelf
   libqalculate

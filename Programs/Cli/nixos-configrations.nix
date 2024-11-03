@@ -12,7 +12,6 @@
   environment.systemPackages =
     (import ./program-list.nix {
       inherit pkgs my-pkgs;
-      kdePackages = pkgs.kdePackages;
     })
     ++ [
       config.boot.kernelPackages.perf

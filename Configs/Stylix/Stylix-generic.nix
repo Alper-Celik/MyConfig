@@ -7,7 +7,7 @@
 {
 
   stylix = {
-    enable = true;
+    # enable = true;
 
     image = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Path/contents/images/2560x1600.jpg";
     polarity = "dark";
