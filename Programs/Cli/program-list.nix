@@ -66,7 +66,7 @@ with kdePackages;
 
   htop
   btop
-  # nvtopPackages.full
+  nvtopPackages.full
   # compression
   unzip
   gnutar
