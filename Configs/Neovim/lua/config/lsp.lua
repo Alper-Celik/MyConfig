@@ -9,11 +9,11 @@ require("lspconfig").clangd.setup({
 	},
 })
 
--- nix
-require("lspconfig").nil_ls.setup({
-	autostart = true,
-	capabilities = lsp_capabilities,
-})
+-- -- nix
+-- require("lspconfig").nil_ls.setup({
+-- 	autostart = true,
+-- 	capabilities = lsp_capabilities,
+-- })
 
 -- json
 require("lspconfig").jsonls.setup({
@@ -33,6 +33,7 @@ local language_servers = {
 	"qmlls",
 	"taplo",
 	"gdscript",
+	"nixd",
 }
 
 for _, value in pairs(language_servers) do

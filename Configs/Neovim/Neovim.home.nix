@@ -23,10 +23,9 @@ let
     nodePackages.nodejs
 
     ## lsp s
-    # rnix-lsp
     sumneko-lua-language-server
     cmake-language-server
-    nil
+    nixd
     basedpyright
     clang-tools # also formatter and static analysis
     bash-language-server
@@ -50,7 +49,6 @@ let
     ## debuggers
     gdb
     lldb
-
   ];
 in
 {
