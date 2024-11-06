@@ -31,6 +31,7 @@ let
     clang-tools # also formatter and static analysis
     bash-language-server
     nodePackages_latest.vscode-json-languageserver
+    vscode-langservers-extracted
     taplo
     haskell-language-server
     haskellPackages.fast-tags
