@@ -15,6 +15,7 @@ with kdePackages;
   git-lfs
   gh # github cli
 
+  restic
   rclone
   onedrive
 
