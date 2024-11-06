@@ -25,7 +25,8 @@ let
     ## lsp s
     sumneko-lua-language-server
     cmake-language-server
-    nixd
+    # nixd
+    nil
     basedpyright
     clang-tools # also formatter and static analysis
     bash-language-server
