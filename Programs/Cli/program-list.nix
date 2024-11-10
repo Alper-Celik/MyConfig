@@ -59,6 +59,7 @@ with kdePackages;
   comma
   fzf
   jq
+  yq
   eza # fancy ls
 
   trickle
