@@ -1,5 +1,7 @@
 local silent = { silent = true }
 
+vim.keymap.set("i", "<C-S-v>", '<ESC>l"+Pli')
+
 --turkish keyboard layout support
 vim.keymap.set("n", "İ", "I", { remap = true })
 

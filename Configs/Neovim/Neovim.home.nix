@@ -56,7 +56,10 @@ in
 {
   home.sessionVariables.EDITOR = "nvim";
 
-  home.packages = language-tools ++ [ pkgs.neovim ];
+  home.packages = language-tools ++ [
+    pkgs.neovim
+    pkgs.neovide
+  ];
 
   xdg.configFile.nvim.source = outOfStrore ".";
   #xdg.configFile.nvim.source = ./.;

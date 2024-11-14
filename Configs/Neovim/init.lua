@@ -6,3 +6,5 @@ require("config.lsp")
 require("config.linting")
 require("config.dap")
 require("config.keymaps")
+
+require("config.neovide")
