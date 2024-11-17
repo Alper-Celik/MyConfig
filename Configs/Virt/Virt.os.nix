@@ -27,6 +27,7 @@
     inputs.winapps.packages.${system}.winapps
     inputs.winapps.packages.${system}.winapps-launcher # optional
     pkgs.distrobox
+    pkgs.freerdp3
   ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
