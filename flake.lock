@@ -1007,16 +1007,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1730460191,
-        "narHash": "sha256-CWaNjs2kOpmsR8ieVwqcd7EAz5Kd3y8I5huZyYgGqlA=",
+        "lastModified": 1731240784,
+        "narHash": "sha256-KWgQFapYdja8b67NBoEnJEEXmmVg7z9kRAcUfaMGM7Y=",
         "owner": "winapps-org",
         "repo": "winapps",
-        "rev": "b18efc4497c0994182bbe482808583c11cc51a2e",
+        "rev": "9073afa69d7b4eeffdbbe05ccfc3dca4fdf8f43e",
         "type": "github"
       },
       "original": {
         "owner": "winapps-org",
-        "ref": "feat-nix-packaging",
         "repo": "winapps",
         "type": "github"
       }

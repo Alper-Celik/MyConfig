@@ -69,7 +69,7 @@
     };
 
     winapps = {
-      url = "github:winapps-org/winapps/feat-nix-packaging";
+      url = "github:winapps-org/winapps";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
