@@ -7,6 +7,7 @@
 {
 
   programs.appimage.binfmt = true;
+  services.envfs.enable = true;
 
   environment.persistence."/persistent".directories = [
     "/var/lib/waydroid/"

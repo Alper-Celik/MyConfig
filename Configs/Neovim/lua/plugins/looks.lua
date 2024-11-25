@@ -1,10 +1,11 @@
 return {
-	"HiPhish/rainbow-delimiters.nvim",
+	{ "HiPhish/rainbow-delimiters.nvim", cond = not vim.g.vscode },
 
-	"nvim-treesitter/nvim-treesitter-context",
+	{ "nvim-treesitter/nvim-treesitter-context", cond = not vim.g.vscode },
 
 	{
 		"stevearc/dressing.nvim",
+		cond = not vim.g.vscode,
 		opts = {
 			input = { enabled = false },
 		},
@@ -12,6 +13,7 @@ return {
 
 	{
 		"folke/noice.nvim",
+		cond = not vim.g.vscode,
 		event = "VeryLazy",
 		opts = {
 			-- add any options here
@@ -49,6 +51,7 @@ return {
 
 	{
 		"nvim-lualine/lualine.nvim",
+		cond = not vim.g.vscode,
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = function()
 			local my_filename = {

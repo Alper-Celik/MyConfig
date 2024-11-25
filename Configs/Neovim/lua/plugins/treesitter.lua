@@ -1,6 +1,7 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		cond = not vim.g.vscode,
 		build = ":TSUpdate",
 		config = function()
 			local configs = require("nvim-treesitter.configs")
