@@ -18,6 +18,7 @@ let
     gnutar
     gzip
     gcc
+    vcpkg # most convenient place to put this
     gnumake
     tree-sitter
     nodePackages.nodejs
