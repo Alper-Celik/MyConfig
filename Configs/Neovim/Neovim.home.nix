@@ -19,6 +19,8 @@ let
     gzip
     gcc
     vcpkg # most convenient place to put this
+    conan
+    cmake
     gnumake
     tree-sitter
     nodePackages.nodejs
