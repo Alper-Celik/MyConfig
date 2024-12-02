@@ -25,12 +25,6 @@
       # theme = "breeze-dark";
     };
 
-    hotkeys.commands."launch-kitty" = {
-      name = "Launch Kitty";
-      key = "Alt+Shift+T";
-      command = "kitty";
-    };
-
     # panels = [
     #   {
     #     location = "top";

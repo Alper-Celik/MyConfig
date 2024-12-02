@@ -90,7 +90,4 @@ with kdePackages;
   gnumake
   ninja
 
-  # Fonts
-  nerdfonts
-
 ]

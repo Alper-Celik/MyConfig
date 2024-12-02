@@ -49,7 +49,7 @@
 
   boot.plymouth.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_;
   boot.initrd.availableKernelModules = [
     "nvme"
     "xhci_pci"
