@@ -31,6 +31,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    kdePackages.yakuake
     kdePackages.plasma-vault
     gocryptfs
     kdePackages.kdepim-addons
