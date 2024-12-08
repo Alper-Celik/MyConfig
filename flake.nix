@@ -157,7 +157,7 @@
 
             default-modules = {
               imports = [
-                inputs.nur.nixosModules.nur
+                inputs.nur.modules.nixos.default
                 inputs.impermanence.nixosModules.impermanence
                 inputs.stylix.nixosModules.stylix
 

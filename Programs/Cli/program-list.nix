@@ -48,6 +48,7 @@ with kdePackages;
   findutils
   psmisc
 
+  devenv
   direnv
   nix-direnv
   deploy-rs

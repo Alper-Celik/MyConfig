@@ -20,7 +20,7 @@ with kdePackages;
   # utulities
   bitwarden-desktop
   nextcloud-client
-  ## browsers 
+  ## browsers
   #firefox moved to home manager
   chromium
   vivaldi
@@ -42,11 +42,11 @@ with kdePackages;
   # dev tools
   jetbrains-toolbox
   libresprite
-  ## editors 
+  ## editors
   kate
   ## terminal emulators
   kitty
-  ## accessibility 
+  ## accessibility
   (accerciser.override { python3 = python311; })
   kdePackages.accessibility-inspector
   ## debuggers
@@ -62,5 +62,6 @@ with kdePackages;
   # cli depend on gui env
   wl-clipboard
   xclip
+  libnotify
 
 ]
