@@ -31,6 +31,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    easyeffects
     kdePackages.yakuake
     kdePackages.plasma-vault
     gocryptfs

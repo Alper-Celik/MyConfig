@@ -44,6 +44,7 @@ with kdePackages;
   libresprite
   ## editors
   kate
+  obsidian
   ## terminal emulators
   kitty
   ## accessibility
