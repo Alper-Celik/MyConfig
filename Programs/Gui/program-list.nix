@@ -8,6 +8,9 @@ with pkgs;
 with kdePackages;
 [
 
+  dotnetCorePackages.sdk_9_0
+  unityhub
+
   # media players
   vlc
   haruna
