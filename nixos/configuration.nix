@@ -13,9 +13,6 @@
 {
 
   imports = [
-    ../Programs/Cli/nixos-configrations.nix
-    ../Programs/Gui/nixos-configrations.nix
-
     ../Configs/configs.os.nix
   ];
 

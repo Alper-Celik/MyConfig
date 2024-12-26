@@ -11,9 +11,11 @@
 {
 
   # Simply install just the packages
-  environment.packages = (import ../Programs/Cli/program-list.nix { inherit pkgs my-pkgs; }) ++ [
-    pkgs.pinentry
-  ];
+  environment.packages =
+    # (import ../Programs/Cli/program-list.nix { inherit pkgs my-pkgs; }) ++ #FIXME: fix this when my cli programs needed in nix-on-droid
+    [
+      pkgs.pinentry
+    ];
   # Backup etc files instead of failing to activate generation if a file already exists in /etc
   environment.etcBackupExtension = ".bak";
 
@@ -35,7 +37,7 @@
   ];
   home-manager.backupFileExtension = "backup";
 
-  # Set up nix for flakes                                 
+  # Set up nix for flakes
   nix = {
     extraOptions = ''
       experimental-features = nix-command flakes
@@ -47,7 +49,7 @@
     # registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
-    # Making legacy nix commands consistent as well, awesome!                                                       
+    # Making legacy nix commands consistent as well, awesome!
     #nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;                     };
 
   };
