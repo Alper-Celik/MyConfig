@@ -3,6 +3,7 @@
   lib,
   config,
   pkgs,
+  pkgs-stable,
   my-pkgs,
   specialArgs,
   ...
@@ -71,8 +72,6 @@
       jq
       yq
       eza # fancy ls
-
-      trickle
 
       smartmontools
 

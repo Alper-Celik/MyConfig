@@ -3,6 +3,7 @@
   lib,
   config,
   pkgs,
+  pkgs-stable,
   my-pkgs,
   specialArgs,
   ...
@@ -15,7 +16,7 @@
     [
 
       dotnetCorePackages.sdk_9_0
-      unityhub
+      pkgs-stable.unityhub
 
       # media players
       vlc
@@ -92,7 +93,4 @@
   # Steam needs this to find Proton-GE
   environment.sessionVariables.STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
 
-  programs.weylus.users = [ "alper" ];
-  programs.weylus.enable = true;
-  programs.weylus.openFirewall = true;
 }

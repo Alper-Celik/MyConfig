@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-stable, ... }:
 let
   gamescope-env = {
     __NV_PRIME_RENDER_OFFLOAD = "1";
@@ -9,8 +9,8 @@ let
 in
 {
   environment.systemPackages = with pkgs; [
-    heroic
-    bottles
+    pkgs-stable.heroic
+    pkgs-stable.bottles
     legendary-gl
     prismlauncher # minecraft
 
