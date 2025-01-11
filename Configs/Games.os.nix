@@ -27,4 +27,11 @@ in
 
   # Steam needs this to find Proton-GE
   environment.sessionVariables.STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
+
+  # jovian = {
+  #   steam = {
+  #     desktopSession = "plasma";
+  #     enable = true;
+  #   };
+  # };
 }

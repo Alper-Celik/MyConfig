@@ -21,6 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    jovian-NixOS.url = "github:Jovian-Experiments/Jovian-NixOS";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -167,6 +168,7 @@
                 inputs.nur.modules.nixos.default
                 inputs.impermanence.nixosModules.impermanence
                 inputs.stylix.nixosModules.stylix
+                # inputs.jovian-NixOS.nixosModules.default
 
                 self.nixosModules.apply-my-overlays
                 self.nixosModules.enable-nixseparatedebuginfod
