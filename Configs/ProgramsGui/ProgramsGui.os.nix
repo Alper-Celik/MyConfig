@@ -40,7 +40,8 @@
       element-desktop
       # neochat
       ## office suits
-      onlyoffice-desktopeditors
+      # onlyoffice-desktopeditors
+      libreoffice-qt6-fresh
       ## file mangement
       ark
       onedrivegui
