@@ -15,7 +15,8 @@
       type = "stdio";
       allowed_extensions = [ "jid1-AQqSMBYb0a8ADg@jetpack" ];
     };
-  programs.browserpass.enable = true;
+
+  home.packages = [ pkgs.firefoxpwa ];
 
   programs.firefox = {
     enable = true;
@@ -35,6 +36,7 @@
     nativeMessagingHosts = with pkgs; [
       gpgme
       kdePackages.plasma-browser-integration
+      firefoxpwa
     ];
   };
 }
