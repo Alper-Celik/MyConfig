@@ -2,8 +2,9 @@
   description = "all of my configurations";
   inputs = {
     # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
@@ -12,7 +13,7 @@
 
     # Home manager
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -33,7 +34,7 @@
       flake = false;
     };
 
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:danth/stylix/release-24.11";
     nightfox-nvim = {
       url = "github:EdenEast/nightfox.nvim";
       flake = false;
@@ -120,6 +121,20 @@
             system,
             ...
           }:
+          let
+            pkgs-unstable = import inputs.nixpkgs-unstable {
+              inherit system;
+              inherit (self.my) overlays;
+              config.allowUnfree = true;
+            };
+
+            pkgs-stable = import inputs.nixpkgs-stable {
+              inherit system;
+              inherit (self.my) overlays;
+              config.allowUnfree = true;
+            };
+
+          in
           rec {
 
             packages = import ./my-pkgs/my-pkgs.nix {
@@ -127,12 +142,7 @@
               my-lib = self.lib;
             };
 
-            _module.args.pkgs = import nixpkgs {
-              inherit system;
-              inherit (self.my) overlays;
-              config.allowUnfree = true;
-            };
-
+            _module.args.pkgs = pkgs-stable;
             # TODO: maybe use let in ?
             _module.args.my-specialArgs = {
               hardware = "unknown";
@@ -140,12 +150,7 @@
               my-pkgs = packages;
               inherit inputs system;
               inherit (self.my) stateVersion overlays caches;
-
-              pkgs-stable = import inputs.nixpkgs-stable {
-                inherit system;
-                inherit (self.my) overlays;
-                config.allowUnfree = true;
-              };
+              inherit pkgs-stable pkgs-unstable;
 
             };
 

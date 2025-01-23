@@ -2,12 +2,14 @@
   pkgs,
   inputs,
   config,
+  pkgs-unstable,
   ...
 }:
 {
 
   stylix = {
     enable = true;
+    # autoEnable = false;
 
     image = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Path/contents/images/2560x1600.jpg";
     polarity = "dark";
@@ -21,7 +23,7 @@
 
     fonts = {
       monospace = {
-        package = pkgs.nerd-fonts.jetbrains-mono;
+        package = pkgs-unstable.nerd-fonts.jetbrains-mono;
         name = "JetBrainsMono Nerd Font Mono";
       };
       # serif = config.stylix.fonts.monospace;
