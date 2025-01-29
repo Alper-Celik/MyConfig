@@ -1,7 +1,8 @@
 { ... }:
 {
   # Set your time zone.
-  time.timeZone = "Europe/Istanbul";
+  # time.timeZone = "Europe/Istanbul";
+  time.timeZone = "Europe/Brussels";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "C.UTF-8";
