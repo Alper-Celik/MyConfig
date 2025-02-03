@@ -10,6 +10,8 @@ in
 {
   environment.systemPackages = with pkgs; [
     pkgs-stable.heroic
+    wine-staging
+    lutris
     pkgs-stable.bottles
     legendary-gl
     prismlauncher # minecraft
