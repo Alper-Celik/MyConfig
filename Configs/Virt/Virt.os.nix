@@ -31,6 +31,7 @@
     pkgs.freerdp3
   ];
 
+  boot.binfmt.preferStaticEmulators = true;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   programs.virt-manager.enable = true;
   virtualisation = {
