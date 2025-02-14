@@ -59,8 +59,6 @@
       psmisc
 
       devenv
-      direnv
-      nix-direnv
       deploy-rs
 
       bat
@@ -111,6 +109,8 @@
     ];
   };
   documentation.dev.enable = true;
+
+  programs.direnv.enable = true;
 
   programs.gnupg.agent = {
     enable = true;
