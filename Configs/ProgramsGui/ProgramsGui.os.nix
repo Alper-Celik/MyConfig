@@ -22,6 +22,8 @@
       vlc
       haruna
 
+      spotify
+
       kdePackages.kasts
 
       obs-studio
