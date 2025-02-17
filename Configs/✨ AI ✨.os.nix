@@ -9,6 +9,8 @@
       mode = "u=rwx,g=rx,o=rx";
     }
   ];
+
+  # FIXME: systemd creates problems fix in near future
   services.ollama = rec {
     enable = true;
     user = "ollama";
