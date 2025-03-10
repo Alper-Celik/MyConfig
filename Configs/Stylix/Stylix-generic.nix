@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-stable,
   inputs,
   config,
   pkgs-unstable,
@@ -8,7 +9,7 @@
 {
 
   stylix = {
-    enable = false;
+    enable = true;
     # autoEnable = false;
 
     image = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Path/contents/images/2560x1600.jpg";
@@ -23,7 +24,7 @@
 
     fonts = {
       monospace = {
-        package = pkgs-unstable.nerd-fonts.jetbrains-mono;
+        package =  (pkgs.nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" ]; });
         name = "JetBrainsMono Nerd Font Mono";
       };
       # serif = config.stylix.fonts.monospace;

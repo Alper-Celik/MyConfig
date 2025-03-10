@@ -58,8 +58,6 @@
       ## editors
       kate
       obsidian
-      ## terminal emulators
-      kitty
       ## accessibility
       (accerciser.override { python3 = python311; })
       kdePackages.accessibility-inspector

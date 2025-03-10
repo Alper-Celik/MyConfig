@@ -28,6 +28,6 @@
     users.alper = ../../home-manager/home.nix;
     useGlobalPkgs = true;
     useUserPackages = true;
-    backupFileExtension = "backup";
+    backupFileExtension = "home-manager-backup";
   };
 }
