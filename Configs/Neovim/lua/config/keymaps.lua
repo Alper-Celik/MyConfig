@@ -1,28 +1,18 @@
-local silent = { silent = true }
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
 
-vim.keymap.set("i", "<C-S-v>", '<ESC>l"+Pli')
+local map = vim.keymap.set
 
 --turkish keyboard layout support
 vim.keymap.set("n", "İ", "I", { remap = true })
 
---switch to nornal mode in terminal using escape
-vim.keymap.set("t", "<esc><esc>", "<C-\\><C-N>", {})
+-- tab Mappings
+vim.keymap.set("n", "<leader><tab>>", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+vim.keymap.set("n", "<leader><tab><", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
--- press esc to disable search highlight
-vim.keymap.set("n", "<esc>", ":noh<CR>", silent)
-
---#region tab bindings
-if not vim.g.vscode then
-	vim.api.nvim_create_user_command("Tabnext", "tabnext", {})
-	vim.api.nvim_create_user_command("Tabprev", "tabprev", {})
-end
-vim.keymap.set("n", "<Leader>tl", ":Tabnext<CR>", silent)
-vim.keymap.set("n", "<Leader>tt", ":Tabnext<CR>", silent)
-vim.keymap.set("n", "<Leader>t<Right>", ":Tabnext<CR>", silent)
-
-vim.keymap.set("n", "<Leader>th", ":Tabprev<CR>", silent)
-vim.keymap.set("n", "<Leader>tT", ":Tabprev<CR>", silent)
-vim.keymap.set("n", "<Leader>t<Left>", ":Tabprev<CR>", silent)
-
-vim.keymap.set("n", "<Leader>tn", ":tabnew<CR>", silent)
-vim.keymap.set("n", "<Leader>tc", ":tabclose<CR>", silent)
+-- Terminal Mappings
+map("n", "<A-t>", function()
+  Snacks.terminal(nil, { cwd = LazyVim.root() })
+end, { desc = "Terminal (Root Dir)" })
+map("t", "<A-te", "<cmd>close<cr>", { desc = "Hide Terminal" })
