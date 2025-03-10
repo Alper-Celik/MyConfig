@@ -15,4 +15,4 @@ vim.keymap.set("n", "<leader><tab><", "<cmd>tabprevious<cr>", { desc = "Previous
 map("n", "<A-t>", function()
   Snacks.terminal(nil, { cwd = LazyVim.root() })
 end, { desc = "Terminal (Root Dir)" })
-map("t", "<A-te", "<cmd>close<cr>", { desc = "Hide Terminal" })
+map("t", "<A-t>", "<cmd>close<cr>", { desc = "Hide Terminal" })

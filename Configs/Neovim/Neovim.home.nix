@@ -27,6 +27,8 @@ let
     fzf
     ripgrep
     fd
+    curl
+    cargo
   ];
 in
 {
