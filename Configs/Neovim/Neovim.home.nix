@@ -3,6 +3,7 @@
   lib,
   config,
   pkgs,
+  pkgs-unstable,
   my-lib,
   specialArgs,
   ...
@@ -37,7 +38,7 @@ in
   home.sessionVariables.EDITOR = "nvim";
 
   home.packages = language-tools ++ [
-    pkgs.neovim
+    pkgs-unstable.neovim
     pkgs.neovide
   ];
 
