@@ -29,6 +29,8 @@ let
     fd
     curl
     cargo
+
+    clang-tools
   ];
 in
 {
