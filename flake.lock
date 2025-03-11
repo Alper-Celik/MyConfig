@@ -1215,11 +1215,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1740563619,
-        "narHash": "sha256-oIlIm2yIAx3SnJHILVo/wPyZX1z3UDtHMN3HcnsyzlE=",
+        "lastModified": 1741691084,
+        "narHash": "sha256-XwoOSZECkWOWupA8AinC+xbhGFn+//+7I7LM79XcsxE=",
         "owner": "winapps-org",
         "repo": "winapps",
-        "rev": "8be1cd7101c0da32755e044b6a973531d4156f97",
+        "rev": "f3d3d53f3a6774089bd6589a80e1bc2dd5752786",
         "type": "github"
       },
       "original": {
