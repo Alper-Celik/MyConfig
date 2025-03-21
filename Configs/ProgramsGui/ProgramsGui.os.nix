@@ -43,7 +43,7 @@
       # neochat
       ## office suits
       # onlyoffice-desktopeditors
-      libreoffice-qt6-fresh
+      libreoffice
       ## file mangement
       ark
       onedrivegui
