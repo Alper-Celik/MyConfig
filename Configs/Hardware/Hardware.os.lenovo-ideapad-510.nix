@@ -1,11 +1,4 @@
-{
-  lib,
-  config,
-  inputs,
-  pkgs,
-  ...
-}:
-{
+{ lib, config, inputs, pkgs, ... }: {
 
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only
@@ -17,16 +10,11 @@
     inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
   ];
   powerManagement.cpuFreqGovernor = "ondemand";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "ahci"
-    "usb_storage"
-    "usbhid"
-    "sd_mod"
-    "rtsx_usb_sdmmc"
-  ];
+  boot.initrd.availableKernelModules =
+    [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "rtsx_usb_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
@@ -34,7 +22,8 @@
   hardware.nvidia.powerManagement.enable = true;
 
   boot.blacklistedKernelModules = [ "nouveau" ];
-  hardware.nvidia.open = false; # my gpu is too old for open source kernell driver
+  hardware.nvidia.open =
+    false; # my gpu is too old for open source kernell driver
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   hardware.nvidia-container-toolkit.enable = true;
   hardware.nvidia.prime = {
@@ -49,11 +38,7 @@
   # boot.kernelPackages = pkgs.linuxPackages_zen;
   zramSwap.enable = true;
 
-  swapDevices = [
-    {
-      device = "/dev/disk/by-label/swap-nixos";
-    }
-  ];
+  swapDevices = [{ device = "/dev/disk/by-label/swap-nixos"; }];
 
   nixpkgs.hostPlatform = "x86_64-linux";
 

@@ -1,10 +1,4 @@
-{
-  pkgs,
-  system,
-  inputs,
-  ...
-}:
-{
+{ pkgs, system, inputs, ... }: {
 
   programs.appimage.binfmt = true;
   services.envfs.enable = true;
@@ -55,10 +49,6 @@
     };
   };
 
-  users.users.alper.extraGroups = [
-    "docker"
-    "libvirtd"
-    "kvm"
-  ];
+  users.users.alper.extraGroups = [ "docker" "libvirtd" "kvm" ];
 
 }

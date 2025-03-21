@@ -1,19 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  modulesPath,
-  ...
-}:
-{
+{ config, lib, pkgs, modulesPath, ... }: {
   fileSystems."/" = {
     device = "/dev/mapper/cryptroot";
     fsType = "btrfs";
-    options = [
-      "subvol=root"
-      "compress=zstd"
-      "noatime"
-    ];
+    options = [ "subvol=root" "compress=zstd" "noatime" ];
   };
 
   services.displayManager.autoLogin = {
@@ -25,17 +14,14 @@
   # thanks for https://github.com/nix-community/impermanence?tab=readme-ov-file#btrfs-subvolumes for snapshot logic
   # and https://discourse.nixos.org/t/impermanence-vs-systemd-initrd-w-tpm-unlocking/25167/3?u=alper-celik for systemd based solution
   boot.initrd.systemd.services.rollback = {
-    description = "Rollback BTRFS root subvolume to a pristine state and keep old roots for 30 days";
-    wantedBy = [
-      "initrd.target"
-    ];
+    description =
+      "Rollback BTRFS root subvolume to a pristine state and keep old roots for 30 days";
+    wantedBy = [ "initrd.target" ];
     after = [
       # LUKS/TPM process
       "systemd-cryptsetup@cryptroot.service"
     ];
-    before = [
-      "sysroot.mount"
-    ];
+    before = [ "sysroot.mount" ];
     unitConfig.DefaultDependencies = "no";
     serviceConfig.Type = "oneshot";
     script = ''
@@ -67,59 +53,37 @@
   fileSystems."/.btrfs-root" = {
     device = "/dev/mapper/cryptroot";
     fsType = "btrfs";
-    options = [
-      "compress=zstd"
-      "noatime"
-    ];
+    options = [ "compress=zstd" "noatime" ];
   };
 
   fileSystems."/home" = {
     device = "/dev/mapper/cryptroot";
     fsType = "btrfs";
-    options = [
-      "subvol=home"
-      "compress=zstd"
-      "noatime"
-    ];
+    options = [ "subvol=home" "compress=zstd" "noatime" ];
   };
 
   fileSystems."/.swap-files" = {
     device = "/dev/mapper/cryptroot";
     fsType = "btrfs";
-    options = [
-      "subvol=.swap-files"
-      "compress=zstd"
-      "noatime"
-    ];
+    options = [ "subvol=.swap-files" "compress=zstd" "noatime" ];
   };
 
   fileSystems."/nix" = {
     device = "/dev/mapper/cryptroot";
     fsType = "btrfs";
-    options = [
-      "subvol=nix"
-      "compress=zstd"
-      "noatime"
-    ];
+    options = [ "subvol=nix" "compress=zstd" "noatime" ];
   };
 
   fileSystems."/persistent" = {
     device = "/dev/mapper/cryptroot";
     fsType = "btrfs";
     neededForBoot = true;
-    options = [
-      "subvol=persistent"
-      "compress=zstd"
-      "noatime"
-    ];
+    options = [ "subvol=persistent" "compress=zstd" "noatime" ];
   };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/BOOT";
     fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
-    ];
+    options = [ "fmask=0077" "dmask=0077" ];
   };
 }

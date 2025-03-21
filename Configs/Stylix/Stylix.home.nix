@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   imports = [ ./Stylix-generic.nix ];
   stylix.targets.neovim.enable = false;
   stylix.targets.vscode.enable = false;

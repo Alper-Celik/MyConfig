@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{ lib, ... }: {
   programs.mangohud = {
     enable = true;
     settings = {

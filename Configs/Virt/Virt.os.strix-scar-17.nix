@@ -1,8 +1,6 @@
 { pkgs, ... }:
-let
-  qemu-d = ./strix-scar-17-qemu.d;
-in
-{
+let qemu-d = ./strix-scar-17-qemu.d;
+in {
 
   boot.extraModprobeConfig = ''
     options kvm_amd nested=1
@@ -10,22 +8,20 @@ in
   '';
 
   systemd.services.libvirtd = {
-    path =
-      let
-        env = pkgs.buildEnv {
-          name = "qemu-hook-env";
-          paths = with pkgs; [
-            bash
-            libvirt
-            kmod
-            systemd
-            findutils
-            supergfxctl
-            libnotify
-          ];
-        };
-      in
-      [ env ];
+    path = let
+      env = pkgs.buildEnv {
+        name = "qemu-hook-env";
+        paths = with pkgs; [
+          bash
+          libvirt
+          kmod
+          systemd
+          findutils
+          supergfxctl
+          libnotify
+        ];
+      };
+    in [ env ];
   };
   virtualisation.libvirtd.hooks.qemu = {
     "qemu" = "${qemu-d}/qemu";

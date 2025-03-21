@@ -1,19 +1,7 @@
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  pkgs-stable,
-  my-pkgs,
-  specialArgs,
-  ...
-}:
-{
+{ inputs, lib, config, pkgs, pkgs-stable, my-pkgs, specialArgs, ... }: {
 
-  environment.systemPackages =
-    with pkgs;
-    with kdePackages;
-    [
+  environment.systemPackages = with pkgs;
+    with kdePackages; [
       config.boot.kernelPackages.perf
 
       patchelf
@@ -104,9 +92,7 @@
     XDG_BIN_HOME = "\${HOME}/.local/bin";
     XDG_DATA_HOME = "\${HOME}/.local/share";
     # note: this doesn't replace PATH, it just adds this to it
-    PATH = [
-      "\${XDG_BIN_HOME}"
-    ];
+    PATH = [ "\${XDG_BIN_HOME}" ];
   };
   documentation.dev.enable = true;
 
@@ -117,8 +103,6 @@
     # pinentryFlavor = "qt";
   };
 
-  programs.firejail = {
-    enable = true;
-  };
+  programs.firejail = { enable = true; };
   security.sudo.extraConfig = "Defaults pwfeedback";
 }

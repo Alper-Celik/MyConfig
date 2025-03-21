@@ -55,9 +55,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    dwarffs = {
-      url = "github:edolstra/dwarffs";
-    };
+    dwarffs = { url = "github:edolstra/dwarffs"; };
     # NUR
     nur.url = "github:nix-community/NUR";
 
@@ -95,96 +93,76 @@
     };
 
   };
-  outputs =
-    {
-      self,
-      flake-parts,
-      get-flake,
-      nixpkgs,
-      home-manager,
-      nix-on-droid,
-      ...
-    }@inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } (
-      { withSystem, ... }:
-      {
+  outputs = { self, flake-parts, get-flake, nixpkgs, home-manager, nix-on-droid
+    , ... }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, ... }: {
 
-        systems = [
-          "x86_64-linux"
-          "aarch64-linux"
-        ];
+      systems = [ "x86_64-linux" "aarch64-linux" ];
 
-        perSystem =
-          {
-            config,
-            pkgs,
-            system,
-            ...
-          }:
-          let
-            pkgs-unstable = import inputs.nixpkgs-unstable {
-              inherit system;
-              inherit (self.my) overlays;
-              config.allowUnfree = true;
-            };
+      perSystem = { config, pkgs, system, ... }:
+        let
+          pkgs-unstable = import inputs.nixpkgs-unstable {
+            inherit system;
+            inherit (self.my) overlays;
+            config.allowUnfree = true;
+          };
 
-            pkgs-stable = import inputs.nixpkgs-stable {
-              inherit system;
-              inherit (self.my) overlays;
-              config.allowUnfree = true;
-            };
+          pkgs-stable = import inputs.nixpkgs-stable {
+            inherit system;
+            inherit (self.my) overlays;
+            config.allowUnfree = true;
+          };
 
-          in
-          rec {
+        in rec {
 
-            packages = import ./my-pkgs/my-pkgs.nix {
-              inherit pkgs;
-              my-lib = self.lib;
-            };
+          packages = import ./my-pkgs/my-pkgs.nix {
+            inherit pkgs;
+            my-lib = self.lib;
+          };
 
-            _module.args.pkgs = pkgs-stable;
-            # TODO: maybe use let in ?
-            _module.args.my-specialArgs = {
-              hardware = "unknown";
-              my-lib = self.lib;
-              my-pkgs = packages;
-              inherit inputs system;
-              inherit (self.my) stateVersion overlays caches;
-              inherit pkgs-stable pkgs-unstable;
-
-            };
+          _module.args.pkgs = pkgs-stable;
+          # TODO: maybe use let in ?
+          _module.args.my-specialArgs = {
+            hardware = "unknown";
+            my-lib = self.lib;
+            my-pkgs = packages;
+            inherit inputs system;
+            inherit (self.my) stateVersion overlays caches;
+            inherit pkgs-stable pkgs-unstable;
 
           };
 
-        flake = {
+        };
 
-          lib = import ./my-lib/my-lib.nix { inherit (nixpkgs) lib; }; # no stablity guarantee
+      flake = {
 
-          nixosModules = {
-            apply-my-overlays = {
-              nixpkgs.overlays = self.my.overlays;
-            };
-            enable-nixseparatedebuginfod = {
-              services.nixseparatedebuginfod.enable = true;
-            };
+        lib = import ./my-lib/my-lib.nix {
+          inherit (nixpkgs) lib;
+        }; # no stablity guarantee
 
-            default-modules = {
-              imports = [
-                inputs.nur.modules.nixos.default
-                inputs.impermanence.nixosModules.impermanence
-                inputs.stylix.nixosModules.stylix
-                # inputs.jovian-NixOS.nixosModules.default
-
-                self.nixosModules.apply-my-overlays
-                self.nixosModules.enable-nixseparatedebuginfod
-                # inputs.dwarffs.nixosModules.dwarffs
-              ];
-            };
+        nixosModules = {
+          apply-my-overlays = { nixpkgs.overlays = self.my.overlays; };
+          enable-nixseparatedebuginfod = {
+            services.nixseparatedebuginfod.enable = true;
           };
 
-          nixosConfigurations = {
-            lenovo-ideapad-510 = withSystem "x86_64-linux" (
-              { my-specialArgs, ... }:
+          default-modules = {
+            imports = [
+              inputs.nur.modules.nixos.default
+              inputs.impermanence.nixosModules.impermanence
+              inputs.stylix.nixosModules.stylix
+              # inputs.jovian-NixOS.nixosModules.default
+
+              self.nixosModules.apply-my-overlays
+              self.nixosModules.enable-nixseparatedebuginfod
+              # inputs.dwarffs.nixosModules.dwarffs
+            ];
+          };
+        };
+
+        nixosConfigurations = {
+          lenovo-ideapad-510 = withSystem "x86_64-linux"
+            ({ my-specialArgs, ... }:
               nixpkgs.lib.nixosSystem {
                 specialArgs = my-specialArgs // {
 
@@ -195,27 +173,22 @@
                   self.nixosModules.default-modules
                   ./nixos/configuration.nix
                 ];
-              }
-            );
+              });
 
-            strix-scar-17 = withSystem "x86_64-linux" (
-              { my-specialArgs, ... }:
-              nixpkgs.lib.nixosSystem {
-                specialArgs = my-specialArgs // {
+          strix-scar-17 = withSystem "x86_64-linux" ({ my-specialArgs, ... }:
+            nixpkgs.lib.nixosSystem {
+              specialArgs = my-specialArgs // {
 
-                  configDir = "/home/alper/MyConfig"; # TODO: abstract it ?
-                  hardware = "strix-scar-17";
-                };
-                modules = [
-                  self.nixosModules.default-modules
-                  ./nixos/configuration.nix
-                ];
-              }
-            );
-          };
+                configDir = "/home/alper/MyConfig"; # TODO: abstract it ?
+                hardware = "strix-scar-17";
+              };
+              modules =
+                [ self.nixosModules.default-modules ./nixos/configuration.nix ];
+            });
+        };
 
-          homeConfigurations = withSystem "x86_64-linux" (
-            { my-specialArgs, pkgs, ... }:
+        homeConfigurations = withSystem "x86_64-linux"
+          ({ my-specialArgs, pkgs, ... }:
             let
               generic-args = my-specialArgs // {
                 configDir = "/home/alper/MyConfig"; # TODO: abstract it ?
@@ -229,58 +202,49 @@
                   ./home-manager/home.nix
                 ];
               };
-            in
-            {
+            in {
               "alper" = home-manager.lib.homeManagerConfiguration generic-home;
-              "alper@lenovo-ideapad-510" = home-manager.lib.homeManagerConfiguration (
-                generic-home
-                // {
+              "alper@lenovo-ideapad-510" =
+                home-manager.lib.homeManagerConfiguration (generic-home // {
                   extraSpecialArgs = generic-args // {
                     hardware = "lenovo-ideapad-510";
                   };
-                }
-              );
-            }
-          );
+                });
+            });
 
-          nixOnDroidConfigurations.default = withSystem "aarch64-linux" (
-            { my-specialArgs, pkgs, ... }:
+        nixOnDroidConfigurations.default = withSystem "aarch64-linux"
+          ({ my-specialArgs, pkgs, ... }:
             nix-on-droid.lib.nixOnDroidConfiguration {
               extraSpecialArgs = my-specialArgs // {
                 configDir = "/data/data/com.termux.nix/files/home/MyConfig";
                 isFlake = true;
               };
 
-              modules = [
-                ./nix-on-droid/nix-on-droid.nix
-              ];
+              modules = [ ./nix-on-droid/nix-on-droid.nix ];
               inherit pkgs;
-            }
-          );
+            });
 
-          ## nonstandard outputs
-          my = {
-            overlays = import ./Overlays/allOverlays.nix ++ [
-              # (get-flake ./Configs/Neovim).overlays.default
+        ## nonstandard outputs
+        my = {
+          overlays = import ./Overlays/allOverlays.nix ++ [
+            # (get-flake ./Configs/Neovim).overlays.default
+          ];
+
+          caches = {
+            substituters = [
+              "https://nix-community.cachix.org"
+              "https://cuda-maintainers.cachix.org"
             ];
-
-            caches = {
-              substituters = [
-                "https://nix-community.cachix.org"
-                "https://cuda-maintainers.cachix.org"
-              ];
-              trusted-public-keys = [
-                "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-                "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
-              ];
-            };
-
-            stateVersion = "22.11";
+            trusted-public-keys = [
+              "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+              "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+            ];
           };
 
+          stateVersion = "22.11";
         };
 
-      }
-    );
+      };
 
+    });
 }

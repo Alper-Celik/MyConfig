@@ -4,12 +4,7 @@ let
     removed-files = [ "my-pkgs.nix" ];
     base-dir = ./.;
   };
-  my-pkgs = builtins.foldl' (
-    pkg-set: pkg-file:
-    let
-      pkg = pkgs.callPackage pkg-file { };
-    in
-    pkg-set // { "${pkg.pname}" = pkg; }
-  ) { } package-files;
-in
-my-pkgs
+  my-pkgs = builtins.foldl' (pkg-set: pkg-file:
+    let pkg = pkgs.callPackage pkg-file { };
+    in pkg-set // { "${pkg.pname}" = pkg; }) { } package-files;
+in my-pkgs

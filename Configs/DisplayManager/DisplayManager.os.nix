@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-{
+{ config, lib, pkgs, ... }: {
   services.displayManager.defaultSession = "plasma";
   # programs.dconf.profiles.gdm.databases = [
   #   {

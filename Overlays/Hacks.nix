@@ -1,3 +1,1 @@
-final: prev: {
-  utillinux = prev.util-linux;
-}
+final: prev: { utillinux = prev.util-linux; }

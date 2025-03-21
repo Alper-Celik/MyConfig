@@ -1,10 +1,4 @@
-{
-  pkgs,
-  lib,
-  inputs,
-  ...
-}:
-{
+{ pkgs, lib, inputs, ... }: {
   programs.fastfetch = {
     enable = true;
     settings = (lib.importJSON "${inputs.fastfetch-theme}/config.jsonc") // {

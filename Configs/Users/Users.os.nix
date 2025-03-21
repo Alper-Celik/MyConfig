@@ -1,13 +1,5 @@
-{
-  specialArgs,
-  inputs,
-  config,
-  ...
-}:
-{
-  imports = [
-    inputs.home-manager.nixosModules.home-manager
-  ];
+{ specialArgs, inputs, config, ... }: {
+  imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.mutableUsers = false;

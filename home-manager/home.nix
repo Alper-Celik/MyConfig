@@ -1,12 +1,4 @@
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  specialArgs,
-  ...
-}:
-{
+{ inputs, lib, config, pkgs, specialArgs, ... }: {
   imports = [
     ../DotFiles/dotfiles.nix
 
@@ -29,7 +21,5 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  programs.nix-index = {
-    enable = true;
-  };
+  programs.nix-index = { enable = true; };
 }

@@ -1,21 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  my-pkgs,
-  specialArgs,
-  inputs,
-  ...
-}:
+{ config, lib, pkgs, my-pkgs, specialArgs, inputs, ... }:
 
 {
 
   # Simply install just the packages
   environment.packages =
     # (import ../Programs/Cli/program-list.nix { inherit pkgs my-pkgs; }) ++ #FIXME: fix this when my cli programs needed in nix-on-droid
-    [
-      pkgs.pinentry
-    ];
+    [ pkgs.pinentry ];
   # Backup etc files instead of failing to activate generation if a file already exists in /etc
   environment.etcBackupExtension = ".bak";
 
@@ -57,8 +47,11 @@
   # Set your time zone
   time.timeZone = "Europe/Istanbul";
 
-  user.shell = "${pkgs.writeShellScriptBin "init.sh" ''
-    ${pkgs.fish}/bin/fish -C "export GPG_TTY=$(tty)"
-  ''}/bin/init.sh";
-  terminal.font = "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/JetBrains Mono Bold Italic Nerd Font Complete Mono.ttf";
+  user.shell = "${
+      pkgs.writeShellScriptBin "init.sh" ''
+        ${pkgs.fish}/bin/fish -C "export GPG_TTY=$(tty)"
+      ''
+    }/bin/init.sh";
+  terminal.font =
+    "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/JetBrains Mono Bold Italic Nerd Font Complete Mono.ttf";
 }
