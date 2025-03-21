@@ -16,6 +16,7 @@
     common-pc-laptop-ssd
     asus-battery
   ];
+  hardware.asus.battery.chargeUpto = 85;
   boot.extraModprobeConfig = ''
     options snd-hda-intel model=alc294-lenovo-mic
   '';
