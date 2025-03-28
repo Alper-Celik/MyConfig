@@ -3,7 +3,7 @@
   environment.systemPackages = with pkgs;
     with kdePackages; [
 
-      dotnetCorePackages.sdk_9_0
+      dotnetCorePackages.dotnet_8.sdk
       pkgs-stable.unityhub
 
       # media players
@@ -36,7 +36,7 @@
       ark
       onedrivegui
       ## book managment
-      # calibre
+      calibre
 
       # kcalc
       qalculate-qt
