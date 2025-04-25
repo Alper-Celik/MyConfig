@@ -1,11 +1,14 @@
-{ config, ... }: {
+{ config, ... }:
+{
 
-  environment.persistence."/persistent".directories = [{
-    directory = "/var/lib/private/ollama";
-    user = "ollama";
-    group = "ollama";
-    mode = "u=rwx,g=rx,o=rx";
-  }];
+  environment.persistence."/persistent".directories = [
+    {
+      directory = "/var/lib/private/ollama";
+      user = "ollama";
+      group = "ollama";
+      mode = "u=rwx,g=rx,o=rx";
+    }
+  ];
 
   # FIXME: systemd creates problems fix in near future
   services.ollama = rec {
@@ -19,6 +22,8 @@
     volumes = [ "open-webui:/app/backend/data" ];
     ports = [ "8080:8080" ];
     extraOptions = [ "--network=host" ];
-    environment = { WEBUI_AUTH = "False"; };
+    environment = {
+      WEBUI_AUTH = "False";
+    };
   };
 }

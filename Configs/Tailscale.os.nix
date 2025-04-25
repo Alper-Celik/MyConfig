@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
 
   environment.persistence."/persistent".directories = [ "/var/lib/tailscale" ];
   environment.systemPackages = [ pkgs.ktailctl ];
@@ -7,7 +8,9 @@
     enable = true;
     description = "autostart ktailctl";
     wantedBy = [ "graphical-session.target" ];
-    serviceConfig = { ExecStart = "${pkgs.ktailctl}/bin/ktailctl"; };
+    serviceConfig = {
+      ExecStart = "${pkgs.ktailctl}/bin/ktailctl";
+    };
   };
 
   services.tailscale = {

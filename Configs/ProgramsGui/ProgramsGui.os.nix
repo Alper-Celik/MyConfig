@@ -1,7 +1,19 @@
-{ inputs, lib, config, pkgs, pkgs-stable, my-pkgs, specialArgs, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  pkgs-stable,
+  my-pkgs,
+  specialArgs,
+  ...
+}:
+{
 
-  environment.systemPackages = with pkgs;
-    with kdePackages; [
+  environment.systemPackages =
+    with pkgs;
+    with kdePackages;
+    [
 
       dotnetCorePackages.dotnet_8.sdk
       pkgs-stable.unityhub

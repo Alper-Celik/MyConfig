@@ -1,7 +1,19 @@
-{ inputs, lib, config, pkgs, pkgs-stable, my-pkgs, specialArgs, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  pkgs-stable,
+  my-pkgs,
+  specialArgs,
+  ...
+}:
+{
 
-  environment.systemPackages = with pkgs;
-    with kdePackages; [
+  environment.systemPackages =
+    with pkgs;
+    with kdePackages;
+    [
       config.boot.kernelPackages.perf
 
       patchelf
@@ -103,6 +115,8 @@
     # pinentryFlavor = "qt";
   };
 
-  programs.firejail = { enable = true; };
+  programs.firejail = {
+    enable = true;
+  };
   security.sudo.extraConfig = "Defaults pwfeedback";
 }

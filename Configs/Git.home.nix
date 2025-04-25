@@ -1,4 +1,12 @@
-{ inputs, lib, config, pkgs, specialArgs, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  specialArgs,
+  ...
+}:
+{
   programs.git = {
     enable = true;
 

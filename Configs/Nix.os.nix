@@ -1,10 +1,21 @@
-{ inputs, pkgs, config, lib, specialArgs, ... }: {
-  environment.systemPackages = with pkgs; [ nix-output-monitor nvd nix-tree ];
+{
+  inputs,
+  pkgs,
+  config,
+  lib,
+  specialArgs,
+  ...
+}:
+{
+  environment.systemPackages = with pkgs; [
+    nix-output-monitor
+    nvd
+    nix-tree
+  ];
 
   programs.nh = {
     enable = true;
-    flake =
-      lib.mkIf (builtins.hasAttr "configDir" specialArgs) specialArgs.configDir;
+    flake = lib.mkIf (builtins.hasAttr "configDir" specialArgs) specialArgs.configDir;
   };
 
   nix = {
@@ -14,8 +25,7 @@
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
-      config.nix.registry;
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     settings = {
       trusted-users = [ "alper" ];

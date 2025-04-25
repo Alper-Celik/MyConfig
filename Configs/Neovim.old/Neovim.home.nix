@@ -1,9 +1,16 @@
-{ inputs, lib, config, pkgs, my-lib, specialArgs, ... }:
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  my-lib,
+  specialArgs,
+  ...
+}:
 let
   current-dir = "Configs/Neovim";
-  outOfStrore = x:
-    config.lib.file.mkOutOfStoreSymlink
-    (my-lib.maybeOutOfStore specialArgs current-dir x);
+  outOfStrore =
+    x: config.lib.file.mkOutOfStoreSymlink (my-lib.maybeOutOfStore specialArgs current-dir x);
 
   language-tools = with pkgs; [
     # tools for configration loading
@@ -48,10 +55,14 @@ let
     gdb
     lldb
   ];
-in {
+in
+{
   home.sessionVariables.EDITOR = "nvim";
 
-  home.packages = language-tools ++ [ pkgs.neovim pkgs.neovide ];
+  home.packages = language-tools ++ [
+    pkgs.neovim
+    pkgs.neovide
+  ];
 
   xdg.configFile.nvim.source = outOfStrore ".";
   #xdg.configFile.nvim.source = ./.;

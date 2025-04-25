@@ -1,11 +1,20 @@
-{ inputs, pkgs, config, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  ...
+}:
 let
   secrets = inputs.MyConfigSecrets;
   config_sops = config.sops;
-in {
+in
+{
   imports = [ inputs.sops-nix.nixosModules.sops ];
 
-  environment.systemPackages = with pkgs; [ age sops ];
+  environment.systemPackages = with pkgs; [
+    age
+    sops
+  ];
 
   sops = {
     defaultSopsFile = "${secrets}/secrets/secrets.yaml";
@@ -15,14 +24,19 @@ in {
       generateKey = true;
     };
     secrets = {
-      alper-sops-age-key = { owner = config.users.users.alper.name; };
-      alper-password = { neededForUsers = true; };
+      alper-sops-age-key = {
+        owner = config.users.users.alper.name;
+      };
+      alper-password = {
+        neededForUsers = true;
+      };
     };
   };
 
-  home-manager.users.alper = { config, ... }: {
-    xdg.configFile."sops/age/keys.txt".source =
-      config.lib.file.mkOutOfStoreSymlink
-      config_sops.secrets.alper-sops-age-key.path;
-  };
+  home-manager.users.alper =
+    { config, ... }:
+    {
+      xdg.configFile."sops/age/keys.txt".source =
+        config.lib.file.mkOutOfStoreSymlink config_sops.secrets.alper-sops-age-key.path;
+    };
 }

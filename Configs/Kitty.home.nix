@@ -1,4 +1,12 @@
-{ inputs, lib, config, pkgs, specialArgs, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  specialArgs,
+  ...
+}:
+{
   programs.kitty = {
     enable = true;
     shellIntegration = {
@@ -15,8 +23,14 @@
       input_delay = 1;
     };
     font = {
-      package =
-        (pkgs.nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" ]; });
+      package = (
+        pkgs.nerdfonts.override {
+          fonts = [
+            "FiraCode"
+            "JetBrainsMono"
+          ];
+        }
+      );
       name = lib.mkForce "JetBrainsMono Nerd Font Mono";
       size = lib.mkForce 9;
     };

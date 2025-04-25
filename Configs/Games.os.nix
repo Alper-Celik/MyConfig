@@ -6,7 +6,8 @@ let
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
 
-in {
+in
+{
   environment.systemPackages = with pkgs; [
     pkgs-stable.heroic
     wine-staging
@@ -22,14 +23,12 @@ in {
 
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall =
-      true; # Open ports in the firewall for Steam Remote Play
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     localNetworkGameTransfers.openFirewall = true;
   };
 
   # Steam needs this to find Proton-GE
-  environment.sessionVariables.STEAM_EXTRA_COMPAT_TOOLS_PATHS =
-    "\${HOME}/.steam/root/compatibilitytools.d";
+  environment.sessionVariables.STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
 
   # jovian = {
   #   steam = {

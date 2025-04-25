@@ -1,7 +1,7 @@
-{ lib, hardware, ... }: {
+{ lib, hardware, ... }:
+{
   networking.hostName = hardware; # Define your hostname.
-  networking.networkmanager.enable =
-    true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
   # networking.networkmanager.dns = "none";
 
   # Open ports in the firewall.
@@ -16,5 +16,7 @@
   networking.interfaces.enp3s0.useDHCP = true;
   networking.interfaces.wlp4s0.useDHCP = true;
 
-  services.resolved = { enable = true; };
+  services.resolved = {
+    enable = true;
+  };
 }

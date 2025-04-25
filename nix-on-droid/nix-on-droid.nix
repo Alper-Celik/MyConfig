@@ -1,4 +1,12 @@
-{ config, lib, pkgs, my-pkgs, specialArgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  my-pkgs,
+  specialArgs,
+  inputs,
+  ...
+}:
 
 {
 
@@ -47,11 +55,8 @@
   # Set your time zone
   time.timeZone = "Europe/Istanbul";
 
-  user.shell = "${
-      pkgs.writeShellScriptBin "init.sh" ''
-        ${pkgs.fish}/bin/fish -C "export GPG_TTY=$(tty)"
-      ''
-    }/bin/init.sh";
-  terminal.font =
-    "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/JetBrains Mono Bold Italic Nerd Font Complete Mono.ttf";
+  user.shell = "${pkgs.writeShellScriptBin "init.sh" ''
+    ${pkgs.fish}/bin/fish -C "export GPG_TTY=$(tty)"
+  ''}/bin/init.sh";
+  terminal.font = "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/JetBrains Mono Bold Italic Nerd Font Complete Mono.ttf";
 }

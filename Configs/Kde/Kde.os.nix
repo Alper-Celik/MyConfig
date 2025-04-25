@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -14,8 +15,7 @@
   # default wayland
   services.displayManager.defaultSession = "plasma";
 
-  programs.ssh.askPassword =
-    lib.mkForce "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass";
+  programs.ssh.askPassword = lib.mkForce "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass";
 
   programs.kde-pim = {
     enable = true;

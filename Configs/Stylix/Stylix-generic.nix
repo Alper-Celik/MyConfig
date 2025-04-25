@@ -1,14 +1,20 @@
-{ pkgs, pkgs-stable, inputs, config, pkgs-unstable, ... }: {
+{
+  pkgs,
+  pkgs-stable,
+  inputs,
+  config,
+  pkgs-unstable,
+  ...
+}:
+{
 
   stylix = {
     enable = true;
     # autoEnable = false;
 
-    image =
-      "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Path/contents/images/2560x1600.jpg";
+    image = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Path/contents/images/2560x1600.jpg";
     polarity = "dark";
-    base16Scheme =
-      "${inputs.nightfox-nvim}/extra/carbonfox/base16.yaml"; # TODO: maybe port from nightfox
+    base16Scheme = "${inputs.nightfox-nvim}/extra/carbonfox/base16.yaml"; # TODO: maybe port from nightfox
 
     cursor = {
       package = pkgs.kdePackages.breeze;
@@ -18,8 +24,14 @@
 
     fonts = {
       monospace = {
-        package =
-          (pkgs.nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" ]; });
+        package = (
+          pkgs.nerdfonts.override {
+            fonts = [
+              "FiraCode"
+              "JetBrainsMono"
+            ];
+          }
+        );
         name = "JetBrainsMono Nerd Font Mono";
       };
       # serif = config.stylix.fonts.monospace;

@@ -1,4 +1,12 @@
-{ inputs, config, lib, pkgs, modulesPath, ... }: {
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
+{
   imports = with inputs.nixos-hardware.nixosModules; [
     (modulesPath + "/installer/scan/not-detected.nix")
     # inputs.nixos-hardware.nixosModules.asus-rog-strix-g733qs
@@ -16,7 +24,9 @@
   environment.systemPackages = [ pkgs.supergfxctl-plasmoid ];
   services.supergfxd = {
     enable = true;
-    settings = { gfx_vfio_enable = true; };
+    settings = {
+      gfx_vfio_enable = true;
+    };
   };
   systemd.services.supergfxd.path = [ pkgs.pciutils ];
 
@@ -40,8 +50,13 @@
 
   boot.kernelPackages = pkgs.linuxPackages_6_12;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.initrd.availableKernelModules =
-    [ "nvme" "xhci_pci" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [
+    "nvme"
+    "xhci_pci"
+    "usb_storage"
+    "usbhid"
+    "sd_mod"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
@@ -69,16 +84,18 @@
     enable = true;
     priority = 100;
   };
-  swapDevices = [{
-    priority = 0;
-    device = "/.swap-files/swap-file";
-    size = 71680; # 70 GiB
-    encrypted = {
-      enable = true;
-      label = "cryptroot";
-      blkDev = "/dev/disk/by-label/main-luks";
-    };
-  }];
+  swapDevices = [
+    {
+      priority = 0;
+      device = "/.swap-files/swap-file";
+      size = 71680; # 70 GiB
+      encrypted = {
+        enable = true;
+        label = "cryptroot";
+        blkDev = "/dev/disk/by-label/main-luks";
+      };
+    }
+  ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -94,6 +111,5 @@
   services.fwupd.enable = true;
 
   hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot =
-    true; # powers up the default Bluetooth controller on boot
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 }

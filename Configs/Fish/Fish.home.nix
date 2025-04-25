@@ -1,24 +1,30 @@
-{ inputs, lib, config, pkgs, specialArgs, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  specialArgs,
+  ...
+}:
+{
   systemd.user.services.tide-config = {
     Unit.Description = "tide config for fish shell";
-    Service.ExecStart = "${pkgs.fish}/bin/fish ${
-        pkgs.writeText "tide-config" ''
-          tide configure --auto \
-          --style=Rainbow \
-          --prompt_colors='True color' \
-          --show_time='24-hour format' \
-          --rainbow_prompt_separators=Angled \
-          --powerline_prompt_heads=Round \
-          --powerline_prompt_tails=Round \
-          --powerline_prompt_style='Two lines, character and frame' \
-          --prompt_connection=Dotted \
-          --powerline_right_prompt_frame=Yes \
-          --prompt_connection_andor_frame_color=Dark \
-          --prompt_spacing=Sparse \
-          --icons='Many icons' \
-          --transient=No
-        ''
-      }";
+    Service.ExecStart = "${pkgs.fish}/bin/fish ${pkgs.writeText "tide-config" ''
+      tide configure --auto \
+      --style=Rainbow \
+      --prompt_colors='True color' \
+      --show_time='24-hour format' \
+      --rainbow_prompt_separators=Angled \
+      --powerline_prompt_heads=Round \
+      --powerline_prompt_tails=Round \
+      --powerline_prompt_style='Two lines, character and frame' \
+      --prompt_connection=Dotted \
+      --powerline_right_prompt_frame=Yes \
+      --prompt_connection_andor_frame_color=Dark \
+      --prompt_spacing=Sparse \
+      --icons='Many icons' \
+      --transient=No
+    ''}";
     Install.WantedBy = [ "default.target" ];
   };
 
@@ -76,5 +82,10 @@
 
   };
 
-  home.packages = with pkgs; [ fzf fd bat glib ];
+  home.packages = with pkgs; [
+    fzf
+    fd
+    bat
+    glib
+  ];
 }
