@@ -29,7 +29,10 @@
     inputs.winapps.packages.${system}.winapps-launcher # optional
     pkgs.distrobox
     pkgs.freerdp3
+    pkgs.vagrant
   ];
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "alper" ];
 
   boot.binfmt.preferStaticEmulators = true;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
