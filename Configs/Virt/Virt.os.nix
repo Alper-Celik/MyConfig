@@ -36,6 +36,8 @@
 
   boot.binfmt.preferStaticEmulators = true;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  boot.kernelModules = [ "kvm-amd" ];
   programs.virt-manager.enable = true;
   virtualisation = {
     spiceUSBRedirection.enable = true;

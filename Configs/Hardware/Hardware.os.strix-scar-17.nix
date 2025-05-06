@@ -58,7 +58,6 @@
     "sd_mod"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   systemd.oomd.enable = false; # dont kill running programms pleaaaaaaase !!
