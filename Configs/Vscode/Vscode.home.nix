@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   my-lib,
   specialArgs,
   config,
@@ -18,7 +19,10 @@ in
     ripgrep
     bat
   ];
-  programs.vscode.enable = true;
+  programs.vscode = {
+    enable = true;
+    package = pkgs-unstable.vscode;
+  };
 
   xdg.configFile.nvim-vscode.source = outOfStore ".";
 }
