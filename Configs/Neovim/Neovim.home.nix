@@ -33,6 +33,8 @@ let
 
     clang-tools
     nixfmt-rfc-style
+
+    lazygit
   ];
 in
 {
