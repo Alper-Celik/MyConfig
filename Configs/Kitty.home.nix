@@ -23,14 +23,7 @@
       input_delay = 1;
     };
     font = {
-      package = (
-        pkgs.nerdfonts.override {
-          fonts = [
-            "FiraCode"
-            "JetBrainsMono"
-          ];
-        }
-      );
+      package = pkgs.nerd-fonts.jetbrains-mono;
       name = lib.mkForce "JetBrainsMono Nerd Font Mono";
       size = lib.mkForce 9;
     };
