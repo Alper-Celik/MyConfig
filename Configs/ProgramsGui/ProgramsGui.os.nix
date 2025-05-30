@@ -15,7 +15,6 @@
     with kdePackages;
     [
 
-      dotnetCorePackages.dotnet_8.sdk
       pkgs-stable.unityhub
 
       # media players
