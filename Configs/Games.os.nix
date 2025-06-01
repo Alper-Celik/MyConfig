@@ -18,7 +18,7 @@ in
 
     protonup-qt
     steamtinkerlaunch
-
+    gamescope
   ];
 
   programs.steam = {
