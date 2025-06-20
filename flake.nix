@@ -61,11 +61,6 @@
     # NUR
     nur.url = "github:nix-community/NUR";
 
-    spacemacs-git = {
-      url = "github:syl20bnr/spacemacs";
-      flake = false;
-    };
-
     fastfetch-theme = {
       url = "github:Alper-Celik/fastfetch-theme-backup";
       flake = false;
