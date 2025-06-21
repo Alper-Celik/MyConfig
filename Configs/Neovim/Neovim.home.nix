@@ -33,6 +33,9 @@ let
 
     clang-tools
     nixfmt-rfc-style
+    codespell
+    deadnix
+    omnisharp-roslyn
 
     lazygit
   ];
