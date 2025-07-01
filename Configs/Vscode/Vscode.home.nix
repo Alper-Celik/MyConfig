@@ -32,6 +32,14 @@ in
     bat
     dotnet-full
   ];
+
+  home = {
+    sessionPath = [ "${config.home.homeDirectory}/.dotnet/tools/" ];
+    sessionVariables = {
+      DOTNET_ROOT = "${dotnet-full}/share/dotnet";
+    };
+  };
+
   programs.vscode = {
     enable = true;
     package = (
@@ -41,7 +49,7 @@ in
           prevAttrs.postFixup
           + ''
             wrapProgram $out/bin/code \
-              --set DOTNET_ROOT "${dotnet-full}" \
+              --set DOTNET_ROOT "${dotnet-full}/share/dotnet" \
               --prefix PATH : "~/.dotnet/tools"
           '';
       })
