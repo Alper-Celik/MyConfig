@@ -22,7 +22,7 @@ return {
               "-z",
               "--hostPID",
               tostring(vim.fn.getpid()),
-              "DotNet:enablePackageRestore=false",
+              "DotNet:enablePackageRestore=true",
               "--encoding",
               "utf-8",
               "--languageserver",
