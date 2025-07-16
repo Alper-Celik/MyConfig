@@ -3,3 +3,6 @@
 -- Add any additional options here
 
 vim.opt.wrap = true
+
+-- first use git for rot dir detection
+vim.g.root_spec = { { ".git", "lua" }, "lsp", "cwd" }
