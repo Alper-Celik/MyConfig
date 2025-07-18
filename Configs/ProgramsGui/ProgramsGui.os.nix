@@ -19,6 +19,7 @@
 
       # media players
       vlc
+      audacity
       haruna
 
       spotify
