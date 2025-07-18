@@ -39,6 +39,7 @@
       thunderbird
       discord
       element-desktop
+      telegram-desktop
       # neochat
       ## office suits
       libreoffice-qt6
