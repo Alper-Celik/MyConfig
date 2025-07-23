@@ -22,6 +22,8 @@
       audacity
       haruna
 
+      feishin
+
       spotify
 
       kdePackages.kasts
