@@ -3,6 +3,8 @@
 " You can find a list of commands here: https://jb.gg/h38q75
 " Find more examples here: https://jb.gg/share-ideavimrc
 
+let mapleader = " "
+
 set clipboard+=unnamedplus
 set clipboard+=ideaput
 nmap s <Action>(flash.search)
@@ -23,7 +25,7 @@ set NERDTree
 set peekaboo
 set which-key
 set multiple-cursors 
-
+set showmode
 " Remap multiple-cursors shortcuts to match terryma/vim-multiple-cursors
 nmap <C-n> <Plug>NextWholeOccurrence
 xmap <C-n> <Plug>NextWholeOccurrence
@@ -79,4 +81,3 @@ map <leader>gi <Action>(GotoImplementation)
 
 " Map <leader>gr to go to references
 map <leader>gr <Action>(FindUsages)
-
