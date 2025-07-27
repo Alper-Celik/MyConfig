@@ -9,9 +9,9 @@ return {
         nls.builtins.diagnostics.cmake_lint,
         nls.builtins.formatting.nixfmt,
       })
-      -- opts.sources = vim.tbl_filter(function(x)
-      --   return x ~= nls.builtins.formatting.csharpier
-      -- end, opts.sources)
+      opts.sources = vim.tbl_filter(function(x)
+        return x ~= nls.builtins.formatting.csharpier
+      end, opts.sources)
     end,
   },
 }
