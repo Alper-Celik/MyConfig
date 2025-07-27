@@ -89,4 +89,10 @@
   programs.gamemode.enable = true;
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  programs.weylus = {
+    enable = true;
+    openFirewall = true;
+    users = [ config.users.users.alper.name ];
+  };
 }
