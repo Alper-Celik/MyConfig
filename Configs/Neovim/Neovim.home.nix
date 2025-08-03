@@ -36,12 +36,16 @@ let
     codespell
     deadnix
     omnisharp-roslyn
+    roslyn-ls
 
     lazygit
   ];
 in
 {
-  home.sessionVariables.EDITOR = "nvim";
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    RZLS_ROOT_DIR = pkgs.rzls;
+  };
 
   home.packages = language-tools ++ [
     pkgs-unstable.neovim
