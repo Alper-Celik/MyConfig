@@ -58,6 +58,7 @@
       qalculate-qt
       # dev tools
       jetbrains-toolbox
+      jetbrains.rider
       libresprite
       ## editors
       kate
