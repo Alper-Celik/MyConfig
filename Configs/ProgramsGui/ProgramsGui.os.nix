@@ -99,7 +99,7 @@
 
   # needed for avaloniaui .net
   environment.sessionVariables.LD_LIBRARY_PATH = [
-    "${pkgs.fontconfig}/lib"
+    "${pkgs.fontconfig.lib}/lib"
     "${pkgs.xorg.libX11}/lib"
     "${pkgs.xorg.libICE}/lib"
     "${pkgs.xorg.libSM}/lib"
