@@ -82,7 +82,7 @@
       zstd
 
       # dev tools
-      jdk
+      jdk17
       (maven.override { jdk_headless = jdk; })
       (gradle.override { java = jdk; })
       ## editors

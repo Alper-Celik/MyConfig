@@ -59,6 +59,8 @@
       # dev tools
       jetbrains-toolbox
       jetbrains.rider
+      android-studio
+
       libresprite
       ## editors
       kate
@@ -90,6 +92,7 @@
   programs.gamemode.enable = true;
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables.ANDROID_HOME = "/home/alper/Android/Sdk/";
 
   programs.weylus = {
     enable = true;
