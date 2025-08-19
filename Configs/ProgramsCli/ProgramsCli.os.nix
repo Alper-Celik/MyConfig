@@ -46,6 +46,7 @@
       tldr
       man-pages
       man-pages-posix
+      reuse
 
       gnupg
       openssh
