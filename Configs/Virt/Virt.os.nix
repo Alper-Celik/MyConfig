@@ -30,6 +30,7 @@
     pkgs.distrobox
     pkgs.freerdp3
     pkgs.vagrant
+    pkgs.act
   ];
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "alper" ];
@@ -51,11 +52,14 @@
     };
     waydroid.enable = true;
 
+    docker = {
+      enable = true;
+
+      storageDriver = "overlay2";
+      autoPrune.enable = true;
+    };
     podman = {
       enable = true;
-      dockerCompat = true;
-      dockerSocket.enable = true;
-
       autoPrune.enable = true;
     };
   };
