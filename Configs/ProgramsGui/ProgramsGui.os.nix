@@ -17,15 +17,14 @@
 
       pkgs-stable.unityhub
 
-      # media players
+      # media players and music
       vlc
       audacity
       haruna
 
       feishin
-
+      puddletag
       spotify
-
       kdePackages.kasts
 
       obs-studio
