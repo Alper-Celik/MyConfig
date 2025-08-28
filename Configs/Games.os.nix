@@ -23,6 +23,12 @@ in
 
   programs.steam = {
     enable = true;
+    package = pkgs.steam.override {
+      extraLibraries =
+        p: with p; [
+          nss
+        ];
+    };
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     localNetworkGameTransfers.openFirewall = true;
   };
