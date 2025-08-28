@@ -100,6 +100,11 @@
     users = [ config.users.users.alper.name ];
   };
 
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark;
+  };
+
   # needed for avaloniaui .net
   environment.sessionVariables.LD_LIBRARY_PATH = [
     "${pkgs.fontconfig.lib}/lib"
