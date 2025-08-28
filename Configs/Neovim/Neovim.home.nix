@@ -37,6 +37,7 @@ let
     deadnix
     omnisharp-roslyn
     roslyn-ls
+    nil
 
     lazygit
   ];
