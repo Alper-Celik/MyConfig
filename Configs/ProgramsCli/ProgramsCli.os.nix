@@ -101,6 +101,7 @@
       ## networking
       ipcalc
       dig
+      tcpdump
 
     ];
   environment.sessionVariables = {
