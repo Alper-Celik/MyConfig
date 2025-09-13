@@ -83,7 +83,6 @@
       libnotify
 
     ];
-  programs.kclock.enable = true;
   programs.kdeconnect.enable = true;
 
   programs.partition-manager.enable = true;
