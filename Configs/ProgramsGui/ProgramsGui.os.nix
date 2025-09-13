@@ -65,7 +65,7 @@
       kate
       obsidian
       ## accessibility
-      (accerciser.override { python3 = python311; })
+      accerciser
       kdePackages.accessibility-inspector
       ## debuggers
       seer

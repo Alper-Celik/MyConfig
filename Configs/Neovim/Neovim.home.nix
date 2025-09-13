@@ -4,6 +4,7 @@
   config,
   pkgs,
   pkgs-unstable,
+  pkgs-stable,
   my-lib,
   specialArgs,
   ...
@@ -36,7 +37,7 @@ let
     codespell
     deadnix
     omnisharp-roslyn
-    roslyn-ls
+    pkgs-stable.roslyn-ls # use stable to prevent dotnet 10 preview build failure
     nil
 
     lazygit
