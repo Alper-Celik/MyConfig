@@ -94,8 +94,8 @@
     {
       self,
       flake-parts,
-      get-flake,
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       nix-on-droid,
       ...
@@ -170,7 +170,6 @@
                 inputs.nur.modules.nixos.default
                 inputs.impermanence.nixosModules.impermanence
                 inputs.stylix.nixosModules.stylix
-                # inputs.jovian-NixOS.nixosModules.default
 
                 self.nixosModules.apply-my-overlays
                 self.nixosModules.enable-nixseparatedebuginfod
@@ -209,6 +208,23 @@
                 ];
               }
             );
+
+            steam-deck = withSystem "x86_64-linux" (
+              { my-specialArgs, ... }:
+              nixpkgs-unstable.lib.nixosSystem {
+                specialArgs = my-specialArgs // {
+
+                  configDir = "/home/alper/MyConfig"; # TODO: abstract it ?
+                  hardware = "steam-deck";
+                };
+                modules = [
+                  self.nixosModules.default-modules
+                  inputs.jovian-NixOS.nixosModules.default
+                  ./nixos/configuration.nix
+                ];
+              }
+            );
+
           };
 
           homeConfigurations = withSystem "x86_64-linux" (
