@@ -11,6 +11,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     # inputs.nixos-hardware.nixosModules.asus-rog-strix-g733qs
     common-cpu-amd-pstate
+    common-gpu-nvidia
     common-pc-laptop
     common-pc-laptop-ssd
     asus-battery
@@ -61,6 +62,23 @@
 
   systemd.oomd.enable = false; # dont kill running programms pleaaaaaaase !!
 
+  nixpkgs.config.cudaSupport = true;
+  hardware.nvidia-container-toolkit.enable = true;
+  hardware.nvidia = {
+    modesetting.enable = true;
+    dynamicBoost.enable = true;
+    open = true;
+    powerManagement = {
+      enable = true;
+      finegrained = true;
+    };
+
+    prime = {
+      nvidiaBusId = "PCI:1:0:0";
+      amdgpuBusId = "PCI:8:0:0";
+    };
+  };
+
   zramSwap = {
     enable = true;
     priority = 100;
@@ -77,32 +95,6 @@
       };
     }
   ];
-
-  specialisation."nvidia-closed-source".configuration = {
-    environment.etc."specialisation".text = "nvidia-closed-source";
-
-    imports = with inputs.nixos-hardware.nixosModules; [
-      common-gpu-nvidia
-    ];
-
-    nixpkgs.config.cudaSupport = true;
-    hardware.nvidia-container-toolkit.enable = true;
-    hardware.nvidia = {
-      modesetting.enable = true;
-      dynamicBoost.enable = true;
-      open = true;
-      powerManagement = {
-        enable = true;
-        finegrained = true;
-      };
-
-      prime = {
-        nvidiaBusId = "PCI:1:0:0";
-        amdgpuBusId = "PCI:8:0:0";
-      };
-    };
-
-  };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
