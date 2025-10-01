@@ -73,6 +73,7 @@
 
       ## networking
       protonvpn-gui
+      postman
 
       ## download managers
       qbittorrent
