@@ -58,6 +58,7 @@
       # dev tools
       jetbrains-toolbox
       jetbrains.rider
+      jetbrains.clion
       android-studio
 
       libresprite
