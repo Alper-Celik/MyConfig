@@ -16,10 +16,9 @@
       allowed_extensions = [ "jid1-AQqSMBYb0a8ADg@jetpack" ];
     };
 
-  home.packages = [ pkgs.firefoxpwa ];
-
   programs.firefox = {
     enable = true;
+    package = pkgs.firefox-bin;
     profiles."ev95osw2.default" = {
       isDefault = true;
       settings = {
@@ -36,7 +35,6 @@
     nativeMessagingHosts = with pkgs; [
       gpgme
       kdePackages.plasma-browser-integration
-      firefoxpwa
     ];
   };
 }

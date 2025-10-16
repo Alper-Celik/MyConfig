@@ -38,7 +38,7 @@
       chromium
       vivaldi
       ## mail and chat
-      thunderbird
+      thunderbird-bin
       discord
       element-desktop
       telegram-desktop
@@ -51,7 +51,7 @@
       ark
       onedrivegui
       ## book managment
-      calibre
+      # calibre
 
       # kcalc
       qalculate-qt
