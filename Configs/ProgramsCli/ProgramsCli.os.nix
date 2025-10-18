@@ -35,6 +35,8 @@
       aria2
       speedtest-go
 
+      newman
+
       networkmanagerapplet
 
       python3Packages.yt-dlp
