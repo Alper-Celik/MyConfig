@@ -11,7 +11,6 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     # inputs.nixos-hardware.nixosModules.asus-rog-strix-g733qs
     common-cpu-amd-pstate
-    common-gpu-nvidia
     common-pc-laptop
     common-pc-laptop-ssd
     asus-battery
@@ -64,6 +63,8 @@
 
   nixpkgs.config.cudaSupport = true;
   hardware.nvidia-container-toolkit.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.graphics.enable = true;
   hardware.nvidia = {
     modesetting.enable = true;
     dynamicBoost.enable = true;
@@ -74,6 +75,10 @@
     };
 
     prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
       nvidiaBusId = "PCI:1:0:0";
       amdgpuBusId = "PCI:8:0:0";
     };
