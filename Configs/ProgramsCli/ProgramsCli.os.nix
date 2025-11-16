@@ -61,7 +61,7 @@
       findutils
       psmisc
 
-      devenv
+      # devenv
       deploy-rs
 
       bat
