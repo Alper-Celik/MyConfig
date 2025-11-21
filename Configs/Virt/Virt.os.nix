@@ -12,6 +12,7 @@
   environment.persistence."/persistent".directories = [
     "/var/lib/waydroid/"
     "/var/lib/containers"
+    "/var/lib/docker/"
 
     # "/var/lib/libvirt/"
 
