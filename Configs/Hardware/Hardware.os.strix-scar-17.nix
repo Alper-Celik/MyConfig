@@ -68,7 +68,7 @@
   hardware.nvidia = {
     modesetting.enable = true;
     dynamicBoost.enable = true;
-    open = true;
+    open = false; # TODO: enable in 575+ driver
     powerManagement = {
       enable = true;
       finegrained = true;

@@ -80,6 +80,7 @@
       btop
       nvtopPackages.full
       # compression
+      zip
       unzip
       gnutar
       zstd
