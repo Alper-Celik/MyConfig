@@ -24,6 +24,7 @@
 
       feishin
       puddletag
+      kid3
       spotify
       kdePackages.kasts
 
