@@ -61,7 +61,7 @@
 
   systemd.oomd.enable = false; # dont kill running programms pleaaaaaaase !!
 
-  nixpkgs.config.cudaSupport = true;
+  # nixpkgs.config.cudaSupport = true; // cmpiling software is no fun
   hardware.nvidia-container-toolkit.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics.enable = true;
