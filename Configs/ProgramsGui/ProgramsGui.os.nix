@@ -85,6 +85,10 @@
       xclip
       libnotify
 
+      ## drawing
+      krita
+      xournalpp
+
     ];
   programs.kclock.enable = true;
   programs.kdeconnect.enable = true;
