@@ -29,7 +29,7 @@
     inputs.winapps.packages.${system}.winapps
     inputs.winapps.packages.${system}.winapps-launcher # optional
     pkgs.distrobox
-    pkgs.freerdp3
+    pkgs.freerdp
     pkgs.vagrant
     pkgs.act
   ];
@@ -48,7 +48,6 @@
       qemu = {
         swtpm.enable = true;
         vhostUserPackages = [ pkgs.virtiofsd ];
-        ovmf.packages = [ pkgs.OVMFFull.fd ];
       };
     };
     waydroid.enable = true;
