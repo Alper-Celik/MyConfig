@@ -10,7 +10,20 @@ return {
         nls.builtins.formatting.nixfmt,
       })
       opts.sources = vim.tbl_filter(function(x)
-        return x ~= nls.builtins.formatting.csharpier
+        local function list_contains(list, element)
+          for _, value in ipairs(list) do
+            if value == element then
+              return true
+            end
+          end
+          return false
+        end
+
+        local to_filter = {
+          nls.builtins.formatting.csharpier,
+        }
+
+        return not list_contains(to_filter, x)
       end, opts.sources)
     end,
   },
