@@ -44,8 +44,11 @@ let
 in
 {
   home.sessionVariables = {
-    EDITOR = "nvim";
-    RZLS_ROOT_DIR = pkgs.rzls;
+    # Existing session variables
+  };
+
+  programs.fish = {
+    shellAliases.avante = "nvim -c 'lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)'";
   };
 
   home.packages = language-tools ++ [
