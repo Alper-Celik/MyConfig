@@ -20,7 +20,6 @@ let
     gnutar
     gzip
     gcc
-    conan
     cmake
     gnumake
     tree-sitter
