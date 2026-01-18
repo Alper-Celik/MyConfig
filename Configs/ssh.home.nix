@@ -12,10 +12,9 @@
         user = "git";
       };
     };
+    extraConfig = ''
+      IdentityFile ~/.ssh/id_ed25519_sk
+      IdentityFile ~/.ssh/id_ed25519
+    '';
   };
-
-  home.sessionVariables = {
-    SSH_AUTH_SOCK = "${config.home.homeDirectory}/.bitwarden-ssh-agent.sock";
-  };
-
 }
