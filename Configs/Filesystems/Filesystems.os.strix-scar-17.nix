@@ -23,11 +23,15 @@
   boot.initrd = {
     luks.devices."cryptroot" = {
       device = "/dev/disk/by-label/main-luks";
-      crypttabExtraOpts = [ "fido2-device=auto" ];
     };
     systemd.enable = true;
   };
 
+  specialisation.no-yubikey.configuration = {
+
+    boot.initrd.systemd.enable = lib.mkForce false;
+
+  };
   # thanks for https://github.com/nix-community/impermanence?tab=readme-ov-file#btrfs-subvolumes for snapshot logic
   # and https://discourse.nixos.org/t/impermanence-vs-systemd-initrd-w-tpm-unlocking/25167/3?u=alper-celik for systemd based solution
   boot.initrd.systemd.services.rollback = {
