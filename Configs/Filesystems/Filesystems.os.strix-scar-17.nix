@@ -16,10 +16,6 @@
     ];
   };
 
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "alper";
-  };
   boot.initrd = {
     luks.devices."cryptroot" = {
       device = "/dev/disk/by-label/main-luks";
