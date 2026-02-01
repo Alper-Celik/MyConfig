@@ -34,6 +34,9 @@
       flake = false;
     };
 
+    vicinae.url = "github:vicinaehq/vicinae";
+    vicinae-extensions.url = "github:vicinaehq/extensions";
+
     stylix.url = "github:danth/stylix/release-25.11";
     nightfox-nvim = {
       url = "github:EdenEast/nightfox.nvim";
