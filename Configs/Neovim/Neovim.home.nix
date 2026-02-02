@@ -37,6 +37,7 @@ let
     omnisharp-roslyn
     pkgs-stable.roslyn-ls # use stable to prevent dotnet 10 preview build failure
     nil
+    kdePackages.qtdeclarative
 
     lazygit
   ];
