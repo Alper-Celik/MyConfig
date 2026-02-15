@@ -1,5 +1,9 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
+  # Install opencode as a system package for AI services
+  environment.systemPackages = with pkgs; [
+    opencode
+  ];
 
   environment.persistence."/persistent".directories = [
     {
