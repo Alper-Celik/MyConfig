@@ -69,4 +69,8 @@ in
       hypr-keybinds
     ];
   };
+
+  services.dunst = {
+    enable = true;
+  };
 }

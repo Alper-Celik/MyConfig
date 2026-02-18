@@ -6,6 +6,7 @@ Scope {
     id: panelsRoot
     required property var modelData
     PanelWindow {
+        id: panel
         screen: panelsRoot.modelData
         anchors {
             top: true
@@ -22,7 +23,12 @@ Scope {
             color: ColorUtils.adjustAlpha("black", 0.5)
 
             Clock {
+                id: clock
                 anchors.centerIn: parent
+            }
+
+            SysTray {
+                anchors.right: clock.left
             }
         }
     }
