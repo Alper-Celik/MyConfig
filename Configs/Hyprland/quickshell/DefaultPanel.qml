@@ -16,6 +16,12 @@ Scope {
         color: "transparent"
         implicitHeight: 30
         Rectangle {
+            id: panelBox
+            color: "transparent"
+            anchors.fill: parent
+        }
+        Rectangle {
+            id: panelInner
             anchors.margins: 5
 
             anchors.fill: parent
@@ -28,7 +34,8 @@ Scope {
             }
 
             SysTray {
-                anchors.right: clock.left
+                anchors.right: panelInner.right
+                anchors.rightMargin: 5
             }
         }
     }

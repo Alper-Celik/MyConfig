@@ -31,14 +31,13 @@ Item {
                     anchor.window: panel
                     anchor.rect.x: {
                         var _dep = trayRow.width;
-                        return (trayItem.mapToGlobal(0, 0).x) + (trayItem.width / 2) - (this.width / 2);
+                        return (trayItem.mapToItem(panelBox, 0, 0).x) + (trayItem.width / 2) - (this.width / 2);
                     }
                     anchor.rect.y: 30
                     implicitHeight: Math.max(10, trayTTBox.height)
                     implicitWidth: Math.max(10, trayTTBox.width)
 
-                    visible: locked || trayArea.containsMouse
-                    property var locked: false
+                    visible: trayArea.containsMouse
 
                     color: ColorUtils.adjustAlpha("black", 0.5)
                     Rectangle {
@@ -68,12 +67,7 @@ Item {
                             }
 
                             Label {
-                                // text: "test"
                                 text: trayItem.modelData.tooltipTitle
-                            }
-
-                            MenuWidget {
-                                menuHandle: trayItem.modelData.menu
                             }
                         }
                     }
@@ -88,8 +82,8 @@ Item {
                         if (mouse.button == Qt.LeftButton) {
                             trayItem.modelData.activate();
                         } else if (true) {
-                            trayItem.modelData.display(panel, this.x, this.y);
-                            trayTooltip.locked = !trayTooltip.locked;
+                            let cords = trayItem.mapToItem(panelBox, 0, 0);
+                            trayItem.modelData.display(panel, cords.x, cords.y);
                         }
                     }
                 }
