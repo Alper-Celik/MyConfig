@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick.Controls.Material
 import Quickshell.Io
 import Quickshell.Wayland
@@ -11,9 +12,9 @@ Item {
         property var toBeLocked: false
 
         function lockSesion() {
-            if (!toBeLocked) {
+            if (!toBeLocked && !lock.locked) {
                 toBeLocked = true;
-                ScreenShotter.takeSS();
+                lock_ss.takeSS();
             }
         }
 
@@ -23,13 +24,10 @@ Item {
             Image {
                 id: displayImage
                 anchors.fill: parent
-                // width: 500
-                // height: 500
-                // Use the function to set the source
-                source: img
-                property var img: {
-                    return ScreenShotter.screens.filter(s => s.output == lockSurface.screen.name)[0].img;
-                }
+                source: lock_ss.screens.find(s => s.output === lockSurface.screen.name).img
+
+                cache: true
+                asynchronous: true
             }
             Button {
                 text: "unlock me"
@@ -62,8 +60,9 @@ Item {
         }
     }
 
-    Connections {
-        target: ScreenShotter
+    ScreenShotter {
+        id: lock_ss
+        prefix: "lock_"
         onScreenShotTaken: {
             if (lock.toBeLocked) {
                 lock.locked = true;
