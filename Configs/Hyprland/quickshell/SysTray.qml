@@ -1,73 +1,86 @@
 import QtQuick
-import QtQuick.Controls.Basic
+import QtQuick.Controls.Material
+import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Services.SystemTray
 import Quickshell
 
-Item {
-    width: trayRow.width
-    implicitHeight: parent.height
-    Row {
+Pane {
+    id: sysTray
+    Layout.preferredWidth: trayRow.implicitWidth + (panelsRoot.sidePadding * 2)
+    Layout.fillHeight: true
+    Material.elevation: elevationL1
+    Material.roundedScale: roundedScale
+    Material.background: Material.color(Material.Grey, Material.Shade800)
+    padding: panelsRoot.padding
+    rightPadding: panelsRoot.sidePadding
+    leftPadding: panelsRoot.sidePadding
+    RowLayout {
         id: trayRow
         spacing: 5
         height: parent.height
+
+        // height: 50
         Repeater {
             model: SystemTray.items
             delegate: Item {
                 id: trayItem
                 required property var modelData
-                height: parent.height
-                width: height
+                Layout.preferredHeight: parent.height
+                Layout.preferredWidth: parent.height
 
                 Image {
                     id: trayImg
                     source: trayItem.modelData.icon
                     fillMode: Image.PreserveAspectFit
-                    anchors.fill: parent
+                    width: parent.width
                 }
 
                 PopupWindow {
                     id: trayTooltip
                     anchor.window: panel
                     anchor.rect.x: {
-                        var _dep = trayRow.width;
+                        var _dep = sysTray.x;
                         return (trayItem.mapToItem(panelBox, 0, 0).x) + (trayItem.width / 2) - (this.width / 2);
                     }
-                    anchor.rect.y: 30
+                    anchor.rect.y: sysTray.height
                     implicitHeight: Math.max(10, trayTTBox.height)
                     implicitWidth: Math.max(10, trayTTBox.width)
 
                     visible: trayArea.containsMouse
+                    color: "transparent"
 
-                    color: ColorUtils.adjustAlpha("black", 0.5)
-                    Rectangle {
+                    Pane {
                         id: trayTTBox
-                        color: ColorUtils.adjustAlpha("black", 0)
-                        width: trayTTText.width + 10
-                        height: trayTTText.height + 10
+                        anchors.fill: parent
 
-                        Column {
+                        padding: padding
+                        Material.theme: Material.Dark
+                        Material.roundedScale: roundedScale
+                        Material.background: Qt.alpha(Material.color(Material.Grey, Material.Shade900), 0.9)
+
+                        ColumnLayout {
                             id: trayTTText
                             anchors.centerIn: parent
                             width: childrenRect.width
                             height: childrenRect.height
-                            spacing: 2
-                            Rectangle {
-                                width: Math.max(headerText.width + 20, parent.width)
-                                height: headerText.height
-                                color: "#333" // Darker background for the header
-
-                                Label {
-                                    id: headerText
-                                    text: trayItem.modelData.id
-                                    color: "white"
-                                    font.bold: true
-                                    anchors.centerIn: parent
-                                }
+                            spacing: padding
+                            Label {
+                                id: headerText
+                                text: trayItem.modelData.id
+                                font.bold: true
+                                // anchors.centerIn: parent
+                                Layout.fillWidth: true
+                                horizontalAlignment: Text.AlignHCenter
                             }
 
+                            MenuSeparator {
+
+                                Layout.fillWidth: true
+                            }
                             Label {
                                 text: trayItem.modelData.tooltipTitle
+                                horizontalAlignment: Text.AlignHCenter
                             }
                         }
                     }

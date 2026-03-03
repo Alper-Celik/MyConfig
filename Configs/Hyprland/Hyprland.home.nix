@@ -31,11 +31,20 @@ in
     waypaper
     playerctl
     brightnessctl
+    grim
   ];
 
   xdg.configFile."quickshell".source = outOfStrore "./quickshell/";
   programs.quickshell = {
     enable = true;
+    package = pkgs.quickshell.overrideAttrs (oldAttrs: {
+      buildInputs =
+        (oldAttrs.buildInputs or [ ])
+        ++ (with pkgs.kdePackages; [
+          kirigami
+          kirigami-addons
+        ]);
+    });
     systemd = {
       enable = true;
       target = hyprland-target;

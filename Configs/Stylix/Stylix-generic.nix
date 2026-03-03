@@ -4,13 +4,14 @@
   inputs,
   config,
   pkgs-unstable,
+  lib,
   ...
 }:
 {
 
   stylix = {
     enable = true;
-    # autoEnable = false;
+    autoEnable = true;
 
     image = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Path/contents/images/2560x1600.jpg";
     polarity = "dark";
@@ -38,7 +39,9 @@
         terminal = 9;
       };
     };
-
+    targets = {
+      qt.platform = lib.mkForce "qtct";
+    };
   };
 
 }
