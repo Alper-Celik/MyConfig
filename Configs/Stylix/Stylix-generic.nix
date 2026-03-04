@@ -39,6 +39,14 @@
         terminal = 9;
       };
     };
+
+    icons = {
+      enable = true;
+      package = pkgs.flat-remix-icon-theme;
+      dark = "Flat-Remix-Blue-Dark";
+      light = "Flat-Remix-Blue-Light";
+    };
+
     targets = {
       qt.platform = lib.mkForce "qtct";
     };
