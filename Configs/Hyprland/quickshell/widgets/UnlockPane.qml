@@ -1,7 +1,9 @@
 import QtQuick.Controls.Material
 import QtQuick.Layouts
+import QtQuick
 
 Pane {
+    id: unlockPane
     Material.theme: Material.Dark
     Material.roundedScale: Material.MediumScale
     Material.background: Material.color(Material.Grey, Material.Shade900)
@@ -12,6 +14,12 @@ Pane {
     height: parent.height / 2
 
     anchors.centerIn: parent
+
+    function loginFailed(message: string) {
+        passField.clear();
+    }
+    signal response(response: string)
+    property string responsePlaceholder: "Password :"
 
     RowLayout {
 
@@ -24,16 +32,9 @@ Pane {
 
             Layout.fillWidth: true
             echoMode: TextInput.Password
-            placeholderText: pam_password.message
+            placeholderText: unlockPane.responsePlaceholder
             onAccepted: {
-                console.log("trying to unlock pam_u2f");
-                pam_password.login(text);
-            }
-            Connections {
-                target: pam_password
-                function onFailed() {
-                    passField.clear();
-                }
+                unlockPane.response(text);
             }
         }
         RoundButton {
@@ -51,7 +52,7 @@ Pane {
         Button {
             icon.name: "draw-arrow-forward"
 
-            onClicked: pam_password.login(passField.text)
+            onClicked: unlockPane.response(passField.text)
         }
     }
 }

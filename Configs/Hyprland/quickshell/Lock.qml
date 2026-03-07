@@ -4,7 +4,6 @@ import Quickshell.Wayland
 import Quickshell.Services.Pam
 import QtQuick.Controls.Material
 import QtQuick.Effects
-import QtQuick.Layouts
 import QtQuick
 import "./widgets"
 
@@ -86,7 +85,17 @@ Item {
                     blurMax: 96
                     autoPaddingEnabled: false
                 }
-                UnlockPane {}
+                UnlockPane {
+                    onResponse: function (response: string) {
+                        pam_password.login(response);
+                    }
+                    Connections {
+                        target: pam_password
+                        function onFailed() {
+                            parent.loginFailed("");
+                        }
+                    }
+                }
             }
         }
     }
@@ -132,7 +141,6 @@ Item {
 
         property bool inAuth: false
 
-        signal failed
         onActiveChanged: {
             if (inAuth && (active === false)) {
                 active = true;
@@ -147,8 +155,6 @@ Item {
         onCompleted: function (result) {
             if (result === PamResult.Success) {
                 lock.unlockSesion();
-            } else {
-                pam_u2f.failed();
             }
         }
     }
