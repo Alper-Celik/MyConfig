@@ -11,7 +11,7 @@ Scope {
 
     property var padding: 5
     property var sidePadding: 5
-    property var roundedScale :  Material.MediumScale
+    property var roundedScale: Material.MediumScale
     property var elevationL1: 25
 
     PanelWindow {

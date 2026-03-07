@@ -1,6 +1,7 @@
 {
   config,
   my-lib,
+  my-pkgs,
   specialArgs,
   inputs,
   pkgs,
@@ -43,6 +44,7 @@ in
         ++ (with pkgs.kdePackages; [
           kirigami
           kirigami-addons
+          my-pkgs.qml-material
         ]);
     });
     systemd = {
