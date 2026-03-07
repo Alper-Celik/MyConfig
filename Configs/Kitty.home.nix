@@ -16,6 +16,7 @@
       enableFishIntegration = true;
     };
     settings = {
+      # shell = "systemd-run --user --scope -p MemoryMax=90% -p TasksMax=1000 fish";
       shell_integration = "enabled";
       allow_remote_control = true;
 

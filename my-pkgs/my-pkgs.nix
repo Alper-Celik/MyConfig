@@ -1,4 +1,9 @@
-{ pkgs, my-lib, ... }:
+{
+  pkgs,
+  my-lib,
+  inputs,
+  ...
+}@args:
 let
   package-files = my-lib.getConfigs {
     removed-files = [ "my-pkgs.nix" ];
@@ -7,7 +12,7 @@ let
   my-pkgs = builtins.foldl' (
     pkg-set: pkg-file:
     let
-      pkg = pkgs.callPackage pkg-file { };
+      pkg = pkgs.callPackage pkg-file { inherit inputs args; };
     in
     pkg-set // { "${pkg.pname}" = pkg; }
   ) { } package-files;

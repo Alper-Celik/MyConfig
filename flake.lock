@@ -16,6 +16,22 @@
         "url": "ssh://git@github.com/Alper-Celik/MyConfigSecrets.git"
       }
     },
+    "QmlMaterail": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1766844929,
+        "narHash": "sha256-ZOWgkyLs2Erb77D2K/CteqBgMeReY37cg2opG26VATY=",
+        "owner": "hypengw",
+        "repo": "QmlMaterial",
+        "rev": "21efe0c0d9fde4a9a041ab52e9ed3cc055c35796",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hypengw",
+        "repo": "QmlMaterial",
+        "type": "github"
+      }
+    },
     "autopair-fish": {
       "flake": false,
       "locked": {
@@ -758,11 +774,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1770197578,
-        "narHash": "sha256-AYqlWrX09+HvGs8zM6ebZ1pwUqjkfpnv8mewYwAo+iM=",
+        "lastModified": 1772773019,
+        "narHash": "sha256-E1bxHxNKfDoQUuvriG71+f+s/NT0qWkImXsYZNFFfCs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "00c21e4c93d963c50d4c0c89bfa84ed6e0694df2",
+        "rev": "aca4d95fce4914b3892661bcb80b8087293536c6",
         "type": "github"
       },
       "original": {
@@ -992,6 +1008,7 @@
     "root": {
       "inputs": {
         "MyConfigSecrets": "MyConfigSecrets",
+        "QmlMaterail": "QmlMaterail",
         "autopair-fish": "autopair-fish",
         "bang-bang-fish": "bang-bang-fish",
         "dwarffs": "dwarffs",

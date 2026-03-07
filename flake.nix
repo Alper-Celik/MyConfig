@@ -92,6 +92,11 @@
       flake = false;
     };
 
+    QmlMaterail = {
+      url = "github:hypengw/QmlMaterial?lfs=1";
+      flake = false;
+    };
+
   };
   outputs =
     {
@@ -136,7 +141,7 @@
           rec {
 
             packages = import ./my-pkgs/my-pkgs.nix {
-              inherit pkgs;
+              inherit pkgs inputs;
               my-lib = self.lib;
             };
 

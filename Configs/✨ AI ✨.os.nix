@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
 {
   # Install opencode as a system package for AI services
   environment.systemPackages = with pkgs; [
@@ -16,18 +21,10 @@
 
   # FIXME: systemd creates problems fix in near future
   services.ollama = rec {
+    package = pkgs-unstable.ollama-cuda;
     enable = true;
     user = "ollama";
     group = user;
   };
 
-  virtualisation.oci-containers.containers."open-webui" = {
-    image = "ghcr.io/open-webui/open-webui:0.5.12";
-    volumes = [ "open-webui:/app/backend/data" ];
-    # ports = [ "8080:8080" ];
-    # extraOptions = [ "--network=host" ];
-    environment = {
-      WEBUI_AUTH = "False";
-    };
-  };
 }
