@@ -19,6 +19,7 @@
   };
 
   nix = {
+
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
@@ -33,12 +34,26 @@
       experimental-features = "nix-command flakes";
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
-    } // specialArgs.caches;
+    }
+    // specialArgs.caches;
     # gc = {
     #   automatic = true;
     #   dates = "weekly";
     #   options = "--delete-older-than 7d --max-freed 10G";
     # };
   };
+
+  #use lix
+  nixpkgs.overlays = [
+    (final: prev: {
+      inherit (prev.lixPackageSets.stable)
+        nixpkgs-review
+        nix-eval-jobs
+        nix-fast-build
+        colmena
+        ;
+    })
+  ];
+  nix.package = pkgs.lixPackageSets.stable.lix;
 
 }
