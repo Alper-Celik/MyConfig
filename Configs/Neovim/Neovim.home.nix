@@ -1,6 +1,4 @@
 {
-  inputs,
-  lib,
   config,
   pkgs,
   pkgs-unstable,
@@ -36,6 +34,7 @@ let
     deadnix
     omnisharp-roslyn
     pkgs-stable.roslyn-ls # use stable to prevent dotnet 10 preview build failure
+    nixd
     nil
     kdePackages.qtdeclarative
 
