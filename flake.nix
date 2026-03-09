@@ -35,7 +35,7 @@
     };
 
     vicinae.url = "github:vicinaehq/vicinae";
-    vicinae-extensions.url = "github:vicinaehq/extensions";
+    vicinae-extensions.url = "github:vicinaehq/extensions/9891716758d3d3342b3d2d0d6e6220d00ea89b44";
 
     stylix.url = "github:danth/stylix/release-25.11";
     nightfox-nvim = {
@@ -93,7 +93,7 @@
     };
 
     QmlMaterail = {
-      url = "github:hypengw/QmlMaterial?lfs=1";
+      url = "github:hypengw/QmlMaterial";
       flake = false;
     };
 

@@ -14,9 +14,6 @@
     with pkgs;
     with kdePackages;
     [
-
-      pkgs-stable.unityhub
-
       # media players and music
       vlc
       audacity
@@ -37,12 +34,10 @@
       ## browsers
       #firefox moved to home manager
       chromium
-      vivaldi
       ## mail and chat
       thunderbird-bin
       discord
       element-desktop
-      telegram-desktop
       # neochat
       ## office suits
       libreoffice-qt6
@@ -87,7 +82,6 @@
 
       ## drawing
       krita
-      xournalpp
 
     ];
   programs.kclock.enable = true;
