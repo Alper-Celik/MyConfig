@@ -1,17 +1,20 @@
-import Quickshell // for PanelWindow
+import Quickshell
+import Quickshell.Wayland
 import Quickshell.Io
 import QtQuick.Controls.Material
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick // for Text
+import Qcm.Material as MD
+import "./widgets/"
 
-Scope {
+Item {
     id: panelsRoot
     required property var modelData
 
     property var padding: 5
     property var sidePadding: 5
-    property var roundedScale: Material.MediumScale
+    property var roundedScale: MD.Token.shape.corner.medium
     property var elevationL1: 25
 
     PanelWindow {
@@ -23,36 +26,57 @@ Scope {
             left: true
             right: true
         }
+        // exclusionMode: ExclusionMode.Ignore
+        exclusiveZone: 50
         color: "transparent"
-        implicitHeight: 50
+        implicitHeight: modelData.height
+        WlrLayershell.layer: WlrLayer.Bottom
+        Rectangle {
+            id: screen
+            anchors.fill: parent
+            color: "transparent"
+            Walpaper {
+                anchors.fill: parent
+            }
+        }
         Rectangle {
             id: panelBox
             color: "transparent"
-            anchors.fill: parent
-        }
-        Pane {
-            id: panelInner
-            anchors.margins: 5
-            padding: 0
-            rightPadding: this.leftPadding
-            Material.theme: Material.Dark
-            Material.roundedScale: roundedScale
-            Material.background: Material.color(Material.Grey, Material.Shade900)
-            clip: true
+            // anchors.fill: parent
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: panel.exclusiveZone
+            clip: false
 
-            anchors.fill: parent
+            MD.Pane {
+                id: panelInner
+                MD.MProp.textColor: MD.MProp.color.on_surface
+                MD.MProp.backgroundColor: MD.MProp.color.surface_container
 
-            Clock {
-                id: clock
-                anchors.centerIn: parent
-            }
+                elevation: MD.Token.elevation.level5
 
-            RowLayout {
-                id: panelWidgets
+                backgroundColor: MD.MProp.color.surface_container
+                anchors.margins: 5
+                padding: 0
+                rightPadding: this.leftPadding
+                radius: roundedScale
+                clip: false
+
                 anchors.fill: parent
 
-                SysTray {
-                    Layout.alignment: Qt.AlignRight
+                height: 30
+
+                Clock {
+                    id: clock
+                    anchors.centerIn: parent
+                }
+
+                RowLayout {
+                    id: panelWidgets
+                    anchors.fill: parent
+                    SysTray {
+                        Layout.alignment: Qt.AlignRight
+                    }
                 }
             }
         }

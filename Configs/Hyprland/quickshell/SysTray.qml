@@ -4,14 +4,17 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell.Services.SystemTray
 import Quickshell
+import Qcm.Material as MD
 
-Pane {
+MD.Pane {
     id: sysTray
+
+    elevation: MD.Token.elevation.level2
+    backgroundColor: MD.MProp.color.secondary_container
+    radius: MD.Token.shape.corner.medium
+
     Layout.preferredWidth: trayRow.implicitWidth + (panelsRoot.sidePadding * 2)
     Layout.fillHeight: true
-    Material.elevation: elevationL1
-    Material.roundedScale: roundedScale
-    Material.background: Material.color(Material.Grey, Material.Shade800)
     padding: panelsRoot.padding
     rightPadding: panelsRoot.sidePadding
     leftPadding: panelsRoot.sidePadding
