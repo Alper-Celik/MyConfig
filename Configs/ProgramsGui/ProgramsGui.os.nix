@@ -18,6 +18,7 @@
       vlc
       audacity
       haruna
+      finamp
 
       feishin
       puddletag
