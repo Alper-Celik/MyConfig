@@ -27,12 +27,14 @@ in
 
   xdg.configFile."hypr".source = outOfStrore ".";
   services.hyprpolkitagent.enable = true;
-  services.swww.enable = true;
   home.packages = with pkgs; [
-    waypaper
     playerctl
     brightnessctl
     grim
+  ];
+
+  home.sessionPath = [
+    "${(outOfStrore "./scripts/")}"
   ];
 
   xdg.configFile."quickshell".source = outOfStrore "./quickshell/";
