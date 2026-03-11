@@ -3,97 +3,136 @@ import QtQuick
 import QtQuick.Layouts
 import Qcm.Material as MD
 import Qt.labs.settings 1.0
+import QtQuick.Effects
 
-Image {
-    id: walpaper
-    Settings {
-        id: walpaper_settings
-        category: "Walpaper"
-        property alias source: walpaper.source
-        property alias title: title.text
-        property alias desc: desc.text
-        property alias copyright: copyright.text
+Item {
+
+    Image {
+        id: walpaper
+        Settings {
+            id: walpaper_settings
+            category: "Walpaper"
+            property alias source: walpaper.source
+            property alias title: title.text
+            property alias desc: desc.text
+            property alias copyright: copyright.text
+        }
+        anchors.fill: parent
+        onSourceChanged: walpaper_settings.sync()
+
+        source: "/dev/shm/lock_eDP-1.ppm"
+        property string newUrl: ""
+        onNewUrlChanged: {
+            walpaper_animation.running = true;
+        }
     }
-    onSourceChanged: walpaper_settings.sync()
 
-    source: "/dev/shm/lock_eDP-1.ppm"
-    property string newUrl: ""
-    onNewUrlChanged: {
-        walpaper_animation.running = true;
-    }
-
-    MD.Pane {
+    Item {
+        id: blur_root
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         width: title.width + 100
         height: mainPart.implicitHeight + (copyright.height * 2.5)
+
         anchors.margins: 20
-        padding: 10
-        backgroundColor: Qt.alpha(MD.MProp.color.surface, 0.4)
-        radius: MD.Token.shape.corner.medium
+        clip: true
 
-        MD.MProp.textColor: MD.MProp.color.on_surface
+        MultiEffect {
+            id: background_effect
+            x: -walpaper.width + blur_root.width + blur_root.anchors.rightMargin
+            y: -walpaper.height + blur_root.height + blur_root.anchors.bottomMargin
+            anchors.fill: walpaper
+            source: walpaper
+            blurEnabled: true
+            width: walpaper.width
+            height: walpaper.height
+            blurMax: 64
+            autoPaddingEnabled: false
+            blur: 1
+        }
 
-        ColumnLayout {
+        MD.Pane {
+            id: info_panel
             anchors.fill: parent
+            padding: 10
+            backgroundColor: Qt.alpha(MD.MProp.color.surface, 0.2)
+            radius: MD.Token.shape.corner.medium
 
-            Column {
-                id: mainPart
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                Layout.alignment: Qt.AlignTop
-                spacing: 15
-                MD.Label {
-                    id: title
-                    anchors.right: parent.right
-                    typescale: MD.Token.typescale.title_large
-                    text: "Salt evaporation ponds on the island of Gozo, Malta"
-                }
-                MD.Button {
-                    id: control
-                    width: parent.width
-                    height: desc.implicitHeight + 4
+            MD.MProp.textColor: MD.MProp.color.on_surface
 
-                    onClicked: state == "expanded" ? state = "" : state = "expanded"
+            ColumnLayout {
+                anchors.fill: parent
 
-                    states: [
-                        State {
-                            name: "expanded"
-                            PropertyChanges {
-                                target: desc
-                                maximumLineCount: 100
+                Column {
+                    id: mainPart
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.alignment: Qt.AlignTop
+                    spacing: 15
+                    MD.Label {
+                        id: title
+
+                        property string newText: ""
+                        anchors.right: parent.right
+                        typescale: MD.Token.typescale.title_large
+                    }
+                    MD.Button {
+                        id: control
+                        width: parent.width
+                        height: desc.implicitHeight + 4
+                        Behavior on height {
+                            NumberAnimation {
+                                duration: 350
+                                easing.type: Easing.InOutBack
                             }
                         }
-                    ]
+                        clip: true
 
-                    background: MD.Ripple2 {
-                        anchors.fill: parent
-                        radius: MD.Token.shape.corner.small
-                        pressX: control.pressX
-                        pressY: control.pressY
-                        pressed: control.pressed
-                        stateOpacity: control.mdState.stateLayerOpacity
-                        // color: control.mdState.stateLayerColor
-                    }
+                        onClicked: state == "expanded" ? state = "" : state = "expanded"
 
-                    MD.Label {
-                        id: desc
-                        width: parent.width
-                        elide: Text.ElideRight
-                        maximumLineCount: 5
-                        anchors.centerIn: parent
+                        states: [
+                            State {
+                                name: "expanded"
+                                PropertyChanges {
+                                    target: desc
+                                    maximumLineCount: 100
+                                }
+                            }
+                        ]
 
-                        typescale: MD.Token.typescale.body_small
-                        wrapMode: Text.WordWrap
-                        text: "Xwejni Bay in Gozo, Malta, has a way of making everyday elements look like a quiet choreography between sea, stone and sun. You can't help but pause and look closer, right? Centuries back, families began carving these limestone pans, shaping hundreds of basins that trap seawater with each wave. Once the water settles in, the sun's heat does the rest, slowly evaporating it into natural Mediterranean salt. Gozo became a salt-making hub because its limestone coast is easy to shape, and its warm, dry summers keep the crystallisation process steady. The first crystals form around May, marking the beginning of the harvesting season. Workers rake the salt by hand, sweep it with brooms and brushes, gather it into small piles to dry for another day, then bag it and store it in the caves.\nVisitors can walk right up to the pans along the shore, but look out for 'no trespassing' signs. If you swing by in the summer, you might spot active raking and drying. Take a moment to enjoy the view, and before you head back, consider collecting a salty souvenir from one of the many gourmet shops around Malta."
+                        background: MD.Ripple2 {
+                            anchors.fill: parent
+                            radius: MD.Token.shape.corner.small
+                            pressX: control.pressX
+                            pressY: control.pressY
+                            pressed: control.pressed
+                            stateOpacity: control.mdState.stateLayerOpacity
+                            // color: control.mdState.stateLayerColor
+                        }
+
+                        MD.Label {
+                            id: desc
+                            height: parent.height
+                            property string newText: ""
+                            width: parent.width
+                            elide: Text.ElideRight
+                            maximumLineCount: 5
+                            anchors.centerIn: parent
+                            verticalAlignment: Text.AlignTop
+
+                            typescale: MD.Token.typescale.body_small
+                            wrapMode: Text.WordWrap
+                        }
                     }
                 }
-            }
-            MD.Label {
-                id: copyright
-                // Layout.fillWidth: true
-                Layout.alignment: Qt.AlignBottom | Qt.AlignRight
-                text: "test"
+                MD.Label {
+                    id: copyright
+
+                    property string newText: ""
+                    // Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignBottom | Qt.AlignRight
+                    text: "test"
+                }
             }
         }
     }
@@ -118,6 +157,22 @@ Image {
                 to: walpaper.newUrl
                 duration: 100
             }
+            PropertyAnimation {
+                target: title
+                property: "text"
+                to: title.newText
+            }
+            PropertyAnimation {
+                target: desc
+                property: "text"
+                to: desc.newText
+            }
+            PropertyAnimation {
+                target: copyright
+                property: "text"
+                to: copyright.newText
+            }
+
             ColorAnimation {
                 target: walpaper_bg
                 property: "color"
@@ -130,9 +185,9 @@ Image {
 
             function set(url: string, _title: string, _desc: string, _copyright: string) {
                 walpaper.newUrl = url;
-                title.text = _title;
-                desc.text = _desc;
-                copyright.text = _copyright;
+                title.newText = _title;
+                desc.newText = _desc;
+                copyright.newText = _copyright;
             }
         }
     }
