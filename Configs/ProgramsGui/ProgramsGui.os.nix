@@ -106,6 +106,7 @@
     package = pkgs.wireshark;
   };
 
+  users.users.alper.extraGroups = [ "wireshark" ];
   # needed for avaloniaui .net
   environment.sessionVariables.LD_LIBRARY_PATH = [
     "${pkgs.fontconfig.lib}/lib"
