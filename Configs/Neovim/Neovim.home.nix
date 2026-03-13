@@ -28,6 +28,8 @@ let
     curl
     cargo
 
+    lsof
+
     clang-tools
     nixfmt-rfc-style
     codespell

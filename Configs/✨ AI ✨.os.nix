@@ -6,8 +6,8 @@
 }:
 {
   # Install opencode as a system package for AI services
-  environment.systemPackages = with pkgs; [
-    opencode
+  environment.systemPackages = [
+    pkgs-unstable.opencode
   ];
   environment.sessionVariables = {
     OPENCODE_ENABLE_EXA = 1; # enable web search
