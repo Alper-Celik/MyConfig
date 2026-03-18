@@ -7,9 +7,9 @@
   ...
 }:
 {
-  home.packages = [ inputs.plasma-manager.packages.${pkgs.system}.rc2nix ];
+  # home.packages = [ inputs.plasma-manager.packages.${pkgs.system}.rc2nix ];
   programs.plasma = {
-    enable = true;
+    enable = false;
 
     kwin = {
       virtualDesktops = {

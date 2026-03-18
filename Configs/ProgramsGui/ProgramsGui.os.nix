@@ -25,6 +25,7 @@
       kid3
       spotify
       kdePackages.kasts
+      easyeffects
 
       obs-studio
       # musescore

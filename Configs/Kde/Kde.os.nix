@@ -13,29 +13,28 @@
   services.power-profiles-daemon.enable = true;
 
   # default wayland
-  services.displayManager.defaultSession = "plasma";
+  # services.displayManager.defaultSession = "plasma";
 
-  programs.ssh.askPassword = lib.mkForce "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass";
+  # programs.ssh.askPassword = lib.mkForce "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass";
 
   programs.kde-pim = {
-    enable = true;
+    enable = false;
     kontact = true;
     kmail = true;
     merkuro = true;
   };
 
   services.desktopManager.plasma6 = {
-    enable = true;
+    enable = false;
     # useQtScaling = true;
     # phononBackend = "vlc";
   };
 
   environment.systemPackages = with pkgs; [
-    easyeffects
-    kdePackages.yakuake
-    kdePackages.plasma-vault
-    gocryptfs
-    kdePackages.kdepim-addons
+    # kdePackages.yakuake
+    # kdePackages.plasma-vault
+    # gocryptfs
+    # kdePackages.kdepim-addons
     # libsForQt5.bismuth #plasma tiling
   ];
 
