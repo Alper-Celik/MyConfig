@@ -3,7 +3,9 @@ import Quickshell // for PanelWindow
 import QtQuick.Controls
 import QtQuick // for Text
 import Quickshell.Io
+import Quickshell.Wayland
 import Qcm.Material as MD
+import "./widgets/"
 
 Scope {
     MD.MProp.textColor: MD.MProp.color.on_surface
@@ -17,5 +19,22 @@ Scope {
         model: Quickshell.screens
         DefaultPanel {}
     }
+    Variants {
+        model: Quickshell.screens
+        PanelWindow {
+            anchors {
+                top: true
+                bottom: true
+                right: true
+                left: true
+            }
+            exclusionMode: ExclusionMode.Ignore
+            WlrLayershell.layer: WlrLayer.Bottom
+            Walpaper {
+                anchors.fill: parent
+            }
+        }
+    }
+
     Lock {}
 }

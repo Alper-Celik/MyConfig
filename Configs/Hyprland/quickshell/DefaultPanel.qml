@@ -21,23 +21,22 @@ Item {
         id: panel
         screen: panelsRoot.modelData
 
+        mask: Region {
+            item: panelInner
+        }
+
         anchors {
             top: true
             left: true
             right: true
         }
-        // exclusionMode: ExclusionMode.Ignore
         exclusiveZone: 50
         color: "transparent"
         implicitHeight: modelData.height
-        WlrLayershell.layer: WlrLayer.Bottom
         Rectangle {
             id: screen
             anchors.fill: parent
             color: "transparent"
-            Walpaper {
-                anchors.fill: parent
-            }
         }
         Rectangle {
             id: panelBox
