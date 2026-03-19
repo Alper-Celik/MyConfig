@@ -1,4 +1,9 @@
-{ pkgs-unstable, pkgs, ... }:
+{
+  pkgs-unstable,
+  pkgs,
+  my-pkgs,
+  ...
+}:
 {
   programs.hyprland = {
     enable = true;
@@ -6,6 +11,19 @@
     withUWSM = true;
 
   };
+
+  environment.sessionVariables =
+    let
+      globalQmlPkg = [
+        pkgs.kdePackages.kirigami
+        pkgs.kdePackages.kirigami-addons
+        my-pkgs.qml-material
+      ];
+    in
+    {
+      QT_PLUGIN_PATH = map (pkg: "${pkg}/${pkgs.qt6.qtbase.qtPluginPrefix}") globalQmlPkg;
+      QML2_IMPORT_PATH = map (pkg: "${pkg}/${pkgs.qt6.qtbase.qtQmlPrefix}") globalQmlPkg;
+    };
 
   security.pam.services = {
     "password".unixAuth = true;
