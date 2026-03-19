@@ -39,6 +39,7 @@ let
     nixd
     nil
     kdePackages.qtdeclarative
+    cmake-language-server
 
     lazygit
   ];
