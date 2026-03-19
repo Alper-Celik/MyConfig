@@ -4,7 +4,6 @@ import QtQuick.Controls
 import QtQuick
 import Qcm.Material as MD
 import QtQuick.Templates as T
-import AlperModule
 
 MD.Pane {
     elevation: MD.Token.elevation.level2
@@ -20,12 +19,8 @@ MD.Pane {
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         typescale: MD.Token.typescale.title_medium
-        text: customModule.message
-        // text: Qt.formatDateTime(clock.date, "ddd yyyy-MM-dd HH:mm.ss ttt")
+        text: Qt.formatDateTime(clock.date, "ddd yyyy-MM-dd HH:mm.ss ttt")
         color: MD.Token.color.getOn(MD.MProp.color.secondary_container)
-        CustomModule {
-            id: customModule
-        }
         SystemClock {
             id: clock
             precision: SystemClock.Seconds
