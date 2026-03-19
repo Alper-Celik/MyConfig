@@ -28,6 +28,8 @@
     # Making legacy nix commands consistent as well, awesome!
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
+    daemonCPUSchedPolicy = "batch";
+    daemonIOSchedPriority = 6;
     settings = {
       trusted-users = [ "alper" ];
       # Enable flakes and new 'nix' command
@@ -41,6 +43,11 @@
     #   dates = "weekly";
     #   options = "--delete-older-than 7d --max-freed 10G";
     # };
+  };
+
+  systemd.services.nix-daemon.serviceConfig = {
+    CPUQuota = "85%";
+    Nice = 10;
   };
 
   #use lix
