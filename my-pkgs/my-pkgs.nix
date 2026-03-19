@@ -12,7 +12,13 @@ let
   my-pkgs = builtins.foldl' (
     pkg-set: pkg-file:
     let
-      pkg = pkgs.callPackage pkg-file { inherit inputs args; };
+      pkg = (import pkg-file) {
+        inherit
+          inputs
+          args
+          pkgs
+          ;
+      };
     in
     pkg-set // { "${pkg.pname}" = pkg; }
   ) { } package-files;
