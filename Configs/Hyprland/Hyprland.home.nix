@@ -16,6 +16,8 @@ in
 {
   imports = [ inputs.vicinae.homeManagerModules.default ];
 
+  xdg.autostart.enable = true;
+
   xdg.configFile."uwsm/env".source =
     "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
 
@@ -77,5 +79,10 @@ in
 
   services.dunst = {
     enable = true;
+  };
+
+  programs.keepassxc = {
+    enable = true;
+    autostart = true;
   };
 }

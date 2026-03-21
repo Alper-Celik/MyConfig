@@ -17,4 +17,10 @@
       IdentityFile ~/.ssh/id_ed25519
     '';
   };
+
+  services.ssh-agent = {
+    enable = true;
+    enableBashIntegration = true;
+    enableFishIntegration = true;
+  };
 }

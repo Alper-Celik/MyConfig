@@ -31,7 +31,6 @@
       # musescore
 
       # utulities
-      bitwarden-desktop
       nextcloud-client
       ## browsers
       #firefox moved to home manager
