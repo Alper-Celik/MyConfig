@@ -32,6 +32,7 @@
 
       # utulities
       nextcloud-client
+      kdePackages.dolphin
       ## browsers
       #firefox moved to home manager
       chromium
