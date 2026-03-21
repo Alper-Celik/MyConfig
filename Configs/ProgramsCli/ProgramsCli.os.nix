@@ -41,6 +41,7 @@
 
       python3Packages.yt-dlp
       ffmpeg
+      imagemagick
 
       # manual
       man
