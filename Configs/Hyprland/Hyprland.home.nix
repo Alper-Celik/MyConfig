@@ -16,8 +16,6 @@ in
 {
   imports = [ inputs.vicinae.homeManagerModules.default ];
 
-  xdg.autostart.enable = true;
-
   xdg.configFile."uwsm/env".source =
     "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
 
@@ -38,6 +36,10 @@ in
   home.sessionPath = [
     "${(outOfStrore "./scripts/")}"
   ];
+  home.sessionVariables = {
+    HYPRLAND_NO_SD_VARS = 1;
+    HYPRLAND_NO_SD_NOTIFY = 1;
+  };
 
   xdg.configFile."quickshell".source = outOfStrore "./quickshell/";
   programs.quickshell = {
@@ -48,6 +50,29 @@ in
       target = hyprland-target;
     };
   };
+
+  systemd.user.services.quickshell = {
+    Unit = rec {
+      StartLimitIntervalSec = 0;
+      Before = Wants;
+      Wants = [
+        "xdg-desktop-autostart.target"
+      ];
+      Requires = After;
+      After = [
+        "wayland-session@Hyprland.target"
+        "wayland-wm@Hyprland.service"
+        hyprland-target
+      ];
+    };
+    Service = {
+      RestartSec = "0.5s";
+      Type = "notify";
+      NotifyAccess = "all";
+    };
+  };
+
+  wayland.windowManager.hyprland.systemd.enable = false;
 
   services.vicinae = {
     enable = true;
@@ -81,8 +106,4 @@ in
     enable = true;
   };
 
-  programs.keepassxc = {
-    enable = true;
-    autostart = true;
-  };
 }

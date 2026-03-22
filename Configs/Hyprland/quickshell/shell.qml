@@ -14,6 +14,7 @@ Scope {
         // MD.Token.color.accentColor = "#8BC34A";
 
         MD.Token.themeMode = MD.Enum.Dark;
+        notify.running = true;
     }
     Variants {
         model: Quickshell.screens
@@ -37,4 +38,9 @@ Scope {
     }
 
     Lock {}
+
+    Process {
+        id: notify
+        command: ["sh", ".config/quickshell/start-notify.sh"]
+    }
 }

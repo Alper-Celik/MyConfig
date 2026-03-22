@@ -8,8 +8,12 @@
     enable = true;
     description = "autostart ktailctl";
     wantedBy = [ "graphical-session.target" ];
+    unitConfig = {
+      StartLimitIntervalSec = 0;
+    };
     serviceConfig = {
       ExecStart = "${pkgs.ktailctl}/bin/ktailctl";
+      RestartSec = "2s";
     };
   };
 
