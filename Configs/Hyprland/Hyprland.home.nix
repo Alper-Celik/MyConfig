@@ -30,7 +30,6 @@ in
   home.packages = with pkgs; [
     playerctl
     brightnessctl
-    grim
   ];
 
   home.sessionPath = [
@@ -39,37 +38,6 @@ in
   home.sessionVariables = {
     HYPRLAND_NO_SD_VARS = 1;
     HYPRLAND_NO_SD_NOTIFY = 1;
-  };
-
-  xdg.configFile."quickshell".source = outOfStrore "./quickshell/";
-  programs.quickshell = {
-    enable = true;
-    package = pkgs.quickshell;
-    systemd = {
-      enable = true;
-      target = hyprland-target;
-    };
-  };
-
-  systemd.user.services.quickshell = {
-    Unit = rec {
-      StartLimitIntervalSec = 0;
-      Before = Wants;
-      Wants = [
-        "xdg-desktop-autostart.target"
-      ];
-      Requires = After;
-      After = [
-        "wayland-session@Hyprland.target"
-        "wayland-wm@Hyprland.service"
-        hyprland-target
-      ];
-    };
-    Service = {
-      RestartSec = "0.5s";
-      Type = "notify";
-      NotifyAccess = "all";
-    };
   };
 
   wayland.windowManager.hyprland.systemd.enable = false;
