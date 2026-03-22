@@ -12,7 +12,7 @@
     kde.u2fAuth = true;
 
   };
-  #
+  # FIXME: Creates problems with keepassxc
   # services.udev.extraRules = ''
   #   ACTION=="remove",\
   #    ENV{ID_BUS}=="usb",\
