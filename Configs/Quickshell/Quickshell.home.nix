@@ -17,6 +17,9 @@ in
   home.packages = with pkgs; [
     grim
   ];
+  home.sessionPath = [
+    "${(outOfStrore "./scripts/")}"
+  ];
 
   xdg.configFile."quickshell".source = outOfStrore ".";
   programs.quickshell = {
