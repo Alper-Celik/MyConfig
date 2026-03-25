@@ -8,7 +8,7 @@
   ...
 }:
 let
-  hyprland-target = "wayland-session@Hyprland.target";
+  wm-target = "wayland-wm@niri.service";
   current-dir = "Configs/Quickshell";
   outOfStrore =
     x: config.lib.file.mkOutOfStoreSymlink (my-lib.maybeOutOfStore specialArgs current-dir x);
@@ -24,22 +24,16 @@ in
     package = pkgs.quickshell;
     systemd = {
       enable = true;
-      target = hyprland-target;
+      target = wm-target;
     };
   };
 
   systemd.user.services.quickshell = {
     Unit = rec {
       StartLimitIntervalSec = 0;
-      Before = Wants;
-      Wants = [
+      Requires = "wayland-wm@niri.service";
+      Before = [
         "xdg-desktop-autostart.target"
-      ];
-      Requires = After;
-      After = [
-        "wayland-session@Hyprland.target"
-        "wayland-wm@Hyprland.service"
-        hyprland-target
       ];
     };
     Service = {

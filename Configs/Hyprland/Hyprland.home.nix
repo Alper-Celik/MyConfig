@@ -8,7 +8,6 @@
   ...
 }:
 let
-  hyprland-target = "wayland-session@Hyprland.target";
   current-dir = "Configs/Hyprland";
   outOfStrore =
     x: config.lib.file.mkOutOfStoreSymlink (my-lib.maybeOutOfStore specialArgs current-dir x);

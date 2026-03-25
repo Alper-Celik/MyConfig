@@ -1,0 +1,12 @@
+// This config is in the KDL format: https://kdl.dev
+// "/-" comments out the following node.
+// Check the wiki for a full description of the configuration:
+// https://yalter.github.io/niri/Configuration:-Introduction
+
+include "input.kdl"
+include "outputs.kdl"
+include "window-rules.kdl"
+include "look-and-feel.kdl"
+include "keybinds.kdl"
+
+spawn-at-startup "/run/current-system/sw/bin/uwsm" "finalize"
