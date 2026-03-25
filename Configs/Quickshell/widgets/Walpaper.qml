@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import Qcm.Material as MD
 import Qt.labs.settings 1.0
 import QtQuick.Effects
+import Quickshell.Widgets
 
 Item {
     id: wp_root
@@ -36,15 +37,16 @@ Item {
         }
     }
 
-    Item {
+    ClippingRectangle {
         id: blur_root
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         width: title.width + 100
         height: mainPart.implicitHeight + (copyright.height * 2.5)
-
         anchors.margins: 20
         clip: true
+
+        radius: MD.Token.shape.corner.extra_large
 
         MultiEffect {
             id: background_effect
@@ -65,7 +67,7 @@ Item {
             anchors.fill: parent
             padding: 10
             backgroundColor: Qt.alpha(MD.MProp.color.surface, 0.2)
-            radius: MD.Token.shape.corner.medium
+            radius: blur_root.radius
 
             MD.MProp.textColor: MD.MProp.color.on_surface
 
