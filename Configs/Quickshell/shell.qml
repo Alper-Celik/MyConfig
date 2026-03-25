@@ -21,8 +21,14 @@ Scope {
         DefaultPanel {}
     }
     Variants {
+        id: walpapers
         model: Quickshell.screens
         PanelWindow {
+
+            required property var modelData
+            property alias wp: screen_wp
+
+            screen: modelData
             anchors {
                 top: true
                 bottom: true
@@ -32,6 +38,8 @@ Scope {
             exclusionMode: ExclusionMode.Ignore
             WlrLayershell.layer: WlrLayer.Bottom
             Walpaper {
+                id: screen_wp
+                wp_id: modelData.model
                 anchors.fill: parent
             }
         }
@@ -42,5 +50,13 @@ Scope {
     Process {
         id: notify
         command: ["sh", ".config/quickshell/start-notify.sh"]
+    }
+    IpcHandler {
+        target: "walpaper"
+        function set(url: string, _title: string, _desc: string, _copyright: string) {
+            for (const wp of walpapers.instances) {
+                wp.wp.set(url, _title, _desc, _copyright);
+            }
+        }
     }
 }

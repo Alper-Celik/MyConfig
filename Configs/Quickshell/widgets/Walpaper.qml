@@ -6,12 +6,21 @@ import Qt.labs.settings 1.0
 import QtQuick.Effects
 
 Item {
+    id: wp_root
+    property string wp_id: ""
+
+    function set(url: string, _title: string, _desc: string, _copyright: string) {
+        walpaper.newUrl = url;
+        title.newText = _title;
+        desc.newText = _desc;
+        copyright.newText = _copyright;
+    }
 
     Image {
         id: walpaper
         Settings {
             id: walpaper_settings
-            category: "Walpaper"
+            category: "Walpaper" + wp_root.wp_id
             property alias source: walpaper.source
             property alias title: title.text
             property alias desc: desc.text
@@ -181,13 +190,9 @@ Item {
             }
         }
         IpcHandler {
-            target: "walpaper"
-
+            target: "walpaper" + wp_root.wp_id
             function set(url: string, _title: string, _desc: string, _copyright: string) {
-                walpaper.newUrl = url;
-                title.newText = _title;
-                desc.newText = _desc;
-                copyright.newText = _copyright;
+                wp_root.set(url, _title, _desc, _copyright);
             }
         }
     }

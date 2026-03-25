@@ -15,11 +15,11 @@ last_index=$(jq "length - 1" "$info_json")
 random_index=$(($RANDOM % $last_index))
 filename=$(jq ".[$random_index].url" "$info_json" -r | sed "s/.*\///")
 
-jq ".[$random_index]" "$info_json" >"$filename.json"
+jq ".[$random_index]" "$info_json" >"$workdir/$filename.json"
 curl --fail --location --connect-timeout 30 --output "$workdir/$filename" "$(jq ".[$random_index].url" "$info_json" -r)"
 
 cfg() {
-  jq "$1" "$filename.json" -r
+  jq "$1" "$workdir/$filename.json" -r
 }
 
 qs ipc call walpaper set "$workdir/$filename" "$(cfg .title?)" "$(cfg .description?)" "$(cfg .copyright?)"
