@@ -13,7 +13,6 @@ let
     x: config.lib.file.mkOutOfStoreSymlink (my-lib.maybeOutOfStore specialArgs current-dir x);
 in
 {
-  imports = [ inputs.vicinae.homeManagerModules.default ];
 
   xdg.configFile."uwsm/env".source =
     "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
@@ -40,34 +39,6 @@ in
   };
 
   wayland.windowManager.hyprland.systemd.enable = false;
-
-  services.vicinae = {
-    enable = true;
-
-    systemd = {
-      enable = true;
-      autoStart = true; # default: false
-      environment = {
-        USE_LAYER_SHELL = 1;
-      };
-    };
-
-    settings = {
-
-      launcher_window = {
-        opacity = 0.8;
-      };
-    };
-
-    extensions = with inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}; [
-      bluetooth
-      nix
-      power-profile
-      wifi-commander
-      firefox
-      hypr-keybinds
-    ];
-  };
 
   services.dunst = {
     enable = true;
