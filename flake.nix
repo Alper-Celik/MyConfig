@@ -92,6 +92,8 @@
       flake = false;
     };
 
+    Quickshell-master.url = "github:quickshell-mirror/quickshell/master";
+
     QmlMaterail = {
       url = "github:hypengw/QmlMaterial";
       flake = false;

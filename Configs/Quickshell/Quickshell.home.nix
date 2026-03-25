@@ -5,6 +5,7 @@
   specialArgs,
   inputs,
   pkgs,
+  system,
   ...
 }:
 let
@@ -24,7 +25,7 @@ in
   xdg.configFile."quickshell".source = outOfStrore ".";
   programs.quickshell = {
     enable = true;
-    package = pkgs.quickshell;
+    package = inputs.Quickshell-master.packages.${system}.quickshell;
     systemd = {
       enable = true;
       target = wm-target;
