@@ -10,10 +10,12 @@ MD.Pane {
 
     backgroundColor: MD.MProp.color.secondary_container
 
+    property var sidePadding: 0
+
     height: parent.height
     radius: MD.Token.shape.corner.medium
-    rightPadding: panelsRoot.sidePadding
-    leftPadding: panelsRoot.sidePadding
+    rightPadding: sidePadding
+    leftPadding: sidePadding
     MD.Label {
         height: parent.height
         horizontalAlignment: Text.AlignHCenter

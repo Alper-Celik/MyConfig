@@ -65,8 +65,9 @@ Item {
 
                 height: 30
 
-                Clock {
+                PanelClock {
                     id: clock
+                    sidePadding: panelsRoot.sidePadding
                     anchors.centerIn: parent
                 }
 
