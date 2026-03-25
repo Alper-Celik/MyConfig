@@ -46,6 +46,8 @@ Item {
         anchors.margins: 20
         clip: true
 
+        visible: title.text != ""
+
         radius: MD.Token.shape.corner.extra_large
 
         MultiEffect {
