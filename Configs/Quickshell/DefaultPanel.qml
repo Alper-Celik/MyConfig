@@ -71,12 +71,17 @@ Item {
                     anchors.centerIn: parent
                 }
 
-                RowLayout {
+                Row {
                     id: panelWidgets
                     anchors.fill: parent
-                    SysTray {
-                        Layout.alignment: Qt.AlignRight
+                    layoutDirection: Qt.RightToLeft
+                    spacing: panelsRoot.sidePadding * 2
+
+                    PowerIndicator {
+                        widget_padding: panelsRoot.padding
+                        sidePadding: panelsRoot.sidePadding
                     }
+                    SysTray {}
                 }
             }
         }

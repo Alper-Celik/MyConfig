@@ -13,8 +13,8 @@ MD.Pane {
     backgroundColor: MD.MProp.color.secondary_container
     radius: MD.Token.shape.corner.medium
 
-    Layout.preferredWidth: trayRow.implicitWidth + (panelsRoot.sidePadding * 2)
-    Layout.fillHeight: true
+    implicitWidth: trayRow.implicitWidth + (panelsRoot.sidePadding * 2)
+    implicitHeight: parent.height
     padding: panelsRoot.padding
     rightPadding: panelsRoot.sidePadding
     leftPadding: panelsRoot.sidePadding
@@ -64,9 +64,6 @@ MD.Pane {
 
                         ColumnLayout {
                             id: trayTTText
-                            anchors.centerIn: parent
-                            width: childrenRect.width
-                            height: childrenRect.height
                             spacing: padding
                             Label {
                                 id: headerText

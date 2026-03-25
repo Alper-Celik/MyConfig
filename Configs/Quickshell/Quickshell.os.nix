@@ -28,4 +28,8 @@
     };
   };
 
+  services.upower = {
+    enable = true;
+  };
+
 }
