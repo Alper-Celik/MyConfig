@@ -26,6 +26,7 @@
       spotify
       kdePackages.kasts
       easyeffects
+      kdePackages.gwenview
 
       obs-studio
       # musescore
