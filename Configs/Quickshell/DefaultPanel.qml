@@ -59,29 +59,33 @@ Item {
                 padding: 0
                 rightPadding: this.leftPadding
                 radius: roundedScale
-                clip: false
 
                 anchors.fill: parent
 
                 height: 30
 
-                PanelClock {
-                    id: clock
-                    sidePadding: panelsRoot.sidePadding
-                    anchors.centerIn: parent
-                }
-
-                Row {
-                    id: panelWidgets
+                Item {
                     anchors.fill: parent
-                    layoutDirection: Qt.RightToLeft
-                    spacing: panelsRoot.sidePadding * 2
+                    clip: true
 
-                    PowerIndicator {
-                        widget_padding: panelsRoot.padding
+                    PanelClock {
+                        id: clock
                         sidePadding: panelsRoot.sidePadding
+                        anchors.centerIn: parent
                     }
-                    SysTray {}
+
+                    Row {
+                        id: panelWidgets
+                        anchors.fill: parent
+                        layoutDirection: Qt.RightToLeft
+                        spacing: panelsRoot.sidePadding * 2
+
+                        PowerIndicator {
+                            widget_padding: panelsRoot.padding
+                            sidePadding: panelsRoot.sidePadding
+                        }
+                        SysTray {}
+                    }
                 }
             }
         }

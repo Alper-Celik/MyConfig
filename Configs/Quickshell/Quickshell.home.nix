@@ -33,11 +33,12 @@ in
   };
 
   systemd.user.services.quickshell = {
-    Unit = rec {
+    Unit = {
       StartLimitIntervalSec = 0;
       Requires = "wayland-wm@niri.service";
       Before = [
         "xdg-desktop-autostart.target"
+        "wayland-session@niri.target"
       ];
     };
     Service = {
