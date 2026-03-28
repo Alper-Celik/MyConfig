@@ -23,3 +23,16 @@ map("n", "<A-t>", function()
   Snacks.terminal(nil, { cwd = LazyVim.root() })
 end, { desc = "Terminal (Root Dir)" })
 map("t", "<A-t>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+
+if vim.g.neovide then
+  map("n", "<C-S-KPlus>", function()
+    vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.05
+  end, {})
+  map("n", "<C-S-KMinus>", function()
+    vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.05
+  end, {})
+  map({ "n", "i" }, "<C-S-V>", function()
+    vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+  end, {})
+  map({ "v" }, "<C-S-C>", "y", {})
+end
