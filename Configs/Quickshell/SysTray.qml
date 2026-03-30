@@ -46,9 +46,9 @@ MD.Pane {
                         var _dep = sysTray.x;
                         return (trayItem.mapToItem(panelBox, 0, 0).x) + (trayItem.width / 2) - (this.width / 2);
                     }
-                    anchor.rect.y: sysTray.height
-                    implicitHeight: Math.max(10, trayTTBox.height)
-                    implicitWidth: Math.max(10, trayTTBox.width)
+                    anchor.rect.y: sysTray.height + 10
+                    implicitHeight: Math.max(1, trayTTBox.implicitHeight)
+                    implicitWidth: Math.max(1, trayTTBox.implicitWidth)
 
                     visible: trayArea.containsMouse
                     color: "transparent"
