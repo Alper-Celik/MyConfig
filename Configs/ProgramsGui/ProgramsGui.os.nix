@@ -59,6 +59,7 @@
       jetbrains-toolbox
       jetbrains.rider
       jetbrains.clion
+      jetbrains.pycharm
       android-studio
 
       libresprite
