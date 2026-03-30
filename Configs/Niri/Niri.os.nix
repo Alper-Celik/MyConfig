@@ -31,6 +31,8 @@
         "gtk"
       ];
       "org.freedesktop.impl.portal.FileChooser" = "kde";
+      "org.freedesktop.impl.portal.Access" = "gtk";
+      "org.freedesktop.impl.portal.Notification" = "gtk";
     };
 
     # Recommended by upstream, required for screencast support

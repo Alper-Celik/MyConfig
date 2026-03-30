@@ -48,7 +48,9 @@
     };
 
     targets = {
-      qt.platform = lib.mkForce "qtct";
+      qt = {
+        enable = false;
+      };
     };
   };
 

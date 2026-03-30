@@ -34,6 +34,7 @@
       # utulities
       nextcloud-client
       kdePackages.dolphin
+      kdePackages.konsole
       keepassxc
       ## browsers
       #firefox moved to home manager
