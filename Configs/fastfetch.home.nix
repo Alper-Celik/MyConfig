@@ -9,11 +9,11 @@
     enable = true;
     settings = (lib.importJSON "${inputs.fastfetch-theme}/config.jsonc") // {
       "general" = { };
-      "logo" = rec {
+      "logo" = {
         # "type" = "kitty-direct";
         # "source" = "${pkgs.nixos-icons}/share/icons/hicolor/512x512/apps/nix-snowflake.png";
-        "height" = 20;
-        "width" = height * 2;
+        # "height" = 20;
+        # "width" = height * 2;
         "padding" = {
           "right" = 6;
           "left" = 4;
