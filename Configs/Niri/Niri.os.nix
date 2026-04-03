@@ -11,11 +11,12 @@
     brightnessctl
   ];
 
+  services.displayManager.defaultSession = "niri-uwsm";
   programs.uwsm = {
     enable = true;
     waylandCompositors.niri = {
       prettyName = "Niri";
-      binPath = "/run/current-system/sw/bin/niri";
+      binPath = "/run/current-system/sw/bin/niri-session";
     };
   };
 

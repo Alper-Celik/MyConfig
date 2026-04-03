@@ -19,30 +19,40 @@
 
   environment.systemPackages =
     with pkgs;
-    [ ]
+    [
+      flat-remix-icon-theme
+    ]
     ++ (with kdePackages; [
+      plasma-desktop
       plasma-workspace
       knewstuff
       kcmutils
       systemsettings
       qttools
+      kwrited
+      kdegraphics-thumbnailers
 
       # Artwork + themes
       breeze
       ocean-sound-theme
       qqc2-breeze-style
       qqc2-desktop-style
+      kdeclarative
+      libplasma # provides Kirigami platform theme
+      plasma-integration # provides Qt platform theme
 
       # misc Plasma extras
       kdeplasma-addons
-      pkgs.xdg-user-dirs # recommended upstream
+      pkgs.xdg-user-dirs
 
       breeze.qt5
       plasma-integration.qt5
       kwayland-integration
       kio-extras-kf5
+
     ]);
 
+  environment.sessionVariables.XDG_CONFIG_DIRS = [ "$HOME/.config/kdedefaults" ];
   environment.sessionVariables.KPACKAGE_DEP_RESOLVERS_PATH = "${pkgs.kdePackages.frameworkintegration.out}/libexec/kf6/kpackagehandlers";
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-qt;
 
@@ -52,6 +62,7 @@
   services.udisks2.enable = true;
   services.libinput.enable = true;
   services.geoclue2.enable = true;
+  environment.sessionVariables.QT_QUICK_CONTROLS_STYLE = "org.kde.desktop";
 
   qt = {
     enable = true;

@@ -7,7 +7,8 @@
   systemd.user.services.ktailscale = {
     enable = true;
     description = "autostart ktailctl";
-    wantedBy = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
     unitConfig = {
       StartLimitIntervalSec = 0;
     };

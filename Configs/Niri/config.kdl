@@ -9,4 +9,4 @@ include "window-rules.kdl"
 include "look-and-feel.kdl"
 include "keybinds.kdl"
 
-spawn-at-startup "/run/current-system/sw/bin/uwsm" "finalize"
+// spawn-at-startup "/run/current-system/sw/bin/uwsm" "finalize"

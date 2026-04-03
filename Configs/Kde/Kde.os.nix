@@ -2,23 +2,19 @@
 {
 
   programs.kde-pim = {
-    enable = false;
+    enable = true;
     kontact = true;
     kmail = true;
     merkuro = true;
   };
 
   services.desktopManager.plasma6 = {
-    enable = false;
-    # useQtScaling = true;
-    # phononBackend = "vlc";
+    enable = true;
   };
 
   environment.systemPackages = with pkgs; [
-    # kdePackages.yakuake
-    # kdePackages.plasma-vault
-    # gocryptfs
-    # kdePackages.kdepim-addons
-    # libsForQt5.bismuth #plasma tiling
+    kdePackages.plasma-vault
+    gocryptfs
+    kdePackages.kdepim-addons
   ];
 }

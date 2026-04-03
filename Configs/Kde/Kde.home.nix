@@ -9,8 +9,6 @@
 {
   # home.packages = [ inputs.plasma-manager.packages.${pkgs.system}.rc2nix ];
   programs.plasma = {
-    enable = false;
-
     kwin = {
       virtualDesktops = {
         number = 9;
@@ -18,68 +16,60 @@
       };
     };
 
-    workspace = {
-      clickItemTo = "select";
-      colorScheme = "carbonfox";
-      lookAndFeel = "org.kde.breezedark.desktop";
-      # theme = "breeze-dark";
-    };
+    panels = [
+      {
+        location = "top";
+        height = 26;
+        hiding = "dodgewindows";
+        floating = true;
+        widgets = [
+          {
+            kickoff = {
+              sortAlphabetically = true;
+              icon = "nix-snowflake-white";
+            };
+          }
 
-    # panels = [
-    #   {
-    #     location = "top";
-    #     height = 26;
-    #     hiding = "dodgewindows";
-    #     floating = true;
-    #     widgets = [
-    #       {
-    #         kickoff = {
-    #           sortAlphabetically = true;
-    #           icon = "nix-snowflake-white";
-    #         };
-    #       }
-    #
-    #       "org.kde.plasma.appmenu"
-    #
-    #       "org.kde.plasma.panelspacer"
-    #
-    #       {
-    #         digitalClock = {
-    #           calendar.firstDayOfWeek = "monday";
-    #           date = {
-    #             enable = true;
-    #             position = "besideTime";
-    #             format.custom = "d MMM yyyy (yyyy-MM-dd)";
-    #           };
-    #
-    #           time.format = "24h";
-    #           timeZone = {
-    #             format = "code";
-    #             alwaysShow = true;
-    #           };
-    #         };
-    #       }
-    #
-    #       "org.kde.plasma.panelspacer"
-    #
-    #       {
-    #         systemTray.items = {
-    #           # We explicitly show bluetooth and battery
-    #           shown = [
-    #             "org.kde.plasma.battery"
-    #             "org.kde.plasma.bluetooth"
-    #           ];
-    #           # And explicitly hide networkmanagement and volume
-    #           hidden =
-    #             [
-    #             ];
-    #         };
-    #       }
-    #
-    #       "org.kde.plasma.pager"
-    #     ];
-    #   }
-    # ];
+          "org.kde.plasma.appmenu"
+
+          "org.kde.plasma.panelspacer"
+
+          {
+            digitalClock = {
+              calendar.firstDayOfWeek = "monday";
+              date = {
+                enable = true;
+                position = "besideTime";
+                format.custom = "d MMM yyyy (yyyy-MM-dd)";
+              };
+
+              time.format = "24h";
+              timeZone = {
+                format = "code";
+                alwaysShow = true;
+              };
+            };
+          }
+
+          "org.kde.plasma.panelspacer"
+
+          {
+            systemTray.items = {
+              # We explicitly show bluetooth and battery
+              shown = [
+                "org.kde.plasma.battery"
+                "org.kde.plasma.bluetooth"
+              ];
+              # And explicitly hide networkmanagement and volume
+              hidden = [
+              ];
+            };
+          }
+
+          "org.kde.plasma.pager"
+        ];
+      }
+    ];
 
     configFile = {
       "baloofilerc"."Basic Settings"."Indexing-Enabled".value = false; # disable indexing

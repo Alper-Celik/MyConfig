@@ -9,7 +9,7 @@
   ...
 }:
 let
-  wm-target = "wayland-wm@niri.service";
+  wm-target = "wayland-wm@niri\x2dsession.service";
   current-dir = "Configs/Quickshell";
   outOfStrore =
     x: config.lib.file.mkOutOfStoreSymlink (my-lib.maybeOutOfStore specialArgs current-dir x);
@@ -35,11 +35,6 @@ in
   systemd.user.services.quickshell = {
     Unit = {
       StartLimitIntervalSec = 0;
-      Requires = "wayland-wm@niri.service";
-      Before = [
-        "xdg-desktop-autostart.target"
-        "wayland-session@niri.target"
-      ];
     };
     Service = {
       RestartSec = "0.5s";
