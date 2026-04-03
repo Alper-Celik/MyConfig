@@ -21,6 +21,8 @@
     with pkgs;
     [
       flat-remix-icon-theme
+
+      papirus-icon-theme
     ]
     ++ (with kdePackages; [
       plasma-desktop

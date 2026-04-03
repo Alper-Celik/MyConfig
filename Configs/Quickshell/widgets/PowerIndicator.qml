@@ -67,8 +67,44 @@ MD.Pane {
             return (power_root.mapToItem(panelBox, 0, 0).x) + (power_root.width / 2) - (this.width / 2);
         }
         anchor.rect.y: power_root.height + 10
-        width: 50
-        height: 50
+        color: "transparent"
+        height: container.implicitHeight
+        width: container.implicitWidth
         visible: false
+
+        MD.Pane {
+            id: container
+            // anchors.fill: parent
+            radius: MD.Token.shape.corner.medium
+            backgroundColor: MD.MProp.color.surface_container
+            padding: panelsRoot.padding
+
+            Column {
+                spacing: panelsRoot.padding
+                RowLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    uniformCellSizes: true
+                    Repeater {
+                        model: ["power-profile-power-saver-symbolic", "power-profile-balanced-symbolic", "power-profile-performance-symbolic"]
+                        IconImage {
+                            Layout.fillWidth: true
+                            required property var modelData
+                            source: Quickshell.iconPath(modelData)
+                            implicitSize: 20
+                        }
+                    }
+                }
+
+                MD.Slider {
+                    snapMode: Slider.SnapAlways
+                    from: 0
+                    stepSize: 1
+                    to: 2
+                    value: PowerProfiles.profile
+                    onValueChanged: PowerProfiles.profile = value
+                }
+            }
+        }
     }
 }

@@ -42,9 +42,9 @@
 
     icons = {
       enable = true;
-      package = pkgs.flat-remix-icon-theme;
-      dark = "Flat-Remix-Blue-Dark";
-      light = "Flat-Remix-Blue-Light";
+      package = pkgs.papirus-icon-theme;
+      dark = "Papirus-Dark";
+      light = "Papirus-Light";
     };
 
     targets = {
