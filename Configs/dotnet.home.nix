@@ -28,7 +28,7 @@ let
         previousAttrs.src.overrideAttrs (
           finalAttrs: previousAttrs: {
 
-            postBuild = (previousAttrs.postBuild or '''') + script;
+            postInstall = (previousAttrs.postInstall or "") + script;
           }
         )
       );
@@ -39,8 +39,8 @@ let
     (
       with dotnetCorePackages;
       combinePackages [
-        (sdk_9_0.overrideAttrs sdkOverride)
         (sdk_8_0.overrideAttrs sdkOverride)
+        (sdk_10_0.overrideAttrs sdkOverride)
       ]
     );
 
