@@ -9,7 +9,7 @@
   ...
 }:
 let
-  wm-target = "wayland-wm@niri\x2dsession.service";
+  wm-target = "wayland-wm@niri\\x2dsession.service";
   current-dir = "Configs/Quickshell";
   outOfStrore =
     x: config.lib.file.mkOutOfStoreSymlink (my-lib.maybeOutOfStore specialArgs current-dir x);
