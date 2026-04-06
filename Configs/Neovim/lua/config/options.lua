@@ -7,6 +7,8 @@ vim.opt.wrap = true
 -- first use git for rot dir detection
 vim.g.root_spec = { { ".git", "lua" }, "lsp", "cwd" }
 
+vim.g.lazyvim_picker = "telescope"
+
 vim.lsp.enable("qmlls")
 vim.api.nvim_create_autocmd("LspDetach", {
   callback = function(args)
