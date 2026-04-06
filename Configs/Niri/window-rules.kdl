@@ -41,4 +41,7 @@ window-rule {
     block-out-from "screencast"
 }
 
+debug {
+  honor-xdg-activation-with-invalid-serial
+} 
 
