@@ -27,6 +27,7 @@ let
     fd
     curl
     cargo
+    rust-analyzer
 
     lsof
 
