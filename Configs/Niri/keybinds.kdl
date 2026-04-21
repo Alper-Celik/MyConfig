@@ -69,36 +69,38 @@ binds {
 
 
 
+    Mod+Escape {focus-window-down-or-top;}
+    Mod+Ctrl+Escape {focus-window-up-or-bottom;}
 
 
     Mod+A { focus-column-left; }
-    Mod+S { focus-window-or-workspace-down; }
-    Mod+W { focus-window-or-workspace-up; }
+    Mod+S { focus-workspace-down; }
+    Mod+W { focus-workspace-up; }
     Mod+D { focus-column-right; }
     Mod+Ctrl+A  { move-column-left; }
     Mod+Ctrl+D { move-column-right; }
-    Mod+Ctrl+W    { move-window-up-or-to-workspace-up; }
-    Mod+Ctrl+S { move-window-down-or-to-workspace-down; }
+    Mod+Ctrl+W    { move-window-to-workspace-up; }
+    Mod+Ctrl+S { move-window-to-workspace-down; }
 
 
     Mod+Left  { focus-column-left; }
     Mod+Right { focus-column-right; }
-    Mod+Down     { focus-window-or-workspace-down; }
-    Mod+Up     { focus-window-or-workspace-up; }
+    Mod+Down     { focus-workspace-down; }
+    Mod+Up     { focus-workspace-up; }
     Mod+Ctrl+Left  { move-column-left; }
     Mod+Ctrl+Right { move-column-right; }
-    Mod+Ctrl+Up    { move-window-up-or-to-workspace-up; }
-    Mod+Ctrl+Down     { move-window-down-or-to-workspace-down; }
+    Mod+Ctrl+Up    { move-window-to-workspace-up; }
+    Mod+Ctrl+Down     { move-window-to-workspace-down; }
 
 
     Mod+H     { focus-column-left; }
     Mod+L     { focus-column-right; }
-    Mod+J     { focus-window-or-workspace-down; }
-    Mod+K     { focus-window-or-workspace-up; }
+    Mod+J     { focus-workspace-down; }
+    Mod+K     { focus-workspace-up; }
     Mod+Ctrl+H     { move-column-left; }
     Mod+Ctrl+L     { move-column-right; }
-    Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
-    Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
+    Mod+Ctrl+J     { move-window-to-workspace-down; }
+    Mod+Ctrl+K     { move-window-to-workspace-up; }
 
 
 
@@ -292,7 +294,7 @@ binds {
     //
     // The allow-inhibiting=false property can be applied to other binds as well,
     // which ensures niri always processes them, even when an inhibitor is active.
-    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+    Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Ctrl+Alt+Delete { quit; }
