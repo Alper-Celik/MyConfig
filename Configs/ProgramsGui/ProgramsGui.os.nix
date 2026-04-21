@@ -63,7 +63,8 @@
       jetbrains.pycharm
       android-studio
 
-      libresprite
+      # libresprite
+      aseprite
       ## editors
       kate
       obsidian
