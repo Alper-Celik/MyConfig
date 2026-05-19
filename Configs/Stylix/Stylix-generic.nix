@@ -49,7 +49,7 @@
 
     targets = {
       qt = {
-        enable = true;
+        enable = lib.mkForce false;
         platform = lib.mkForce "kde";
       };
     };

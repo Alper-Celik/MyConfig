@@ -25,7 +25,7 @@ MD.Pane {
     background: MD.Rectangle {
         color: parent.backgroundColor
         radius: parent.radius
-        MD.Ripple2 {
+        MD.Ripple {
             anchors.fill: parent
             radius: parent.radius
             pressX: control.mouseX

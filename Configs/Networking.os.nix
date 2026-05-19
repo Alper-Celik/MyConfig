@@ -1,5 +1,14 @@
-{ lib, hardware, ... }:
 {
+  lib,
+  hardware,
+  pkgs,
+  ...
+}:
+{
+  services.mullvad-vpn.enable = true;
+  services.mullvad-vpn.package = pkgs.mullvad-vpn;
+  environment.persistence."/persistent".directories = [ "/etc/mullvad-vpn/" ];
+
   networking.hostName = hardware; # Define your hostname.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
   # networking.networkmanager.dns = "none";

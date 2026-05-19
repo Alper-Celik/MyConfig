@@ -113,7 +113,7 @@ Item {
                             }
                         ]
 
-                        background: MD.Ripple2 {
+                        background: MD.Ripple {
                             anchors.fill: parent
                             radius: MD.Token.shape.corner.small
                             pressX: control.pressX

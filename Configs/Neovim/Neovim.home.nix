@@ -28,6 +28,7 @@ let
     curl
     cargo
     rust-analyzer
+    rustfmt
 
     lsof
 

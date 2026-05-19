@@ -95,7 +95,7 @@
     Quickshell-master.url = "github:quickshell-mirror/quickshell/master";
 
     QmlMaterail = {
-      url = "github:hypengw/QmlMaterial";
+      url = "github:hypengw/QmlMaterial/v0.1.6";
       flake = false;
     };
 

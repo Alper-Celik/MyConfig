@@ -19,13 +19,17 @@ vim.keymap.set("n", "<leader><tab><", "<cmd>tabprevious<cr>", { desc = "Previous
 vim.keymap.set("n", "<leader><tab><Left>", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 --picker bindings
-map("n", "<leader>fd", "<cmd>Telescope<cr>", {})
+-- map("n", "<leader>fd", "<cmd>Telescope<cr>", {})
 
 -- explorer mappings
-local neotree_float = "<cmd>Neotree position=float<cr>"
+local neotree_float = function()
+  require("neo-tree.command").execute({ position = "float", toggle = true })
+end
 map("n", "<leader>fe", neotree_float, {})
 map("n", "<leader>e", neotree_float, {})
-map("n", "<C-e>", "<cmd>Neotree toggle position=left<cr>", {})
+map("n", "<C-e>", function()
+  require("neo-tree.command").execute({ position = "left", toggle = true })
+end, {})
 
 -- Terminal Mappings
 map("n", "<A-t>", function()

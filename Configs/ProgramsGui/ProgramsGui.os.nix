@@ -36,6 +36,7 @@
       kdePackages.dolphin
       kdePackages.konsole
       keepassxc
+      gnucash
       ## browsers
       #firefox moved to home manager
       chromium
@@ -44,6 +45,7 @@
       discord
       element-desktop
       # neochat
+      telegram-desktop
       ## office suits
       libreoffice-qt6
       onlyoffice-desktopeditors
