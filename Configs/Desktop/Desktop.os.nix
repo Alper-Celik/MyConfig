@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 {
 
   security.rtkit.enable = true;
@@ -65,6 +70,9 @@
   services.libinput.enable = true;
   services.geoclue2.enable = true;
   environment.sessionVariables.QT_QUICK_CONTROLS_STYLE = "org.kde.desktop";
+  environment.sessionVariables.QT_QPA_PLATFORMTHEME = config.qt.platformTheme;
+  environment.sessionVariables.QT_STYLE_OVERRIDE = lib.mkIf (config.qt.style != null) config.qt.style;
+  environment.sessionVariables.SSH_ASKPASS = config.programs.ssh.askPassword;
 
   qt = {
     enable = true;

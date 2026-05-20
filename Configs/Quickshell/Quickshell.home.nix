@@ -15,6 +15,7 @@ let
     x: config.lib.file.mkOutOfStoreSymlink (my-lib.maybeOutOfStore specialArgs current-dir x);
 in
 {
+
   home.packages = with pkgs; [
     grim
   ];
@@ -25,7 +26,6 @@ in
   xdg.configFile."quickshell".source = outOfStrore ".";
   programs.quickshell = {
     enable = true;
-    package = inputs.Quickshell-master.packages.${system}.quickshell;
     systemd = {
       enable = true;
       target = wm-target;

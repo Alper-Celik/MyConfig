@@ -37,6 +37,8 @@
     vicinae.url = "github:vicinaehq/vicinae";
     vicinae-extensions.url = "github:vicinaehq/extensions/9891716758d3d3342b3d2d0d6e6220d00ea89b44";
 
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
     stylix.url = "github:danth/stylix/release-25.11";
     nightfox-nvim = {
       url = "github:EdenEast/nightfox.nvim";
@@ -283,7 +285,7 @@
 
           ## nonstandard outputs
           my = {
-            overlays = import ./Overlays/allOverlays.nix ++ [
+            overlays = import ./Overlays/allOverlays.nix inputs ++ [
               # (get-flake ./Configs/Neovim).overlays.default
             ];
 
