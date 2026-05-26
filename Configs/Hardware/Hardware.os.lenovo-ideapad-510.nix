@@ -16,7 +16,6 @@
     inputs.nixos-hardware.nixosModules.common-pc-laptop-hdd
     inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
   ];
-  powerManagement.cpuFreqGovernor = "ondemand";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   boot.initrd.availableKernelModules = [
