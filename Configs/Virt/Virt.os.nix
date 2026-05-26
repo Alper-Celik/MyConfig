@@ -33,8 +33,12 @@
     pkgs.vagrant
     pkgs.act
   ];
-  # virtualisation.virtualbox.host.enable = true;
-  # users.extraGroups.vboxusers.members = [ "alper" ];
+  users.extraGroups.vboxusers.members = [ "alper" ];
+  virtualisation.virtualbox.host = {
+    enable = true;
+    enableKvm = true;
+    addNetworkInterface = false;
+  };
 
   boot.binfmt.preferStaticEmulators = true;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
