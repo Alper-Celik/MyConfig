@@ -40,6 +40,7 @@
       ## browsers
       #firefox moved to home manager
       chromium
+      mullvad-browser
       ## mail and chat
       thunderbird-bin
       discord
