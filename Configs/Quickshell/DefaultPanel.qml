@@ -68,6 +68,18 @@ Item {
                     anchors.fill: parent
                     clip: true
 
+                    Row {
+                        anchors.fill: parent
+                        layoutDirection: Qt.LeftToRight
+                        spacing: panelsRoot.sidePadding * 2
+
+                        WorkspaceIndicator {
+                            widget_padding: panelsRoot.padding
+                            sidePadding: panelsRoot.sidePadding
+                            screen: panelsRoot.modelData
+                        }
+                    }
+
                     PanelClock {
                         id: clock
                         sidePadding: panelsRoot.sidePadding
