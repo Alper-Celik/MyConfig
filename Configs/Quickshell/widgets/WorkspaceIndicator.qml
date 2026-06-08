@@ -24,7 +24,7 @@ MD.Pane {
         height: parent.height
         Repeater {
             model: {
-                return WindowManager.windowsets.slice().sort((a, b) => a.name - b.name);
+                return WindowManager.windowsets.filter(ws => ws.projection.screens.includes(ws_root.screen)).sort((a, b) => a.name - b.name);
             }
 
             delegate: MD.Button {
