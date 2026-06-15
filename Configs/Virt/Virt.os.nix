@@ -57,6 +57,7 @@
     waydroid.enable = true;
 
     docker = {
+      package = pkgs.docker_29;
       enable = true;
 
       storageDriver = "overlay2";
