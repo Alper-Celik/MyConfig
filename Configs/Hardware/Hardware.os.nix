@@ -3,7 +3,7 @@ let
   scx = pkgs-unstable.scx.full;
 in
 {
-  powerManagement.cpuFreqGovernor = "ondemand";
+  powerManagement.cpuFreqGovernor = "performance";
   environment.systemPackages = [ scx ];
   systemd.services.scx = {
     description = "SCX scheduler daemon";
@@ -16,7 +16,7 @@ in
 
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${scx}/bin/scx_cake";
+      ExecStart = "${scx}/bin/scx_pandemonium --compositor niri";
       Restart = "on-failure";
     };
     wantedBy = [ "multi-user.target" ];
