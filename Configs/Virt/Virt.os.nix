@@ -2,6 +2,7 @@
   pkgs,
   system,
   inputs,
+  config,
   ...
 }:
 {
@@ -26,8 +27,6 @@
     "/var/lib/libvirt/swtpm"
   ];
   environment.systemPackages = [
-    inputs.winapps.packages.${system}.winapps
-    inputs.winapps.packages.${system}.winapps-launcher # optional
     pkgs.distrobox
     pkgs.freerdp
     pkgs.vagrant
@@ -36,7 +35,8 @@
   users.extraGroups.vboxusers.members = [ "alper" ];
 
   boot.binfmt.preferStaticEmulators = true;
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.emulatedSystems =
+    if config.nixpkgs.hostPlatform == "x86_64-linux" then [ "aarch64-linux" ] else [ ];
 
   boot.kernelModules = [ "kvm-amd" ];
   programs.virt-manager.enable = true;

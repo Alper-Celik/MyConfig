@@ -34,6 +34,13 @@
       flake = false;
     };
 
+    nixos-apple-silicon.url = "github:nix-community/nixos-apple-silicon";
+
+    macbook-m1-alper-firmware = {
+      url = "git+ssh://forgejo@git.alper-celik.dev/Alper/macbook-m1-alper-firmware.git";
+      flake = false;
+    };
+
     vicinae.url = "github:vicinaehq/vicinae";
     vicinae-extensions.url = "github:vicinaehq/extensions/9891716758d3d3342b3d2d0d6e6220d00ea89b44";
 
@@ -69,11 +76,6 @@
     fastfetch-theme = {
       url = "github:Alper-Celik/fastfetch-theme-backup";
       flake = false;
-    };
-
-    winapps = {
-      url = "github:winapps-org/winapps";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # fish plugins
@@ -207,6 +209,22 @@
               }
             );
 
+            macbook-m1-alper = withSystem "aarch64-linux" (
+              { my-specialArgs, ... }:
+              nixpkgs.lib.nixosSystem {
+                specialArgs = my-specialArgs // {
+
+                  configDir = "/home/alper/MyConfig"; # TODO: abstract it ?
+                  hardware = "macbook-m1-alper";
+                };
+                modules = [
+                  self.nixosModules.default-modules
+                  inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
+                  ./nixos/configuration.nix
+                ];
+              }
+            );
+
             strix-scar-17 = withSystem "x86_64-linux" (
               { my-specialArgs, ... }:
               nixpkgs.lib.nixosSystem {
@@ -294,11 +312,13 @@
                 "https://nix-community.cachix.org"
                 "https://cuda-maintainers.cachix.org"
                 "https://cache.nixos-cuda.org"
+                "https://nixos-apple-silicon.cachix.org"
               ];
               trusted-public-keys = [
                 "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
                 "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
                 "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+                "nixos-apple-silicon.cachix.org-1:8psDu5SA5dAD7qA0zMy5UT292TxeEPzIz8VVEr2Js20="
               ];
             };
 

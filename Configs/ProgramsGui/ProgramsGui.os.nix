@@ -18,12 +18,10 @@
       vlc
       audacity
       haruna
-      finamp
 
       feishin
       puddletag
       kid3
-      spotify
       kdePackages.kasts
       easyeffects
       kdePackages.gwenview
@@ -40,16 +38,13 @@
       ## browsers
       #firefox moved to home manager
       chromium
-      mullvad-browser
       ## mail and chat
-      thunderbird-bin
-      discord
+      thunderbird
       element-desktop
       # neochat
       telegram-desktop
       ## office suits
       libreoffice-qt6
-      onlyoffice-desktopeditors
 
       ## file mangement
       ark
@@ -64,7 +59,6 @@
       jetbrains.rider
       jetbrains.clion
       jetbrains.pycharm
-      android-studio
 
       # libresprite
       aseprite
@@ -79,7 +73,6 @@
       hotspot
 
       ## networking
-      protonvpn-gui
       postman
 
       ## download managers

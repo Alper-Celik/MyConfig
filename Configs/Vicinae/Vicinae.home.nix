@@ -24,8 +24,6 @@
       nix
       power-profile
       wifi-commander
-      firefox
-      hypr-keybinds
     ];
   };
 

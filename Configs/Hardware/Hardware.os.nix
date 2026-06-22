@@ -1,6 +1,6 @@
 { pkgs-unstable, ... }:
 let
-  scx = pkgs-unstable.scx.full;
+  scx = pkgs-unstable.scx.rustscheds;
 in
 {
   powerManagement.cpuFreqGovernor = "performance";

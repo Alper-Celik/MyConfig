@@ -1,4 +1,10 @@
-{ pkgs, pkgs-stable, ... }:
+{
+  pkgs,
+  pkgs-stable,
+  config,
+  lib,
+  ...
+}:
 let
   gamescope-env = {
     __NV_PRIME_RENDER_OFFLOAD = "1";
@@ -8,20 +14,23 @@ let
 
 in
 {
-  environment.systemPackages = with pkgs; [
-    pkgs-stable.heroic
-    wine-staging
-    lutris
-    pkgs-stable.bottles
-    legendary-gl
-    prismlauncher # minecraft
+  environment.systemPackages = lib.mkIf (config.nixpkgs.hostPlatform == "x86_64-linux") (
+    with pkgs;
+    [
+      pkgs-stable.heroic
+      wine-staging
+      lutris
+      pkgs-stable.bottles
+      legendary-gl
+      prismlauncher # minecraft
 
-    protonup-qt
-    steamtinkerlaunch
-    gamescope
-  ];
+      protonup-qt
+      steamtinkerlaunch
+      gamescope
+    ]
+  );
 
-  programs.steam = {
+  programs.steam = lib.mkIf (config.nixpkgs.hostPlatform == "x86_64-linux") {
     enable = true;
     package = pkgs.steam.override {
       extraLibraries =
@@ -34,7 +43,9 @@ in
   };
 
   # Steam needs this to find Proton-GE
-  environment.sessionVariables.STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
+  environment.sessionVariables.STEAM_EXTRA_COMPAT_TOOLS_PATHS = lib.mkIf (
+    config.nixpkgs.hostPlatform == "x86_64-linux"
+  ) "\${HOME}/.steam/root/compatibilitytools.d";
 
   # jovian = {
   #   steam = {

@@ -5,7 +5,7 @@
     autoStart = true;
     capSysAdmin = true;
     openFirewall = true;
-    package = pkgs.sunshine.override { cudaSupport = true; };
+    # package = pkgs.sunshine.override { cudaSupport = true; };
   };
   users.users.alper.extraGroups = [
     "video"
