@@ -22,25 +22,25 @@ in
   home.sessionPath = [
     "${(outOfStrore "./scripts/")}"
   ];
-
-  xdg.configFile."quickshell".source = outOfStrore ".";
-  programs.quickshell = {
-    enable = true;
-    systemd = {
-      enable = true;
-      target = wm-target;
-    };
-  };
-
-  systemd.user.services.quickshell = {
-    Unit = {
-      StartLimitIntervalSec = 0;
-    };
-    Service = {
-      RestartSec = "0.5s";
-      Type = "notify";
-      NotifyAccess = "all";
-    };
-  };
-
+  #
+  # xdg.configFile."quickshell".source = outOfStrore ".";
+  # programs.quickshell = {
+  #   enable = true;
+  #   systemd = {
+  #     enable = true;
+  #     target = wm-target;
+  #   };
+  # };
+  #
+  # systemd.user.services.quickshell = {
+  #   Unit = {
+  #     StartLimitIntervalSec = 0;
+  #   };
+  #   Service = {
+  #     RestartSec = "0.5s";
+  #     Type = "notify";
+  #     NotifyAccess = "all";
+  #   };
+  # };
+  #
 }

@@ -1,0 +1,88 @@
+[lockscreen]
+enabled = true
+allow_empty_password = true
+blurred_desktop = true
+[bar]
+order = ["default"]
+
+[bar.default]
+background_opacity = 0.79999998211860657
+capsule = true
+capsule_fill = "on_secondary"
+end = [
+  "tray",
+  "notifications",
+  "clipboard",
+  "network",
+  "bluetooth",
+  "volume",
+  "brightness",
+  "battery",
+  "control-center",
+  "session",
+]
+margin_ends = 10
+padding = 0
+scale = 0.85000000521540642
+start = ["launcher", "wallpaper", "workspaces", "group:g2"]
+thickness = 20
+widget_spacing = 2
+
+[[bar.default.capsule_group]]
+fill = "tertiary"
+id = "g1"
+members = ["tray", "notifications", "clipboard"]
+opacity = 1.0
+padding = 6.0
+
+[[bar.default.capsule_group]]
+fill = "on_secondary"
+id = "g2"
+members = ["media", "audio_visualizer"]
+opacity = 1.0
+padding = 6.0
+
+[battery]
+warning_threshold = 20
+
+[calendar]
+enabled = true
+
+[nightlight]
+enabled = true
+temperature_night = 4300
+
+[shell]
+launch_apps_as_systemd_services = true
+niri_overview_type_to_launch_enabled = true
+screen_time_enabled = true
+telemetry_enabled = true
+
+
+[theme]
+community_palette = "Oxocarbon"
+source = "community"
+
+[theme.templates]
+builtin_ids = ["gtk3", "gtk4", "kcolorscheme", "niri", "qt"]
+
+[widget.battery]
+capsule = true
+display_mode = "graphic"
+
+[widget.clock]
+format = "{:%H:%M.%S}"
+
+[widget.media]
+capsule = true
+hide_when_no_media = true
+title_scroll = "hover"
+
+[widget.tray]
+detached_panel = true
+match_adjacent_spacing = true
+scale = 1.2
+
+[widget.workspaces]
+anchor = true
+labels_only_when_occupied = true

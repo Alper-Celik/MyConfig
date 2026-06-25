@@ -1128,6 +1128,27 @@
         "type": "gitlab"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1782425988,
+        "narHash": "sha256-rAioh7TpO3LvI0DR0Nm39W3YkHgKIKszh1zqQRxaCH0=",
+        "owner": "alper-celik",
+        "repo": "noctalia",
+        "rev": "87a7698ed4babe494436b8f601c471f7221e220f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "alper-celik",
+        "ref": "my-main",
+        "repo": "noctalia",
+        "type": "github"
+      }
+    },
     "nur": {
       "inputs": {
         "flake-parts": "flake-parts_4",
@@ -1220,6 +1241,7 @@
         "nixpkgs": "nixpkgs_8",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "noctalia": "noctalia",
         "nur": "nur",
         "plasma-manager": "plasma-manager",
         "sops-nix": "sops-nix",

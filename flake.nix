@@ -44,6 +44,11 @@
     vicinae.url = "github:vicinaehq/vicinae";
     vicinae-extensions.url = "github:vicinaehq/extensions/9891716758d3d3342b3d2d0d6e6220d00ea89b44";
 
+    noctalia = {
+      url = "github:alper-celik/noctalia/my-main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
     stylix.url = "github:danth/stylix/release-25.11";
@@ -135,12 +140,18 @@
               inherit system;
               inherit (self.my) overlays;
               config.allowUnfree = true;
+              config.permittedInsecurePackages = [
+                "electron-39.8.10"
+              ];
             };
 
             pkgs-stable = import inputs.nixpkgs-stable {
               inherit system;
               inherit (self.my) overlays;
               config.allowUnfree = true;
+              config.permittedInsecurePackages = [
+                "electron-39.8.10"
+              ];
             };
 
           in

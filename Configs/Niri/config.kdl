@@ -10,3 +10,5 @@ include "look-and-feel.kdl"
 include "keybinds.kdl"
 
 // spawn-at-startup "/run/current-system/sw/bin/uwsm" "finalize"
+
+include "noctalia.kdl"
