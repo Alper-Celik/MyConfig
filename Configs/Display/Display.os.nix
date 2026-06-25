@@ -1,7 +1,10 @@
-{ config, ... }:
+{
+  system,
+  ...
+}:
 {
   hardware.graphics = {
-    enable32Bit = if config.nixpkgs.hostPlatform == "x86_64-linux" then true else false;
+    enable32Bit = if system == "x86_64-linux" then true else false;
     enable = true;
   };
 

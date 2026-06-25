@@ -3,6 +3,7 @@
   pkgs-stable,
   config,
   lib,
+  system,
   ...
 }:
 let
@@ -14,7 +15,7 @@ let
 
 in
 {
-  environment.systemPackages = lib.mkIf (config.nixpkgs.hostPlatform == "x86_64-linux") (
+  environment.systemPackages = lib.mkIf (system == "x86_64-linux") (
     with pkgs;
     [
       pkgs-stable.heroic
@@ -30,7 +31,7 @@ in
     ]
   );
 
-  programs.steam = lib.mkIf (config.nixpkgs.hostPlatform == "x86_64-linux") {
+  programs.steam = lib.mkIf (system == "x86_64-linux") {
     enable = true;
     package = pkgs.steam.override {
       extraLibraries =
