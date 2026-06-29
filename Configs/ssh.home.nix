@@ -20,7 +20,5 @@
 
   services.ssh-agent = {
     enable = true;
-    enableBashIntegration = true;
-    enableFishIntegration = true;
   };
 }

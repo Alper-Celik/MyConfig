@@ -1,9 +1,9 @@
 { pkgs, config, ... }:
 {
-  programs.adb.enable = true;
   environment.systemPackages = with pkgs; [
     scrcpy
     v4l-utils
+    android-tools
   ];
   boot = {
     extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];

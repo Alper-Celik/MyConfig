@@ -21,7 +21,7 @@ let
     cmake
     gnumake
     tree-sitter
-    nodePackages.nodejs
+    nodejs
     fzf
     ripgrep
     fd

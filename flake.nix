@@ -3,8 +3,8 @@
   inputs = {
     # Nixpkgs
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
@@ -13,7 +13,7 @@
 
     # Home manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -41,8 +41,8 @@
       flake = false;
     };
 
-    vicinae.url = "github:vicinaehq/vicinae";
-    vicinae-extensions.url = "github:vicinaehq/extensions/9891716758d3d3342b3d2d0d6e6220d00ea89b44";
+    # vicinae.url = "github:vicinaehq/vicinae";
+    # vicinae-extensions.url = "github:vicinaehq/extensions/9891716758d3d3342b3d2d0d6e6220d00ea89b44";
 
     noctalia = {
       url = "github:alper-celik/noctalia/my-main";
@@ -51,7 +51,7 @@
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
-    stylix.url = "github:danth/stylix/release-25.11";
+    stylix.url = "github:danth/stylix";
     nightfox-nvim = {
       url = "github:EdenEast/nightfox.nvim";
       flake = false;
