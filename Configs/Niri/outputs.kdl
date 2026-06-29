@@ -3,6 +3,11 @@
 // The built-in laptop monitor is usually called "eDP-1".
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Outputs
+
+output "eDP-1" {
+  scale 1.5
+}
+
 output "BOE NE173QHM-NZ2 Unknown"{
   mode "2560x1440@240.001"
   scale 1.5
