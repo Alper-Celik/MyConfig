@@ -15,9 +15,6 @@
     jack.enable = true;
   };
 
-  services.power-profiles-daemon.enable = true;
-  services.upower.enable = true;
-
   programs.ssh.askPassword = lib.mkForce "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass";
 
   programs.dconf.enable = true;

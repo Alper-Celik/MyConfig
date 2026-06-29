@@ -1,11 +1,13 @@
-{ pkgs-unstable, ... }:
+{ pkgs-unstable, system, ... }:
 let
   scx = pkgs-unstable.scx.rustscheds;
 in
+
 {
-  powerManagement.cpuFreqGovernor = "performance";
+  services.tuned.enable = true;
   environment.systemPackages = [ scx ];
   systemd.services.scx = {
+    enable = system == "x86_64-linux";
     description = "SCX scheduler daemon";
 
     # SCX service should be started only if the kernel supports sched-ext
@@ -16,7 +18,7 @@ in
 
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${scx}/bin/scx_pandemonium --compositor niri";
+      ExecStart = "${scx}/bin/scx_cake";
       Restart = "on-failure";
     };
     wantedBy = [ "multi-user.target" ];
