@@ -57,6 +57,7 @@
 
       storageDriver = "overlay2";
       autoPrune.enable = true;
+      enableOnBoot = false;
     };
     podman = {
       enable = true;
