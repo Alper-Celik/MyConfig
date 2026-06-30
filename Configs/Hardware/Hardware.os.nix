@@ -4,6 +4,7 @@ let
 in
 
 {
+  services.tlp.enable = false;
   services.tuned.enable = true;
   environment.systemPackages = [ scx ];
   systemd.services.scx = {

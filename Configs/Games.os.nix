@@ -18,10 +18,10 @@ in
   environment.systemPackages = lib.mkIf (system == "x86_64-linux") (
     with pkgs;
     [
-      pkgs-stable.heroic
+      heroic
       wine-staging
       lutris
-      pkgs-stable.bottles
+      bottles
       legendary-gl
       prismlauncher # minecraft
 
