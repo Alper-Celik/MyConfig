@@ -33,11 +33,9 @@ binds {
 
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" cooldown-ms=100 { spawn "uwsm" "app" "--" "kitty" "-1"; }
     Super+L hotkey-overlay-title="Lock the Screen" { spawn "loginctl" "lock-session"; }
-    Mod+V {spawn "noctalia msg panel-toggle clipboard";}
-    Mod+period {spawn "vicinae" "vicinae://extensions/vicinae/core/search-emojis";}
-    Mod+Space { spawn-sh "noctalia msg panel-toggle launcher"; }
-    Mod+e { spawn-sh "noctalia msg panel-toggle control-center"; }
-    Mod+Comma { spawn-sh "noctalia msg settings-toggle"; }
+    Mod+V {spawn "noctalia" "msg" "panel-toggle" "clipboard";}
+    Mod+Period { spawn "noctalia" "msg" "panel-toggle" "launcher" "/emo "; }
+    Mod+Space { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.

@@ -6,7 +6,7 @@
 
 output "BOE NE173QHM-NZ2 Unknown"{
   mode "2560x1440@240.001"
-  scale 1.5
+  scale 1.25
 }
 
 output "Samsung Electric Company SyncMaster HMDSB05010"{

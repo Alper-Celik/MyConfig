@@ -1,7 +1,18 @@
+
 [lockscreen]
 enabled = true
 allow_empty_password = true
 blurred_desktop = true
+
+
+[notification]
+background_opacity = 0.4
+scale = 0.8
+
+
+[osd]
+background_opacity = 0.8
+
 [bar]
 order = ["default"]
 
@@ -18,15 +29,15 @@ end = [
   "volume",
   "brightness",
   "battery",
-  "control-center",
   "session",
 ]
 margin_ends = 10
 padding = 0
-scale = 0.85000000521540642
-start = ["launcher", "wallpaper", "workspaces", "group:g2"]
+scale = 0.85
+start = ["launcher", "control-center", "wallpaper", "workspaces", "group:g2"]
 thickness = 20
 widget_spacing = 2
+
 
 [[bar.default.capsule_group]]
 fill = "tertiary"
@@ -42,6 +53,10 @@ members = ["media", "audio_visualizer"]
 opacity = 1.0
 padding = 6.0
 
+
+[control_center]
+sidebar_section = "none"
+
 [battery]
 warning_threshold = 20
 
@@ -53,11 +68,24 @@ enabled = true
 temperature_night = 4300
 
 [shell]
+ui_scale = 0.85
 launch_apps_as_systemd_services = true
 niri_overview_type_to_launch_enabled = true
 screen_time_enabled = true
 telemetry_enabled = true
+[shell.animation]
+speed = 1.5
+[shell.launcher]
+categories = false
 
+[shell.panel]
+borders = false
+control_center_placement = "floating"
+launcher_position = "auto"
+open_near_click_control_center = true
+open_near_click_launcher = true
+open_near_click_session = true
+transparency_mode = "glass"
 
 [theme]
 community_palette = "Oxocarbon"

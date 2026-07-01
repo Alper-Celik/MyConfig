@@ -15,6 +15,13 @@ window-rule {
     geometry-corner-radius 10
     clip-to-geometry true
 }
+layer-rule {
+  match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$"
+  background-effect {
+    xray false
+    // blur false
+  }
+}
 
 
 // Settings that influence how windows are positioned and sized.
