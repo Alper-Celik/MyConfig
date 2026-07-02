@@ -36,7 +36,12 @@
 
   boot.binfmt.preferStaticEmulators = true;
   boot.binfmt.emulatedSystems =
-    if config.nixpkgs.hostPlatform == "x86_64-linux" then [ "aarch64-linux" ] else [ ];
+    if system == "x86_64-linux" then
+      [ "aarch64-linux" ]
+    else if system == "aarch64-linux" then
+      [ ]
+    else
+      [ ];
 
   boot.kernelModules = [ "kvm-amd" ];
   programs.virt-manager.enable = true;
