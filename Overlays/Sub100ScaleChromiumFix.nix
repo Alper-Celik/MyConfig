@@ -1,4 +1,4 @@
-final: prev:
+inputs: final: prev:
 let
   apps = [
     "obsidian"

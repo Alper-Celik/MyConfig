@@ -564,6 +564,22 @@
         "type": "github"
       }
     },
+    "keyd": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783020071,
+        "narHash": "sha256-Gj4YWSK/f4k96oSWDmMvsuiuYcIVgUXsmO90VlHHvVk=",
+        "owner": "Alper-Celik",
+        "repo": "keyd",
+        "rev": "b9e697c92b94e91095a1f0f460424762bfe0555a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Alper-Celik",
+        "repo": "keyd",
+        "type": "github"
+      }
+    },
     "macbook-m1-alper-firmware": {
       "flake": false,
       "locked": {
@@ -1196,6 +1212,7 @@
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "jovian-NixOS": "jovian-NixOS",
+        "keyd": "keyd",
         "macbook-m1-alper-firmware": "macbook-m1-alper-firmware",
         "nightfox-nvim": "nightfox-nvim",
         "nix-cachyos-kernel": "nix-cachyos-kernel",

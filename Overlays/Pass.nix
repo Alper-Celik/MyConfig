@@ -1,4 +1,4 @@
-final: prev: {
+inputs: final: prev: {
   my-pass = prev.pass-wayland.withExtensions (
     exts: with exts; [
       pass-update

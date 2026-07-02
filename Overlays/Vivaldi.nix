@@ -1,4 +1,4 @@
-final: prev: {
+inputs: final: prev: {
   vivaldi = (
     prev.vivaldi.overrideAttrs (oldAttrs: {
       dontWrapQtApps = false;
