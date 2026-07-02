@@ -68,6 +68,7 @@ enabled = true
 temperature_night = 4300
 
 [shell]
+polkit_agent = true
 ui_scale = 0.85
 launch_apps_as_systemd_services = true
 niri_overview_type_to_launch_enabled = true
