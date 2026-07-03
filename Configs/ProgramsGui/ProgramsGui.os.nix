@@ -38,6 +38,7 @@
       ## browsers
       #firefox moved to home manager
       chromium
+      vivaldi
       ## mail and chat
       thunderbird
       element-desktop
