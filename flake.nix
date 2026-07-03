@@ -235,7 +235,6 @@
                 };
                 modules = [
                   self.nixosModules.default-modules
-                  inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
                   ./nixos/configuration.nix
                 ];
               }

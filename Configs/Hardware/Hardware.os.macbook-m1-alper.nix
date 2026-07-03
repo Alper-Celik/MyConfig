@@ -5,6 +5,9 @@
   ...
 }:
 {
+  imports = [
+    inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
+  ];
   boot.initrd.availableKernelModules = [ "usb_storage" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
