@@ -30,6 +30,7 @@
     };
 
     extraConfig = ''
+      map ctrl+shift+4 change_font_size current +2.0
       map ctrl+shift+equal change_font_size current +2.0
       map ctrl+shift+plus change_font_size current +2.0
       map ctrl+shift+kp_add change_font_size current +2.0
