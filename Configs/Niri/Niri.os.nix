@@ -34,6 +34,7 @@
       "org.freedesktop.impl.portal.FileChooser" = "kde";
       "org.freedesktop.impl.portal.Access" = "gtk";
       "org.freedesktop.impl.portal.Notification" = "gtk";
+      "org.freedesktop.impl.portal.Screenshot" = "wlr";
     };
 
     # Recommended by upstream, required for screencast support
@@ -42,6 +43,7 @@
       pkgs.kdePackages.xdg-desktop-portal-kde
       pkgs.xdg-desktop-portal-gnome
       pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-wlr
     ];
   };
 
