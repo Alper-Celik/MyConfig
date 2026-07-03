@@ -17,6 +17,7 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
+  hardware.bluetooth.enable = true;
 
   networking.networkmanager.wifi.backend = "iwd";
   hardware.asahi.peripheralFirmwareDirectory = inputs.macbook-m1-alper-firmware;
