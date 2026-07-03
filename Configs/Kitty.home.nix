@@ -30,6 +30,13 @@
     };
 
     extraConfig = ''
+      map ctrl+shift+equal change_font_size current +2.0
+      map ctrl+shift+plus change_font_size current +2.0
+      map ctrl+shift+kp_add change_font_size current +2.0
+
+      map ctrl+shift+minus change_font_size current -2.0
+      map ctrl+shift+kp_subtract change_font_size current -2.0
+
       # Nightfox colors for Kitty
       ## name: carbonfox
       ## upstream: https://github.com/edeneast/nightfox.nvim/raw/main/extra/carbonfox/nightfox_kitty.conf
