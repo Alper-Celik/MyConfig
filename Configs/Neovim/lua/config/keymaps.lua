@@ -28,7 +28,11 @@ end
 map("n", "<leader>fe", neotree_float, {})
 map("n", "<leader>e", neotree_float, {})
 map("n", "<C-e>", function()
-  require("neo-tree.command").execute({ position = "left", toggle = true })
+  if vim.bo.filetype == "neo-tree" then
+    require("neo-tree.command").execute({ action = "close" })
+  else
+    require("neo-tree.command").execute({ position = "left", focus = true, reveal = true })
+  end
 end, {})
 
 -- Terminal Mappings
