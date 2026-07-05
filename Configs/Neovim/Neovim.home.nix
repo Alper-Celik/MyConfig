@@ -42,6 +42,8 @@ let
     nil
     kdePackages.qtdeclarative
     cmake-language-server
+    beancount-language-server
+    beancount
 
     lazygit
   ];

@@ -52,4 +52,5 @@ require("lazy").setup({
   },
 })
 
+require("config.beancount")
 require("config.telescope-fused")

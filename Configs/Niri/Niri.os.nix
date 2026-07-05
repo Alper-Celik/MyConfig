@@ -11,14 +11,10 @@
     brightnessctl
   ];
 
-  services.displayManager.defaultSession = "niri-uwsm";
-  programs.uwsm = {
-    enable = true;
-    waylandCompositors.niri = {
-      prettyName = "Niri";
-      binPath = "/run/current-system/sw/bin/niri-session";
-    };
-  };
+  services.displayManager.defaultSession = "niri";
+  services.displayManager.sessionPackages = [
+    pkgs-unstable.niri
+  ];
 
   environment.etc."xdg/menus/applications.menu".source =
     "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";

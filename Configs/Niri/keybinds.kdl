@@ -31,7 +31,7 @@ binds {
     // shows a list of important hotkeys.
     Mod+Shift+o { show-hotkey-overlay; }
 
-    Mod+Return hotkey-overlay-title="Open a Terminal: kitty" cooldown-ms=100 { spawn "uwsm" "app" "--" "kitty" "-1"; }
+    Mod+Return hotkey-overlay-title="Open a Terminal: kitty" cooldown-ms=100 { spawn "systemd-run" "--user" "kitty"; }
     Super+L hotkey-overlay-title="Lock the Screen" { spawn "loginctl" "lock-session"; }
     Mod+V {spawn "noctalia" "msg" "panel-toggle" "clipboard";}
     Mod+Period { spawn "noctalia" "msg" "panel-toggle" "launcher" "/emo "; }

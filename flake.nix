@@ -46,7 +46,6 @@
 
     noctalia = {
       url = "github:alper-celik/noctalia/my-main";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     keyd = {
