@@ -31,7 +31,7 @@ input {
         // drag false
         drag-lock
         natural-scroll
-        accel-speed 0.7
+        accel-speed 0.5
         accel-profile "adaptive"
         // scroll-method "two-finger"
         // disabled-on-external-mouse

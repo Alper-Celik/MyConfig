@@ -5,6 +5,11 @@
   ...
 }:
 {
+  networking.nftables = {
+    enable = true;
+  };
+  virtualisation.docker.daemon.settings."firewall-backend" = "nftables";
+
   services.mullvad-vpn.enable = true;
   services.mullvad-vpn.package = pkgs.mullvad-vpn;
   environment.persistence."/persistent".directories = [ "/etc/mullvad-vpn/" ];

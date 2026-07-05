@@ -31,6 +31,7 @@
     pkgs.freerdp
     pkgs.vagrant
     pkgs.act
+    pkgs.docker-compose
   ];
   users.extraGroups.vboxusers.members = [ "alper" ];
 
@@ -56,15 +57,17 @@
     };
     waydroid.enable = true;
 
-    docker = {
-      package = pkgs.docker_29;
-      enable = true;
-
-      storageDriver = "overlay2";
-      autoPrune.enable = true;
-      enableOnBoot = false;
-    };
+    # docker = {
+    #   package = pkgs.docker_29;
+    #   enable = true;
+    #
+    #   storageDriver = "overlay2";
+    #   autoPrune.enable = true;
+    #   enableOnBoot = false;
+    # };
     podman = {
+      dockerCompat = true;
+      dockerSocket.enable = true;
       enable = true;
       autoPrune.enable = true;
     };
