@@ -3,6 +3,7 @@
   system,
   inputs,
   config,
+  lib,
   ...
 }:
 {
@@ -35,12 +36,21 @@
   ];
   users.extraGroups.vboxusers.members = [ "alper" ];
 
+  # hack till https://github.com/NixOS/nixpkgs/pull/500039 is merged
+  nixpkgs.overlays = lib.mkIf (system == "aarch64-linux") [
+    (_: final: {
+      qemu = final.qemu.overrideAttrs (oldAttrs: {
+        configureFlags = oldAttrs.configureFlags ++ [ "--disable-pie" ];
+      });
+    })
+  ];
+
   boot.binfmt.preferStaticEmulators = true;
   boot.binfmt.emulatedSystems =
     if system == "x86_64-linux" then
       [ "aarch64-linux" ]
     else if system == "aarch64-linux" then
-      [ ]
+      [ "x86_64-linux" ]
     else
       [ ];
 
