@@ -30,6 +30,10 @@ let
     rust-analyzer
     rustfmt
 
+    golangci-lint
+    gopls
+    go
+
     lsof
 
     clang-tools
