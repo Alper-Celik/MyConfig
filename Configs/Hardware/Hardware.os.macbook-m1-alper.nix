@@ -66,7 +66,6 @@ in
   hardware.bluetooth.enable = true;
 
   networking.networkmanager.wifi.backend = "iwd";
-  hardware.asahi.enable = true;
   hardware.asahi.peripheralFirmwareDirectory = inputs.macbook-m1-alper-firmware;
   boot.extraModprobeConfig = ''
     options hid_apple swap_opt_cmd=1
