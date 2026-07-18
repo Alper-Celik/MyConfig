@@ -15,6 +15,7 @@
     common-pc-laptop-ssd
     asus-battery
   ];
+  boot.kernelModules = [ "kvm-amd" ];
   hardware.asus.battery.chargeUpto = 85;
   boot.extraModprobeConfig = ''
     options snd-hda-intel model=alc294-lenovo-mic

@@ -45,12 +45,11 @@
     else
       [ ];
 
-  boot.kernelModules = [ "kvm-amd" ];
   programs.virt-manager.enable = true;
   virtualisation = {
     spiceUSBRedirection.enable = true;
     libvirtd = {
-      enable = true;
+      # enable = true;
       qemu = {
         swtpm.enable = true;
         vhostUserPackages = [ pkgs.virtiofsd ];

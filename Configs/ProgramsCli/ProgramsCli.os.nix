@@ -14,7 +14,7 @@
     with pkgs;
     with kdePackages;
     [
-      config.boot.kernelPackages.perf
+      perf
 
       patchelf
       libqalculate

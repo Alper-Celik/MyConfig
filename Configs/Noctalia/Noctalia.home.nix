@@ -5,6 +5,7 @@
   my-lib,
   specialArgs,
   system,
+  lib,
   ...
 }:
 let
@@ -21,6 +22,7 @@ in
   programs.noctalia = {
     enable = true;
     package = inputs.noctalia.packages.${system}.default;
+    settings = lib.mkForce { };
     systemd.enable = true;
   };
 

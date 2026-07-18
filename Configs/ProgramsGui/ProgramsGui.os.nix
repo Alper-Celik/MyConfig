@@ -26,7 +26,7 @@
       easyeffects
       kdePackages.gwenview
 
-      obs-studio
+      # obs-studio
       # musescore
 
       # utulities
@@ -57,9 +57,9 @@
       qalculate-qt
       # dev tools
       jetbrains-toolbox
-      jetbrains.rider
-      jetbrains.clion
-      jetbrains.pycharm
+      # jetbrains.rider
+      # jetbrains.clion
+      # jetbrains.pycharm
 
       # libresprite
       aseprite

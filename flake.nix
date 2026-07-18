@@ -53,8 +53,6 @@
       flake = false;
     };
 
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-
     stylix.url = "github:danth/stylix";
     nightfox-nvim = {
       url = "github:EdenEast/nightfox.nvim";

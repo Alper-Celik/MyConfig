@@ -54,19 +54,16 @@ in
   imports = [
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
   ];
-  boot.initrd.availableKernelModules = [ "usb_storage" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
-
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
-
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
   hardware.bluetooth.enable = true;
 
   networking.networkmanager.wifi.backend = "iwd";
   hardware.asahi.enable = true;
+  boot.kernelPackages =
+    lib.mkForce
+      inputs.nixos-apple-silicon.packages."aarch64-linux".installer-bootstrap.config.boot.kernelPackages;
   hardware.asahi.peripheralFirmwareDirectory = inputs.macbook-m1-alper-firmware;
   boot.extraModprobeConfig = ''
     options hid_apple swap_opt_cmd=1

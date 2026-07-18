@@ -7,5 +7,4 @@ in
 overlays
 ++ [
   inputs.Quickshell-master.overlays.default
-  inputs.nix-cachyos-kernel.overlays.default
 ]
