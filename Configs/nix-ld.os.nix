@@ -34,7 +34,7 @@
       fuse
       fuse3
       gdk-pixbuf
-      glew110
+      glew_1_10
       glib
       gmp
       gst_all_1.gst-plugins-base
@@ -90,32 +90,32 @@
       udev
       vulkan-loader
       wayland
-      xorg.libICE
-      xorg.libSM
-      xorg.libX11
-      xorg.libXScrnSaver
-      xorg.libXcomposite
-      xorg.libXcursor
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXft
-      xorg.libXi
-      xorg.libXinerama
-      xorg.libXmu
-      xorg.libXrandr
-      xorg.libXrender
-      xorg.libXt
-      xorg.libXtst
-      xorg.libXxf86vm
-      xorg.libpciaccess
-      xorg.libxcb
-      xorg.xcbutil
-      xorg.xcbutilimage
-      xorg.xcbutilkeysyms
-      xorg.xcbutilrenderutil
-      xorg.xcbutilwm
-      xorg.xkeyboardconfig
+      libice
+      libsm
+      libX11
+      libXScrnSaver
+      libXcomposite
+      libXcursor
+      libXdamage
+      libXext
+      libXfixes
+      libXft
+      libXi
+      libXinerama
+      libXmu
+      libXrandr
+      libXrender
+      libXt
+      libXtst
+      libXxf86vm
+      libpciaccess
+      libxcb
+      xcbutil
+      xcbutilimage
+      xcbutilkeysyms
+      xcbutilrenderutil
+      xcbutilwm
+      xkeyboardconfig
       xz
       zlib
 
@@ -143,20 +143,20 @@
 
       #### https://github.com/NixOS/nixpkgs/blob/8f7492cce28977fbf8bd12c72af08b1f6c7c3e49/pkgs/build-support/appimage/default.nix#L90
       desktop-file-utils
-      xorg.libXcomposite
-      xorg.libXtst
-      xorg.libXrandr
-      xorg.libXext
-      xorg.libX11
-      xorg.libXfixes
+      libXcomposite
+      libXtst
+      libXrandr
+      libXext
+      libX11
+      libXfixes
       libGL
 
       gst_all_1.gstreamer
       gst_all_1.gst-plugins-ugly
       gst_all_1.gst-plugins-base
       libdrm
-      xorg.xkeyboardconfig
-      xorg.libpciaccess
+      xkeyboardconfig
+      libpciaccess
 
       glib
       gtk2
@@ -164,15 +164,15 @@
       zlib
       gdk-pixbuf
 
-      xorg.libXinerama
-      xorg.libXdamage
-      xorg.libXcursor
-      xorg.libXrender
-      xorg.libXScrnSaver
-      xorg.libXxf86vm
-      xorg.libXi
-      xorg.libSM
-      xorg.libICE
+      libXinerama
+      libXdamage
+      libXcursor
+      libXrender
+      libXScrnSaver
+      libXxf86vm
+      libXi
+      libSM
+      libICE
       freetype
       curlWithGnuTls
       nspr
@@ -192,21 +192,21 @@
       at-spi2-atk
       libudev0-shim
 
-      xorg.libXt
-      xorg.libXmu
-      xorg.libxcb
-      xorg.xcbutil
-      xorg.xcbutilwm
-      xorg.xcbutilimage
-      xorg.xcbutilkeysyms
-      xorg.xcbutilrenderutil
+      libXt
+      libXmu
+      libxcb
+      xcbutil
+      xcbutilwm
+      xcbutilimage
+      xcbutilkeysyms
+      xcbutilrenderutil
       libGLU
       libuuid
       libogg
       libvorbis
       SDL
       SDL2_image
-      glew110
+      glew_1_10
       openssl
       libidn
       tbb
@@ -238,7 +238,7 @@
       libgcrypt
       libvpx
       librsvg
-      xorg.libXft
+      libXft
       libvdpau
       alsa-lib
 
@@ -255,7 +255,7 @@
       # libraries not on the upstream include list, but nevertheless expected
       # by at least one appimage
       libtool.lib # for Synfigstudio
-      xorg.libxshmfence # for apple-music-electron
+      libxshmfence # for apple-music-electron
       at-spi2-core
       pciutils # for FreeCAD
       pipewire # immersed-vr wayland support
@@ -290,7 +290,7 @@
       fuse
       fuse3
       gdk-pixbuf
-      glew110
+      glew_1_10
       glib
       gmp
       gst_all_1.gst-plugins-base
@@ -346,32 +346,32 @@
       udev
       vulkan-loader
       wayland
-      xorg.libICE
-      xorg.libSM
-      xorg.libX11
-      xorg.libXScrnSaver
-      xorg.libXcomposite
-      xorg.libXcursor
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXft
-      xorg.libXi
-      xorg.libXinerama
-      xorg.libXmu
-      xorg.libXrandr
-      xorg.libXrender
-      xorg.libXt
-      xorg.libXtst
-      xorg.libXxf86vm
-      xorg.libpciaccess
-      xorg.libxcb
-      xorg.xcbutil
-      xorg.xcbutilimage
-      xorg.xcbutilkeysyms
-      xorg.xcbutilrenderutil
-      xorg.xcbutilwm
-      xorg.xkeyboardconfig
+      libICE
+      libSM
+      libX11
+      libXScrnSaver
+      libXcomposite
+      libXcursor
+      libXdamage
+      libXext
+      libXfixes
+      libXft
+      libXi
+      libXinerama
+      libXmu
+      libXrandr
+      libXrender
+      libXt
+      libXtst
+      libXxf86vm
+      libpciaccess
+      libxcb
+      xcbutil
+      xcbutilimage
+      xcbutilkeysyms
+      xcbutilrenderutil
+      xcbutilwm
+      xkeyboardconfig
       xz
       zlib
 

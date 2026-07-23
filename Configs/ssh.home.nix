@@ -2,7 +2,7 @@
 {
   programs.ssh = {
     enable = true;
-    matchBlocks = {
+    settings = {
       "rpi5.devices.alper-celik.dev" = {
         # port = 110;
       };
@@ -11,11 +11,14 @@
         port = 443;
         user = "git";
       };
+      "*" = {
+        IdentityFile = [
+          "~/.ssh/id_ed25519_sk"
+          "~/.ssh/id_ed25519"
+        ];
+      };
     };
-    extraConfig = ''
-      IdentityFile ~/.ssh/id_ed25519_sk
-      IdentityFile ~/.ssh/id_ed25519
-    '';
+    enableDefaultConfig = false;
   };
 
   services.ssh-agent = {

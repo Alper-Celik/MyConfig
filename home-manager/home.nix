@@ -11,9 +11,9 @@
     ../DotFiles/dotfiles.nix
 
     ../Configs/configs.home.nix
-    inputs.nix-index-database.hmModules.nix-index
+    inputs.nix-index-database.homeModules.nix-index
 
-    inputs.plasma-manager.homeManagerModules.plasma-manager
+    inputs.plasma-manager.homeModules.plasma-manager
   ];
 
   xdg.configFile."gtk-3.0/gtk.css".force = true;

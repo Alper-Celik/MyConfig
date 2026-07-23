@@ -37,7 +37,7 @@ let
     lsof
 
     clang-tools
-    nixfmt-rfc-style
+    nixfmt
     codespell
     deadnix
     omnisharp-roslyn

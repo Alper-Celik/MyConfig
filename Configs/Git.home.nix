@@ -10,13 +10,13 @@
   programs.git = {
     enable = true;
 
-    userName = "Alper Çelik";
-    userEmail = "alper@alper-celik.dev";
-
-    signing.key = config.programs.git.userEmail;
+    signing.key = config.programs.git.settings.user.email;
     signing.signByDefault = true;
 
-    extraConfig = {
+    settings = {
+      user.name = "Alper Çelik";
+      user.email = "alper@alper-celik.dev";
+
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
     };
