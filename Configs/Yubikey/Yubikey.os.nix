@@ -3,6 +3,15 @@
   ...
 }:
 {
+  security.pam.u2f = {
+    settings = {
+      authfile = ./u2f_authfile;
+      cue = true;
+      appid = "pam";
+      origin = "pam";
+    };
+  };
+
   security.pam.services = {
     login.u2fAuth = true;
     sudo.u2fAuth = true;
@@ -10,8 +19,10 @@
     su.u2fAuth = true;
     sddm.u2fAuth = true;
     kde.u2fAuth = true;
+    systemd-run0.u2fAuth = true;
 
   };
+
   # FIXME: Creates problems with keepassxc
   # services.udev.extraRules = ''
   #   ACTION=="remove",\
