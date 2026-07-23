@@ -8,6 +8,9 @@
   specialArgs,
   ...
 }:
+let
+  llm = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
+in
 {
 
   environment.systemPackages =
@@ -94,6 +97,8 @@
       # (lowPrio pkgs.neovim) use home manager
       nano
 
+      llm.omp
+
       python3Packages.argcomplete
       ## compilers and runtimes
       ## debuggers
@@ -114,7 +119,10 @@
     XDG_BIN_HOME = "\${HOME}/.local/bin";
     XDG_DATA_HOME = "\${HOME}/.local/share";
     # note: this doesn't replace PATH, it just adds this to it
-    PATH = [ "\${XDG_BIN_HOME}" ];
+    PATH = [
+      "\${XDG_BIN_HOME}"
+      "/home/alper/.cache/.bun/bin"
+    ];
   };
   documentation.dev.enable = true;
 
