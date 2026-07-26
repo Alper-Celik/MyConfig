@@ -12,3 +12,8 @@ include "keybinds.kdl"
 // spawn-at-startup "/run/current-system/sw/bin/uwsm" "finalize"
 
 include "noctalia.kdl"
+
+// DMS Include Configs
+include "dms/layout.kdl"
+include "dms/binds.kdl"
+include "dms/windowrules.kdl"

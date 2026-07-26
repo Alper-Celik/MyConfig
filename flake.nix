@@ -13,6 +13,15 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     get-flake.url = "github:Alper-Celik/get-flake";
 
+    dankcalendar = {
+      url = "github:AvengeMedia/dankcalendar";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dms-plugin-registry = {
+      url = "github:AvengeMedia/dms-plugin-registry";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Home manager
     home-manager = {
       url = "github:nix-community/home-manager";

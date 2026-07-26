@@ -20,7 +20,7 @@ in
   ];
 
   programs.noctalia = {
-    enable = true;
+    enable = false;
     package = inputs.noctalia.packages.${system}.default;
     settings = lib.mkForce { };
     systemd.enable = true;

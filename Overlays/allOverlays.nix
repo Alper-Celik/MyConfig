@@ -6,5 +6,5 @@ let
 in
 overlays
 ++ [
-  inputs.Quickshell-master.overlays.default
+  # inputs.Quickshell-master.overlays.default
 ]

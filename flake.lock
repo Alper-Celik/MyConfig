@@ -185,6 +185,63 @@
         "type": "github"
       }
     },
+    "dank-qml-common": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1784074596,
+        "narHash": "sha256-/rCqHgC39mHvBDxb/dZLWCQ3W4ev94y3/1KtCRSPDp8=",
+        "owner": "AvengeMedia",
+        "repo": "dank-qml-common",
+        "rev": "b50afcf549f7e9c8f07c85b7f3fbba867701650d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "dank-qml-common",
+        "type": "github"
+      }
+    },
+    "dankcalendar": {
+      "inputs": {
+        "dank-qml-common": "dank-qml-common",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785038821,
+        "narHash": "sha256-j6+uI7g9nkgQABRaxvCuLafKeD/w869Kw/FyKkq4gZ8=",
+        "owner": "AvengeMedia",
+        "repo": "dankcalendar",
+        "rev": "d703b78bc6eb5195ff54261d33ee5569fab1ff67",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "dankcalendar",
+        "type": "github"
+      }
+    },
+    "dms-plugin-registry": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785047501,
+        "narHash": "sha256-jXSoCZ3+RSRvmhq3DrVH8hyxIM6jV1uOuxadtjgYzVY=",
+        "owner": "AvengeMedia",
+        "repo": "dms-plugin-registry",
+        "rev": "f7a79cd65c5609222948e19d43c2cae0049395e3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "dms-plugin-registry",
+        "type": "github"
+      }
+    },
     "dwarffs": {
       "inputs": {
         "nix": "nix",
@@ -1189,6 +1246,8 @@
         "Quickshell-master": "Quickshell-master",
         "autopair-fish": "autopair-fish",
         "bang-bang-fish": "bang-bang-fish",
+        "dankcalendar": "dankcalendar",
+        "dms-plugin-registry": "dms-plugin-registry",
         "dwarffs": "dwarffs",
         "fastfetch-theme": "fastfetch-theme",
         "flake-parts": "flake-parts_2",

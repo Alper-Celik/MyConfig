@@ -1,0 +1,17 @@
+{
+  "wallpaperBing": {
+    "enabled": true
+  },
+  "qrGenerator": {
+    "enabled": true
+  },
+  "dankKDEConnect": {
+    "enabled": true,
+    "selectedDeviceId": "51cee00ac2014eb2a203c559dcb07c38"
+  },
+  "wallpaperCarousel": {
+    "enabled": true,
+    "overlayOpacity": 80,
+    "itemWidth": 300
+  }
+}
