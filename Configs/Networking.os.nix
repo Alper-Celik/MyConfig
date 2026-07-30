@@ -5,14 +5,34 @@
   ...
 }:
 {
+
+  environment.persistence."/persistent".directories = [
+    "/var/lib/tailscale"
+    "/etc/mullvad-vpn/"
+  ];
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "client";
+  };
+  networking.interfaces.tailscale0.useDHCP = false;
   networking.nftables = {
     enable = true;
   };
+  networking.nftables.tables.tailscale-mulvad = {
+    family = "inet";
+    content = ''
+      chain excludeOutgoing {
+        type route hook output priority 0; policy accept;
+        ip daddr 100.64.0.0/10 ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
+      }
+    '';
+  };
   virtualisation.docker.daemon.settings."firewall-backend" = "nftables";
 
-  services.mullvad-vpn.enable = true;
-  services.mullvad-vpn.package = pkgs.mullvad-vpn;
-  environment.persistence."/persistent".directories = [ "/etc/mullvad-vpn/" ];
+  services.mullvad-vpn = {
+    enable = true;
+    package = pkgs.mullvad-vpn;
+  };
 
   networking.hostName = hardware; # Define your hostname.
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
