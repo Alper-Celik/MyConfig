@@ -49,7 +49,7 @@ in
       # manual
       man
       cht-sh
-      tldr
+      tealdeer
       man-pages
       man-pages-posix
       reuse
