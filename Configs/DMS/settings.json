@@ -1,9 +1,23 @@
 {
-  "currentThemeName": "dynamic",
-  "currentThemeCategory": "dynamic",
-  "customThemeFile": "/home/alper/.config/DankMaterialShell/themes/oxocarbon/theme.json",
+  "currentThemeName": "custom",
+  "currentThemeCategory": "registry",
+  "customThemeFile": "/home/alper/.config/DankMaterialShell/themes/gnomeAdwaita/theme.json",
   "registryThemeVariants": {
-    "oxocarbon": "blue"
+    "oxocarbon": "blue",
+    "catppuccin": {
+      "dark": {
+        "flavor": "macchiato",
+        "accent": "sapphire"
+      }
+    },
+    "gnomeAdwaita": "teal",
+    "modus": {
+      "dark": {
+        "flavor": "vivendi",
+        "accent": "warmer-blue"
+      }
+    },
+    "flexoki": "blue"
   },
   "matugenScheme": "scheme-tonal-spot",
   "matugenContrast": 0,
@@ -33,7 +47,7 @@
   "mangoTrackpadNaturalScrolling": true,
   "firstDayOfWeek": 1,
   "showWeekNumber": false,
-  "calendarBackend": "auto",
+  "calendarBackend": "dankcal",
   "clockFormat": "24h",
   "showSeconds": true,
   "padHours12Hour": false,
@@ -113,9 +127,9 @@
   "controlCenterShowIdleInhibitorIcon": false,
   "controlCenterShowDoNotDisturbIcon": false,
   "showPrivacyButton": true,
-  "privacyShowMicIcon": false,
-  "privacyShowCameraIcon": false,
-  "privacyShowScreenShareIcon": false,
+  "privacyShowMicIcon": true,
+  "privacyShowCameraIcon": true,
+  "privacyShowScreenShareIcon": true,
   "controlCenterWidgets": [
     {
       "id": "volumeSlider",
@@ -126,7 +140,7 @@
       "id": "brightnessSlider",
       "enabled": true,
       "width": 50,
-      "deviceName": "leds:kbd_backlight"
+      "deviceName": "backlight:apple-panel-bl"
     },
     {
       "id": "wifi",
@@ -149,14 +163,37 @@
       "width": 50
     },
     {
-      "id": "nightMode",
+      "id": "diskUsage",
+      "enabled": true,
+      "width": 50,
+      "instanceId": "ms6f8u66duk9ink69ecd2e5973crnq",
+      "mountPath": "/",
+      "showMountPath": true
+    },
+    {
+      "id": "plugin_dankKDEConnect",
       "enabled": true,
       "width": 50
     },
     {
+      "id": "nightMode",
+      "enabled": true,
+      "width": 25
+    },
+    {
       "id": "darkMode",
       "enabled": true,
-      "width": 50
+      "width": 25
+    },
+    {
+      "id": "idleInhibitor",
+      "enabled": true,
+      "width": 25
+    },
+    {
+      "id": "doNotDisturb",
+      "enabled": true,
+      "width": 25
     }
   ],
   "showWorkspaceIndex": false,
@@ -166,14 +203,14 @@
   "showWorkspaceApps": true,
   "workspaceDragReorder": true,
   "maxWorkspaceIcons": 5,
-  "workspaceAppIconSizeOffset": 1,
+  "workspaceAppIconSizeOffset": 4,
   "groupWorkspaceApps": false,
   "groupActiveWorkspaceApps": false,
   "workspaceFollowFocus": false,
   "showOccupiedWorkspacesOnly": false,
   "reverseScrolling": false,
   "dwlShowAllTags": false,
-  "workspaceActiveAppHighlightEnabled": false,
+  "workspaceActiveAppHighlightEnabled": true,
   "workspaceColorMode": "default",
   "workspaceFocusedCustomColor": "#6750A4",
   "workspaceOccupiedColorMode": "none",
@@ -205,7 +242,7 @@
   "mediaAdaptiveWidthEnabled": true,
   "audioVisualizerEnabled": true,
   "mediaUseAlbumArtAccent": false,
-  "audioScrollMode": "volume",
+  "audioScrollMode": "song",
   "audioWheelScrollAmount": 5,
   "audioDeviceScrollVolumeEnabled": false,
   "mediaExcludePlayers": [],
@@ -268,12 +305,12 @@
   },
   "appDrawerSectionViewModes": {},
   "niriOverviewOverlayEnabled": true,
-  "niriOverviewLauncherStyle": "full",
+  "niriOverviewLauncherStyle": "spotlight",
   "dankLauncherV2Size": "compact",
   "dankLauncherV2ShowSourceBadges": true,
-  "dankLauncherV2BorderEnabled": false,
+  "dankLauncherV2BorderEnabled": true,
   "dankLauncherV2BorderThickness": 2,
-  "dankLauncherV2BorderColor": "primary",
+  "dankLauncherV2BorderColor": "outline",
   "dankLauncherV2ShowFooter": true,
   "dankLauncherV2UnloadOnClose": false,
   "dankLauncherV2IncludeFilesInAll": false,
@@ -303,7 +340,7 @@
     },
     {
       "id": "settings",
-      "enabled": true
+      "enabled": false
     }
   ],
   "networkPreference": "wifi",
@@ -377,11 +414,11 @@
   "batteryCriticalThreshold": 10,
   "batteryNotifyCritical": true,
   "batteryLowThreshold": 20,
-  "batteryNotifyLow": false,
+  "batteryNotifyLow": true,
   "batteryChargeLimitNotificationType": 0,
   "batteryLowNotificationType": 0,
   "batteryCriticalNotificationType": 1,
-  "batteryAutoPowerSaver": false,
+  "batteryAutoPowerSaver": true,
   "lockBeforeSuspend": true,
   "loginctlLockIntegration": true,
   "fadeToLockEnabled": true,
@@ -393,7 +430,11 @@
   "wifiNetworkPins": {},
   "bluetoothDevicePins": {},
   "audioInputDevicePins": {},
-  "audioOutputDevicePins": {},
+  "audioOutputDevicePins": {
+    "preferredOutput": [
+      "audio_effect.j293-convolver"
+    ]
+  },
   "gtkThemingEnabled": false,
   "qtThemingEnabled": false,
   "syncModeWithPortal": true,
@@ -445,8 +486,8 @@
   "dockRestoreSpecialWorkspaceOnClick": false,
   "dockOpenOnOverview": false,
   "dockPosition": 1,
-  "dockSpacing": 4,
-  "dockBottomGap": -100,
+  "dockSpacing": 8,
+  "dockBottomGap": 0,
   "dockMargin": 0,
   "dockIconSize": 54,
   "dockIndicatorStyle": "circle",
@@ -472,7 +513,7 @@
   "notificationPopupShadowEnabled": true,
   "notificationPopupPrivacyMode": false,
   "notificationForegroundLayers": true,
-  "modalDarkenBackground": true,
+  "modalDarkenBackground": false,
   "lockScreenShowPowerActions": true,
   "lockScreenShowSystemIcons": true,
   "lockScreenShowTime": true,
@@ -492,7 +533,7 @@
   "lockPamExternallyManaged": true,
   "lockU2fPamPath": "",
   "lockScreenInactiveColor": "#000000",
-  "lockScreenNotificationMode": 0,
+  "lockScreenNotificationMode": 2,
   "lockScreenVideoEnabled": false,
   "lockScreenVideoPath": "",
   "lockScreenVideoCycling": false,
@@ -504,25 +545,25 @@
   "notificationTimeoutNormal": 5000,
   "notificationTimeoutCritical": 0,
   "notificationCompactMode": true,
-  "notificationShowTimeoutBar": false,
+  "notificationShowTimeoutBar": true,
   "notificationDedupeEnabled": true,
   "notificationPopupPosition": 0,
   "notificationAnimationSpeed": 1,
   "notificationCustomAnimationDuration": 400,
   "notificationHistoryEnabled": true,
-  "notificationHistoryMaxCount": 50,
-  "notificationHistoryMaxAgeDays": 7,
+  "notificationHistoryMaxCount": 200,
+  "notificationHistoryMaxAgeDays": 0,
   "notificationHistorySaveLow": true,
   "notificationHistorySaveNormal": true,
   "notificationHistorySaveCritical": true,
   "notificationRules": [],
   "notificationFocusedMonitor": false,
   "osdAlwaysShowValue": true,
-  "osdPosition": 4,
+  "osdPosition": 7,
   "osdVolumeEnabled": true,
   "osdMediaVolumeEnabled": true,
   "osdMediaPlaybackEnabled": true,
-  "osdBrightnessEnabled": true,
+  "osdBrightnessEnabled": false,
   "osdIdleInhibitorEnabled": true,
   "osdMicMuteEnabled": true,
   "osdCapsLockEnabled": true,
@@ -535,7 +576,6 @@
     "logout",
     "poweroff",
     "lock",
-    "suspend",
     "restart"
   ],
   "powerMenuDefaultAction": "logout",
@@ -561,7 +601,9 @@
   "niriOutputSettings": {},
   "hyprlandOutputSettings": {},
   "displayProfiles": {},
-  "activeDisplayProfile": {},
+  "activeDisplayProfile": {
+    "niri": ""
+  },
   "displayProfileAutoSelect": false,
   "displayShowDisconnected": false,
   "displaySnapToEdge": true,
@@ -582,39 +624,45 @@
           "id": "workspaceSwitcher",
           "enabled": true
         },
-        {
-          "id": "appsDock",
-          "enabled": true,
-          "barShowOverflowBadge": true
-        },
-        {
-          "id": "focusedWindow",
-          "enabled": true,
-          "focusedWindowSize": 0,
-          "focusedWindowCompactMode": false,
-          "focusedWindowShowIcon": true
-        }
+        "music"
       ],
       "centerWidgets": [
-        "music",
+        {
+          "id": "weather",
+          "enabled": true
+        },
         {
           "id": "clock",
           "enabled": true,
           "clockCompactMode": false
         },
-        "weather"
+        {
+          "id": "focusedWindow",
+          "enabled": true,
+          "focusedWindowSize": 0,
+          "focusedWindowCompactMode": true,
+          "focusedWindowShowIcon": true
+        }
       ],
       "rightWidgets": [
-        "systemTray",
+        {
+          "id": "systemTray",
+          "enabled": true,
+          "trayUseInlineExpansion": false,
+          "trayPopupSingleLine": true,
+          "trayAutoOverflow": true,
+          "trayMaxVisibleItems": 1
+        },
         {
           "id": "memUsage",
           "enabled": true,
-          "minimumWidth": true,
+          "minimumWidth": false,
+          "showSwap": false,
           "showInGb": true
         },
         {
           "id": "cpuUsage",
-          "enabled": true,
+          "enabled": false,
           "minimumWidth": true
         },
         {
@@ -623,28 +671,11 @@
         },
         {
           "id": "separator",
-          "enabled": true
-        },
-        {
-          "id": "notepadButton",
-          "enabled": true
-        },
-        "clipboard",
-        {
-          "id": "qrGenerator",
-          "enabled": true
-        },
-        {
-          "id": "colorPicker",
-          "enabled": true
-        },
-        {
-          "id": "separator",
-          "enabled": true
+          "enabled": false
         },
         {
           "id": "dankKDEConnect",
-          "enabled": true
+          "enabled": false
         },
         {
           "id": "battery",
@@ -660,42 +691,58 @@
           "enabled": true
         },
         "notificationButton",
-        "controlCenterButton"
+        {
+          "id": "dankscale",
+          "enabled": true
+        },
+        {
+          "id": "controlCenterButton",
+          "enabled": true,
+          "showAudioPercent": false,
+          "showBrightnessIcon": false,
+          "showBrightnessPercent": false,
+          "showMicIcon": false,
+          "showMicPercent": false,
+          "showBatteryIcon": false,
+          "showScreenSharingIcon": true,
+          "showIdleInhibitorIcon": false,
+          "showDoNotDisturbIcon": false
+        }
       ],
-      "spacing": 4,
+      "spacing": 0,
       "innerPadding": -8,
       "barInsetPadding": 4,
       "bottomGap": 0,
-      "transparency": 0.34,
-      "widgetTransparency": 0.84,
-      "squareCorners": false,
+      "transparency": 1,
+      "widgetTransparency": 1,
+      "squareCorners": true,
       "noBackground": false,
       "maximizeWidgetIcons": false,
       "maximizeWidgetText": false,
       "removeWidgetPadding": false,
       "widgetPadding": 8,
-      "gothCornersEnabled": false,
+      "gothCornersEnabled": true,
       "gothCornerRadiusOverride": false,
-      "gothCornerRadiusValue": 12,
+      "gothCornerRadiusValue": 16,
       "borderEnabled": false,
       "borderColor": "surfaceText",
-      "borderOpacity": 1,
+      "borderOpacity": 0.1,
       "borderThickness": 1,
-      "widgetOutlineEnabled": false,
-      "widgetOutlineColor": "primary",
-      "widgetOutlineOpacity": 1,
+      "widgetOutlineEnabled": true,
+      "widgetOutlineColor": "surfaceText",
+      "widgetOutlineOpacity": 0.15,
       "widgetOutlineThickness": 1,
-      "fontScale": 0.97,
-      "iconScale": 0.87,
+      "fontScale": 1,
+      "iconScale": 1,
       "autoHide": false,
       "autoHideStrict": false,
       "autoHideDelay": 250,
-      "showOnWindowsOpen": false,
+      "showOnWindowsOpen": true,
       "openOnOverview": true,
       "visible": true,
       "popupGapsAuto": true,
       "popupGapsManual": 4,
-      "maximizeDetection": true,
+      "maximizeDetection": false,
       "useOverlayLayer": false,
       "scrollEnabled": true,
       "scrollXBehavior": "column",
@@ -797,26 +844,30 @@
     "edit",
     "delete"
   ],
-  "launcherPluginVisibility": {},
+  "launcherPluginVisibility": {
+    "dms_settings_search": {
+      "allowWithoutTrigger": true
+    }
+  },
   "launcherPluginOrder": [],
   "frameEnabled": false,
-  "frameThickness": 16,
-  "frameRounding": 23,
+  "frameThickness": 10,
+  "frameRounding": 0,
   "frameColor": "",
   "frameOpacity": 1,
   "frameScreenPreferences": [
     "all"
   ],
   "frameBarSize": 40,
-  "frameShowOnOverview": false,
+  "frameShowOnOverview": true,
   "frameBlurEnabled": true,
   "frameCloseGaps": true,
   "frameLauncherEmergeSide": "bottom",
   "frameLauncherArcExtender": false,
   "frameLauncherEdgeHover": false,
-  "frameMode": "separate",
+  "frameMode": "connected",
   "barInsetPaddingShared": -1,
   "barInsetPaddingSyncAll": false,
-  "frameBarInsetPadding": -1,
+  "frameBarInsetPadding": 48,
   "configVersion": 12
 }

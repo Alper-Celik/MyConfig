@@ -1,17 +1,34 @@
 {
   "wallpaperBing": {
-    "enabled": true
+    "enabled": true,
+    "deleteOld": false,
+    "enableDailyRefresh": true
   },
   "qrGenerator": {
-    "enabled": true
+    "enabled": true,
+    "pillStyle": "icon",
+    "showHints": true
   },
   "dankKDEConnect": {
     "enabled": true,
-    "selectedDeviceId": "51cee00ac2014eb2a203c559dcb07c38"
+    "selectedDeviceId": "212ca79d072f49aeb8cd91e4013851ec"
   },
   "wallpaperCarousel": {
     "enabled": true,
     "overlayOpacity": 80,
     "itemWidth": 300
+  },
+  "emojiLauncher": {
+    "enabled": true
+  },
+  "dankscale": {
+    "enabled": true,
+    "lastAccount": "Alper-Celik@github"
+  },
+  "kaomojiPicker": {
+    "enabled": true
+  },
+  "dankCalendarAgenda": {
+    "enabled": true
   }
 }
