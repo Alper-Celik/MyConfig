@@ -21,16 +21,16 @@
     package = pkgs.firefox-bin;
     profiles."ev95osw2.default" = {
       isDefault = true;
-      settings = {
-        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-        "browser.tabs.inTitlebar" = 0;
-      };
-      userChrome = ''
-        /* hides the native tabs */
-        #TabsToolbar {
-          visibility: collapse;
-        }
-      '';
+      # settings = {
+      #   "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+      #   "browser.tabs.inTitlebar" = 0;
+      # };
+      # userChrome = ''
+      #   /* hides the native tabs */
+      #   #TabsToolbar {
+      #     visibility: collapse;
+      #   }
+      # '';
     };
     nativeMessagingHosts = with pkgs; [
       gpgme
