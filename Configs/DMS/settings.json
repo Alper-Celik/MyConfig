@@ -425,7 +425,7 @@
   "fadeToLockGracePeriod": 5,
   "fadeToDpmsEnabled": true,
   "fadeToDpmsGracePeriod": 5,
-  "launchPrefix": "",
+  "launchPrefix": "systemd-run --user",
   "brightnessDevicePins": {},
   "wifiNetworkPins": {},
   "bluetoothDevicePins": {},
