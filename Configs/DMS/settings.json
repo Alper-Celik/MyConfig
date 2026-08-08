@@ -542,7 +542,7 @@
   "lockScreenFontFamily": "",
   "hideBrightnessSlider": false,
   "notificationTimeoutLow": 5000,
-  "notificationTimeoutNormal": 5000,
+  "notificationTimeoutNormal": 8000,
   "notificationTimeoutCritical": 0,
   "notificationCompactMode": true,
   "notificationShowTimeoutBar": true,
@@ -556,7 +556,24 @@
   "notificationHistorySaveLow": true,
   "notificationHistorySaveNormal": true,
   "notificationHistorySaveCritical": true,
-  "notificationRules": [],
+  "notificationRules": [
+    {
+      "enabled": true,
+      "field": "body",
+      "pattern": ": Network or I/O error",
+      "matchType": "contains",
+      "action": "ignore",
+      "urgency": "default"
+    },
+    {
+      "enabled": true,
+      "field": "body",
+      "pattern": ": Soft error (max retries",
+      "matchType": "exact",
+      "action": "ignore",
+      "urgency": "default"
+    }
+  ],
   "notificationFocusedMonitor": false,
   "osdAlwaysShowValue": true,
   "osdPosition": 7,
