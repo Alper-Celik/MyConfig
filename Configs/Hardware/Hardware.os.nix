@@ -7,6 +7,8 @@ in
   services.tlp.enable = false;
   services.tuned.enable = true;
   environment.systemPackages = [ scx ];
+
+  environment.persistence."/persistent".directories = [ "/var/lib/pandemonium/" ];
   systemd.services.scx = {
     enable = system == "x86_64-linux";
     description = "SCX scheduler daemon";
@@ -19,7 +21,7 @@ in
 
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${scx}/bin/scx_cake";
+      ExecStart = "${scx}/bin/scx_pandemonium";
       Restart = "on-failure";
     };
     wantedBy = [ "multi-user.target" ];
