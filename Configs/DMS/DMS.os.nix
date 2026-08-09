@@ -14,6 +14,7 @@
     tesseract
     img2pdf
 
+    pulseaudio # for pactl for bluetooth codec changing in dms
   ];
 
   programs.dms-shell = {

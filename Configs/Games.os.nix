@@ -21,7 +21,7 @@ in
       heroic
       wine-staging
       lutris
-      bottles
+      # bottles
       legendary-gl
       prismlauncher # minecraft
 

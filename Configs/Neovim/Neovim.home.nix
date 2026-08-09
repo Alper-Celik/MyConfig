@@ -41,7 +41,7 @@ let
     codespell
     deadnix
     omnisharp-roslyn
-    pkgs-stable.roslyn-ls # use stable to prevent dotnet 10 preview build failure
+    roslyn-ls
     nixd
     nil
     kdePackages.qtdeclarative

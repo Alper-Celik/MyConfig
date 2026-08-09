@@ -428,7 +428,11 @@
   "launchPrefix": "systemd-run --user",
   "brightnessDevicePins": {},
   "wifiNetworkPins": {},
-  "bluetoothDevicePins": {},
+  "bluetoothDevicePins": {
+    "preferredDevice": [
+      "B0:38:E2:68:D5:DA"
+    ]
+  },
   "audioInputDevicePins": {},
   "audioOutputDevicePins": {
     "preferredOutput": [
@@ -571,6 +575,14 @@
       "pattern": ": Soft error (max retries",
       "matchType": "exact",
       "action": "ignore",
+      "urgency": "default"
+    },
+    {
+      "enabled": true,
+      "field": "desktopEntry",
+      "pattern": "org.keepassxc.KeePassXC",
+      "matchType": "exact",
+      "action": "mute",
       "urgency": "default"
     }
   ],
