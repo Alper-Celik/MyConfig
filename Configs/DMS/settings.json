@@ -426,19 +426,6 @@
   "fadeToDpmsEnabled": true,
   "fadeToDpmsGracePeriod": 5,
   "launchPrefix": "systemd-run --user",
-  "brightnessDevicePins": {},
-  "wifiNetworkPins": {},
-  "bluetoothDevicePins": {
-    "preferredDevice": [
-      "B0:38:E2:68:D5:DA"
-    ]
-  },
-  "audioInputDevicePins": {},
-  "audioOutputDevicePins": {
-    "preferredOutput": [
-      "audio_effect.j293-convolver"
-    ]
-  },
   "gtkThemingEnabled": false,
   "qtThemingEnabled": false,
   "syncModeWithPortal": true,
