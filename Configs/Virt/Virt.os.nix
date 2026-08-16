@@ -66,8 +66,6 @@
     #   enableOnBoot = false;
     # };
     podman = {
-      dockerCompat = true;
-      dockerSocket.enable = true;
       enable = true;
       autoPrune.enable = true;
     };
