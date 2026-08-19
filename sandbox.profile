@@ -28,6 +28,8 @@ noinput
 tmpfs ${HOME}
 whitelist ${HOME}/Projects
 whitelist ${HOME}/MyConfig
+whitelist  ${HOME}/.config/opencode
+whitelist  ${HOME}/.omp
 
 
 # === Runtime agents and system secret directories ===
