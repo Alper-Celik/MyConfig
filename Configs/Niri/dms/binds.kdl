@@ -1,9 +1,10 @@
 binds {
-    Mod+V hotkey-overlay-title="Clipboard: Toggle" { spawn "dms" "ipc" "call" "clipboard" "toggle"; }
-    Mod+space hotkey-overlay-title="Default Launcher: Toggle" { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
     XF86AudioLowerVolume hotkey-overlay-title="Volume Down (2%)" { spawn "dms" "ipc" "call" "audio" "decrement" "2"; }
     XF86AudioRaiseVolume hotkey-overlay-title="Volume Up (2%)" { spawn "dms" "ipc" "call" "audio" "increment" "2"; }
     XF86MonBrightnessDown hotkey-overlay-title="Brightness Down (5%)" { spawn "dms" "ipc" "call" "brightness" "decrement" "5" ""; }
     XF86MonBrightnessUp hotkey-overlay-title="Brightness Up (5%)" { spawn "dms" "ipc" "call" "brightness" "increment" "5" ""; }
     Mod+Shift+F { spawn "niri" "msg" "action" "maximize-window-to-edges"; }
+    Mod+Period repeat=false { spawn "vicinae" "vicinae://launch/core/search-emojis?toggle=true"; }
+    Mod+V repeat=false { spawn "vicinae" "vicinae://launch/clipboard/history?toggle=true"; }
+    Mod+space repeat=false { spawn "vicinae" "toggle"; }
 }

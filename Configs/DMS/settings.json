@@ -297,14 +297,14 @@
   "filePickerUsageHistory": {},
   "sortAppsAlphabetically": false,
   "appLauncherGridColumns": 4,
-  "spotlightCloseNiriOverview": true,
+  "spotlightCloseNiriOverview": false,
   "rememberLastQuery": true,
   "rememberLastMode": false,
   "spotlightSectionViewModes": {
     "apps": "list"
   },
   "appDrawerSectionViewModes": {},
-  "niriOverviewOverlayEnabled": true,
+  "niriOverviewOverlayEnabled": false,
   "niriOverviewLauncherStyle": "spotlight",
   "dankLauncherV2Size": "compact",
   "dankLauncherV2ShowSourceBadges": true,
