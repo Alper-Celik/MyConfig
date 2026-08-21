@@ -46,7 +46,6 @@
       keyutils.lib
       libGL
       libGLU
-      libappindicator-gtk2
       libcaca
       libcanberra
       libcap
@@ -232,7 +231,6 @@
       SDL_mixer
       SDL2_ttf
       SDL2_mixer
-      libappindicator-gtk2
       libcaca
       libcanberra
       libgcrypt
@@ -302,7 +300,6 @@
       keyutils.lib
       libGL
       libGLU
-      libappindicator-gtk2
       libcaca
       libcanberra
       libcap
