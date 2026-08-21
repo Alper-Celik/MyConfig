@@ -637,6 +637,10 @@
       "leftWidgets": [
         "launcherButton",
         {
+          "id": "dankPomodoroTimer",
+          "enabled": true
+        },
+        {
           "id": "workspaceSwitcher",
           "enabled": true
         },

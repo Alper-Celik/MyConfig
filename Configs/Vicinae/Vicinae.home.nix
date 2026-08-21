@@ -1,15 +1,16 @@
-{ inputs, pkgs, ... }:
 {
-  imports = [ inputs.vicinae.homeManagerModules.default ];
-  services.vicinae = {
-    enable = true;
-
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
+{
+  programs.vicinae = {
+    #package = inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    useLayerShell = true;
+    enableFirefoxIntegration = true;
     systemd = {
       enable = true;
-      autoStart = true; # default: false
-      environment = {
-        USE_LAYER_SHELL = 1;
-      };
     };
 
     settings = {
@@ -20,10 +21,8 @@
     };
 
     extensions = with inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}; [
-      bluetooth
       nix
       power-profile
-      wifi-commander
     ];
   };
 
