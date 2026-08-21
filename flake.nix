@@ -52,8 +52,8 @@
       flake = false;
     };
 
-    # vicinae.url = "github:vicinaehq/vicinae";
-    # vicinae-extensions.url = "github:vicinaehq/extensions/9891716758d3d3342b3d2d0d6e6220d00ea89b44";
+    vicinae.url = "github:vicinaehq/vicinae";
+    vicinae-extensions.url = "github:vicinaehq/extensions";
 
     noctalia = {
       url = "github:alper-celik/noctalia/my-main";
@@ -337,6 +337,7 @@
                 "https://cache.nixos-cuda.org"
                 "https://nixos-apple-silicon.cachix.org"
                 "https://cache.numtide.com"
+                "https://vicinae.cachix.org"
               ];
               trusted-public-keys = [
                 "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -344,6 +345,7 @@
                 "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
                 "nixos-apple-silicon.cachix.org-1:8psDu5SA5dAD7qA0zMy5UT292TxeEPzIz8VVEr2Js20="
                 "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+                "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
               ];
             };
 
