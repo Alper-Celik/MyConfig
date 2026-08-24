@@ -3,6 +3,7 @@ binds {
     XF86AudioRaiseVolume hotkey-overlay-title="Volume Up (2%)" { spawn "dms" "ipc" "call" "audio" "increment" "2"; }
     XF86MonBrightnessDown hotkey-overlay-title="Brightness Down (5%)" { spawn "dms" "ipc" "call" "brightness" "decrement" "5" ""; }
     XF86MonBrightnessUp hotkey-overlay-title="Brightness Up (5%)" { spawn "dms" "ipc" "call" "brightness" "increment" "5" ""; }
+    Mod+Q repeat=false { close-window; }
     Mod+Shift+F { spawn "niri" "msg" "action" "maximize-window-to-edges"; }
     Mod+Period repeat=false { spawn "vicinae" "vicinae://launch/core/search-emojis?toggle=true"; }
     Mod+V repeat=false { spawn "vicinae" "vicinae://launch/clipboard/history?toggle=true"; }

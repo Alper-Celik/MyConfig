@@ -32,7 +32,7 @@
   "controlCenterTileColorMode": "primary",
   "buttonColorMode": "primary",
   "cornerRadius": 12,
-  "niriLayoutGapsOverride": -1,
+  "niriLayoutGapsOverride": -2,
   "niriLayoutRadiusOverride": -1,
   "niriLayoutBorderSize": -1,
   "hyprlandLayoutGapsOverride": -1,
@@ -571,6 +571,14 @@
       "matchType": "exact",
       "action": "mute",
       "urgency": "default"
+    },
+    {
+      "enabled": true,
+      "field": "appName",
+      "pattern": "notify-send",
+      "matchType": "exact",
+      "action": "default",
+      "urgency": "critical"
     }
   ],
   "notificationFocusedMonitor": false,
@@ -871,15 +879,15 @@
   },
   "launcherPluginOrder": [],
   "frameEnabled": false,
-  "frameThickness": 10,
-  "frameRounding": 0,
+  "frameThickness": 8,
+  "frameRounding": 21,
   "frameColor": "",
-  "frameOpacity": 1,
+  "frameOpacity": 0.62,
   "frameScreenPreferences": [
     "all"
   ],
-  "frameBarSize": 40,
-  "frameShowOnOverview": true,
+  "frameBarSize": 24,
+  "frameShowOnOverview": false,
   "frameBlurEnabled": true,
   "frameCloseGaps": true,
   "frameLauncherEmergeSide": "bottom",
@@ -888,6 +896,6 @@
   "frameMode": "connected",
   "barInsetPaddingShared": -1,
   "barInsetPaddingSyncAll": false,
-  "frameBarInsetPadding": 48,
+  "frameBarInsetPadding": 0,
   "configVersion": 13
 }

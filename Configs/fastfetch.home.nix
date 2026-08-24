@@ -15,8 +15,8 @@
         # "height" = 20;
         # "width" = height * 2;
         "padding" = {
-          "right" = 6;
-          "left" = 4;
+          "right" = 0;
+          "left" = 1;
           "top" = 2;
         };
       };

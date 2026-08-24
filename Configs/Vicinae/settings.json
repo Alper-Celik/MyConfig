@@ -13,9 +13,12 @@
    "close_on_focus_loss": false,
    "pop_to_root_on_close": false,
    "escape_key_behavior": "close_window",
+   "keybinding": "vim",
    "font": {
+      "rendering": "qt",
       "normal": {
-         "size": 10.5
+         "family": "TeX Gyre Heros",
+         "size": 11
       }
    },
    "theme": {
@@ -27,7 +30,12 @@
       "system_info": true
    },
    "launcher_window": {
-      "opacity": 0.8,
+      "rounding": 10,
+      "opacity": 0.6,
+      "client_side_decorations": {
+         "border_width": 1,
+         "shadow_size": 12
+      },
       "compact_mode": {
          "enabled": false
       },
