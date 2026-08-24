@@ -14,17 +14,17 @@ let
     x: config.lib.file.mkOutOfStoreSymlink (my-lib.maybeOutOfStore specialArgs current-dir x);
 in
 {
-
-  imports = [
-    inputs.noctalia.homeModules.default
-  ];
-
-  programs.noctalia = {
-    enable = false;
-    package = inputs.noctalia.packages.${system}.default;
-    settings = lib.mkForce { };
-    systemd.enable = true;
-  };
-
-  xdg.configFile.noctalia.source = outOfStrore ".";
+  #
+  #   imports = [
+  #     inputs.noctalia.homeModules.default
+  #   ];
+  #
+  #   programs.noctalia = {
+  #     enable = false;
+  #     package = inputs.noctalia.packages.${system}.default;
+  #     settings = lib.mkForce { };
+  #     systemd.enable = true;
+  #   };
+  #
+  #   xdg.configFile.noctalia.source = outOfStrore ".";
 }
