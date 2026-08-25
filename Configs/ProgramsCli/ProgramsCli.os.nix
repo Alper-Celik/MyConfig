@@ -62,6 +62,7 @@ in
       bash
       ncurses
       tmux
+      zellij
       findutils
       psmisc
 

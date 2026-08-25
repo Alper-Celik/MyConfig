@@ -1,7 +1,7 @@
 {
   "currentThemeName": "custom",
-  "currentThemeCategory": "registry",
-  "customThemeFile": "/home/alper/.config/DankMaterialShell/themes/gnomeAdwaita/theme.json",
+  "currentThemeCategory": "custom",
+  "customThemeFile": "/home/alper/.config/DankMaterialShell/themes/gruvboxMulti/theme.json",
   "registryThemeVariants": {
     "oxocarbon": "blue",
     "catppuccin": {
@@ -17,7 +17,18 @@
         "accent": "warmer-blue"
       }
     },
-    "flexoki": "blue"
+    "flexoki": "blue",
+    "gruvboxMaterial": "medium",
+    "gruvboxMulti": {
+      "light": {
+        "flavor": "material-medium-light",
+        "accent": "yellow"
+      },
+      "dark": {
+        "flavor": "material-medium-dark",
+        "accent": "yellow"
+      }
+    }
   },
   "matugenScheme": "scheme-tonal-spot",
   "matugenContrast": 0,

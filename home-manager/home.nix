@@ -16,8 +16,8 @@
     inputs.plasma-manager.homeModules.plasma-manager
   ];
 
-  xdg.configFile."gtk-3.0/gtk.css".force = true;
-  xdg.configFile."gtk-4.0/gtk.css".force = true;
+  # xdg.configFile."gtk-3.0/gtk.css".force = true;
+  # xdg.configFile."gtk-4.0/gtk.css".force = true;
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards

@@ -23,7 +23,7 @@
    },
    "theme": {
       "dark": {
-         "name": "stylix"
+         "name": "gruvbox-light"
       }
    },
    "telemetry": {
