@@ -4,6 +4,8 @@
 // ! PLACE YOUR CUSTOM CONFIGURATION ELSEWHERE !
 
 layout {
+    gaps 0
+
     border {
         width 2
     }

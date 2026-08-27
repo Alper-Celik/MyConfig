@@ -23,7 +23,7 @@
    },
    "theme": {
       "dark": {
-         "name": "gruvbox-light"
+         "name": "gruvbox-dark"
       }
    },
    "telemetry": {

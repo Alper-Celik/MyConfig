@@ -43,7 +43,7 @@
   "controlCenterTileColorMode": "primary",
   "buttonColorMode": "primary",
   "cornerRadius": 12,
-  "niriLayoutGapsOverride": -2,
+  "niriLayoutGapsOverride": 0,
   "niriLayoutRadiusOverride": -1,
   "niriLayoutBorderSize": -1,
   "hyprlandLayoutGapsOverride": -1,
@@ -65,16 +65,16 @@
   "useFahrenheit": false,
   "windSpeedUnit": "kmh",
   "nightModeEnabled": false,
-  "animationSpeed": 1,
-  "customAnimationDuration": 500,
-  "syncComponentAnimationSpeeds": true,
-  "popoutAnimationSpeed": 1,
-  "popoutCustomAnimationDuration": 150,
-  "modalAnimationSpeed": 1,
+  "animationSpeed": 2,
+  "customAnimationDuration": 1000,
+  "syncComponentAnimationSpeeds": false,
+  "popoutAnimationSpeed": 2,
+  "popoutCustomAnimationDuration": 992,
+  "modalAnimationSpeed": 2,
   "modalCustomAnimationDuration": 150,
   "enableRippleEffects": true,
-  "animationVariant": 2,
-  "motionEffect": 2,
+  "animationVariant": 0,
+  "motionEffect": 0,
   "m3ElevationEnabled": true,
   "m3ElevationIntensity": 12,
   "m3ElevationOpacity": 30,
@@ -314,7 +314,9 @@
   "spotlightSectionViewModes": {
     "apps": "list"
   },
-  "appDrawerSectionViewModes": {},
+  "appDrawerSectionViewModes": {
+    "apps": "list"
+  },
   "niriOverviewOverlayEnabled": false,
   "niriOverviewLauncherStyle": "spotlight",
   "dankLauncherV2Size": "compact",
@@ -642,7 +644,14 @@
   "displayProfileAutoSelect": false,
   "displayShowDisconnected": false,
   "displaySnapToEdge": true,
-  "connectedFrameBarStyleBackups": {},
+  "connectedFrameBarStyleBackups": {
+    "default": {
+      "shadowIntensity": 0,
+      "squareCorners": true,
+      "gothCornersEnabled": true,
+      "borderEnabled": false
+    }
+  },
   "barConfigs": [
     {
       "id": "default",
@@ -654,7 +663,10 @@
       ],
       "showOnLastDisplay": true,
       "leftWidgets": [
-        "launcherButton",
+        {
+          "id": "launcherButton",
+          "enabled": true
+        },
         {
           "id": "dankPomodoroTimer",
           "enabled": true
@@ -752,15 +764,15 @@
       "innerPadding": -8,
       "barInsetPadding": 4,
       "bottomGap": 0,
-      "transparency": 1,
-      "widgetTransparency": 1,
-      "squareCorners": true,
+      "transparency": 0.35,
+      "widgetTransparency": 0.33,
+      "squareCorners": false,
       "noBackground": false,
       "maximizeWidgetIcons": false,
       "maximizeWidgetText": false,
       "removeWidgetPadding": false,
       "widgetPadding": 8,
-      "gothCornersEnabled": true,
+      "gothCornersEnabled": false,
       "gothCornerRadiusOverride": false,
       "gothCornerRadiusValue": 16,
       "borderEnabled": false,
@@ -792,7 +804,7 @@
       "shadowCustomColor": "#000000",
       "clickThrough": false,
       "hoverPopouts": true,
-      "hoverPopoutDelay": 150
+      "hoverPopoutDelay": 0
     }
   ],
   "desktopClockEnabled": false,
@@ -889,16 +901,16 @@
     }
   },
   "launcherPluginOrder": [],
-  "frameEnabled": false,
-  "frameThickness": 8,
-  "frameRounding": 21,
+  "frameEnabled": true,
+  "frameThickness": 2,
+  "frameRounding": 10,
   "frameColor": "",
-  "frameOpacity": 0.62,
+  "frameOpacity": 0.72,
   "frameScreenPreferences": [
     "all"
   ],
   "frameBarSize": 24,
-  "frameShowOnOverview": false,
+  "frameShowOnOverview": true,
   "frameBlurEnabled": true,
   "frameCloseGaps": true,
   "frameLauncherEmergeSide": "bottom",
@@ -906,7 +918,7 @@
   "frameLauncherEdgeHover": false,
   "frameMode": "connected",
   "barInsetPaddingShared": -1,
-  "barInsetPaddingSyncAll": false,
+  "barInsetPaddingSyncAll": true,
   "frameBarInsetPadding": 0,
   "configVersion": 13
 }
