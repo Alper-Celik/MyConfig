@@ -35,6 +35,7 @@ in
       # networking
       wget
       curl
+      httpie
       aria2
       speedtest-go
 
