@@ -1,9 +1,9 @@
 {
   "currentThemeName": "custom",
-  "currentThemeCategory": "custom",
-  "customThemeFile": "/home/alper/.config/DankMaterialShell/themes/gruvboxMulti/theme.json",
+  "currentThemeCategory": "registry",
+  "customThemeFile": "/home/alper/.config/DankMaterialShell/themes/oxocarbon/theme.json",
   "registryThemeVariants": {
-    "oxocarbon": "blue",
+    "oxocarbon": "pink",
     "catppuccin": {
       "dark": {
         "flavor": "macchiato",
@@ -45,7 +45,7 @@
   "cornerRadius": 12,
   "niriLayoutGapsOverride": 0,
   "niriLayoutRadiusOverride": -1,
-  "niriLayoutBorderSize": -1,
+  "niriLayoutBorderSize": 0,
   "hyprlandLayoutGapsOverride": -1,
   "hyprlandLayoutGapsOutOverride": -1,
   "hyprlandLayoutRadiusOverride": -1,
@@ -253,8 +253,8 @@
   "mediaAdaptiveWidthEnabled": true,
   "audioVisualizerEnabled": true,
   "mediaUseAlbumArtAccent": false,
-  "audioScrollMode": "song",
-  "audioWheelScrollAmount": 5,
+  "audioScrollMode": "volume",
+  "audioWheelScrollAmount": -5,
   "audioDeviceScrollVolumeEnabled": false,
   "mediaExcludePlayers": [],
   "clockCompactMode": false,
@@ -442,7 +442,7 @@
   "gtkThemingEnabled": false,
   "qtThemingEnabled": false,
   "syncModeWithPortal": true,
-  "terminalsAlwaysDark": true,
+  "terminalsAlwaysDark": false,
   "muxType": "tmux",
   "muxUseCustomCommand": false,
   "muxCustomCommand": "",
@@ -675,7 +675,11 @@
           "id": "workspaceSwitcher",
           "enabled": true
         },
-        "music"
+        {
+          "id": "music",
+          "enabled": true,
+          "mediaSize": 1
+        }
       ],
       "centerWidgets": [
         {
@@ -803,7 +807,7 @@
       "shadowColorMode": "default",
       "shadowCustomColor": "#000000",
       "clickThrough": false,
-      "hoverPopouts": true,
+      "hoverPopouts": false,
       "hoverPopoutDelay": 0
     }
   ],

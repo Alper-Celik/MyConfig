@@ -56,7 +56,8 @@
     vicinae-extensions.url = "github:vicinaehq/extensions";
 
     noctalia = {
-      url = "github:alper-celik/noctalia/my-main";
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     keyd = {

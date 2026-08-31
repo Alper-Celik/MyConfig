@@ -7,11 +7,11 @@ layout {
     gaps 0
 
     border {
-        width 2
+        width 0
     }
 
     focus-ring {
-        width 2
+        width 0
     }
 }
 
