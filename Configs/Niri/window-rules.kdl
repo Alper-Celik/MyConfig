@@ -5,7 +5,7 @@
 window-rule {
     match app-id=r#"kitty"#
     open-maximized-to-edges true
-    opacity 0.9
+    opacity 0.985
     background-effect{
       blur true
     }

@@ -25,15 +25,21 @@ nou2f
 novideo
 noinput
 
-tmpfs ${HOME}
-whitelist ${HOME}/Projects
-whitelist ${HOME}/MyConfig
+private-cache
+private-dev
+private-tmp
+
+blacklist ${HOME}/.*
+tmpfs ~/.config
+tmpfs ~/.config
+# whitelist ${HOME}/Projects
+# whitelist ${HOME}/MyConfig
 whitelist  ${HOME}/.config/opencode
 whitelist  ${HOME}/.omp
 
 
 # === Runtime agents and system secret directories ===
-tmpfs ${RUNUSER}
+blacklist ${RUNUSER}
 blacklist ${RUNUSER}/ssh-agent
 blacklist ${RUNUSER}/gnupg
 blacklist ${RUNUSER}/app

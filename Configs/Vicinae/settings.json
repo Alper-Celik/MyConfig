@@ -98,6 +98,34 @@
             "database": "/home/alper/KeepassDB/Passwords.kdbx"
          }
       },
+      "applications": {
+         "preferences": {
+            "defaultAction": "focus",
+            "launchPrefix": "systemd-run --user --",
+            "paths": [
+               "/home/alper/.local/share/applications",
+               "/nix/store/a3m5ybzd33m0rrqc0lxbfk2s47qhgl1b-vicinae-0.23.2/share/applications",
+               "/nix/store/aqxpzr68nhhzac7ymvvp6ss60hpv8jwz-cups-2.4.19/share/applications",
+               "/nix/store/z9dlh8l5vx8174gg2h5fqqcsx482cyav-cups-2.4.19-lib/share/applications",
+               "/nix/store/myjvqwq5i784sz8p75xh5rwab0lm09fz-fontconfig-2.18.2-lib/share/applications",
+               "/nix/store/y4xap6rycqh553fz1ms0xfmw18bdlwcf-util-linux-2.42.2-lib/share/applications",
+               "/nix/store/pyrvwmigi6qdpz9lbbslj5771pfl7r69-systemd-261.1/share/applications",
+               "/nix/store/z90qxq32ss488dazcqwvnjq7sgabqcxs-glib-2.88.3/share/applications",
+               "/nix/store/sq7c80pva0lk51gn7fbgycr0gaw001pn-gettext-1.0/share/applications",
+               "/nix/store/pkrdhwh7fl44csni2pyw55lcrpbdxl4k-libqalculate-5.12.0/share/applications",
+               "/nix/store/8inbzdcgqf75aqvs6d8878k3k13c6da4-syntax-highlighting-6.29.0/share/applications",
+               "/nix/store/jj8r35y8yr3grhlxb9ya2yr0s4aqhm1g-desktops/share/applications",
+               "/home/alper/.local/share/flatpak/exports/share/applications",
+               "/var/lib/flatpak/exports/share/applications",
+               "/home/alper/.nix-profile/share/applications",
+               "/nix/profile/share/applications",
+               "/home/alper/.local/state/nix/profile/share/applications",
+               "/etc/profiles/per-user/alper/share/applications",
+               "/nix/var/nix/profiles/default/share/applications",
+               "/run/current-system/sw/share/applications"
+            ]
+         }
+      },
       "system": {
          "entrypoints": {
             "run": {

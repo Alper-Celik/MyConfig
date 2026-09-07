@@ -5,20 +5,23 @@ return {
     lazy = false,
     config = function(_, opts)
       require("roslyn").setup(opts)
-      -- local rzls_base_path = vim.env.RZLS_ROOT_DIR
       vim.lsp.config("roslyn", {
-        -- cmd = {
-        --   "Microsoft.CodeAnalysis.LanguageServer",
-        --   "--logLevel=Information",
-        --   "--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
-        --   "--stdio",
-        --   "--razorSourceGenerator=" .. vim.fs.joinpath(rzls_base_path, "Microsoft.CodeAnalysis.Razor.Compiler.dll"),
-        --   "--razorDesignTimePath="
-        --     .. vim.fs.joinpath(rzls_base_path, "Targets", "Microsoft.NET.Sdk.Razor.DesignTime.targets"),
-        -- },
         settings = {
+          ["csharp|background_analysis"] = {
+            background_analysis = {
+              dotnet_analyzer_diagnostics_scope = "fullSolution",
+              dotnet_compiler_diagnostics_scope = "fullSolution",
+            },
+          },
+          ["csharp|symbol_search"] = {
+            dotnet_search_reference_assemblies = true,
+          },
+          ["csharp|formatting"] = {
+            dotnet_organize_imports_on_format = true,
+          },
           ["csharp|code_lens"] = {
             dotnet_enable_references_code_lens = true,
+            dotnet_enable_tests_code_lens = true,
           },
           ["csharp|inlay_hints"] = {
             csharp_enable_inlay_hints_for_implicit_object_creation = true,
@@ -31,6 +34,7 @@ return {
             dotnet_enable_inlay_hints_for_object_creation_parameters = true,
             dotnet_enable_inlay_hints_for_other_parameters = true,
             dotnet_enable_inlay_hints_for_parameters = true,
+
             dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = true,
             dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
             dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true,
@@ -42,9 +46,6 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = { ensure_installed = { "c_sharp" } },
-  },
-  {
-    "Issafalcon/neotest-dotnet",
   },
   {
     "mfussenegger/nvim-dap",
@@ -79,17 +80,16 @@ return {
     end,
   },
 
+  "nsidorenco/neotest-vstest",
   {
     "nvim-neotest/neotest",
     optional = true,
     dependencies = {
-      "Issafalcon/neotest-dotnet",
+      "nsidorenco/neotest-vstest",
     },
     opts = {
       adapters = {
-        ["neotest-dotnet"] = {
-          -- Here we can set options for neotest-dotnet
-        },
+        ["neotest-vstest"] = {},
       },
     },
   },

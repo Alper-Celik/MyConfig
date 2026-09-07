@@ -669,7 +669,7 @@
         },
         {
           "id": "dankPomodoroTimer",
-          "enabled": true
+          "enabled": false
         },
         {
           "id": "workspaceSwitcher",

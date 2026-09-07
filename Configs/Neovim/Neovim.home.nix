@@ -40,8 +40,8 @@ let
     nixfmt
     codespell
     deadnix
-    omnisharp-roslyn
     roslyn-ls
+    netcoredbg
     nixd
     nil
     kdePackages.qtdeclarative
