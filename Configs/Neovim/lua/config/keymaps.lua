@@ -22,18 +22,21 @@ vim.keymap.set("n", "<leader><tab><Left>", "<cmd>tabprevious<cr>", { desc = "Pre
 -- map("n", "<leader>fd", "<cmd>Telescope<cr>", {})
 
 -- explorer mappings
-local neotree_float = function()
-  require("neo-tree.command").execute({ position = "float", toggle = true })
-end
-map("n", "<leader>fe", neotree_float, {})
-map("n", "<leader>e", neotree_float, {})
+
+-- ai generated
 map("n", "<C-e>", function()
-  if vim.bo.filetype == "neo-tree" then
-    require("neo-tree.command").execute({ action = "close" })
-  else
-    require("neo-tree.command").execute({ position = "left", focus = true, reveal = true })
+  local explorer_pickers = Snacks.picker.get({ source = "explorer" })
+  for _, v in pairs(explorer_pickers) do
+    if v:is_focused() then
+      v:close()
+    else
+      v:focus()
+    end
   end
-end, {})
+  if #explorer_pickers == 0 then
+    Snacks.picker.explorer({ layout = { preset = "sidebar" } })
+  end
+end, { desc = "Explorer (Sidebar)" })
 
 -- Terminal Mappings
 map("n", "<A-t>", function()
@@ -53,3 +56,5 @@ if vim.g.neovide then
   end, {})
   map({ "v" }, "<C-S-C>", "y", {})
 end
+
+vim.keymap.del("n", "<leader>gp")
