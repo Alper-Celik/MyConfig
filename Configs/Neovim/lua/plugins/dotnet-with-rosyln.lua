@@ -48,6 +48,14 @@ return {
     opts = { ensure_installed = { "c_sharp" } },
   },
   {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        cs = { "csharpier" },
+      },
+    },
+  },
+  {
     "mfussenegger/nvim-dap",
     opts = function()
       local dap = require("dap")
