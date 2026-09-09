@@ -72,6 +72,33 @@ in
   hardware.apple.touchBar = {
     enable = true;
     package = pkgs.tiny-dfr;
+    settings =
+      let
+
+        mkFnKey = fn: (mkKey fn fn);
+
+        mkKey = text: action: {
+          Text = text;
+          Action = action;
+        };
+      in
+      {
+        PrimaryLayerKeys = [
+          (mkFnKey "F1")
+          (mkFnKey "F2")
+          (mkFnKey "F3")
+          (mkFnKey "F4")
+          (mkFnKey "F5")
+          (mkFnKey "F6")
+          (mkFnKey "F7")
+          (mkFnKey "F8")
+          (mkFnKey "F9")
+          (mkFnKey "F10")
+          (mkFnKey "F11")
+          (mkFnKey "F12")
+          (mkKey "Del" "Delete")
+        ];
+      };
   };
 
   # AI-GENERATED WORKAROUND START
