@@ -15,6 +15,7 @@ ipc-namespace
 machine-id
 private-tmp
 private-dev
+protocol inet,inet6
 
 # === Hardware / subsystem isolation ===
 nosound
@@ -29,14 +30,11 @@ private-cache
 private-dev
 private-tmp
 
-blacklist ${HOME}/.*
-tmpfs ~/.config
-tmpfs ~/.config
-# whitelist ${HOME}/Projects
-# whitelist ${HOME}/MyConfig
 whitelist  ${HOME}/.config/opencode
+whitelist  ${HOME}/.local/share/opencode
+whitelist  ${HOME}/.local/state/opencode
+whitelist  ${HOME}/.local/share/direnv/allow
 whitelist  ${HOME}/.omp
-
 
 # === Runtime agents and system secret directories ===
 blacklist ${RUNUSER}
