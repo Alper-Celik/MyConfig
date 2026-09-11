@@ -305,7 +305,13 @@
   "browserPickerViewMode": "grid",
   "browserUsageHistory": {},
   "appPickerViewMode": "grid",
-  "filePickerUsageHistory": {},
+  "filePickerUsageHistory": {
+    "org.kde.kwrite": {
+      "count": 1,
+      "lastUsed": 1789159208411,
+      "name": "KWrite"
+    }
+  },
   "sortAppsAlphabetically": false,
   "appLauncherGridColumns": 4,
   "spotlightCloseNiriOverview": false,
@@ -704,9 +710,9 @@
           "id": "systemTray",
           "enabled": true,
           "trayUseInlineExpansion": false,
-          "trayPopupSingleLine": true,
-          "trayAutoOverflow": true,
-          "trayMaxVisibleItems": 1
+          "trayPopupSingleLine": false,
+          "trayAutoOverflow": false,
+          "trayMaxVisibleItems": 2
         },
         {
           "id": "memUsage",
