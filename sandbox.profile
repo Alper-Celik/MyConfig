@@ -7,7 +7,6 @@ dbus-system none
 
 # === Basic sandboxing ===
 caps.drop all
-noroot
 nogroups
 nonewprivs
 seccomp
@@ -15,7 +14,7 @@ ipc-namespace
 machine-id
 private-tmp
 private-dev
-protocol inet,inet6
+# protocol inet,inet6
 
 # === Hardware / subsystem isolation ===
 nosound
@@ -26,10 +25,9 @@ nou2f
 novideo
 noinput
 
-private-cache
-private-dev
-private-tmp
-
+whitelist  ${HOME}/.nuget
+whitelist  ${HOME}/.cache/opencode
+whitelist  ${HOME}/.cache/codebase-memory-mcp
 whitelist  ${HOME}/.config/opencode
 whitelist  ${HOME}/.local/share/opencode
 whitelist  ${HOME}/.local/state/opencode

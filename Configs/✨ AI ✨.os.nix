@@ -8,9 +8,9 @@
   # Install opencode as a system package for AI services
   environment.systemPackages = [
     pkgs-unstable.opencode
+    pkgs-unstable.codebase-memory-mcp
   ];
   environment.sessionVariables = {
-    OPENCODE_ENABLE_EXA = 1; # enable web search
     OPENCODE_EXPERIMENTAL_LSP_TOOL = 1;
     OPENCODE_EXPERIMENTAL_FILEWATCHER = 1;
     OPENCODE_CONFIG = pkgs.writeText "opencode-config" (
