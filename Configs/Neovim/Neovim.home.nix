@@ -48,6 +48,7 @@ let
     cmake-language-server
     beancount-language-server
     beancount
+    fava
 
     lazygit
   ];
