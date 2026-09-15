@@ -9,6 +9,7 @@
 {
   imports = [
     ../DotFiles/dotfiles.nix
+    ../XdgConfigFiles/XdgConfigFiles.nix
 
     ../Configs/configs.home.nix
     inputs.nix-index-database.homeModules.nix-index

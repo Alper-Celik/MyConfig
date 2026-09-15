@@ -23,6 +23,21 @@
       size = 24;
     };
 
+    fonts.packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-color-emoji
+      liberation_ttf
+      fira-code
+      fira-code-symbols
+      jetbrains-mono
+      mplus-outline-fonts.githubRelease
+      dina-font
+      proggyfonts
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.fira-code
+    ];
+
     fonts = {
       monospace = {
         package = pkgs.nerd-fonts.jetbrains-mono;
