@@ -1,3 +1,56 @@
+-- Window movement, with one exception: moving left never lands in the explorer
+-- sidebar. It is always open on the left, so Alt+h would otherwise only ever
+-- step back into it (or into its layout scaffolding); instead it falls through
+-- to the tab behaviour of neolij.move_or_tab (previous nvim tab, else zellij
+-- focus-or-tab). Other snacks pickers (files, grep, ...) are ordinary windows
+-- and stay valid targets, as do all other directions.
+local function is_explorer(win)
+  local ok, pickers = pcall(function()
+    return Snacks.picker.get({ source = "explorer" })
+  end)
+  if not ok then
+    return false
+  end
+  for _, picker in ipairs(pickers or {}) do
+    for _, part in ipairs({ picker.list, picker.input }) do
+      if part and part.win and part.win.win == win then
+        return true
+      end
+    end
+  end
+  return false
+end
+
+local function is_snacks(win)
+  return vim.bo[vim.api.nvim_win_get_buf(win)].filetype:match("^snacks_") ~= nil
+end
+
+local function move(direction)
+  local vim_key = ({ left = "h", right = "l", up = "k", down = "j" })[direction]
+  local from = vim.api.nvim_get_current_win()
+  -- Leftwards there is no window step when the explorer is the source: it is
+  -- the left edge, and wincmd h would otherwise wrap around into the editor.
+  if not (direction == "left" and is_explorer(from)) then
+    local before = vim.fn.winnr()
+    vim.cmd("wincmd " .. vim_key)
+    if vim.fn.winnr() ~= before then
+      local target = vim.api.nvim_get_current_win()
+      if direction ~= "left" or not (is_snacks(target) and (is_explorer(target) or is_explorer(from))) then
+        return -- a real window in that direction
+      end
+      vim.api.nvim_set_current_win(from)
+    end
+  end
+  local current, last = vim.fn.tabpagenr(), vim.fn.tabpagenr("$")
+  if direction == "left" and current > 1 then
+    vim.cmd("tabprevious")
+  elseif direction == "right" and current < last then
+    vim.cmd("tabnext")
+  else
+    require("neolij").zellij_action("move-focus-or-tab " .. direction)
+  end
+end
+
 return {
   {
     "y2w8/neolij.nvim",
@@ -29,9 +82,8 @@ return {
       -- Window navigation. zellij's Alt+hjkl bind the vim-zellij-navigator
       -- wasm with move_mod "alt", which writes Alt+hjkl into nvim while nvim
       -- is the focused pane (it never moves focus itself in that case), hence
-      -- the Alt maps. The edge case has to escape back to zellij: that is the
-      -- second `true` argument of move_or_tab. Plain neolij.move() stops at
-      -- the nvim edge and would make Alt+hjkl dead keys there.
+      -- the Alt maps; `move` above keeps the nvim-split step and, when no real
+      -- window is left in that direction, switches tabs (nvim, then zellij).
       -- Tab movement is a plain zellij bind (Alt+Shift+...) and deliberately
       -- does not reach nvim: the wasm plugin carries only four distinguishable
       -- keys and keeps the config of its first message, so a second modifier
@@ -39,16 +91,16 @@ return {
       {
         "<A-h>",
         function()
-          require("neolij").move_or_tab("left", true)
+          move("left")
         end,
         mode = { "n", "t" },
-        desc = "Move left (nvim split/tab, else zellij pane/tab)",
+        desc = "Move left (nvim split, else previous tab/pane)",
         silent = true,
       },
       {
         "<A-j>",
         function()
-          require("neolij").move_or_tab("down", true)
+          move("down")
         end,
         mode = { "n", "t" },
         desc = "Move down (nvim split, else zellij pane)",
@@ -57,7 +109,7 @@ return {
       {
         "<A-k>",
         function()
-          require("neolij").move_or_tab("up", true)
+          move("up")
         end,
         mode = { "n", "t" },
         desc = "Move up (nvim split, else zellij pane)",
@@ -66,10 +118,10 @@ return {
       {
         "<A-l>",
         function()
-          require("neolij").move_or_tab("right", true)
+          move("right")
         end,
         mode = { "n", "t" },
-        desc = "Move right (nvim split/tab, else zellij pane/tab)",
+        desc = "Move right (nvim split, else next tab/pane)",
         silent = true,
       },
 

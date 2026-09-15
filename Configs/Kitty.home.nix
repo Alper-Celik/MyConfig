@@ -17,7 +17,7 @@
     };
     settings = {
       # shell = "zellij";
-      # shell = "systemd-run --user --scope -p MemoryMax=90% -p TasksMax=1000 fish";
+      shell = "systemd-run --user --scope -p MemoryMax=90% -p TasksMax=1000 zellij";
       shell_integration = "enabled";
       allow_remote_control = true;
 

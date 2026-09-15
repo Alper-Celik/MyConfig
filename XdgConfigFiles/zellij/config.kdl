@@ -786,6 +786,7 @@ copy_clipboard "primary"
 // NOTE: This only applies to web clients at the moment."#;
 // client_async_worker_tasks 4
 
+show_startup_tips false
 
 web_client {
     font "monospace"
