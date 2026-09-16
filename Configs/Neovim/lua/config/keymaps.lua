@@ -24,17 +24,25 @@ vim.keymap.set("n", "<leader><tab><Left>", "<cmd>tabprevious<cr>", { desc = "Pre
 -- explorer mappings
 
 -- ai generated
+-- Toggle the neo-tree sidebar: focus it if it is open elsewhere, close it if
+-- focused, otherwise open it. Detection is filetype-based (public), no reliance
+-- on neo-tree internals; neolij.lua uses the same predicate for Alt+h.
 map("n", "<C-e>", function()
-  local explorer_pickers = Snacks.picker.get({ source = "explorer" })
-  for _, v in pairs(explorer_pickers) do
-    if v:is_focused() then
-      v:close()
-    else
-      v:focus()
+  local sidebar
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == "neo-tree" then
+      sidebar = win
+      break
     end
   end
-  if #explorer_pickers == 0 then
-    Snacks.picker.explorer({ layout = { preset = "sidebar" } })
+  if sidebar then
+    if vim.api.nvim_get_current_win() == sidebar then
+      require("neo-tree.command").execute({ action = "close" })
+    else
+      vim.api.nvim_set_current_win(sidebar)
+    end
+  else
+    require("neo-tree.command").execute({ source = "filesystem", position = "left" })
   end
 end, { desc = "Explorer (Sidebar)" })
 

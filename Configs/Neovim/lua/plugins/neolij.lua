@@ -2,27 +2,11 @@
 -- sidebar. It is always open on the left, so Alt+h would otherwise only ever
 -- step back into it (or into its layout scaffolding); instead it falls through
 -- to the tab behaviour of neolij.move_or_tab (previous nvim tab, else zellij
--- focus-or-tab). Other snacks pickers (files, grep, ...) are ordinary windows
--- and stay valid targets, as do all other directions.
+-- focus-or-tab). Other pickers (files, grep, ...) are ordinary windows and
+-- stay valid targets, as do all other directions.
+-- ai generated
 local function is_explorer(win)
-  local ok, pickers = pcall(function()
-    return Snacks.picker.get({ source = "explorer" })
-  end)
-  if not ok then
-    return false
-  end
-  for _, picker in ipairs(pickers or {}) do
-    for _, part in ipairs({ picker.list, picker.input }) do
-      if part and part.win and part.win.win == win then
-        return true
-      end
-    end
-  end
-  return false
-end
-
-local function is_snacks(win)
-  return vim.bo[vim.api.nvim_win_get_buf(win)].filetype:match("^snacks_") ~= nil
+  return vim.bo[vim.api.nvim_win_get_buf(win)].filetype == "neo-tree"
 end
 
 local function move(direction)
@@ -35,7 +19,8 @@ local function move(direction)
     vim.cmd("wincmd " .. vim_key)
     if vim.fn.winnr() ~= before then
       local target = vim.api.nvim_get_current_win()
-      if direction ~= "left" or not (is_snacks(target) and (is_explorer(target) or is_explorer(from))) then
+      -- ai generated
+      if direction ~= "left" or not (is_explorer(target) or is_explorer(from)) then
         return -- a real window in that direction
       end
       vim.api.nvim_set_current_win(from)
