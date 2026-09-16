@@ -1,0 +1,169 @@
+// ai generated
+// Workstation stack, inlined into one file (servers keep module files because
+// they share them across hosts; this is single-host so inline everything).
+// Tuned for the metered mobile hotspot:
+//   - 30s scrape interval (servers use 15s)
+//   - journald pushes everything, same as the servers
+//   - OTLP only ships while a project actually emits spans
+// Total cost is well under 2.5 GiB/month.
+
+prometheus.remote_write "mimir" {
+	endpoint {
+		url = "https://mimir.lab.alper-celik.dev/api/v1/push"
+	}
+}
+
+loki.write "loki" {
+	endpoint {
+		url = "https://loki.lab.alper-celik.dev/loki/api/v1/push"
+	}
+}
+
+// node metrics
+prometheus.exporter.unix "node" {
+	enable_collectors = ["drm", "logind", "processes", "systemd", "wifi"]
+
+	systemd {
+		start_time   = true
+		task_metrics = true
+		unit_exclude = ""
+	}
+}
+
+discovery.relabel "node_labels" {
+	targets = prometheus.exporter.unix.node.targets
+
+	rule {
+		target_label = "host"
+		replacement  = constants.hostname
+	}
+
+	rule {
+		target_label = "nodename"
+		replacement  = constants.hostname
+	}
+
+	rule {
+		target_label = "arch"
+		replacement  = constants.arch
+	}
+}
+
+prometheus.scrape "node" {
+	targets         = discovery.relabel.node_labels.output
+	forward_to      = [prometheus.remote_write.mimir.receiver]
+	scrape_interval = "30s"
+}
+
+// journald logs
+loki.relabel "journal_labels" {
+	forward_to = []
+
+	rule {
+		target_label = "host"
+		replacement  = constants.hostname
+	}
+
+	rule {
+		target_label = "arch"
+		replacement  = constants.arch
+	}
+
+	rule {
+		source_labels = ["__journal__HOSTNAME"]
+		target_label  = "real_host"
+	}
+
+	rule {
+		source_labels = ["__journal__SYSTEMD_SLICE"]
+		target_label  = "slice"
+	}
+
+	rule {
+		source_labels = ["__journal__systemd_unit"]
+		target_label  = "unit"
+	}
+
+	rule {
+		source_labels = ["__journal_priority"]
+		target_label  = "priority"
+	}
+
+	rule {
+		source_labels = ["__journal_priority_keyword"]
+		target_label  = "priority_keyword"
+	}
+
+	rule {
+		source_labels = ["__journal__TRANSPORT"]
+		target_label  = "transport"
+	}
+}
+
+loki.source.journal "system" {
+	forward_to     = [loki.write.loki.receiver]
+	relabel_rules  = loki.relabel.journal_labels.rules
+	max_age        = "168h"
+	format_as_json = true
+}
+
+// OTLP from instrumented projects (traces dropped in otelcol module)
+otelcol.receiver.otlp "otelcol" {
+	grpc {
+		endpoint = "localhost:4317"
+	}
+
+	http {
+		endpoint = "localhost:4318"
+	}
+
+	output {
+		metrics = [otelcol.processor.batch.otelcol_batch.input]
+		logs    = [otelcol.processor.batch.otelcol_batch.input]
+		traces  = [otelcol.processor.batch.otelcol_batch.input]
+	}
+}
+
+otelcol.processor.batch "otelcol_batch" {
+	output {
+		metrics = [otelcol.exporter.prometheus.default.input]
+		logs    = [otelcol.exporter.loki.default.input]
+		// traces dropped: no trace backend on the server side yet
+	}
+}
+
+otelcol.exporter.loki "default" {
+	forward_to = [loki.relabel.otelcol_loki_label.receiver]
+}
+
+loki.relabel "otelcol_loki_label" {
+	forward_to = [loki.write.loki.receiver]
+
+	rule {
+		target_label = "host"
+		replacement  = constants.hostname
+	}
+
+	rule {
+		target_label = "arch"
+		replacement  = constants.arch
+	}
+}
+
+otelcol.exporter.prometheus "default" {
+	forward_to = [prometheus.relabel.otelcol_mimir_label.receiver]
+}
+
+prometheus.relabel "otelcol_mimir_label" {
+	forward_to = [prometheus.remote_write.mimir.receiver]
+
+	rule {
+		target_label = "host"
+		replacement  = constants.hostname
+	}
+
+	rule {
+		target_label = "arch"
+		replacement  = constants.arch
+	}
+}
