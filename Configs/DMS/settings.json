@@ -598,6 +598,14 @@
       "matchType": "exact",
       "action": "default",
       "urgency": "critical"
+    },
+    {
+      "enabled": true,
+      "field": "summary",
+      "pattern": "pomodoro",
+      "matchType": "contains",
+      "action": "default",
+      "urgency": "critical"
     }
   ],
   "notificationFocusedMonitor": false,
