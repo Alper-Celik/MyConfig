@@ -25,7 +25,7 @@
       wallpaperBing.enable = true;
       dankKDEConnect.enable = true;
       wallpaperCarousel.enable = true;
-      qrGenerator.enable = true;
+      #      qrGenerator.enable = true;
       dankscale.enable = true;
       kaomojiPicker.enable = true;
       emojiLauncher.enable = true;

@@ -38,8 +38,8 @@
 
     shellAliases = {
       trash = "gio trash";
-      ll = "eza -a -l --icons";
-      ls = "eza --icons -a";
+      ll = "eza -a -l --icons auto";
+      ls = "eza --icons auto -a";
       icat = "kitten icat";
     };
     shellAbbrs = {
