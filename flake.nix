@@ -8,6 +8,12 @@
 
     llm-agents.url = "github:numtide/llm-agents.nix";
 
+    # Hermes Agent: the CLI and the desktop application on the personal
+    # machines, plus the home-manager module that installs them
+    # (Configs/Hermes/). The gateway itself runs on hetzner-server-1, in
+    # MyServers.
+    hermes-agent.url = "github:NousResearch/hermes-agent";
+
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
