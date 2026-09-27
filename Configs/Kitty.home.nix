@@ -7,7 +7,7 @@
   ...
 }:
 {
-  programs.kitty = {
+  programs.kitty = lib.mkIf (!config.x-headless) {
     enable = true;
     shellIntegration = {
       mode = "enabled";

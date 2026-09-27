@@ -1,6 +1,6 @@
-{ lib, ... }:
+{ config, lib, ... }:
 {
-  programs.mangohud = {
+  programs.mangohud = lib.mkIf (!config.x-headless) {
     enable = true;
     settings = {
       preset = -1;
