@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   my-lib,
   my-pkgs,
   specialArgs,
@@ -16,10 +17,13 @@ let
 in
 {
 
-  home.packages = with pkgs; [
-    grim
-  ];
-  home.sessionPath = [
+  home.packages = lib.mkIf (!config.x-headless) (
+    with pkgs;
+    [
+      grim
+    ]
+  );
+  home.sessionPath = lib.mkIf (!config.x-headless) [
     "${(outOfStrore "./scripts/")}"
   ];
   #

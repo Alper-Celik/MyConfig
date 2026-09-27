@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   my-lib,
   specialArgs,
   ...
@@ -11,8 +12,11 @@ let
     x: config.lib.file.mkOutOfStoreSymlink (my-lib.maybeOutOfStore specialArgs current-dir x);
 in
 {
-  services.flameshot.enable = true;
-  xdg.configFile."niri".source = outOfStrore ".";
-  xdg.configFile."uwsm/env".source =
-    "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
+  services.flameshot.enable = !config.x-headless;
+  xdg.configFile."niri" = lib.mkIf (!config.x-headless) {
+    source = outOfStrore ".";
+  };
+  xdg.configFile."uwsm/env" = lib.mkIf (!config.x-headless) {
+    source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
+  };
 }

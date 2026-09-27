@@ -13,7 +13,7 @@ let
     x: config.lib.file.mkOutOfStoreSymlink (my-lib.maybeOutOfStore specialArgs current-dir x);
 in
 {
-  programs.vicinae = {
+  programs.vicinae = lib.mkIf (!config.x-headless) {
     #package = inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.default;
     enable = true;
     enableFirefoxIntegration = true;
@@ -47,6 +47,8 @@ in
     ];
   };
 
-  xdg.configFile."vicinae".source = outOfStrore ".";
+  xdg.configFile."vicinae" = lib.mkIf (!config.x-headless) {
+    source = outOfStrore ".";
+  };
 
 }
