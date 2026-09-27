@@ -1,6 +1,6 @@
-{ ... }:
+{ config, lib, ... }:
 {
-  programs.plasma = {
+  programs.plasma = lib.mkIf (!config.x-headless) {
     enable = true;
 
     workspace = {

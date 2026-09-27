@@ -13,7 +13,7 @@
   # Simply install just the packages
   environment.packages =
     # (import ../Programs/Cli/program-list.nix { inherit pkgs my-pkgs; }) ++ #FIXME: fix this when my cli programs needed in nix-on-droid
-    [ pkgs.pinentry ];
+    [ pkgs.pinentry-curses ];
   # Backup etc files instead of failing to activate generation if a file already exists in /etc
   environment.etcBackupExtension = ".bak";
 
@@ -25,11 +25,13 @@
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.sharedModules = [
-    inputs.stylix.homeManagerModules.stylix
+    inputs.stylix.homeModules.stylix
+    # No graphical session on the phone: keep the terminal/tooling modules only.
+    { x-headless = true; }
     {
       home.file.gpg-config = {
         target = ".gnupg/gpg-agent.conf";
-        text = "pinentry-program ${pkgs.pinentry}/bin/pinentry";
+        text = "pinentry-program ${pkgs.pinentry-curses}/bin/pinentry";
       };
     }
   ];
@@ -58,5 +60,5 @@
   user.shell = "${pkgs.writeShellScriptBin "init.sh" ''
     ${pkgs.fish}/bin/fish -C "export GPG_TTY=$(tty)"
   ''}/bin/init.sh";
-  terminal.font = "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/JetBrains Mono Bold Italic Nerd Font Complete Mono.ttf";
+  terminal.font = "${pkgs.nerd-fonts.jetbrains-mono}/share/fonts/truetype/NerdFonts/JetBrainsMonoNerdFont-BoldItalic.ttf";
 }

@@ -14,5 +14,7 @@ let
     x: config.lib.file.mkOutOfStoreSymlink (my-lib.maybeOutOfStore specialArgs current-dir x);
 in
 {
-  xdg.configFile.DankMaterialShell.source = outOfStrore ".";
+  xdg.configFile.DankMaterialShell = lib.mkIf (!config.x-headless) {
+    source = outOfStrore ".";
+  };
 }
