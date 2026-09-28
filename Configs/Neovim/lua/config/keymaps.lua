@@ -11,6 +11,15 @@ vim.keymap.set("n", "İ", "I", { remap = true })
 vim.keymap.set({ "n", "i", "v" }, "<C-Up>", "<A-k>", { remap = true, desc = "Move up" })
 vim.keymap.set({ "n", "i", "v" }, "<C-Down>", "<A-j>", { remap = true, desc = "Move down" })
 
+-- Nvim's default <C-L> (clear hlsearch + multicursors) is the same keycode as
+-- <C-l>, so LazyVim's "<C-w>l" (Go to Right Window) replaced it. Window nav
+-- lives on <C-h/j/k> and Alt+hjkl, so give <C-l> its default back: same rhs as
+-- |CTRL-L-default|, which also clears the multicursors.
+local c_l_default = "<Cmd>nohlsearch<Bar>diffupdate<Bar>"
+  .. "call nvim_buf_clear_namespace(0, nvim_create_namespace('nvim.multicursor'), 0, -1)"
+  .. "<Bar>normal! <C-L><CR>"
+vim.keymap.set("n", "<C-l>", c_l_default, { desc = "Clear hlsearch / Multicursors" })
+
 -- tab Mappings
 vim.keymap.set("n", "<leader><tab>>", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 vim.keymap.set("n", "<leader><tab><Right>", "<cmd>tabnext<cr>", { desc = "Next Tab" })

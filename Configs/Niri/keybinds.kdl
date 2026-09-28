@@ -63,6 +63,11 @@ binds {
 
     Mod+C repeat=false { close-window; }
 
+    // Swallow Ctrl+Q: niri handles bound keys itself and does not pass them to the
+    // focused window, so applications can no longer quit on Ctrl+Q. "true" is a
+    // do-nothing action (niri has no explicit no-op action).
+    Ctrl+Q repeat=false { spawn-sh "true"; }
+
 
 
     Mod+Escape {focus-window-down-or-top;}
