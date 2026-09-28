@@ -118,7 +118,7 @@
     Quickshell-master.url = "github:quickshell-mirror/quickshell/master";
 
     QmlMaterail = {
-      url = "github:hypengw/QmlMaterial/v0.1.6";
+      url = "github:hypengw/QmlMaterial";
       flake = false;
     };
 
@@ -276,7 +276,7 @@
                 inherit pkgs;
                 extraSpecialArgs = generic-args;
                 modules = [
-                  inputs.stylix.homeManagerModules.stylix
+                  inputs.stylix.homeModules.stylix
                   ./home-manager/home.nix
                 ];
               };
@@ -288,7 +288,7 @@
                   configDir = "/home/deck/MyConfig"; # TODO: abstract it ?
                 };
                 modules = [
-                  inputs.stylix.homeManagerModules.stylix
+                  inputs.stylix.homeModules.stylix
                   ./home-manager/home.nix
                   (
                     { lib, ... }:

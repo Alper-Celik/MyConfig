@@ -1,0 +1,44 @@
+#! /bin/sh
+# Sandboxed omp: firejail with the MyConfig profile, whitelisting $PWD (or the vault the
+# caller names) on top of the profile's own whitelists.
+#
+#   interactive:           omp-sandboxed [args...]     yolo, stays in $PWD
+#   Obsidian Copilot ACP:  omp-sandboxed acp --cwd <vault>
+#     Copilot hands its system prompt to opencode via OPENCODE_CONFIG_CONTENT, which omp
+#     ignores; it is forwarded as --append-system-prompt.
+set -eu
+
+case "${1:-}" in
+  acp) ;; # the ACP client drives the flags
+  *) set -- --yolo --allow-home "$@" ;;
+esac
+
+vault=
+prev=
+for arg in "$@"; do
+  if [ "$prev" = "--cwd" ]; then vault=$arg; break; fi
+  prev=$arg
+done
+vault=${vault:-$PWD}
+
+prompt_dir=${HOME:-/home/alper}/.omp/cache
+prompt_file=$prompt_dir/obsidian-copilot-append-system-prompt.md
+if [ -n "${OPENCODE_CONFIG_CONTENT:-}" ]; then
+  jq_bin=$(command -v jq || echo /run/current-system/sw/bin/jq)
+  prompt=$(printf '%s' "$OPENCODE_CONFIG_CONTENT" | "$jq_bin" -r '(.agent["copilot-build"].prompt // .agent.build.prompt
+    // ([.agent[]?.prompt | select(type == "string")] | first) // empty)' 2>/dev/null || true)
+  # the prompt is multi-KB and omp rejects argv over 4128 bytes, so hand it over as a file
+  # (omp reads the path's contents); ~/.omp is inside the profile's whitelists.
+  if [ -n "$prompt" ] && mkdir -p "$prompt_dir" 2>/dev/null &&
+     printf '%s' "$prompt" > "$prompt_file" 2>/dev/null; then
+    set -- "$@" --append-system-prompt "$prompt_file"
+  fi
+fi
+
+cache=${HOME:-/home/alper}/.obsidian-copilot
+if [ -d "$cache" ]; then
+  exec firejail --profile=/home/alper/MyConfig/sandbox.profile \
+    --whitelist="$vault" --whitelist="$cache" omp "$@"
+fi
+exec firejail --profile=/home/alper/MyConfig/sandbox.profile \
+  --whitelist="$vault" omp "$@"
