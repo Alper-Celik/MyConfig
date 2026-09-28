@@ -41,7 +41,7 @@ let
     nixfmt
     codespell
     deadnix
-    roslyn-ls
+    pkgs-unstable.roslyn-ls
     netcoredbg
     nixd
     nil

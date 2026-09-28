@@ -6,6 +6,18 @@ return {
     config = function(_, opts)
       require("roslyn").setup(opts)
       vim.lsp.config("roslyn", {
+        -- roslyn.nvim@bf1bd4e (#384) starts the server with `--daemon-mode`, which
+        -- needs Roslyn >= 5.12 (5.12.0-1.26453.19). The packaged server is
+        -- 5.11.0-1.26380.4 (nixpkgs roslyn-ls) and dies with "Unrecognized command
+        -- or argument '--daemon-mode'", so no client attaches and LazyVim's
+        -- capability-gated `gd` silently does the builtin. Drop the flag until the
+        -- server is new enough; then delete this cmd to get daemon mode back.
+        cmd = {
+          require("roslyn.utils").get_roslyn_lsp_path(),
+          "--stdio",
+          "--clientProcessId",
+          tostring(vim.uv.os_getpid()),
+        },
         settings = {
           ["csharp|background_analysis"] = {
             background_analysis = {
