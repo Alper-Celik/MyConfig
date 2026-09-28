@@ -55,6 +55,12 @@
     vicinae.url = "github:vicinaehq/vicinae";
     vicinae-extensions.url = "github:vicinaehq/extensions";
 
+    # Neovim nightly (built-in multicursor, `mcursor`). On purpose without
+    # `nixpkgs.follows`: upstream builds and caches the default package against
+    # its own pin, and overriding that package set breaks its bundled
+    # tree-sitter hash (see the overlay's README).
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
     noctalia = {
       url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -185,6 +191,7 @@
               inherit inputs system;
               inherit (self.my) stateVersion overlays caches;
               inherit pkgs-stable pkgs-unstable;
+              neovim-nightly = inputs.neovim-nightly-overlay.packages.${system}.default;
 
             };
 

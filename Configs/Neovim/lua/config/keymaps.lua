@@ -8,8 +8,8 @@ local map = vim.keymap.set
 vim.keymap.set("n", "İ", "I", { remap = true })
 
 -- line move remaps
-vim.keymap.set({ "n", "i", "v" }, "<A-Up>", "<A-k>", { remap = true, desc = "Move up" })
-vim.keymap.set({ "n", "i", "v" }, "<A-Down>", "<A-j>", { remap = true, desc = "Move down" })
+vim.keymap.set({ "n", "i", "v" }, "<C-Up>", "<A-k>", { remap = true, desc = "Move up" })
+vim.keymap.set({ "n", "i", "v" }, "<C-Down>", "<A-j>", { remap = true, desc = "Move down" })
 
 -- tab Mappings
 vim.keymap.set("n", "<leader><tab>>", "<cmd>tabnext<cr>", { desc = "Next Tab" })

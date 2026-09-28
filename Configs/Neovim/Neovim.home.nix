@@ -3,6 +3,7 @@
   pkgs,
   pkgs-unstable,
   pkgs-stable,
+  neovim-nightly,
   my-lib,
   specialArgs,
   ...
@@ -48,6 +49,8 @@ let
     cmake-language-server
     beancount-language-server
     beancount
+    beanquery
+    beanprice
     fava
 
     lazygit
@@ -63,7 +66,7 @@ in
   };
 
   home.packages = language-tools ++ [
-    pkgs-unstable.neovim
+    neovim-nightly
     pkgs.neovide
   ];
 

@@ -11,7 +11,7 @@
       globalQmlPkg = [
         pkgs.kdePackages.kirigami
         pkgs.kdePackages.kirigami-addons
-        my-pkgs.qml-material
+        # my-pkgs.qml-material
         my-pkgs.AlperQmlModule
       ];
     in
