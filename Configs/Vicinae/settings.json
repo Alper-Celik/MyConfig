@@ -39,6 +39,10 @@
       "compact_mode": {
          "enabled": false
       },
+      "floating_status_bar": true,
+      "layer_shell": {
+         "enabled": true
+      },
       "material": "blur"
    },
    "providers": {
