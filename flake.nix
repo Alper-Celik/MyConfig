@@ -86,6 +86,12 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    # nix-darwin
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # nix index
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
@@ -137,6 +143,7 @@
       nixpkgs,
       home-manager,
       nix-on-droid,
+      nix-darwin,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } (
@@ -146,6 +153,7 @@
         systems = [
           "x86_64-linux"
           "aarch64-linux"
+          "aarch64-darwin"
         ];
 
         perSystem =
@@ -267,6 +275,22 @@
                 modules = [
                   self.nixosModules.default-modules
                   ./nixos/configuration.nix
+                ];
+              }
+            );
+          };
+
+          darwinConfigurations = {
+            macbook-m1-alper = withSystem "aarch64-darwin" (
+              { my-specialArgs, ... }:
+              nix-darwin.lib.darwinSystem {
+                specialArgs = my-specialArgs // {
+
+                  configDir = "/Users/alper/MyConfig"; # TODO: abstract it ?
+                  hardware = "macbook-m1-alper";
+                };
+                modules = [
+                  ./darwin/configuration.nix
                 ];
               }
             );

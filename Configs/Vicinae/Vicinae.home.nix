@@ -13,7 +13,7 @@ let
     x: config.lib.file.mkOutOfStoreSymlink (my-lib.maybeOutOfStore specialArgs current-dir x);
 in
 {
-  programs.vicinae = {
+  programs.vicinae = lib.mkIf (pkgs.stdenv.hostPlatform.isLinux) {
     #package = inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.default;
     enable = true;
     useLayerShell = true;
