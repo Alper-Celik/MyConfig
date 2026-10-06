@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
 
   # from https://github.com/redxtech/nixfiles/blob/6d7fd17375c5474436079c94c0ad3157531f2799/modules/home-manager/cli/gpg.nix#L101
@@ -32,9 +37,11 @@
       #   }
       # '';
     };
-    nativeMessagingHosts = with pkgs; [
-      gpgme
-      kdePackages.plasma-browser-integration
+    nativeMessagingHosts = [
+      pkgs.gpgme
+    ]
+    ++ lib.optionals (pkgs.stdenv.hostPlatform.isLinux) [
+      pkgs.kdePackages.plasma-browser-integration
     ];
     configPath = "${config.xdg.configHome}/mozilla/firefox";
   };

@@ -1,6 +1,10 @@
-{ lib, ... }:
 {
-  programs.mangohud = {
+  lib,
+  pkgs,
+  ...
+}:
+{
+  programs.mangohud = lib.mkIf (pkgs.stdenv.hostPlatform.isLinux) {
     enable = true;
     settings = {
       preset = -1;

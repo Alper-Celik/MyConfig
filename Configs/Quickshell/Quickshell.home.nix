@@ -5,6 +5,7 @@
   specialArgs,
   inputs,
   pkgs,
+  lib,
   system,
   ...
 }:
@@ -16,9 +17,12 @@ let
 in
 {
 
-  home.packages = with pkgs; [
-    grim
-  ];
+  home.packages = lib.mkIf (pkgs.stdenv.hostPlatform.isLinux) (
+    with pkgs;
+    [
+      grim
+    ]
+  );
   home.sessionPath = [
     "${(outOfStrore "./scripts/")}"
   ];

@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   services.syncthing = {
     enable = true;
-    tray = {
+    tray = lib.mkIf (pkgs.stdenv.hostPlatform.isLinux) {
       enable = true;
       package = pkgs.syncthingtray;
     };
