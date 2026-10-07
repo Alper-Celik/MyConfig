@@ -34,6 +34,14 @@
     DynamicUser = lib.mkForce false;
     User = "alloy";
     Group = "alloy";
+
+    # Alloy's graceful stop waits for prometheus.remote_write (~10s) and
+    # loki.write (~15s) to flush before exiting; on this machine that usually
+    # happens while mimir/loki are unreachable (metered hotspot), so shutdown
+    # stalls ~25s and the pending entries are dropped anyway. The metrics WAL
+    # is crash-safe and replays on the next boot, so capping the stop at 10s
+    # costs nothing measurable.
+    TimeoutStopSec = "10s";
   };
 
   # Default OTLP export settings for every systemd unit on this host.
