@@ -25,6 +25,7 @@ nou2f
 novideo
 noinput
 
+whitelist  ${HOME}/.agents
 whitelist  ${HOME}/.nuget
 whitelist  ${HOME}/.cache/opencode
 whitelist  ${HOME}/.cache/codebase-memory-mcp
