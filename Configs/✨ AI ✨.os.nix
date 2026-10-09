@@ -36,7 +36,7 @@
 
   # FIXME= systemd creates problems fix in near future
   services.ollama = rec {
-    # package = pkgs-unstable.ollama-cuda;
+    package = pkgs.ollama-vulkan;
     enable = true;
     user = "ollama";
     group = user;
