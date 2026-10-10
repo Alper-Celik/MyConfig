@@ -16,7 +16,6 @@ in
   programs.vicinae = {
     #package = inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.default;
     enable = true;
-    useLayerShell = true;
     enableFirefoxIntegration = true;
     systemd = {
       enable = true;

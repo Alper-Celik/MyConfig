@@ -14,11 +14,11 @@ ipc-namespace
 machine-id
 private-tmp
 private-dev
-# protocol inet,inet6
+#protocol inet,inet6
 
 # === Hardware / subsystem isolation ===
-nosound
-no3d
+# nosound
+# no3d
 nodvd
 notv
 nou2f
