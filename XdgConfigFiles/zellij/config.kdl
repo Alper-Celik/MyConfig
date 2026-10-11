@@ -201,7 +201,7 @@ keybinds {
         bind "Alt f" { ToggleFloatingPanes; }
         bind "Alt n" { NewPane; }
         bind "Alt i" "Alt ı" { MoveTab "Left"; }
-        bind "Alt o" { MoveTab "Right"; }
+        bind "Alt o" "Alt Shift ." { MoveTab "Right"; }
         bind "Alt Shift t" { NewTab; }
         bind "Alt Shift h" "Alt Shift k" "Alt Shift Left" "Alt Shift Up" "Alt Shift i" "Alt Shift ı" { GoToPreviousTab; }
         bind "Alt Shift l" "Alt Shift j" "Alt Shift Right" "Alt Shift Down" "Alt Shift o" { GoToNextTab; }

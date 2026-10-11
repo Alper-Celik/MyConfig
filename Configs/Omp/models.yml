@@ -1,0 +1,33 @@
+# OpenRouter presets (shared with opencode config)
+# `@preset/<slug>` ids are applied server-side by OpenRouter: model choice,
+# provider routing, price caps, ZDR, etc. Metadata below mirrors the current
+# designated preset targets (llm-flash -> deepseek-v4.1-flash, llm-high -> glm-5.3).
+providers:
+  openrouter:
+    baseUrl: https://openrouter.ai/api/v1
+    apiKey: "!/home/alper/.omp/agent/openrouter-key.sh"
+    models:
+      - id: "@preset/llm-flash"
+        api: openai-completions
+        name: LLM Flash (preset)
+        reasoning: true
+        input: [text, image]
+        contextWindow: 1000000
+        maxTokens: 393216
+      - id: "@preset/llm-high"
+        api: openai-completions
+        name: LLM High (preset)
+        reasoning: true
+        input: [text]
+        contextWindow: 1310720
+        maxTokens: 944128
+  hermes:
+    baseUrl: https://hermes-api.lab.alper-celik.dev/v1
+    apiKey: "!/home/alper/.omp/agent/hermes-key.sh"
+    models:
+      - id: hermes-agent
+        api: openai-completions
+        name: Hermes (server-side agent, survives laptop off)
+        input: [text]
+        contextWindow: 131072
+        maxTokens: 32768

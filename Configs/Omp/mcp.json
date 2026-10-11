@@ -1,0 +1,57 @@
+{
+  "$schema": "https://raw.githubusercontent.com/can1357/oh-my-pi/main/packages/coding-agent/src/config/mcp-schema.json",
+  "mcpServers": {
+    "exa": {
+      "type": "http",
+      "url": "https://mcp.exa.ai/mcp?tools=web_search_exa,web_fetch_exa,agent_run,web_search_advanced_exa"
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "github_readonly": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/x/all",
+      "headers": {
+        "Authorization": "!cat /home/alper/.omp/agent/secrets/github-mcp-authorization"
+      }
+    },
+    "grep_app_github_fuzzy_search": {
+      "type": "http",
+      "url": "https://mcp.grep.app"
+    },
+    "codebase-memory-mcp": {
+      "type": "stdio",
+      "command": "codebase-memory-mcp"
+    },
+    "cloudflare": {
+      "type": "http",
+      "url": "https://mcp.cloudflare.com/mcp"
+    },
+    "cloudflare-docs": {
+      "type": "http",
+      "url": "https://docs.mcp.cloudflare.com/mcp"
+    },
+    "cloudflare-observability": {
+      "type": "http",
+      "url": "https://observability.mcp.cloudflare.com/mcp"
+    },
+    "hindsight": {
+      "type": "http",
+      "url": "https://api.hindsight.lab.alper-celik.dev/mcp"
+    },
+    "hermes-mcp": {
+      "type": "stdio",
+      "command": "ssh",
+      "args": [
+        "-F",
+        "/home/alper/.omp/agent/ssh/config",
+        "-i",
+        "/home/alper/.omp/agent/ssh/hermes-mcp",
+        "-o",
+        "BatchMode=yes",
+        "hermes-mcp"
+      ]
+    }
+  }
+}

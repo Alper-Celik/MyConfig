@@ -1,0 +1,90 @@
+setupVersion: 2
+modelRoles:
+  web: web/exa
+  default: opencode-go/deepseek-v4.1-flash
+defaultThinkingLevel: auto
+bash:
+  enabled: true
+  allowCompoundCommands: true
+  direnv: auto
+astGrep:
+  enabled: true
+checkpoint:
+  enabled: true
+plan:
+  defaultOnStartup: false
+tui:
+  textSizing: true
+  hyperlinks: auto
+  tight: true
+  mouse: false
+terminal:
+  showProgress: false
+display:
+  showTokenUsage: true
+  cacheMissMarker: true
+  showTurnTime: true
+  subagentLivePreview: true
+task:
+  showResolvedModelBadge: true
+  eager: preferred
+  maxRecursionDepth: 3
+  isolation:
+    enabled: true
+  enableEffort: true
+  maxConcurrency: 64
+tools:
+  approvalMode: yolo
+steeringMode: one-at-a-time
+interruptMode: immediate
+lsp:
+  diagnosticsOnEdit: true
+  lazy: false
+  formatOnWrite: false
+ask:
+  enabled: false
+browser:
+  enabled: true
+composer:
+  shape: rule
+  tokenRate: true
+edit:
+  mode: hashline
+eval:
+  autoBackground:
+    enabled: true
+python:
+  kernelMode: session
+web_search:
+  enabled: true
+mcp:
+  notifications: true
+dev:
+  autoqa: false
+statusLine:
+  preset: nerd
+  transparent: false
+  sessionAccent: true
+  separator: powerline-thin
+error:
+  notify: "on"
+startup:
+  checkUpdate: false
+exa:
+  enabled: true
+secrets:
+  enabled: true
+hideThinkingBlock: false
+autolearn:
+  enabled: false
+  autoContinue: false
+memory:
+  backend: hindsight
+hindsight:
+  apiUrl: https://api.hindsight.lab.alper-celik.dev
+  mentalModelsEnabled: true
+  bankId: default
+bashInterceptor:
+  enabled: false
+isolation:
+  backend: rcopy

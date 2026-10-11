@@ -10,6 +10,46 @@
 }:
 let
   llm = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
+
+  # Chromium for omp's builtin browser only -- pkgs.chromium itself is left
+  # alone, because it is only ever broken when it is spawned from an
+  # environment that exports a mismatched toolchain dir (a project devshell):
+  # chromium's launcher keeps the inherited LD_LIBRARY_PATH and only appends to
+  # it, so that entry shadows the binary's DT_RUNPATH and it dies before
+  # main() with `libgcc_s.so.1: version GCC_16.0 not found`. Start this copy
+  # from an empty LD_LIBRARY_PATH instead; chromium's own wrapper re-adds
+  # libva/pipewire/wayland/gtk/krb5, everything else comes from the closure.
+  browser = pkgs.symlinkJoin {
+    pname = "chromium-for-omp";
+    version = lib.getVersion pkgs.chromium;
+    paths = [
+      pkgs.chromium
+      pkgs.chromium.sandbox
+    ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    meta = pkgs.chromium.meta;
+    postBuild = ''
+      rm -f "$out/bin/chromium" "$out/bin/chromium-browser"
+      makeWrapper ${pkgs.chromium}/bin/chromium "$out/bin/chromium" --unset LD_LIBRARY_PATH
+      ln -s chromium "$out/bin/chromium-browser"
+    '';
+  };
+
+  # omp's managed Chromium can not install itself on aarch64 (Chrome for
+  # Testing publishes no linux/arm64 builds) and would download ~150 MB
+  # elsewhere, so point puppeteer at the copy above.
+  omp = pkgs.symlinkJoin {
+    pname = "omp";
+    version = lib.getVersion llm.omp;
+    paths = [ llm.omp ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    meta = llm.omp.meta;
+    postBuild = ''
+      rm -f "$out/bin/omp"
+      makeWrapper ${llm.omp}/bin/omp "$out/bin/omp" \
+        --set PUPPETEER_EXECUTABLE_PATH ${browser}/bin/chromium
+    '';
+  };
 in
 {
 
@@ -99,7 +139,7 @@ in
       # (lowPrio pkgs.neovim) use home manager
       nano
 
-      llm.omp
+      omp
 
       python3Packages.argcomplete
       ## compilers and runtimes

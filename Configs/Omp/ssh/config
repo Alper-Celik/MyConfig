@@ -1,0 +1,11 @@
+# ai generated
+# omp agent -> hetzner-server-1 hermes user, for `hermes mcp serve` over stdio.
+# Key is forced-command restricted server-side (authorized_keys command= option).
+Host hermes-mcp
+  HostName hetzner-server-1.devices.alper-celik.dev
+  UserKnownHostsFile ~/.omp/agent/ssh/known_hosts
+  StrictHostKeyChecking yes
+  IdentityFile ~/.omp/agent/ssh/hermes-mcp
+  IdentitiesOnly yes
+  ServerAliveInterval 30
+  ServerAliveCountMax 3

@@ -9,7 +9,7 @@ dbus-system none
 caps.drop all
 nogroups
 nonewprivs
-seccomp
+# seccomp
 ipc-namespace
 machine-id
 private-tmp
@@ -29,11 +29,13 @@ whitelist  ${HOME}/.agents
 whitelist  ${HOME}/.nuget
 whitelist  ${HOME}/.cache/opencode
 whitelist  ${HOME}/.cache/codebase-memory-mcp
+whitelist  ${HOME}/.cargo
 whitelist  ${HOME}/.config/opencode
 whitelist  ${HOME}/.local/share/opencode
 whitelist  ${HOME}/.local/state/opencode
 whitelist  ${HOME}/.local/share/direnv/allow
 whitelist  ${HOME}/.omp
+whitelist  ${HOME}/MyConfig
 
 # === Runtime agents and system secret directories ===
 blacklist ${RUNUSER}
