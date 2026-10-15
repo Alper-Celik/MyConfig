@@ -6,7 +6,11 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    llm-agents.url = "github:numtide/llm-agents.nix";
+    # omp upstream flake. Its package keeps the native-library dirs in
+    # OMP_NATIVE_LIBRARY_PATH (inference workers only); numtide/llm-agents exported
+    # them process-wide, which put gcc-15.3.0-lib ahead of lix's RUNPATH and broke
+    # every `nix` call spawned from omp's shells.
+    omp.url = "github:can1357/oh-my-pi";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 

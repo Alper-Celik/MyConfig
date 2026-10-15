@@ -9,17 +9,6 @@
       "type": "http",
       "url": "https://mcp.context7.com/mcp"
     },
-    "github_readonly": {
-      "type": "http",
-      "url": "https://api.githubcopilot.com/mcp/x/all",
-      "headers": {
-        "Authorization": "!cat /home/alper/.omp/agent/secrets/github-mcp-authorization"
-      }
-    },
-    "grep_app_github_fuzzy_search": {
-      "type": "http",
-      "url": "https://mcp.grep.app"
-    },
     "codebase-memory-mcp": {
       "type": "stdio",
       "command": "codebase-memory-mcp"

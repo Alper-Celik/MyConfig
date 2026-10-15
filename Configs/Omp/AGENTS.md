@@ -2,8 +2,8 @@
 
 ## Prefer MCP / documentation tools over running code
 
-- Answer questions from documentation before writing or reading code. Use the mounted MCP servers: Context7 (`resolve-library-id` then `query-docs`) for library/framework/CLI/API docs, grep.app for code search (see below), GitHub MCP for repository metadata (repos, issues, PRs, releases, Actions logs, file contents), codebase-memory graph tools (`search_graph`, `get_architecture`, `trace_path`, `get_code_snippet`, `query_graph`) for structural code questions, Exa/`web_search` for the open web.
-- Code search: default to the grep.app MCP (`searchgithub`) — it searches real code across public GitHub repositories and is the fastest way to find how an API or pattern is actually used. Fall back to the GitHub MCP (code search, or file contents at a ref) when the answer must come from one specific repository, commit, tag, or released version.
+- Answer questions from documentation before writing or reading code. Use the mounted MCP servers: Context7 (`resolve-library-id` then `query-docs`) for library/framework/CLI/API docs, the native `github` tool for repository metadata (repos, issues, PRs, releases, Actions logs, file contents) with `gh` in `bash` for the ops it lacks (issue/PR comments, reviews, merge, labels, releases, notifications), codebase-memory graph tools (`search_graph`, `get_architecture`, `trace_path`, `get_code_snippet`, `query_graph`) for structural code questions, Exa/`web_search` for the open web.
+- Code search: the native `github` tool (`search_code`) or `gh search code` for GitHub-indexed code, Exa/`web_search` for the open web. Read the exact revision with `file_read`/`read` when the answer must come from one repository, commit, tag, or released version.
 - Do not substitute shell pipelines, `curl`/`wget`, ad-hoc scripts, `git` archaeology, or scraping raw doc URLs for a tool that answers the same question directly.
 - Use the purpose-built tools instead of shell equivalents: `read`/`glob`/`grep`/`edit`/`lsp`/`ast_grep` for files, search, and refactors; `bash` only for real binaries and short fact pipelines.
 - Do not reproduce by hand what an MCP tool or a single targeted command can answer.
@@ -35,7 +35,7 @@ When the prompt is scoped and decisive ("just do it", "add X", "convert these to
 ## Git commits
 
 - Inside worktrees under `~/.omp/wt/`, you are free to commit without asking; always commit your changes there (leave the worktree dirty only on failure).
-- Everywhere else, ask the user before committing.
+- Every commit carries both parties. If the commit's author is Alper (his change, you committing it), append `Co-authored-by: Alper-Celiks-Agent <agent@alper-celik.dev>`; if you are the author, append `Co-authored-by: Alper Çelik <alper@alper-celik.dev>`. Use `git commit --trailer` rather than editing the message by hand. Identities: agent = `GIT_CONFIG_GLOBAL` set by `Configs/scripts/omp-sandboxed`; Alper = `Configs/Git.home.nix`.
 
 ## Memory is shared with the Hermes agent
 

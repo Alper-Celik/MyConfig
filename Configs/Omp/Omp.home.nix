@@ -11,7 +11,9 @@ let
     x: config.lib.file.mkOutOfStoreSymlink (my-lib.maybeOutOfStore specialArgs current-dir x);
 
   # sops secrets (MyConfigSecrets): keys under `omp:` —
-  # omp/openrouter_api_key, omp/hermes_api_key, omp/hermes_mcp_ssh_private_key.
+  # omp/openrouter_api_key, omp/hermes_api_key, omp/hermes_mcp_ssh_private_key,
+  # omp/github_mcp_authorization (historical name: one GitHub PAT, now consumed as GH_TOKEN by
+  # Configs/scripts/omp-sandboxed for the native github tool and shell gh).
   # The decrypted openrouter/hermes keys are read by the key scripts in this
   # directory, which models.yml references through its `apiKey: "!script"`
   # hooks; the ssh key is installed straight into the omp state dir.
@@ -62,9 +64,10 @@ in
   # the rest of ~/.omp/agent (databases, sessions, cache) is runtime state.
   home.file.".omp/agent/config.yml".source = outOfStrore "config.yml";
   home.file.".omp/agent/models.yml".source = outOfStrore "models.yml";
-  # mcp.json IS tracked: secret values in it use `!command` header hooks
-  # (resolved per-connect by omp, never stored in the file). Requires the
-  # omp/github_mcp_authorization sops secret below.
+  # mcp.json IS tracked: it stores no literal credentials. (Auth-bearing entries would use
+  # omp's `!command` header hooks, resolved per-connect and never written to the file — the
+  # github MCP server doing that is gone, replaced by the native github tool, whose gh calls
+  # authenticate from the GH_TOKEN set in Configs/scripts/omp-sandboxed.)
   home.file.".omp/agent/mcp.json".source = outOfStrore "mcp.json";
   home.file.".omp/agent/AGENTS.md".source = outOfStrore "AGENTS.md";
   home.file.".omp/agent/ssh/config".source = outOfStrore "ssh/config";

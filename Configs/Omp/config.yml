@@ -55,6 +55,8 @@ eval:
     enabled: true
 python:
   kernelMode: session
+github:
+  enabled: true
 web_search:
   enabled: true
 mcp:

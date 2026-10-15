@@ -9,7 +9,7 @@
   ...
 }:
 let
-  llm = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
+  ompUpstream = inputs.omp.packages.${pkgs.stdenv.hostPlatform.system}.omp;
 
   # Chromium for omp's builtin browser only -- pkgs.chromium itself is left
   # alone, because it is only ever broken when it is spawned from an
@@ -40,13 +40,13 @@ let
   # elsewhere, so point puppeteer at the copy above.
   omp = pkgs.symlinkJoin {
     pname = "omp";
-    version = lib.getVersion llm.omp;
-    paths = [ llm.omp ];
+    version = lib.getVersion ompUpstream;
+    paths = [ ompUpstream ];
     nativeBuildInputs = [ pkgs.makeWrapper ];
-    meta = llm.omp.meta;
+    meta = ompUpstream.meta;
     postBuild = ''
       rm -f "$out/bin/omp"
-      makeWrapper ${llm.omp}/bin/omp "$out/bin/omp" \
+      makeWrapper ${ompUpstream}/bin/omp "$out/bin/omp" \
         --set PUPPETEER_EXECUTABLE_PATH ${browser}/bin/chromium
     '';
   };

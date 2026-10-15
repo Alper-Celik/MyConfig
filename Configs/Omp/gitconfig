@@ -1,0 +1,7 @@
+# git identity for agent-authored commits. Wired in by Configs/scripts/omp-sandboxed as
+# GIT_CONFIG_GLOBAL — ~/.gitconfig is invisible inside the firejail sandbox, so the sandboxed
+# agent would otherwise commit with an auto-detected hostname identity.
+# email is the GitHub account address for Alper-Celiks-Agent (the account the PAT belongs to).
+[user]
+	name = Alper-Celiks-Agent
+	email = agent@alper-celik.dev

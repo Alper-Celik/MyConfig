@@ -8,6 +8,18 @@
 #     ignores; it is forwarded as --append-system-prompt.
 set -eu
 
+# gh / GitHub auth for both the native github tool and shell `gh`: sandbox.profile does not
+# whitelist ~/.config/gh, so the CLI cannot read its own credential store inside the jail —
+# the sops-managed PAT is passed by env instead.
+# gh spawns (native tool) inherit process.env, so this covers both paths.
+GH_TOKEN=$(cat "${HOME:-/home/alper}/.omp/agent/secrets/github-mcp-authorization")
+export GH_TOKEN
+
+# git identity for agent-authored commits: ~/.gitconfig is not visible inside the jail either,
+# so point git at the repo-managed identity (email = the GitHub account address for the PAT above).
+GIT_CONFIG_GLOBAL=/home/alper/MyConfig/Configs/Omp/gitconfig
+export GIT_CONFIG_GLOBAL
+
 case "${1:-}" in
   acp) ;; # the ACP client drives the flags
   *) set -- --yolo --allow-home "$@" ;;
