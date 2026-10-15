@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgs-unstable,
+  lib,
   my-lib,
   specialArgs,
   config,
@@ -12,17 +13,22 @@ let
     x: config.lib.file.mkOutOfStoreSymlink (my-lib.maybeOutOfStore specialArgs current-dir x);
 in
 {
-  home.packages = with pkgs; [
-    (pkgs.python3.withPackages (p: [ p.pyside6 ]))
-    fzf
-    ripgrep
-    bat
-  ];
+  home.packages = lib.mkIf (!config.x-headless) (
+    with pkgs;
+    [
+      (pkgs.python3.withPackages (p: [ p.pyside6 ]))
+      fzf
+      ripgrep
+      bat
+    ]
+  );
 
-  programs.vscode = {
+  programs.vscode = lib.mkIf (!config.x-headless) {
     enable = true;
     package = pkgs-unstable.vscode;
   };
 
-  xdg.configFile.nvim-vscode.source = outOfStore ".";
+  xdg.configFile.nvim-vscode = lib.mkIf (!config.x-headless) {
+    source = outOfStore ".";
+  };
 }

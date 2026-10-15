@@ -8,7 +8,7 @@
 }:
 {
   # home.packages = [ inputs.plasma-manager.packages.${pkgs.system}.rc2nix ];
-  programs.plasma = {
+  programs.plasma = lib.mkIf (!config.x-headless) {
     kwin = {
       virtualDesktops = {
         number = 9;

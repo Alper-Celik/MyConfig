@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   services.syncthing = {
     enable = true;
     tray = {
-      enable = true;
+      enable = !config.x-headless;
       package = pkgs.syncthingtray;
     };
   };
