@@ -1,3 +1,4 @@
+-- ai generated
 -- agentic.nvim as the ACP chat pane, with omp (oh-my-pi) as the agent.
 --
 -- Replaced avante.nvim: it re-renders the whole transcript and rewrites the whole chat
@@ -37,6 +38,11 @@ return {
         },
       },
     },
+    -- lua/config/agentic.lua patches the spinner's full-transcript copy per streamed chunk
+    config = function(_, opts)
+      require("agentic").setup(opts)
+      require("config.agentic").apply()
+    end,
     keys = {
       { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
       { "<leader>aa", function() require("agentic").toggle() end, desc = "Toggle Agentic chat" },
