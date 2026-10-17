@@ -36,5 +36,8 @@
     "autoSetDND": true,
     "workDuration": "55",
     "shortBreakDuration": "10"
+  },
+  "niriScaleOsd": {
+    "enabled": true
   }
 }

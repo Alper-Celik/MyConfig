@@ -1,0 +1,132 @@
+#! /bin/sh
+# Change the focused niri output's scale and mirror it on screen as a DMS OSD.
+#
+#   niri-output-scale 0.05        queue a relative change (batched: applied `debounce` after the last call)
+#   niri-output-scale -0.05       same, downwards
+#   niri-output-scale set 1.35 [eDP-1]   set an absolute scale right away (mouse slider / OSD drag),
+#                                        for a named output instead of the focused one
+#
+# Queued relative changes show their result on the OSD immediately, but niri is only told once
+# the queue settles, so holding the keybind is one change with one apply, not dozens.
+#
+# The change is temporary by nature: `niri msg output <name> scale` is not written back to
+# Configs/Niri/outputs.kdl, and niri forgets it on restart or on any config change to that
+# output's settings.
+set -eu
+
+debounce=0.5
+state="${XDG_RUNTIME_DIR:-/tmp}/niri-output-scale"
+lock_file="$state/lock"
+delta_file="$state/delta"
+absolute_file="$state/absolute"
+scheduled_file="$state/scheduled"
+
+mkdir -p "$state"
+
+show_osd() { # $1 = scale, $2 = output name
+  dms ipc call niriScaleOsd show "$1" "$2" >/dev/null 2>&1 || true
+}
+
+apply() { # $1 = absolute scale, $2 = output name (defaults to the focused one)
+  if [ -n "${2:-}" ]; then
+    name="$2"
+    current=$(niri msg --json outputs | jq -r --arg n "$name" '.[$n].logical.scale // empty')
+  else
+    json=$(niri msg --json focused-output)
+    name=$(printf '%s' "$json" | jq -r '.name')
+    current=$(printf '%s' "$json" | jq -r '.logical.scale // empty')
+  fi
+
+  if [ -z "$current" ]; then
+    echo "niri-output-scale: ${name:-focused output} has no scale (disabled or unmapped)" >&2
+    return 1
+  fi
+
+  niri msg output "$name" scale "$1"
+  show_osd "$1" "$name"
+}
+
+# Value the queue would apply right now, without applying it: used to update the OSD at once.
+queued_target() {
+  json=$(niri msg --json focused-output)
+  current=$(printf '%s' "$json" | jq -r '.logical.scale // empty')
+  name=$(printf '%s' "$json" | jq -r '.name')
+  [ -n "$current" ] || return 1
+
+  absolute=""
+  [ -s "$absolute_file" ] && read -r absolute < "$absolute_file"
+  if [ -n "$absolute" ]; then
+    printf '%s %s\n' "$absolute" "$name"
+    return
+  fi
+
+  delta=0
+  [ -s "$delta_file" ] && read -r delta < "$delta_file"
+  [ "$delta" = "0" ] && return 1
+  awk -v s="$current" -v d="$delta" -v n="$name" 'BEGIN { printf "%.2f %s\n", s + d, n }'
+}
+
+# Apply whatever has piled up, then reset the queue.
+flush() {
+  target=$(
+    {
+      flock 9
+      delta=0
+      [ -s "$delta_file" ] && read -r delta < "$delta_file"
+      absolute=""
+      [ -s "$absolute_file" ] && read -r absolute < "$absolute_file"
+      : > "$delta_file"
+      : > "$absolute_file"
+      rm -f "$scheduled_file"
+
+      if [ -n "$absolute" ]; then
+        printf '%s\n' "$absolute"
+      elif [ "$delta" != "0" ]; then
+        current=$(niri msg --json focused-output | jq -r '.logical.scale // empty')
+        awk -v s="$current" -v d="$delta" 'BEGIN { printf "%.2f\n", s + d }'
+      fi
+    } 9>>"$lock_file"
+  )
+
+  [ -n "$target" ] && apply "$target"
+}
+
+# Elect one flusher: the noclobber create is atomic, so exactly one caller wins.
+schedule() {
+  if (set -C; : > "$scheduled_file") 2>/dev/null; then
+    (sleep "$debounce"; flush) >/dev/null 2>&1 &
+  fi
+}
+
+case "${1:-}" in
+  "")
+    echo "usage: niri-output-scale <delta> | set <scale> [output]" >&2
+    exit 2
+    ;;
+  set)
+    target="${2:?usage: niri-output-scale set <scale> [output]}"
+    # An absolute target supersedes anything queued.
+    {
+      flock 9
+      : > "$delta_file"
+      : > "$absolute_file"
+      rm -f "$scheduled_file"
+    } 9>>"$lock_file"
+    apply "$target" "${3:-}"
+    ;;
+  --flush)
+    flush
+    ;;
+  *)
+    {
+      flock 9
+      previous=0
+      [ -s "$delta_file" ] && read -r previous < "$delta_file"
+      awk -v p="$previous" -v d="$1" 'BEGIN { printf "%.4f\n", p + d }' > "$delta_file"
+    } 9>>"$lock_file"
+
+    queued=$(queued_target || true)
+    [ -n "$queued" ] && show_osd $queued
+    schedule
+    ;;
+esac

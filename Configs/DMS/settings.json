@@ -33,7 +33,7 @@
   "dockTransparency": 0,
   "cornerRadius": 12,
   "niriLayoutGapsOverride": 0,
-  "niriLayoutBorderSize": 0,
+  "niriLayoutBorderSize": 1,
   "firstDayOfWeek": 1,
   "calendarBackend": "dankcal",
   "clockFormat": "24h",
@@ -57,18 +57,28 @@
       "width": 50
     },
     {
+      "id": "darkMode",
+      "enabled": true,
+      "width": 25
+    },
+    {
+      "id": "nightMode",
+      "enabled": true,
+      "width": 25
+    },
+    {
       "id": "brightnessSlider",
       "enabled": true,
       "width": 50,
       "deviceName": "backlight:apple-panel-bl"
     },
     {
-      "id": "wifi",
+      "id": "bluetooth",
       "enabled": true,
       "width": 50
     },
     {
-      "id": "bluetooth",
+      "id": "wifi",
       "enabled": true,
       "width": 50
     },
@@ -96,24 +106,19 @@
       "width": 50
     },
     {
-      "id": "nightMode",
-      "enabled": true,
-      "width": 25
-    },
-    {
-      "id": "darkMode",
-      "enabled": true,
-      "width": 25
-    },
-    {
       "id": "idleInhibitor",
       "enabled": true,
-      "width": 25
+      "width": 50
     },
     {
       "id": "doNotDisturb",
       "enabled": true,
-      "width": 25
+      "width": 50
+    },
+    {
+      "id": "plugin_niriScaleOsd",
+      "enabled": true,
+      "width": 50
     }
   ],
   "showWorkspaceApps": true,

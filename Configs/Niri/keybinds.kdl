@@ -71,7 +71,7 @@ binds {
 
 
     Mod+Escape {focus-window-down-or-top;}
-    Mod+Ctrl+Escape {focus-window-up-or-bottom;}
+    Mod+Shift+Escape {focus-window-up-or-bottom;}
 
 
     Mod+A { focus-column-left; }
@@ -261,10 +261,19 @@ binds {
     // set-column-width "100" will make the column occupy 200 physical screen pixels.
     Mod+Minus { set-column-width "-10%"; }
     Mod+Equal { set-column-width "+10%"; }
+    // TRQ: '=' is Shift+0, so the '*' key carries the grow bind.
+    Mod+asterisk { set-column-width "+10%"; }
 
     // Finer height adjustments when in column with other windows.
     Mod+Shift+Minus { set-window-height "-10%"; }
     Mod+Shift+Equal { set-window-height "+10%"; }
+    Mod+Shift+asterisk { set-window-height "+10%"; }
+
+    // Scale of the focused output, in 0.05 steps (niri-output-scale in Configs/scripts,
+    // on PATH via ~/.local/bin). Runtime-only: not persisted to outputs.kdl.
+    // TRQ: "=" needs Shift, so the unshifted pair is minus / asterisk.
+    Mod+Ctrl+Minus { spawn "niri-output-scale" "-0.05"; }
+    Mod+Ctrl+asterisk { spawn "niri-output-scale" "0.05"; }
 
     // Move the focused window between the floating and the tiling layout.
     Mod+g       { toggle-window-floating; }
@@ -295,7 +304,7 @@ binds {
     //
     // The allow-inhibiting=false property can be applied to other binds as well,
     // which ensures niri always processes them, even when an inhibitor is active.
-    Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+    Mod+Ctrl+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Ctrl+Alt+Delete { quit; }

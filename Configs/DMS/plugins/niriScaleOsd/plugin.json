@@ -1,0 +1,21 @@
+{
+  "id": "niriScaleOsd",
+  "name": "Niri Display Scale OSD",
+  "description": "Display scale of the focused niri output: OSD mirror, Control Center slider, and IPC.",
+  "version": "1.0.0",
+  "author": "Alper Celik",
+  "license": "MIT",
+  "icon": "display_settings",
+  "type": "composite",
+  "capabilities": [
+    "daemon",
+    "ipc",
+    "control-center"
+  ],
+  "category": "utilities",
+  "requires_dms": ">=1.6.0",
+  "components": {
+    "daemon": "./NiriScaleOsd.qml",
+    "widget": "./NiriScaleControl.qml"
+  }
+}

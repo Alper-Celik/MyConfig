@@ -33,13 +33,19 @@
     extraConfig = ''
 
 
-      map ctrl+shift+4 change_font_size current +2.0
-      map ctrl+shift+equal change_font_size current +2.0
+      # Font size. On the Turkish-Q layout '+' is Shift+4 and '=' is Shift+0, so bind the
+      # shifted symbols (kitty matches them via its shifted-key fallback) and the unshifted
+      # '-' as well. ctrl+shift+equal would need a layout where '=' is unshifted.
+      map ctrl+plus change_font_size current +2.0
       map ctrl+shift+plus change_font_size current +2.0
+      map ctrl+shift+4 change_font_size current +2.0
       map ctrl+shift+kp_add change_font_size current +2.0
 
+      map ctrl+minus change_font_size current -2.0
       map ctrl+shift+minus change_font_size current -2.0
       map ctrl+shift+kp_subtract change_font_size current -2.0
+
+      map ctrl+shift+backspace change_font_size current 0.0
 
     '';
 
