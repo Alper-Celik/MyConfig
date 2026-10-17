@@ -59,14 +59,14 @@ return {
     },
   },
 
-  -- The chat buffer registers the markdown parser for its `AgenticChat` filetype, so keep
-  -- both markdown renderers out of it: each re-renders/re-parses the whole transcript
-  -- instead of the edited tail.
+  -- AgenticChat is listed so render-markdown attaches to the chat pane (config/agentic.lua
+  -- switches rendering off while a turn streams, on when it completes). The list replaces
+  -- render-markdown's own, so keep the LazyVim defaults.
   {
     "MeanderingProgrammer/render-markdown.nvim",
     optional = true,
     opts = {
-      ignore = function(buf) return vim.bo[buf].filetype == "AgenticChat" end,
+      file_types = { "markdown", "norg", "rmd", "org", "codecompanion", "AgenticChat" },
     },
   },
   {

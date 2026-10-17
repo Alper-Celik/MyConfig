@@ -48,10 +48,25 @@ function M.apply()
 
     local delay = TIMING[self._state] or TIMING.generating
 
+    -- Repainting the spinner re-lays out the lines above `virt_lines`, which jerks the view
+    -- while the answer streams. Only paint when the buffer has settled; while text is arriving
+    -- the new text is feedback enough.
+    local tick = vim.api.nvim_buf_get_changedtick(self._bufnr)
+    if self._agentic_last_tick ~= tick and self._agentic_last_tick ~= nil then
+      self._agentic_last_tick = tick
+      self._next_frame_handle = vim.defer_fn(function()
+        self:_render_frame(epoch)
+      end, delay)
+      return
+    end
+    self._agentic_last_tick = tick
+
+    local virt_lines = { { { "" } }, virt_text, { { "" } } }
+
     self._extmark_id =
       vim.api.nvim_buf_set_extmark(self._bufnr, ns, line_num, 0, {
         id = self._extmark_id,
-        virt_lines = { { { "" } }, virt_text, { { "" } } },
+        virt_lines = virt_lines,
         virt_lines_above = false,
       })
 
@@ -152,6 +167,41 @@ function M.apply()
     if state == last_state and (t - last_at) < 200e6 then return end
     last_state, last_at = state, t
     return orig_spinner(self, state)
+  end
+
+  -- Markdown rendering only between turns. render-markdown re-renders the whole buffer on every
+  -- change (conceals appear/disappear), which fights the streamed writes, so AgenticChat is in
+  -- its file_types and is switched off while a turn streams, back on when the answer is done:
+  -- tables/headings appear once the response is complete, streaming stays plain and flicker-free.
+  local function set_md(bufnr, enable)
+    if not bufnr or not vim.api.nvim_buf_is_valid(bufnr) then return end
+    -- resolved per call: render-markdown may still be lazy-loading when this patch is applied
+    local ok, RenderMarkdown = pcall(require, "render-markdown.core.manager")
+    if ok and RenderMarkdown.attached(bufnr) then
+      RenderMarkdown.set_buf(bufnr, enable)
+      M.md_calls = (M.md_calls or 0) + 1
+    end
+  end
+
+  local orig_submit = SessionManager._handle_input_submit
+  SessionManager._handle_input_submit = function(self, input_text)
+    set_md(self.widget and self.widget.buf_nrs and self.widget.buf_nrs.chat, false)
+    return orig_submit(self, input_text)
+  end
+
+  local orig_complete = SessionManager.complete_start
+  SessionManager.complete_start = function(self, spec, result, err)
+    orig_complete(self, spec, result, err)
+    if spec and spec.kind == "load" then
+      set_md(self.widget and self.widget.buf_nrs and self.widget.buf_nrs.chat, true)
+    end
+  end
+
+  local orig_finish = MessageWriter.write_finish_message
+  MessageWriter.write_finish_message = function(self, ...)
+    local result = orig_finish(self, ...)
+    set_md(self.bufnr, true)
+    return result
   end
 
   M.applied = true
