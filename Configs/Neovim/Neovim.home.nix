@@ -61,10 +61,6 @@ in
     # Existing session variables
   };
 
-  programs.fish = {
-    shellAliases.avante = "nvim -c 'lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)'";
-  };
-
   home.packages = language-tools ++ [
     neovim-nightly
     pkgs.neovide
