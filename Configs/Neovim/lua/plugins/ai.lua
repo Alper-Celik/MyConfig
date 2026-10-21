@@ -60,11 +60,15 @@ return {
   },
 
   -- AgenticChat is listed so render-markdown attaches to the chat pane (config/agentic.lua
-  -- switches rendering off while a turn streams, on when it completes). The list replaces
-  -- render-markdown's own, so keep the LazyVim defaults.
+  -- switches rendering off while a turn streams, on when it completes). `ft` matters as much
+  -- as file_types: without it lazy never loads the plugin for the chat buffer, so a bare
+  -- require() at submit time would run setup after the FileType event and attach nothing.
+  -- `ft` is unioned with LazyVim's list; `file_types` replaces render-markdown's own, so keep
+  -- the LazyVim defaults there.
   {
     "MeanderingProgrammer/render-markdown.nvim",
     optional = true,
+    ft = { "AgenticChat" },
     opts = {
       file_types = { "markdown", "norg", "rmd", "org", "codecompanion", "AgenticChat" },
     },
