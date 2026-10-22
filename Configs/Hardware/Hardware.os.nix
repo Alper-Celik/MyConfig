@@ -1,4 +1,10 @@
-{ pkgs-unstable, system, ... }:
+{
+  pkgs-unstable,
+  system,
+  hardware,
+  lib,
+  ...
+}:
 let
   scx = pkgs-unstable.scx.rustscheds;
 in
@@ -6,10 +12,11 @@ in
 {
   services.tlp.enable = false;
   services.tuned.enable = true;
-  environment.systemPackages = [ scx ];
+  # Jovian owns the scx unit on the deck (services.scx).
+  environment.systemPackages = lib.mkIf (hardware != "steamdeck") [ scx ];
 
   environment.persistence."/persistent".directories = [ "/var/lib/pandemonium/" ];
-  systemd.services.scx = {
+  systemd.services.scx = lib.mkIf (hardware != "steamdeck") {
     enable = system == "x86_64-linux";
     description = "SCX scheduler daemon";
 

@@ -181,10 +181,14 @@
           in
           rec {
 
-            packages = import ./my-pkgs/my-pkgs.nix {
-              inherit pkgs inputs;
-              my-lib = self.lib;
-            };
+            packages =
+              import ./my-pkgs/my-pkgs.nix {
+                inherit pkgs inputs;
+                my-lib = self.lib;
+              }
+              // {
+                inherit (inputs) MyConfigSecrets;
+              };
 
             _module.args.pkgs = pkgs-stable;
             # TODO: maybe use let in ?
@@ -267,6 +271,21 @@
 
                   configDir = "/home/alper/MyConfig"; # TODO: abstract it ?
                   hardware = "strix-scar-17";
+                };
+                modules = [
+                  self.nixosModules.default-modules
+                  ./nixos/configuration.nix
+                ];
+              }
+            );
+
+            steamdeck = withSystem "x86_64-linux" (
+              { my-specialArgs, ... }:
+              nixpkgs.lib.nixosSystem {
+                specialArgs = my-specialArgs // {
+
+                  configDir = "/home/alper/MyConfig"; # TODO: abstract it ?
+                  hardware = "steamdeck";
                 };
                 modules = [
                   self.nixosModules.default-modules
