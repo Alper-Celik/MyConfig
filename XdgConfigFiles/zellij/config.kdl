@@ -205,40 +205,44 @@ keybinds {
         bind "Alt Shift t" { NewTab; }
         bind "Alt Shift h" "Alt Shift k" "Alt Shift Left" "Alt Shift Up" "Alt Shift i" "Alt Shift ı" { GoToPreviousTab; }
         bind "Alt Shift l" "Alt Shift j" "Alt Shift Right" "Alt Shift Down" "Alt Shift o" { GoToNextTab; }
-        bind "Alt h" "Alt Left" {
+        bind "Alt Left" {
             MessagePlugin "vim_zellij_navigator" {
                 name "move_focus_or_tab";
                 payload "left";
 
                 move_mod "alt";
-                use_arrow_keys "false";
+                use_arrow_keys "true";
+                niri "true";
             }
         }
-        bind "Alt l" "Alt Right" {
+        bind "Alt Right" {
             MessagePlugin "vim_zellij_navigator" {
                 name "move_focus_or_tab";
                 payload "right";
 
                 move_mod "alt";
-                use_arrow_keys "false";
+                use_arrow_keys "true";
+                niri "true";
             }
         }
-        bind "Alt j" "Alt Down" {
+        bind "Alt Down" {
             MessagePlugin "vim_zellij_navigator" {
                 name "move_focus";
                 payload "down";
 
                 move_mod "alt";
-                use_arrow_keys "false";
+                use_arrow_keys "true";
+                niri "true";
             }
         }
-        bind "Alt k" "Alt Up" {
+        bind "Alt Up" {
             MessagePlugin "vim_zellij_navigator" {
                 name "move_focus";
                 payload "up";
 
                 move_mod "alt";
-                use_arrow_keys "false";
+                use_arrow_keys "true";
+                niri "true";
             }
         }
         bind "Alt =" "Alt +" { Resize "Increase"; }
@@ -291,7 +295,7 @@ plugins {
     configuration location="zellij:configuration"
     plugin-manager location="zellij:plugin-manager"
     about location="zellij:about"
-    vim_zellij_navigator location="https://github.com/hiasr/vim-zellij-navigator/releases/download/0.3.0/vim-zellij-navigator.wasm"
+    vim_zellij_navigator location="file:/home/alper/.local/share/zellij/plugins/vim-zellij-navigator.wasm"
 }
 
 // Plugins to load in the background when a new session starts

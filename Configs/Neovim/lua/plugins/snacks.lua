@@ -5,8 +5,8 @@ return {
       win = {
         input = {
           keys = {
-            -- Alt+h is window navigation (zellij/nvim splits), so move the
-            -- picker's toggle_hidden off it onto Alt+ş.
+            -- Alt+h was window navigation (zellij/nvim splits) when this was
+            -- set; the picker's toggle_hidden stays on Alt+ş.
             ["<a-h>"] = false,
             ["<a-ş>"] = { "toggle_hidden", mode = { "i", "n" } },
           },

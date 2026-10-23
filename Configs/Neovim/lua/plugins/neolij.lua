@@ -1,5 +1,5 @@
 -- Window movement, with one exception: moving left never lands in the explorer
--- sidebar. It is always open on the left, so Alt+h would otherwise only ever
+-- sidebar. It is always open on the left, so Alt+Left would otherwise only ever
 -- step back into it (or into its layout scaffolding); instead it falls through
 -- to the tab behaviour of neolij.move_or_tab (previous nvim tab, else zellij
 -- focus-or-tab). Other pickers (files, grep, ...) are ordinary windows and
@@ -7,6 +7,46 @@
 -- ai generated
 local function is_explorer(win)
   return vim.bo[vim.api.nvim_win_get_buf(win)].filetype == "neo-tree"
+end
+
+-- Where focus goes once zellij itself has nowhere left to move, matching the
+-- niri keybinds (Mod+H/L cross columns, Mod+J/K cross workspaces).
+local niri_actions = {
+  left = "focus-column-left",
+  right = "focus-column-right",
+  up = "focus-workspace-up",
+  down = "focus-workspace-down",
+}
+
+-- Focused zellij pane id, or nil outside zellij / when the query fails. Pane
+-- ids are session-unique, so an unchanged id after an action means the action
+-- was a no-op: no pane (or tab, for left/right) that way.
+-- ai generated
+local function zellij_focused_pane()
+  if not vim.env.ZELLIJ then
+    return nil
+  end
+  local out = vim.fn.system({ "zellij", "action", "list-panes", "--state", "--json" })
+  if vim.v.shell_error ~= 0 then
+    return nil
+  end
+  local ok, panes = pcall(vim.json.decode, out)
+  if not ok or type(panes) ~= "table" then
+    return nil
+  end
+  for _, pane in ipairs(panes) do
+    if pane.is_focused then
+      return pane.id
+    end
+  end
+  return nil
+end
+
+local function niri_focus(direction)
+  if not vim.env.NIRI_SOCKET then
+    return
+  end
+  vim.fn.system({ "niri", "msg", "action", niri_actions[direction] })
 end
 
 local function move(direction)
@@ -36,7 +76,12 @@ local function move(direction)
     -- up/down to tab cycling (route.rs: Up => SwitchTabNext, Down =>
     -- SwitchTabPrev), so vertical escapes must use MoveFocus instead.
     local action = (direction == "up" or direction == "down") and "move-focus" or "move-focus-or-tab"
+    local pane = zellij_focused_pane()
     require("neolij").zellij_action(action .. " " .. direction)
+    -- zellij moved: another pane, or (left/right) the next/previous tab.
+    if pane and zellij_focused_pane() == pane then
+      niri_focus(direction)
+    end
   end
 end
 
@@ -44,41 +89,21 @@ return {
   {
     "y2w8/neolij.nvim",
     event = "VeryLazy",
-    -- vim_zellij_navigator = true opens the `nvim_hook` zellij pipe at startup
-    -- and closes it on exit (zellij side: hiasr/vim-zellij-navigator wasm).
-    opts = { vim_zellij_navigator = true },
-    config = function(_, opts)
-      require("neolij").setup(opts)
-
-      -- neolij registers the VimLeavePre close-notify as a bare ex-command
-      -- (`command = 'zellij pipe -n "nvim_hook" "close"'`), which always fails
-      -- with E492 on exit. Re-register it as a shell job.
-      for _, au in ipairs(vim.api.nvim_get_autocmds({ event = "VimLeavePre", pattern = "*" })) do
-        if au.command and au.command:match("nvim_hook") then
-          vim.api.nvim_del_autocmd(au.id)
-        end
-      end
-      vim.api.nvim_create_autocmd("VimLeavePre", {
-        pattern = "*",
-        callback = function()
-          if vim.env.ZELLIJ then
-            vim.fn.system('zellij pipe -n "nvim_hook" "close"')
-          end
-        end,
-      })
-    end,
+    opts = {},
     keys = {
-      -- Window navigation. zellij's Alt+hjkl bind the vim-zellij-navigator
-      -- wasm with move_mod "alt", which writes Alt+hjkl into nvim while nvim
-      -- is the focused pane (it never moves focus itself in that case), hence
-      -- the Alt maps; `move` above keeps the nvim-split step and, when no real
-      -- window is left in that direction, switches tabs (nvim, then zellij).
+      -- Window navigation on Alt+arrows. zellij's arrow binds hand the key to
+      -- the vim-zellij-navigator wasm, which writes the arrow sequence into
+      -- nvim while nvim is the focused pane (it never moves focus itself in
+      -- that case), hence the Alt maps; `move` above keeps the nvim-split step,
+      -- then hands off: left/right go to the nvim tab, then to the zellij pane
+      -- or tab, while up/down only go to the zellij pane. When zellij has
+      -- nowhere left to move, focus continues into niri.
       -- Tab movement is a plain zellij bind (Alt+Shift+...) and deliberately
       -- does not reach nvim: the wasm plugin carries only four distinguishable
       -- keys and keeps the config of its first message, so a second modifier
       -- variant cannot be routed reliably.
       {
-        "<A-h>",
+        "<A-Left>",
         function()
           move("left")
         end,
@@ -87,7 +112,7 @@ return {
         silent = true,
       },
       {
-        "<A-j>",
+        "<A-Down>",
         function()
           move("down")
         end,
@@ -96,7 +121,7 @@ return {
         silent = true,
       },
       {
-        "<A-k>",
+        "<A-Up>",
         function()
           move("up")
         end,
@@ -105,7 +130,7 @@ return {
         silent = true,
       },
       {
-        "<A-l>",
+        "<A-Right>",
         function()
           move("right")
         end,
