@@ -22,6 +22,9 @@
       }
    },
    "theme": {
+      "light": {
+         "name": "catppuccin-frappe"
+      },
       "dark": {
          "name": "ayu-dark"
       }
