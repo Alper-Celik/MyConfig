@@ -32,7 +32,11 @@ local function move(direction)
   elseif direction == "right" and current < last then
     vim.cmd("tabnext")
   else
-    require("neolij").zellij_action("move-focus-or-tab " .. direction)
+    -- zellij only treats left/right as focus moves in MoveFocusOrTab; it maps
+    -- up/down to tab cycling (route.rs: Up => SwitchTabNext, Down =>
+    -- SwitchTabPrev), so vertical escapes must use MoveFocus instead.
+    local action = (direction == "up" or direction == "down") and "move-focus" or "move-focus-or-tab"
+    require("neolij").zellij_action(action .. " " .. direction)
   end
 end
 
