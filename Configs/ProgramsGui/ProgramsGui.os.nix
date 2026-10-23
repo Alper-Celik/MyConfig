@@ -56,7 +56,7 @@
       # kcalc
       qalculate-qt
       # dev tools
-      jetbrains-toolbox
+      # jetbrains-toolbox
       jetbrains.rider
       # jetbrains.clion
       # jetbrains.pycharm

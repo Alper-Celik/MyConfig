@@ -162,8 +162,8 @@ in
     XDG_DATA_HOME = "\${HOME}/.local/share";
     # note: this doesn't replace PATH, it just adds this to it
     PATH = [
-      "\${XDG_BIN_HOME}"
       "/home/alper/.cache/.bun/bin"
+      "/home/alper/.local/bin"
     ];
   };
   documentation.dev.enable = true;

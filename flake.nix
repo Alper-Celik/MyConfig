@@ -312,24 +312,7 @@
               };
             in
             {
-              "deck" = home-manager.lib.homeManagerConfiguration {
-                inherit pkgs;
-                extraSpecialArgs = generic-args // {
-                  configDir = "/home/deck/MyConfig"; # TODO: abstract it ?
-                };
-                modules = [
-                  inputs.stylix.homeModules.stylix
-                  ./home-manager/home.nix
-                  (
-                    { lib, ... }:
-                    {
-                      home.username = lib.mkForce "deck";
 
-                      home.homeDirectory = lib.mkForce "/home/deck";
-                    }
-                  )
-                ];
-              };
               "alper" = home-manager.lib.homeManagerConfiguration generic-home;
               "alper@lenovo-ideapad-510" = home-manager.lib.homeManagerConfiguration (
                 generic-home
