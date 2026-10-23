@@ -1,8 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
-  # zellij plugins are wasm32-wasip1 modules; nixpkgs ships a cross rust
-  # platform for exactly this (see pkgs/by-name/ze/zellij/plugins/rust).
-  wasm = pkgs.pkgsCross.wasm32-wasip1;
+  # zellij plugins are wasm32-wasip1 modules and nixpkgs only ships that cross
+  # set from ~26.11 on (this flake's perSystem pkgs is nixos-26.05, which has
+  # only wasm32-unknown-none), so take it from the unstable input.
+  wasm =
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.pkgsCross.wasm32-wasip1;
 in
 wasm.rustPlatform.buildRustPackage {
   pname = "zellij-navigator";
