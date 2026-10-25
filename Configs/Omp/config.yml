@@ -1,7 +1,8 @@
 setupVersion: 2
 modelRoles:
   web: web/exa
-  default: hermes/hermes-agent
+  default: opencode-go/deepseek-v4.1-flash
+  advisor: opencode-go/glm-5.3:auto
 defaultThinkingLevel: auto
 bash:
   enabled: true
@@ -90,3 +91,5 @@ bashInterceptor:
   enabled: false
 isolation:
   backend: rcopy
+advisor:
+  enabled: true

@@ -1,21 +1,19 @@
 pragma ComponentBehavior: Bound
 
-// Control Center entry for display scale, shaped like the brightness slider row: circular icon
-// button + one slider for the focused output. Clicking the icon opens the drawer, which lists
-// every connected output with its own slider.
+// Control Center entry for display scale, on the dms-shell 2.0 tile API (controlCenterWidget rows
+// are declared upstream but never rendered). Clicking the tile opens the detail page listing every
+// output; a tile wide enough to expand shows the focused output's slider inline.
 //
 // Changes go through Configs/scripts/niri-output-scale, so the OSD mirrors them. Drags only
 // preview; the scale is applied once on release, otherwise every drag step would re-scale the
 // output under the pointer.
-//
-// Both the row and the drawer need the shell to honour a plugin's controlCenterWidget and
-// ccExpandRequest hooks (patch in Overlays/dms-shell-control-center-widget.patch); without it the
-// ccWidget* properties below make it a pill that resets the focused output's scale when clicked.
 import QtQuick
 import Quickshell
 import qs.Common
 import qs.Services
 import qs.Widgets
+import qs.DCommon.Widgets
+import qs.Modules.ControlCenter
 import qs.Modules.Plugins
 
 PluginComponent {
@@ -31,8 +29,6 @@ PluginComponent {
     })
     readonly property int focusedPercent: root.shownPercent(root.focusedOutput)
     readonly property bool anyScaled: root.outputNames.some(name => root.shownPercent(name) !== 100)
-    // Injected by the patched grid: asks the shell to open this widget's drawer.
-    property var ccExpandRequest: null
     // Per-output value the handle sits on but that niri has not been told yet.
     property var pendingPercent: ({})
 
@@ -75,11 +71,6 @@ PluginComponent {
         Quickshell.execDetached(["sh", "-c", "$HOME/.local/bin/niri-output-scale set " + (root.pendingPercent[name] / 100).toFixed(2) + " '" + name + "'"]);
     }
 
-    function openDrawer() {
-        if (root.ccExpandRequest)
-            root.ccExpandRequest();
-    }
-
     // niri reported a scale: drop that output's preview once it matches, or after a grace period.
     Connections {
         target: NiriService
@@ -107,7 +98,7 @@ PluginComponent {
             NiriService.fetchOutputs();
     }
 
-    // Slider geometry shared by the row and the drawer rows.
+    // Slider geometry shared by the inline row and the detail-page rows.
     component ScaleBar: Item {
         id: scaleBar
 
@@ -157,53 +148,15 @@ PluginComponent {
         }
     }
 
-    controlCenterWidget: Component {
+    // Inline body of a tile that is wide and tall enough to expand.
+    ccExpandedContent: Component {
         Row {
-            id: scaleRow
+            id: expandedRow
 
-            anchors.verticalCenter: parent.verticalCenter
-            width: parent.width
-            height: parent.height
             spacing: Theme.spacingS
 
-            Rectangle {
-                id: iconButton
-
-                width: Theme.iconSize + Theme.spacingS * 2
-                height: width
-                anchors.verticalCenter: parent.verticalCenter
-                radius: width / 2
-                color: iconArea.containsMouse ? Theme.primaryHover : Theme.withAlpha(Theme.primary, 0)
-
-                DankRipple {
-                    id: iconRipple
-
-                    cornerRadius: parent.radius
-                }
-
-                MouseArea {
-                    id: iconArea
-
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-
-                    onPressed: mouse => iconRipple.trigger(mouse.x, mouse.y)
-                    onClicked: root.openDrawer()
-                    onEntered: iconTooltip.show("Display scale", iconArea, 0, 0, "bottom")
-                    onExited: iconTooltip.hide()
-                }
-
-                DankIcon {
-                    anchors.centerIn: parent
-                    name: "display_settings"
-                    size: Theme.iconSize
-                    color: root.anyScaled ? Theme.primary : Theme.surfaceText
-                }
-            }
-
             StyledText {
-                id: scaleValue
+                id: expandedValue
 
                 anchors.verticalCenter: parent.verticalCenter
                 width: Math.round(parent.width * 0.16)
@@ -215,88 +168,79 @@ PluginComponent {
 
             ScaleBar {
                 anchors.verticalCenter: parent.verticalCenter
-                width: scaleRow.width - iconButton.width - scaleValue.width - scaleRow.spacing * 2
+                width: Math.max(0, expandedRow.width - expandedValue.width - expandedRow.spacing)
                 output: root.focusedOutput
-            }
-
-            DankTooltipV2 {
-                id: iconTooltip
             }
         }
     }
 
-    // Drawer: every connected output, name + slider + percentage.
+    // Detail page: every connected output, name + slider + percentage.
     ccDetailContent: Component {
-        Rectangle {
-            id: drawer
+        Item {
+            id: detailRoot
 
-            implicitHeight: drawerColumn.implicitHeight + Theme.spacingM * 2
-            radius: Theme.cornerRadius
-            color: Theme.surfaceContainerHigh
-
-            Column {
-                id: drawerColumn
-
+            DFlickable {
                 anchors.fill: parent
-                anchors.margins: Theme.spacingM
-                spacing: Theme.spacingS
+                contentHeight: detailColumn.height
+                clip: true
 
-                StyledText {
-                    text: "Display scale"
-                    font.pixelSize: Theme.fontSizeMedium
-                    font.weight: Font.Medium
-                    color: Theme.surfaceText
-                }
+                Column {
+                    id: detailColumn
+                    width: parent.width
+                    spacing: CcMetrics.detailContentGap
 
-                StyledText {
-                    text: "Scale is applied by niri and not saved to outputs.kdl."
-                    font.pixelSize: Theme.fontSizeSmall
-                    color: Theme.surfaceVariantText
-                }
+                    StyledText {
+                        width: parent.width
+                        text: "Scale is applied by niri and not saved to outputs.kdl."
+                        font.pixelSize: Theme.fontSizeSmall
+                        color: Theme.surfaceVariantText
+                        wrapMode: Text.WordWrap
+                    }
 
-                Repeater {
-                    model: root.outputNames
+                    Repeater {
+                        model: root.outputNames
 
-                    delegate: Item {
-                        id: drawerRow
+                        delegate: Item {
+                            id: detailRow
 
-                        required property string modelData
+                            required property string modelData
 
-                        width: drawerColumn.width
-                        height: 22
+                            width: detailColumn.width
+                            height: 22
 
-                        StyledText {
-                            id: drawerName
+                            StyledText {
+                                id: detailName
 
-                            anchors.left: parent.left
-                            anchors.verticalCenter: parent.verticalCenter
-                            width: Math.max(40, Math.round(parent.width * 0.34))
-                            text: drawerRow.modelData
-                            font.pixelSize: Theme.fontSizeSmall
-                            color: drawerRow.modelData === root.focusedOutput ? Theme.surfaceText : Theme.surfaceVariantText
-                            elide: Text.ElideRight
-                            maximumLineCount: 1
-                        }
+                                anchors.left: parent.left
+                                anchors.verticalCenter: parent.verticalCenter
+                                width: Math.max(40, Math.round(parent.width * 0.34))
+                                text: detailRow.modelData
+                                font.pixelSize: Theme.fontSizeSmall
+                                color: detailRow.modelData === root.focusedOutput ? Theme.surfaceText : Theme.surfaceVariantText
+                                elide: Text.ElideRight
+                                maximumLineCount: 1
+                            }
 
-                        StyledText {
-                            id: drawerValue
+                            StyledText {
+                                id: detailValue
 
-                            anchors.right: parent.right
-                            anchors.verticalCenter: parent.verticalCenter
-                            width: Math.round(parent.width * 0.14)
-                            horizontalAlignment: Text.AlignRight
-                            text: root.shownPercent(drawerRow.modelData) + "%"
-                            font.pixelSize: Theme.fontSizeSmall
-                            color: root.shownPercent(drawerRow.modelData) === 100 ? Theme.surfaceVariantText : Theme.primary
-                        }
+                                anchors.right: parent.right
+                                anchors.verticalCenter: parent.verticalCenter
+                                width: Math.round(parent.width * 0.14)
+                                horizontalAlignment: Text.AlignRight
+                                text: root.shownPercent(detailRow.modelData) + "%"
+                                font.pixelSize: Theme.fontSizeSmall
+                                color: root.shownPercent(detailRow.modelData) === 100 ? Theme.surfaceVariantText : Theme.primary
+                            }
 
-                        ScaleBar {
-                            anchors.left: drawerName.right
-                            anchors.leftMargin: Theme.spacingS
-                            anchors.right: drawerValue.left
-                            anchors.rightMargin: Theme.spacingS
-                            anchors.verticalCenter: parent.verticalCenter
-                            output: drawerRow.modelData
+                            ScaleBar {
+                                anchors.left: detailName.right
+                                anchors.leftMargin: Theme.spacingS
+                                anchors.right: detailValue.left
+                                anchors.rightMargin: Theme.spacingS
+                                anchors.verticalCenter: parent.verticalCenter
+                                output: detailRow.modelData
+                            }
                         }
                     }
                 }
@@ -310,8 +254,8 @@ PluginComponent {
     ccWidgetPrimaryText: "Display scale"
     ccWidgetSecondaryText: root.focusedOutput ? root.focusedOutput + " · " + root.focusedPercent + "%" : "No focused output"
     ccWidgetIsActive: root.focusedPercent !== 100
-
-    onCcWidgetToggled: root.applyPercent(root.focusedOutput, 100)
+    // Off so a click opens the detail page instead of toggling anything.
+    ccWidgetIsToggle: false
 
     horizontalBarPill: Component {
         Row {

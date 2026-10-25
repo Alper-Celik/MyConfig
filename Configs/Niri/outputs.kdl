@@ -27,7 +27,7 @@ output "Samsung Electric Company LS27D60xU HK2XC00207" {
 output   "Valve Corporation ANX7530 U 0x00000001" {
   position x=640 y=1440
   // transform "90"
-  scale 1.25
+  scale 1.125
 }
 
 
