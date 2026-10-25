@@ -86,8 +86,8 @@ binds {
 
     Mod+Left  { focus-column-left; }
     Mod+Right { focus-column-right; }
-    Alt+Down { focus-window-or-workspace-down; }
-    Alt+Up { focus-window-or-workspace-up; }
+    Mod+Down { focus-window-or-workspace-down; }
+    Mod+Up { focus-window-or-workspace-up; }
     Mod+Ctrl+Left  { move-column-left; }
     Mod+Ctrl+Right { move-column-right; }
     Mod+Ctrl+Up    { move-window-to-workspace-up; }
