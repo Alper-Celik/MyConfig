@@ -4,7 +4,7 @@
 // ! PLACE YOUR CUSTOM CONFIGURATION ELSEWHERE !
 
 layout {
-    gaps 0
+    gaps 20
 
     border {
         width 1
@@ -16,23 +16,28 @@ layout {
 }
 
 window-rule {
-    geometry-corner-radius 12
+    geometry-corner-radius 16
     clip-to-geometry true
     tiled-state true
     draw-border-with-background false
 }
 
+blur {
+    passes 3
+    offset 6.9
+}
+
 layer-rule {
+    exclude namespace="^dms:bar$"
+    exclude namespace="^dms:dankisland$"
     background-effect {
         xray false
     }
 }
 
 window-rule {
-    match app-id="^(dev\\.duxlabs\\.shell)$"
+    match app-id="^(dev.duxlabs.shell|com.danklinux.dms)$"
     background-effect {
         xray false
     }
 }
-
-// bar-xray off

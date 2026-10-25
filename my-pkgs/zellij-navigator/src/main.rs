@@ -289,13 +289,13 @@ fn current_pane_id(clients: &[ClientInfo]) -> Option<PaneId> {
 }
 
 // Continuation of each direction outside zellij, matching the niri keybinds:
-// H/L cross columns, J/K cross workspaces.
+// H/L cross columns, J/K cross windows then workspaces.
 fn niri_action(direction: Direction) -> &'static str {
     match direction {
         Direction::Left => "focus-column-left",
         Direction::Right => "focus-column-right",
-        Direction::Up => "focus-workspace-up",
-        Direction::Down => "focus-workspace-down",
+        Direction::Up => "focus-window-or-workspace-up",
+        Direction::Down => "focus-window-or-workspace-down",
     }
 }
 

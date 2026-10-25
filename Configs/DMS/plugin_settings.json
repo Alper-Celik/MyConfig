@@ -22,7 +22,7 @@
     "enabled": true
   },
   "dankscale": {
-    "enabled": true,
+    "enabled": false,
     "lastAccount": "Alper-Celik@github"
   },
   "kaomojiPicker": {

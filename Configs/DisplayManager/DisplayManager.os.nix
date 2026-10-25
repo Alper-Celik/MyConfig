@@ -5,17 +5,19 @@
   ...
 }:
 {
-  programs.dconf.profiles.gdm.databases = [
-    {
-      settings."org/gnome/desktop/peripherals/keyboard" = {
-        numlock-state = true;
-        remember-numlock-state = true;
-      };
-    }
-  ];
-  services.displayManager.gdm = {
-    enable = true;
-  };
+  # programs.dconf.profiles.gdm.databases = [
+  #   {
+  #     settings."org/gnome/desktop/peripherals/keyboard" = {
+  #       numlock-state = true;
+  #       remember-numlock-state = true;
+  #     };
+  #   }
+  # ];
+  # services.displayManager.gdm = {
+  #   enable = true;
+  # };
+
+  services.displayManager.plasma-login-manager.enable = true;
 
   # services.displayManager.sddm = {
   #   enable = true;

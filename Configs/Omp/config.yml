@@ -1,7 +1,7 @@
 setupVersion: 2
 modelRoles:
   web: web/exa
-  default: opencode-go/deepseek-v4.1-flash
+  default: opencode-go/glm-5.3-flash
   advisor: opencode-go/glm-5.3:auto
 defaultThinkingLevel: auto
 bash:
@@ -36,7 +36,7 @@ task:
   maxConcurrency: 64
 tools:
   approvalMode: yolo
-steeringMode: one-at-a-time
+steeringMode: all
 interruptMode: immediate
 lsp:
   diagnosticsOnEdit: true
@@ -79,7 +79,7 @@ secrets:
   enabled: true
 hideThinkingBlock: false
 autolearn:
-  enabled: false
+  enabled: true
   autoContinue: false
 memory:
   backend: hindsight
@@ -93,3 +93,8 @@ isolation:
   backend: rcopy
 advisor:
   enabled: true
+  maxNotesPerUpdate: 5
+  syncBacklog: "off"
+theme:
+  dark: titanium
+followUpMode: all

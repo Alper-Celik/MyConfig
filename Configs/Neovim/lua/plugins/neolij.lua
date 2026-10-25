@@ -10,12 +10,12 @@ local function is_explorer(win)
 end
 
 -- Where focus goes once zellij itself has nowhere left to move, matching the
--- niri keybinds (Mod+H/L cross columns, Mod+J/K cross workspaces).
+-- niri keybinds (Mod+H/L cross columns, Mod+J/K cross windows then workspaces).
 local niri_actions = {
   left = "focus-column-left",
   right = "focus-column-right",
-  up = "focus-workspace-up",
-  down = "focus-workspace-down",
+  up = "focus-window-or-workspace-up",
+  down = "focus-window-or-workspace-down",
 }
 
 -- Focused zellij pane id, or nil outside zellij / when the query fails. Pane
