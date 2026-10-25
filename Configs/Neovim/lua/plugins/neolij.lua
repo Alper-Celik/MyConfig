@@ -91,19 +91,19 @@ return {
     event = "VeryLazy",
     opts = {},
     keys = {
-      -- Window navigation on Alt+arrows. zellij's arrow binds hand the key to
+      -- Window navigation on Alt+Shift+arrows. zellij's binds hand the key to
       -- the vim-zellij-navigator wasm, which writes the arrow sequence into
       -- nvim while nvim is the focused pane (it never moves focus itself in
       -- that case), hence the Alt maps; `move` above keeps the nvim-split step,
       -- then hands off: left/right go to the nvim tab, then to the zellij pane
       -- or tab, while up/down only go to the zellij pane. When zellij has
       -- nowhere left to move, focus continues into niri.
-      -- Tab movement is a plain zellij bind (Alt+Shift+...) and deliberately
+      -- Tab movement is a plain zellij bind (Alt+Shift+hjkl) and deliberately
       -- does not reach nvim: the wasm plugin carries only four distinguishable
       -- keys and keeps the config of its first message, so a second modifier
       -- variant cannot be routed reliably.
       {
-        "<A-Left>",
+        "<A-S-Left>",
         function()
           move("left")
         end,
@@ -112,7 +112,7 @@ return {
         silent = true,
       },
       {
-        "<A-Down>",
+        "<A-S-Down>",
         function()
           move("down")
         end,
@@ -121,7 +121,7 @@ return {
         silent = true,
       },
       {
-        "<A-Up>",
+        "<A-S-Up>",
         function()
           move("up")
         end,
@@ -130,7 +130,7 @@ return {
         silent = true,
       },
       {
-        "<A-Right>",
+        "<A-S-Right>",
         function()
           move("right")
         end,
