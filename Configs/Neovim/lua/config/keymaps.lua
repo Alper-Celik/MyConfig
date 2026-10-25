@@ -8,12 +8,12 @@ local map = vim.keymap.set
 vim.keymap.set("n", "İ", "I", { remap = true })
 
 -- line move remaps
-vim.keymap.set({ "n", "i", "v" }, "<C-Up>", "<A-S-Up>", { remap = true, desc = "Move up" })
-vim.keymap.set({ "n", "i", "v" }, "<C-Down>", "<A-S-Down>", { remap = true, desc = "Move down" })
+vim.keymap.set({ "n", "i", "v" }, "<C-Up>", "<A-Up>", { remap = true, desc = "Move up" })
+vim.keymap.set({ "n", "i", "v" }, "<C-Down>", "<A-Down>", { remap = true, desc = "Move down" })
 
 -- Nvim's default <C-L> (clear hlsearch + multicursors) is the same keycode as
 -- <C-l>, so LazyVim's "<C-w>l" (Go to Right Window) replaced it. Window nav
--- lives on <C-h/j/k> and Alt+Shift+arrows, so give <C-l> its default back: same rhs as
+-- lives on <C-h/j/k> and Alt+arrows, so give <C-l> its default back: same rhs as
 -- |CTRL-L-default|, which also clears the multicursors.
 local c_l_default = "<Cmd>nohlsearch<Bar>diffupdate<Bar>"
   .. "call nvim_buf_clear_namespace(0, nvim_create_namespace('nvim.multicursor'), 0, -1)"

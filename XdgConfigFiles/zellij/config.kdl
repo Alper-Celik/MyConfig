@@ -203,44 +203,44 @@ keybinds {
         bind "Alt i" "Alt ı" { MoveTab "Left"; }
         bind "Alt o" "Alt Shift ." { MoveTab "Right"; }
         bind "Alt Shift t" { NewTab; }
-        bind "Alt Shift h" "Alt Shift k" "Alt Shift i" "Alt Shift ı" { GoToPreviousTab; }
-        bind "Alt Shift l" "Alt Shift j" "Alt Shift o" { GoToNextTab; }
-        bind "Alt Shift Left" {
+        bind "Alt Shift h" "Alt Shift k" "Alt Shift Left" "Alt Shift Up" "Alt Shift i" "Alt Shift ı" { GoToPreviousTab; }
+        bind "Alt Shift l" "Alt Shift j" "Alt Shift Right" "Alt Shift Down" "Alt Shift o" { GoToNextTab; }
+        bind "Alt Left" {
             MessagePlugin "vim_zellij_navigator" {
                 name "move_focus_or_tab";
                 payload "left";
 
-                move_mod "alt+shift";
+                move_mod "alt";
                 use_arrow_keys "true";
                 niri "true";
             }
         }
-        bind "Alt Shift Right" {
+        bind "Alt Right" {
             MessagePlugin "vim_zellij_navigator" {
                 name "move_focus_or_tab";
                 payload "right";
 
-                move_mod "alt+shift";
+                move_mod "alt";
                 use_arrow_keys "true";
                 niri "true";
             }
         }
-        bind "Alt Shift Down" {
+        bind "Alt Down" {
             MessagePlugin "vim_zellij_navigator" {
                 name "move_focus";
                 payload "down";
 
-                move_mod "alt+shift";
+                move_mod "alt";
                 use_arrow_keys "true";
                 niri "true";
             }
         }
-        bind "Alt Shift Up" {
+        bind "Alt Up" {
             MessagePlugin "vim_zellij_navigator" {
                 name "move_focus";
                 payload "up";
 
-                move_mod "alt+shift";
+                move_mod "alt";
                 use_arrow_keys "true";
                 niri "true";
             }
