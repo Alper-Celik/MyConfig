@@ -2,3 +2,4 @@ result
 .direnv
 .cache
 omp-secrets.draft.yaml
+target
