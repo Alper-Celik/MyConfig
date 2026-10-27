@@ -11,7 +11,7 @@ in
 
 {
   services.tlp.enable = false;
-  services.tuned.enable = true;
+  services.tuned.enable = (hardware != "steamdeck");
   # Jovian owns the scx unit on the deck (services.scx).
   environment.systemPackages = lib.mkIf (hardware != "steamdeck") [ scx ];
 
