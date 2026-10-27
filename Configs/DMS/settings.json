@@ -1,6 +1,6 @@
 {
   "currentThemeName": "custom",
-  "currentThemeCategory": "registry",
+  "currentThemeCategory": "custom",
   "customThemeFile": "/home/alper/.config/dms/themes/oxocarbon/theme.json",
   "registryThemeVariants": {
     "oxocarbon": "pink",
@@ -433,12 +433,12 @@
         },
         {
           "id": "cpuUsage",
-          "enabled": false,
+          "enabled": true,
           "minimumWidth": true
         },
         {
           "id": "network_speed_monitor",
-          "enabled": false
+          "enabled": true
         },
         {
           "id": "separator",
@@ -464,7 +464,7 @@
         "notificationButton",
         {
           "id": "dankscale",
-          "enabled": true
+          "enabled": false
         },
         {
           "id": "controlCenterButton",
@@ -485,9 +485,9 @@
       "barInsetPadding": 4,
       "bottomGap": 0,
       "transparency": 1,
-      "widgetTransparency": 0.33,
+      "widgetTransparency": 0.4,
       "squareCorners": true,
-      "noBackground": true,
+      "noBackground": false,
       "maximizeWidgetIcons": false,
       "maximizeWidgetText": false,
       "widgetPadding": 8,
@@ -500,7 +500,7 @@
       "borderThickness": 1,
       "widgetOutlineEnabled": true,
       "widgetOutlineColor": "surfaceText",
-      "widgetOutlineOpacity": 0.15,
+      "widgetOutlineOpacity": 0.25,
       "widgetOutlineThickness": 1,
       "fontScale": 1,
       "iconScale": 1,
@@ -535,7 +535,7 @@
       "islandHomeClockDisplay": "both",
       "islandHomeCompactTight": true,
       "followInterfaceStyle": true,
-      "widgetFollowInterfaceStyle": false,
+      "widgetFollowInterfaceStyle": true,
       "dot": false,
       "islandNotch": true,
       "hideOnLastDisplay": false,
@@ -549,9 +549,9 @@
       "islandSatelliteBackground": true,
       "islandSatelliteGothCorners": true,
       "islandSatelliteFollowInterfaceStyle": true,
-      "widgetStyle": "pills",
+      "widgetStyle": "segments",
       "islandPalette": "default",
-      "islandHighContrast": false,
+      "islandHighContrast": true,
       "island": true
     },
     {
@@ -858,9 +858,9 @@
     "niri"
   ],
   "osdWorkspaceEnabled": false,
-  "popupTransparency": 0.4,
+  "popupTransparency": 0.3,
   "foregroundLayerTransparency": 0.32,
-  "blurLayerOutlineOpacity": 0.4,
+  "blurLayerOutlineOpacity": 0.12,
   "blurBorderOpacity": 1,
   "blurStrength": 97,
   "blurBorderColor": "primary",
@@ -890,6 +890,9 @@
     },
     "weather": {
       "city": true
+    },
+    "calendar": {
+      "weekends": true
     }
   },
   "audioVisualizerEnabled": true,
@@ -923,5 +926,6 @@
     }
   ],
   "osdAudioOutputEnabled": true,
-  "osdMediaVolumeEnabled": false
+  "osdMediaVolumeEnabled": false,
+  "widgetColorMode": "default"
 }

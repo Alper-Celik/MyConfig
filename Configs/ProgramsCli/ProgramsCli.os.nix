@@ -93,7 +93,7 @@ in
       tealdeer
       man-pages
       man-pages-posix
-      reuse
+      # reuse
 
       gnupg
       openssh
