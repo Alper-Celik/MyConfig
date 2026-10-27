@@ -338,8 +338,8 @@
     }
   ],
   "osdAlwaysShowValue": true,
-  "osdPosition": 7,
-  "osdMediaPlaybackEnabled": true,
+  "osdPosition": 4,
+  "osdMediaPlaybackEnabled": false,
   "osdBrightnessEnabled": true,
   "osdPowerProfileEnabled": true,
   "powerMenuActions": [
@@ -541,7 +541,6 @@
       "hideOnLastDisplay": false,
       "islandMediaClockVisible": true,
       "islandSystemOsd": true,
-      "island": true,
       "islandNotificationExpand": false,
       "islandHoverCloseDelay": 150,
       "islandPlacement": "edge",
@@ -552,7 +551,8 @@
       "islandSatelliteFollowInterfaceStyle": true,
       "widgetStyle": "pills",
       "islandPalette": "default",
-      "islandHighContrast": false
+      "islandHighContrast": false,
+      "island": true
     },
     {
       "id": "dot1792765105379",
@@ -742,7 +742,6 @@
       "hideOnLastDisplay": false,
       "islandMediaClockVisible": true,
       "islandSystemOsd": true,
-      "island": false,
       "islandNotificationExpand": false,
       "islandHoverCloseDelay": 150,
       "islandPlacement": "edge"
@@ -922,5 +921,7 @@
       "w": 3,
       "h": 1
     }
-  ]
+  ],
+  "osdAudioOutputEnabled": true,
+  "osdMediaVolumeEnabled": false
 }

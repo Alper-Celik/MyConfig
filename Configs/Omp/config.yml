@@ -1,8 +1,8 @@
 setupVersion: 2
 modelRoles:
   web: web/exa
-  default: opencode-go/glm-5.3-flash
-  advisor: opencode-go/glm-5.3:auto
+  default: openrouter/z-ai/glm-5.3-flash
+  advisor: openrouter/z-ai/glm-5.3:auto
 defaultThinkingLevel: auto
 bash:
   enabled: true
@@ -92,7 +92,7 @@ bashInterceptor:
 isolation:
   backend: rcopy
 advisor:
-  enabled: true
+  enabled: false
   maxNotesPerUpdate: 5
   syncBacklog: "off"
 theme:
