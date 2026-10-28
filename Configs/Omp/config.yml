@@ -1,7 +1,7 @@
 setupVersion: 2
 modelRoles:
   web: web/exa
-  default: openrouter/z-ai/glm-5.3-flash
+  default: opencode-go/deepseek-v4.1-flash
   advisor: openrouter/z-ai/glm-5.3:auto
 defaultThinkingLevel: auto
 bash:

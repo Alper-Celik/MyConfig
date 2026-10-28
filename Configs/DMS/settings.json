@@ -338,7 +338,7 @@
     }
   ],
   "osdAlwaysShowValue": true,
-  "osdPosition": 4,
+  "osdPosition": 7,
   "osdMediaPlaybackEnabled": false,
   "osdBrightnessEnabled": true,
   "osdPowerProfileEnabled": true,
@@ -379,12 +379,12 @@
           "maxWorkspaceIcons": 5,
           "workspaceAppIconSizeOffset": 5,
           "groupWorkspaceApps": false,
-          "workspaceIndicatorStyle": "lines",
+          "workspaceIndicatorStyle": "pills",
           "workspaceIndicatorCompact": true,
           "workspaceIndicatorRoundness": -1,
           "showWorkspaceIndex": false,
           "showWorkspaceName": false,
-          "showOccupiedWorkspacesOnly": true,
+          "showOccupiedWorkspacesOnly": false,
           "workspaceFocusedBorderEnabled": false,
           "workspaceUnfocusedMonitorSeparateAppearance": false,
           "showWorkspacePadding": false,
@@ -540,7 +540,7 @@
       "islandNotch": true,
       "hideOnLastDisplay": false,
       "islandMediaClockVisible": true,
-      "islandSystemOsd": true,
+      "islandSystemOsd": false,
       "islandNotificationExpand": false,
       "islandHoverCloseDelay": 150,
       "islandPlacement": "edge",
@@ -552,7 +552,8 @@
       "widgetStyle": "segments",
       "islandPalette": "default",
       "islandHighContrast": true,
-      "island": true
+      "island": true,
+      "islandNotificationPopups": true
     },
     {
       "id": "dot1792765105379",
