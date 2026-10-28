@@ -43,6 +43,13 @@
     };
     jovian-NixOS.url = "github:Jovian-Experiments/Jovian-NixOS";
 
+    # MAKO renderer source, pinned by tag. Not a flake; consumed by
+    # my-pkgs/mako-renderer.nix. Bump with `nix flake update mako`.
+    mako = {
+      url = "github:eugeniosegala/MAKO/render-v4.6.0";
+      flake = false;
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -159,7 +166,6 @@
         perSystem =
           {
             config,
-            pkgs,
             system,
             ...
           }:
@@ -187,7 +193,8 @@
 
             packages =
               import ./my-pkgs/my-pkgs.nix {
-                inherit pkgs inputs;
+                pkgs = pkgs-unstable;
+                inherit inputs;
                 my-lib = self.lib;
               }
               // {

@@ -787,6 +787,23 @@
         "url": "ssh://forgejo@git.alper-celik.dev/Alper/macbook-m1-alper-firmware.git"
       }
     },
+    "mako": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792590910,
+        "narHash": "sha256-uXO4/xPbAb60euJD2bNsFHGbqX97eSOJNZU1yAMSj+8=",
+        "owner": "eugeniosegala",
+        "repo": "MAKO",
+        "rev": "c1eea4858984d13d8118b3b0468be5dabce95f92",
+        "type": "github"
+      },
+      "original": {
+        "owner": "eugeniosegala",
+        "ref": "render-v4.6.0",
+        "repo": "MAKO",
+        "type": "github"
+      }
+    },
     "neovim-nightly-overlay": {
       "inputs": {
         "flake-parts": "flake-parts_3",
@@ -1551,6 +1568,7 @@
         "jovian-NixOS": "jovian-NixOS",
         "keyd": "keyd",
         "macbook-m1-alper-firmware": "macbook-m1-alper-firmware",
+        "mako": "mako",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nightfox-nvim": "nightfox-nvim",
         "nix-index-database": "nix-index-database",

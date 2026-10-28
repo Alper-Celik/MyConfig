@@ -1,0 +1,24 @@
+# Plugins to pin into decky-plugins.nix, one per line, by their exact name in
+# the Decky store (https://plugins.deckbrew.xyz/plugins). Entries are pinned to
+# the store's newest published version, i.e. exactly what the in-game store
+# would install; the updater records the artifact hash and the plugin directory
+# name from the zip.
+#
+# After editing, run ./update-decky-plugins.py (or `just update-decky`).
+HLTB for Deck
+SteamGridDB
+Quick Launch
+Tailscale Control
+PlayTime
+ProtonDB Badges
+TabMaster
+PlayCount
+Decky Localsend
+Speed Test
+Music Control
+Wine Cellar
+Free Loader
+MangoPeel
+Steamback
+vibrantDeck
+CSS Loader

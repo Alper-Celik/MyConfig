@@ -109,6 +109,7 @@ in
 
       # devenv
       deploy-rs
+      just
 
       bat
       tree
