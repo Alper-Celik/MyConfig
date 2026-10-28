@@ -6,6 +6,11 @@
 {
   imports = [ inputs.jovian-NixOS.nixosModules.default ];
 
+  # Jovian's SteamOS defaults turn on systemd-oomd; earlyoom is already running
+  # from the same place. One killer, one policy: earlyoom picks the fattest
+  # process (and nix-daemon carries OOMScoreAdjust=1000, so builds go first).
+  systemd.oomd.enable = lib.mkForce false;
+
   jovian = {
     devices.steamdeck.enable = true;
     steam = {
