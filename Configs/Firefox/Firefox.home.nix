@@ -21,6 +21,13 @@
     package = pkgs.firefox-bin;
     profiles."ev95osw2.default" = {
       isDefault = true;
+      # This machine swaps hard: unload background tabs under memory pressure,
+      # and use fewer content processes than the default 8 — each one costs a
+      # baseline 100-200 MB before it holds a single tab.
+      settings = {
+        "browser.tabs.unloadOnLowMemory" = true;
+        "dom.ipc.processCount" = 4;
+      };
       # settings = {
       #   "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       #   "browser.tabs.inTitlebar" = 0;
