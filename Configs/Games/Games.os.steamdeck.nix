@@ -24,6 +24,7 @@ let
   kdeQmlDirs = lib.concatStringsSep ":" [
     "${pkgs.kdePackages.kirigami.unwrapped}/lib/qt-6/qml"
     "${pkgs.kdePackages.qqc2-desktop-style}/lib/qt-6/qml"
+    "${pkgs.kdePackages.sonnet}/lib/qt-6/qml"
   ];
 
   # Pinned by ./update-decky-plugins.py from decky-plugins.txt: the exact
