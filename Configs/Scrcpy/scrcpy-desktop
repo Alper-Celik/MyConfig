@@ -1,0 +1,1118 @@
+#!/usr/bin/env python3
+"""Desktop entries + launcher for connected adb devices, scrcpy-flavoured.
+
+Entries are generated into $XDG_DATA_HOME/scrcpy-desktop/applications and only then
+symlinked into $XDG_DATA_HOME/applications (or $SCRCPY_DESKTOP_DIR), all-or-nothing per
+device: a device shows up once every app label/icon is cached.
+
+  <device> — Mirror                 scrcpy-desktop mirror "<name>"
+  <device> — <app>                  run-app "<name>" <pkg>     (new display + --start-app)
+  <device> — Camera <id> (<facing>) scrcpy-desktop camera "<name>" <id>  (v4l2loopback + preview)
+
+Entries only reference these wrappers, so editing SETTINGS["flags"] never needs a resync.
+Disconnected devices, uninstalled apps and stale entries are swept on every reconcile.
+
+Usage:
+  scrcpy-desktop watch          follow adb device changes and reconcile
+  scrcpy-desktop reconcile      reconcile once (pulls missing app labels/icons)
+  scrcpy-desktop devices        device labels, one per line
+  scrcpy-desktop apps D         app packages of a device, one per line
+  scrcpy-desktop mirror D       mirror the main display
+  scrcpy-desktop camera D ID    claim a v4l2loopback device, run scrcpy on a camera
+  scrcpy-desktop app D PKG      run an app on a new virtual display
+
+`<D>` is the device's Android name ("Alper's Tab A"), lowercased to "alper-s-tab-a", or its
+model/serial; it is resolved against the devices adb currently sees, so entries survive
+IP/port changes.
+"""
+
+from __future__ import annotations
+
+import fcntl
+import json
+import os
+import pathlib
+import queue
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+import threading
+import time
+from concurrent.futures import ThreadPoolExecutor
+import unicodedata
+import zipfile
+from typing import NamedTuple
+
+import adbutils
+
+# --------------------------------------------------------------------------- settings
+
+SETTINGS = {
+    # scrcpy arguments; entries are regenerated on every reconcile
+    "flags": {
+        "common": ["--window-borderless"],  # applied to every invocation
+        "mirror": [],
+        "app": ["--new-display", "--flex-display"],
+        "camera": ["--no-audio"],
+    },
+    # one entry per device camera, piped to a v4l2loopback device
+    "cameras": True,
+    # which device apps get an entry
+    "apps": {
+        "third_party": True,  # pm list packages -3 (false: every package)
+        "include": [],  # packages always offered, e.g. ["com.android.settings"]
+        "exclude": [],  # packages never offered
+    },
+    # pull app label + launcher icon out of each APK (cached in $XDG_CACHE_HOME/scrcpy-desktop)
+    "metadata": True,
+    # desktop notification on device connect/remove and on "entries ready"
+    "notifications": True,
+    # transport policy: adb-over-TCP only while associated with one of "ssids"; otherwise USB.
+    "network": {
+        "ssids": ["AlperNet", "AlperNet 2.4 GHZ"],  # adb-over-TCP only on these; otherwise USB
+        "addresses": {},  # normalized device name -> host[:port], for networks without mDNS
+        "port": 5555,  # port appended to addresses given without one
+    },
+}
+
+PREFIX = "scrcpy-adb-"
+CAMERA_RE = re.compile(r"--camera-id=(\d+)\s+\((\w+)")
+CAMERA_RETRY_SECONDS = 60
+METADATA_ATTEMPTS = 3
+
+_cache_lock = threading.Lock()
+
+
+def log(message: str) -> None:
+    print(f"scrcpy-desktop: {message}", file=sys.stderr, flush=True)
+
+
+class Notifier:
+    """org.freedesktop.Notifications over the session bus, no shell-outs."""
+
+    BUS = "org.freedesktop.Notifications"
+    PATH = "/org/freedesktop/Notifications"
+    APP = "scrcpy-desktop"
+
+    def __init__(self) -> None:
+        self._interface = None
+        self._resolved = False
+
+    def _iface(self):
+        if self._resolved:
+            return self._interface
+        self._resolved = True
+        if not SETTINGS["notifications"]:
+            return None
+        try:
+            import dbus
+
+            bus = dbus.SessionBus()
+            self._interface = dbus.Interface(bus.get_object(self.BUS, self.PATH), self.BUS)
+        except Exception as exc:  # noqa: BLE001 - no session bus, no daemon, no dbus module
+            log(f"notifications unavailable: {exc}")
+            self._interface = None
+        return self._interface
+
+    def notify(
+        self, summary: str, body: str, replaces: int | None = None, timeout: int = 5000
+    ) -> int | None:
+        iface = self._iface()
+        if iface is None:
+            return None
+        try:
+            import dbus
+
+            return int(
+                iface.Notify(
+                    self.APP,
+                    dbus.UInt32(replaces or 0),
+                    "",
+                    summary,
+                    body,
+                    [],
+                    {},
+                    dbus.Int32(timeout),
+                )
+            )
+        except Exception as exc:  # noqa: BLE001 - daemon may have died mid-session
+            log(f"notification failed: {exc}")
+            return None
+
+    def close(self, notification_id: int | None) -> None:
+        if notification_id is None:
+            return
+        iface = self._iface()
+        if iface is None:
+            return
+        try:
+            import dbus
+
+            iface.CloseNotification(dbus.UInt32(notification_id))
+        except Exception:  # noqa: BLE001 - already withdrawn
+            pass
+
+
+NOTIFIER = Notifier()
+
+
+def notify(title: str, body: str, timeout: int = 5000) -> None:
+    NOTIFIER.notify(title, body, timeout=timeout)
+
+
+# --------------------------------------------------------------------------- paths
+
+
+def data_home() -> pathlib.Path:
+    return pathlib.Path(os.environ.get("XDG_DATA_HOME") or pathlib.Path.home() / ".local" / "share")
+
+
+def applications_dir() -> pathlib.Path:
+    override = os.environ.get("SCRCPY_DESKTOP_DIR")
+    if override:
+        return pathlib.Path(override)
+    return data_home() / "applications"
+
+
+def staging_dir() -> pathlib.Path:
+    return data_home() / "scrcpy-desktop" / "applications"
+
+
+def icons_dir() -> pathlib.Path:
+    """freedesktop icon theme dir, so `Icon=<name>` resolves in every launcher."""
+    return data_home() / "icons" / "hicolor" / "256x256" / "apps"
+
+
+def icon_name(package: str) -> str:
+    return f"scrcpy-adb-{slugify(package)}"
+
+
+def theme_icon(package: str, meta: dict) -> str | None:
+    """Icon theme name for a package, migrating pre-theme icons in place."""
+    name = icon_name(package)
+    target = icons_dir() / f"{name}.png"
+    if target.exists():
+        return name
+    cached = meta.get("icon")
+    if not cached:
+        return None
+    source = pathlib.Path(str(cached))
+    if not source.exists():
+        return None
+    target.parent.mkdir(parents=True, exist_ok=True)
+    os.replace(source, target)
+    return name
+
+
+def cache_path() -> pathlib.Path:
+    base = os.environ.get("XDG_CACHE_HOME") or pathlib.Path.home() / ".cache"
+    return pathlib.Path(base) / "scrcpy-desktop" / "apps.json"
+
+
+# --------------------------------------------------------------------------- helpers
+
+
+def normalize(value: str) -> str:
+    """ascii lowercase; anything not [a-z0-9] collapses into a single '-'."""
+    folded = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode()
+    return re.sub(r"[^a-z0-9]+", "-", folded.lower()).strip("-")
+
+
+def slugify(value: str) -> str:
+    return re.sub(r"[^A-Za-z0-9._-]+", "-", value).strip("-") or "x"
+
+
+def exec_arg(arg: str) -> str:
+    if arg and not any(ch in arg for ch in ' \t\n"\'\\><~|&;$*?#()`'):
+        return arg
+    escaped = arg.replace("\\", "\\\\").replace('"', '\\"').replace("`", "\\`").replace("$", "\\$")
+    return f'"{escaped}"'
+
+
+def desktop_entry(name: str, comment: str, argv: list[str], icon: str = "scrcpy") -> str:
+    return "\n".join(
+        [
+            "[Desktop Entry]",
+            "Type=Application",
+            f"Name={name}",
+            f"Comment={comment}",
+            f"Exec={' '.join(exec_arg(a) for a in argv)}",
+            f"Icon={icon}",
+            "Terminal=false",
+            "StartupNotify=false",
+            "Categories=Utility;",
+            "",
+        ]
+    )
+
+
+def write_file(path: pathlib.Path, content: str) -> None:
+    tmp = path.with_name(f".{path.name}.tmp")
+    tmp.write_text(content)
+    os.chmod(tmp, 0o644)
+    os.replace(tmp, path)
+
+
+def _read_cache() -> dict:
+    try:
+        return json.loads(cache_path().read_text())
+    except (FileNotFoundError, OSError, json.JSONDecodeError):
+        return {}
+
+
+def _write_cache(cache: dict) -> None:
+    cache_path().parent.mkdir(parents=True, exist_ok=True)
+    tmp = cache_path().with_suffix(".tmp")
+    tmp.write_text(json.dumps(cache, indent=1, sort_keys=True))
+    os.replace(tmp, cache_path())
+
+
+def load_cache() -> dict:
+    with _cache_lock:
+        return _read_cache()
+
+
+def update_cache(package: str, meta: dict) -> None:
+    with _cache_lock:
+        cache = _read_cache()
+        cache[package] = meta
+        _write_cache(cache)
+
+
+def save_cache(cache: dict) -> None:
+    with _cache_lock:
+        _write_cache(cache)
+
+
+# --------------------------------------------------------------------------- network
+
+
+_ssid_cache: dict[str, object] = {"at": 0.0, "ssid": None}
+
+
+def current_ssid() -> str | None:
+    """SSID of the active Wi-Fi connection, via NetworkManager."""
+    try:
+        result = subprocess.run(
+            ["nmcli", "-t", "-f", "ACTIVE,SSID", "device", "wifi"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    for line in result.stdout.splitlines():
+        active, _, ssid = line.partition(":")
+        if active == "yes" and ssid:
+            return ssid.replace("\\:", ":").replace("\\\\", "\\")
+    return None
+
+
+def network_enabled() -> bool:
+    """True while on one of the SSIDs that allow the network transport."""
+    allowed = {ssid.casefold() for ssid in SETTINGS["network"]["ssids"]}
+    if not allowed:
+        return False
+    now = time.monotonic()
+    if now - float(_ssid_cache["at"]) > 10:
+        _ssid_cache.update(at=now, ssid=current_ssid())
+    ssid = _ssid_cache["ssid"]
+    return bool(ssid) and str(ssid).casefold() in allowed
+
+
+def mdns_candidates() -> list[str]:
+    """adb tls-connect endpoints advertised over mDNS (avahi)."""
+    try:
+        result = subprocess.run(
+            ["avahi-browse", "-rpt", "_adb-tls-connect._tcp"],
+            capture_output=True,
+            text=True,
+            timeout=10,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return []
+    found = []
+    for line in result.stdout.splitlines():
+        fields = line.split(";")
+        # =;iface;proto;name;type;domain;host;address;port;txt
+        if not line.startswith("=") or len(fields) < 9:
+            continue
+        address, port = fields[7], fields[8]
+        if address:
+            found.append(f"{address}:{port}" if port else address)
+    return found
+
+
+def network_addresses() -> list[str]:
+    network = SETTINGS["network"]
+    port = str(network.get("port") or 5555)
+    configured = [
+        addr if ":" in addr else f"{addr}:{port}" for addr in (network.get("addresses") or {}).values()
+    ]
+    return list(dict.fromkeys(configured + mdns_candidates()))
+
+
+def connect_network() -> None:
+    """Establish adb-over-TCP for the configured addresses, when the SSID allows it."""
+    if not network_enabled():
+        return
+    known = {device.serial for device in adbutils.adb.device_list()}
+    for address in network_addresses():
+        if address in known:
+            continue
+        try:
+            subprocess.run(["adb", "connect", address], capture_output=True, text=True, timeout=15)
+        except (OSError, subprocess.TimeoutExpired):
+            continue
+
+
+# --------------------------------------------------------------------------- devices
+
+
+class Device(NamedTuple):
+    serial: str
+    model: str
+    name: str
+
+    @property
+    def label(self) -> str:
+        return normalize(self.name) or normalize(self.model) or normalize(self.serial) or "device"
+
+
+def device_name(dev: adbutils.AdbDevice) -> str:
+    """User-visible Android device name ("Alper's Tab A"), independent of host:port."""
+    for command in (["settings", "get", "global", "device_name"], ["getprop", "net.hostname"]):
+        try:
+            value = (dev.shell(command) or "").strip()
+        except Exception:  # noqa: BLE001 - adb errors are opaque
+            value = ""
+        if value and value.lower() not in ("null", "unknown"):
+            return value
+    return ""
+
+
+def physical_serial(serial: str) -> str:
+    """Hardware serial shared by every transport of the same physical device."""
+    try:
+        return (adbutils.adb.device(serial).shell(["getprop", "ro.serialno"]) or "").strip() or serial
+    except Exception:  # noqa: BLE001 - adb errors are opaque
+        return serial
+
+
+def devices() -> list[Device]:
+    """Every device adb reports as ready, one entry per physical device."""
+    connect_network()
+    result = []
+    for device in adbutils.adb.device_list():
+        if device.info.get("state") != "device":
+            continue
+        try:
+            model = device.prop.model
+        except Exception:  # noqa: BLE001 - adb errors are opaque
+            model = ""
+        result.append(Device(device.serial, model, device_name(device)))
+
+    if len(result) < 2:
+        return result
+
+    # same device over USB and TCP: keep the transport the SSID policy asks for
+    prefer_tcp = network_enabled()
+    picked: dict[str, Device] = {}
+    for device in result:
+        key = physical_serial(device.serial)
+        current = picked.get(key)
+        preferred = ("tcp" if prefer_tcp else "usb") == ("tcp" if ":" in device.serial else "usb")
+        if current is None or preferred:
+            picked[key] = device
+    return list(picked.values())
+
+
+def device_labels(found: list[Device]) -> dict[str, str]:
+    """serial -> label; devices sharing a label get the serial appended."""
+    counts: dict[str, int] = {}
+    for device in found:
+        counts[device.label] = counts.get(device.label, 0) + 1
+    return {
+        d.serial: (f"{d.label}-{normalize(d.serial)}" if counts[d.label] > 1 else d.label) for d in found
+    }
+
+
+def match_keys(device: Device, label: str) -> set[str]:
+    keys = {device.serial, device.model, device.name, label}
+    return {key for value in list(keys) for key in (value, normalize(value)) if key}
+
+
+def resolve_device(selector: str) -> Device:
+    found = devices()
+    labels = device_labels(found)
+    keys = {d.serial: match_keys(d, labels[d.serial]) for d in found}
+    needle = normalize(selector)
+
+    for device in found:
+        if selector in keys[device.serial] or (needle and needle in keys[device.serial]):
+            return device
+
+    folded = selector.casefold()
+    matches = [d for d in found if any(folded in k.casefold() for k in keys[d.serial])]
+    if len(matches) == 1:
+        return matches[0]
+    if not matches:
+        raise SystemExit(f"no such device: {selector}")
+    raise SystemExit(f"ambiguous device {selector!r}: {', '.join(labels[d.serial] for d in matches)}")
+
+
+# --------------------------------------------------------------------------- cameras
+
+
+class CameraLister:
+    """`scrcpy --list-cameras` cache: one round trip per device, retried on failure."""
+
+    def __init__(self) -> None:
+        self._cache: dict[str, list[tuple[str, str]]] = {}
+        self._retry_at: dict[str, float] = {}
+
+    def __call__(self, serial: str) -> list[tuple[str, str]] | None:
+        if serial in self._cache:
+            return self._cache[serial]
+        if self._retry_at.get(serial, 0) > time.monotonic():
+            return None
+        try:
+            result = subprocess.run(
+                ["scrcpy", f"--serial={serial}", "--list-cameras"],
+                capture_output=True,
+                text=True,
+                timeout=120,
+            )
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            log(f"camera listing failed for {serial}: {exc}")
+            self._retry_at[serial] = time.monotonic() + CAMERA_RETRY_SECONDS
+            return None
+        cameras = CAMERA_RE.findall(result.stdout + result.stderr)
+        if not cameras:
+            log(f"no cameras listed for {serial}")
+            self._retry_at[serial] = time.monotonic() + CAMERA_RETRY_SECONDS
+            return None
+        self._cache[serial] = cameras
+        return cameras
+
+    def forget_missing(self, connected: set[str]) -> None:
+        for serial in list(self._cache):
+            if serial not in connected:
+                del self._cache[serial]
+                self._retry_at.pop(serial, None)
+
+
+# --------------------------------------------------------------------------- apps
+
+
+def device_apps(serial: str) -> list[str]:
+    settings = SETTINGS["apps"]
+    device = adbutils.adb.device(serial)
+    command = ["pm", "list", "packages"] + (["-3"] if settings["third_party"] else [])
+    output = device.shell(command) or ""
+    packages = {
+        line.split("package:")[-1].strip() for line in output.splitlines() if line.startswith("package:")
+    }
+    packages.update(settings["include"])
+    return sorted(packages - set(settings["exclude"]))
+
+
+def apk_paths(serial: str, package: str) -> list[str]:
+    output = adbutils.adb.device(serial).shell(["pm", "path", package]) or ""
+    return [line.split("package:")[-1].strip() for line in output.splitlines() if line.startswith("package:")]
+
+
+DENSITY_SPLIT_RE = re.compile(r"split_config\.(ldpi|mdpi|hdpi|xhdpi|xxhdpi|xxxhdpi)\.apk$")
+ICON_DPI = (640, 480, 320, 240, 160, 0)
+
+
+def apk_stamp(serial: str, package: str) -> tuple[str, list[str]]:
+    """Cheap change fingerprint of a package's base APK, plus all of its apk paths."""
+    paths = apk_paths(serial, package)
+    if not paths:
+        return "", paths
+    base = next((p for p in paths if p.endswith("base.apk")), paths[0])
+    stat = adbutils.adb.device(serial).shell(["stat", "-c", "%s:%Y", base]) or ""
+    return f"{base}:{stat.strip()}", paths
+
+
+def pull_apks(serial: str, paths: list[str], directory: pathlib.Path) -> list[pathlib.Path]:
+    device = adbutils.adb.device(serial)
+    local = []
+    for path in paths:
+        target = directory / pathlib.Path(path).name
+        device.sync.pull(path, str(target))
+        local.append(target)
+    return local
+
+
+def apk_label(apk: pathlib.Path, package: str) -> str:
+    try:
+        from loguru import logger
+
+        logger.remove()
+    except ImportError:
+        pass
+    try:
+        from androguard.core.apk import APK
+
+        return APK(str(apk)).get_app_name() or package
+    except Exception as exc:  # noqa: BLE001 - malformed/obfuscated APKs
+        log(f"label extraction failed for {package}: {exc}")
+        return package
+
+
+def apk_icon(apks: list[pathlib.Path]) -> bytes | None:
+    """Launcher icon from base + density splits: manifest reference first, then raster scan."""
+    archives: list[zipfile.ZipFile] = []
+    try:
+        for apk in apks:
+            try:
+                archives.append(zipfile.ZipFile(apk))
+            except (zipfile.BadZipFile, OSError):
+                continue
+        if not archives:
+            return None
+        try:
+            from androguard.core.apk import APK
+
+            parser = APK(str(apks[0]))
+            for dpi in ICON_DPI:
+                ref = parser.get_app_icon(max_dpi=dpi)
+                if not ref or ref.endswith(".xml"):
+                    continue
+                for archive in archives:
+                    if ref in archive.namelist():
+                        return archive.read(ref)
+        except Exception:  # noqa: BLE001 - unparsable manifest/resources
+            pass
+        best: tuple[int, bytes] | None = None
+        for archive in archives:
+            for info in archive.infolist():
+                name = info.filename
+                if not name.startswith("res/") or not name.endswith((".png", ".webp", ".jpg", ".jpeg")):
+                    continue
+                if "launcher" not in name.lower():
+                    continue
+                if best is None or info.file_size > best[0]:
+                    best = (info.file_size, archive.read(info))
+        return best[1] if best else None
+    finally:
+        for archive in archives:
+            archive.close()
+
+
+def save_icon(package: str, data: bytes) -> str | None:
+    target = icons_dir() / f"{icon_name(package)}.png"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        if data.startswith(b"\x89PNG"):
+            target.write_bytes(data)
+        else:
+            from io import BytesIO
+
+            from PIL import Image
+
+            Image.open(BytesIO(data)).convert("RGBA").save(target, "PNG")
+    except Exception as exc:  # noqa: BLE001 - undecodable formats
+        log(f"icon conversion failed for {package}: {exc}")
+        return None
+    return str(target)
+
+
+def app_metadata(serial: str, package: str) -> dict:
+    """Label + icon for a package, read from its APK."""
+    stamp, paths = apk_stamp(serial, package)
+    meta: dict[str, object] = {"stamp": stamp, "fetched": True, "label": package}
+    if not paths:
+        return meta
+    base = next((p for p in paths if p.endswith("base.apk")), paths[0])
+    with tempfile.TemporaryDirectory(prefix="scrcpy-desktop-") as tmp:
+        directory = pathlib.Path(tmp)
+        local = pull_apks(serial, [base], directory)
+        meta["label"] = apk_label(local[0], package)
+        icon = apk_icon(local)
+        if icon is None:
+            splits = [p for p in paths if DENSITY_SPLIT_RE.search(p)]
+            if splits:
+                icon = apk_icon(local + pull_apks(serial, splits, directory))
+        if icon:
+            icon_path = save_icon(package, icon)
+            if icon_path:
+                meta["icon"] = icon_path
+    return meta
+
+
+# --------------------------------------------------------------------------- metadata worker
+
+
+class MetadataWorker:
+    """Parallel APK fetcher: queued packages, deduplicated, N pulls at a time."""
+
+    workers = 4
+
+    def __init__(self, dirty: threading.Event) -> None:
+        self._queue: queue.Queue[tuple[str, str]] = queue.Queue()
+        self._queued: set[tuple[str, str]] = set()
+        self._attempts: dict[tuple[str, str], int] = {}
+        self._lock = threading.Lock()
+        self._dirty = dirty
+        self._pool = ThreadPoolExecutor(max_workers=self.workers, thread_name_prefix="scrcpy-meta")
+
+    def start(self) -> None:
+        threading.Thread(target=self._dispatch, name="scrcpy-dispatch", daemon=True).start()
+
+    def put(self, serial: str, package: str) -> None:
+        key = (serial, package)
+        with self._lock:
+            if key in self._queued:
+                return
+            self._queued.add(key)
+        self._queue.put(key)
+
+    def _dispatch(self) -> None:
+        while True:
+            key = self._queue.get()
+            self._pool.submit(self._fetch, key)
+
+    def _fetch(self, key: tuple[str, str]) -> None:
+        serial, package = key
+        try:
+            meta = app_metadata(serial, package)
+        except Exception as exc:  # noqa: BLE001 - device may vanish mid-pull
+            with self._lock:
+                self._attempts[key] = self._attempts.get(key, 0) + 1
+                give_up = self._attempts[key] >= METADATA_ATTEMPTS
+            log(f"metadata failed for {package}: {exc}" + (" (giving up)" if give_up else ""))
+            if give_up:
+                update_cache(package, {"fetched": True, "label": package})
+        else:
+            update_cache(package, meta)
+        finally:
+            with self._lock:
+                self._queued.discard(key)
+            self._dirty.set()
+
+
+# --------------------------------------------------------------------------- publish
+
+
+def app_entry(spec: dict[str, str], meta: dict) -> str:
+    label = meta.get("label") or spec["package"]
+    name = f"{spec['title']} — {label}"
+    return desktop_entry(
+        name,
+        f"{spec['package']} on a new virtual display (scrcpy)",
+        ["run-app", spec["selector"], spec["package"]],
+        icon=theme_icon(spec["package"], meta) or "scrcpy",
+    )
+
+
+def publish(slug: str, entries: dict[str, str]) -> int:
+    """Write entries to the staging dir, then expose them as symlinks (all-or-nothing)."""
+    staging = staging_dir()
+    staging.mkdir(parents=True, exist_ok=True)
+    live = applications_dir()
+    live.mkdir(parents=True, exist_ok=True)
+
+    for name, content in entries.items():
+        target = staging / name
+        if not target.exists() or target.read_text() != content:
+            write_file(target, content)
+        link = live / name
+        if link.is_symlink() and os.readlink(link) == str(target):
+            continue
+        tmp = live / f".{name}.tmp"
+        tmp.unlink(missing_ok=True)
+        os.symlink(target, tmp)
+        os.replace(tmp, link)
+
+    for path in live.glob(f"{PREFIX}{slug}-*.desktop"):
+        if path.name not in entries:
+            path.unlink(missing_ok=True)
+    for path in staging.glob(f"{PREFIX}{slug}-*.desktop"):
+        if path.name not in entries:
+            path.unlink(missing_ok=True)
+    if not any(True for _ in staging.glob(f"{PREFIX}{slug}-*.desktop")):
+        try:
+            staging.rmdir()
+        except OSError:
+            pass
+    return len(entries)
+
+
+# --------------------------------------------------------------------------- reconcile
+
+
+def device_entries(
+    device: Device, title: str, cameras: CameraLister | None
+) -> tuple[dict[str, str], list[str], bool]:
+    """(entries, packages awaiting metadata, ready) for one device."""
+    serial = device.serial
+    selector = title
+    slug = slugify(title)
+    if not any(ch.isalnum() for ch in slug):
+        slug = slugify(serial)
+
+    entries = {
+        f"{PREFIX}{slug}-mirror.desktop": desktop_entry(
+            f"{title} — Mirror",
+            "Mirror the device's main display (scrcpy)",
+            ["scrcpy-desktop", "mirror", selector],
+        )
+    }
+
+    ready = True
+    if SETTINGS["cameras"] and cameras is not None:
+        listed = cameras(serial)
+        if listed is None:
+            ready = False
+        else:
+            for camera_id, facing in listed:
+                entries[f"{PREFIX}{slug}-camera-{camera_id}.desktop"] = desktop_entry(
+                    f"{title} — Camera {camera_id} ({facing})",
+                    f"Device camera {camera_id} on a v4l2loopback device, with preview (scrcpy)",
+                    ["scrcpy-desktop", "camera", selector, camera_id],
+                )
+
+    try:
+        packages = device_apps(serial)
+    except Exception as exc:  # noqa: BLE001 - device may vanish mid-scan
+        log(f"app listing failed for {serial}: {exc}")
+        return entries, [], False
+
+    cache = load_cache()
+    pending = []
+    for package in packages:
+        meta = cache.get(package, {})
+        if SETTINGS["metadata"] and not meta.get("fetched"):
+            pending.append(package)
+            ready = False
+        entries[f"{PREFIX}{slug}-app-{slugify(package)}.desktop"] = app_entry(
+            {"serial": serial, "selector": selector, "package": package, "title": title}, meta
+        )
+    return entries, pending, ready
+
+
+def device_slug(device: Device, title: str) -> str:
+    slug = slugify(title)
+    return slug if any(ch.isalnum() for ch in slug) else slugify(device.serial)
+
+
+def sweep(directory: pathlib.Path, kept: set[str]) -> None:
+    if not directory.exists():
+        return
+    for path in directory.glob(f"{PREFIX}*.desktop"):
+        if not any(path.name.startswith(f"{PREFIX}{slug}-") for slug in kept):
+            path.unlink(missing_ok=True)
+
+
+def reconcile(cameras: CameraLister | None = None, worker: MetadataWorker | None = None):
+    """Regenerate entries. Returns (labels up, labels newly published, labels gone)."""
+    found = devices()
+    labels = device_labels(found)
+    slugs = {device_slug(device, labels[device.serial]) for device in found}
+
+    published: list[str] = []
+    for device in found:
+        title = labels[device.serial]
+        entries, pending, ready = device_entries(device, title, cameras)
+        if pending and worker is None:
+            for package in pending:
+                try:
+                    update_cache(package, app_metadata(device.serial, package))
+                except Exception as exc:  # noqa: BLE001 - device may vanish mid-pull
+                    log(f"metadata failed for {package}: {exc}")
+                    update_cache(package, {"fetched": True, "label": package})
+            entries, pending, ready = device_entries(device, title, cameras)
+        for package in pending:
+            if worker is not None:
+                worker.put(device.serial, package)
+        if not ready:
+            log(f"{title}: waiting for metadata ({len(pending)} apps)")
+            continue
+        publish(device_slug(device, title), entries)
+        published.append(title)
+
+    sweep(applications_dir(), slugs)
+    sweep(staging_dir(), slugs)
+    return labels, published, slugs
+
+
+# --------------------------------------------------------------------------- v4l2
+
+
+def v4l2_candidates() -> list[pathlib.Path]:
+    found = []
+    for node in sorted(pathlib.Path("/sys/class/video4linux").glob("video*")):
+        try:
+            sys_path = node.resolve()
+        except OSError:
+            continue
+        # v4l2loopback devices are virtual; USB/webcam devices live under /sys/devices/pci…
+        if "/devices/virtual/video4linux/" not in str(sys_path):
+            continue
+        device = pathlib.Path("/dev") / node.name
+        if device.exists():
+            found.append(device)
+    return found
+
+
+def opened_elsewhere(device: pathlib.Path) -> bool:
+    target = str(device)
+    me = os.getpid()
+    for fd in pathlib.Path("/proc").glob("[0-9]*/fd/*"):
+        if fd.parts[2] == str(me):
+            continue
+        try:
+            if os.readlink(fd) == target:
+                return True
+        except OSError:
+            continue
+    return False
+
+
+def claim_loopback() -> tuple[pathlib.Path | None, int | None]:
+    for device in v4l2_candidates():
+        if opened_elsewhere(device):
+            continue
+        try:
+            fd = os.open(device, os.O_RDWR | os.O_NONBLOCK)
+        except OSError:
+            continue
+        try:
+            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError:
+            os.close(fd)
+            continue
+        # the lock lives on this file description, so it holds for as long as scrcpy runs
+        os.set_inheritable(fd, True)
+        return device, fd
+    return None, None
+
+
+# --------------------------------------------------------------------------- runners
+
+
+def scrcpy_argv(serial: str, *flags: str) -> list[str]:
+    return ["scrcpy", f"--serial={serial}", *SETTINGS["flags"]["common"], *flags]
+
+
+def launch(argv: list[str], title: str, env: dict[str, str] | None = None) -> int:
+    """Run scrcpy as a child so it can be reported on: pending → closed or replaced."""
+    pending = NOTIFIER.notify(f"Connecting — {title}", "starting scrcpy…", timeout=0)
+    try:
+        process = subprocess.Popen(argv, env=env or os.environ)
+    except OSError as exc:
+        NOTIFIER.notify("scrcpy failed to start", f"{title}: {exc}", replaces=pending)
+        return 127
+
+    done = threading.Event()
+
+    def close_when_running() -> None:
+        # the "Connecting" bubble is only useful until the window shows up
+        if not done.wait(3.0):
+            NOTIFIER.close(pending)
+
+    threading.Thread(target=close_when_running, daemon=True).start()
+    code = process.wait()
+    done.set()
+
+    if code == 0:
+        NOTIFIER.close(pending)
+    elif code == 2:
+        NOTIFIER.notify("Device disconnected", f"{title}: scrcpy session ended", replaces=pending)
+    else:
+        NOTIFIER.notify("scrcpy failed", f"{title}: exit code {code}", replaces=pending)
+    return code
+
+
+def run_mirror(selector: str) -> int:
+    device = resolve_device(selector)
+    argv = scrcpy_argv(
+        device.serial,
+        *SETTINGS["flags"]["mirror"],
+        f"--window-title={device.label}",
+    )
+    return launch(argv, device.label)
+
+
+def run_camera(selector: str, camera_id: str) -> int:
+    device = resolve_device(selector)
+    loopback, _fd = claim_loopback()
+    if loopback is None:
+        message = "no free v4l2loopback device (v4l2loopback devices=… too small?)"
+        log(message)
+        notify("scrcpy camera", message)
+        return 1
+    argv = scrcpy_argv(
+        device.serial,
+        f"--camera-id={camera_id}",
+        *SETTINGS["flags"]["camera"],
+        f"--v4l2-sink={loopback}",
+        f"--window-title={device.label} — Camera {camera_id}",
+    )
+    return launch(argv, f"{device.label} — Camera {camera_id}")
+
+
+def window_icon_env(package: str) -> dict[str, str]:
+    """SCRCPY_ICON_DIR expects scrcpy.png (and disconnected.png) in a directory."""
+    source = icons_dir() / f"{icon_name(package)}.png"
+    if not source.exists():
+        return {}
+    target = data_home() / "scrcpy-desktop" / "window-icons" / icon_name(package)
+    target.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(source, target / "scrcpy.png")
+    system = pathlib.Path("/run/current-system/sw/share/icons/hicolor/256x256/apps/disconnected.png")
+    if system.exists():
+        shutil.copyfile(system, target / "disconnected.png")
+    return {"SCRCPY_ICON_DIR": str(target)}
+
+
+def run_app(selector: str, package: str) -> int:
+    device = resolve_device(selector)
+    package = resolve_app(device.serial, package)
+    label = load_cache().get(package, {}).get("label", package)
+    argv = scrcpy_argv(
+        device.serial,
+        *SETTINGS["flags"]["app"],
+        f"--start-app={package}",
+        f"--window-title={device.label} — {label}",
+    )
+    return launch(argv, f"{device.label} — {label}", os.environ | window_icon_env(package))
+
+
+# --------------------------------------------------------------------------- run-app
+
+
+def print_devices() -> int:
+    found = devices()
+    labels = device_labels(found)
+    print("\n".join(labels[d.serial] for d in found))
+    return 0
+
+
+def print_apps(selector: str) -> int:
+    print("\n".join(device_apps(resolve_device(selector).serial)))
+    return 0
+
+
+def resolve_app(serial: str, selector: str) -> str:
+    packages = device_apps(serial)
+    if selector in packages:
+        return selector
+    needle = selector.casefold()
+    matches = [p for p in packages if needle in p.casefold()]
+    if len(matches) == 1:
+        return matches[0]
+    if not matches:
+        raise SystemExit(f"no app matching {selector!r} on {serial}")
+    raise SystemExit(f"ambiguous app {selector!r}: {', '.join(matches)}")
+
+
+def cli_run_app(args: list[str]) -> int:
+    if not args:
+        return print_devices()
+    if len(args) == 1:
+        return print_apps(args[0])
+    return run_app(args[0], args[1])
+
+
+# --------------------------------------------------------------------------- watch
+
+
+class DeviceWatcher(threading.Thread):
+    """adb host:track-devices in a thread, so the main loop can also react to metadata."""
+
+    def __init__(self, events: queue.Queue[None]) -> None:
+        super().__init__(name="scrcpy-devices", daemon=True)
+        self._events = events
+
+    def run(self) -> None:
+        while True:
+            try:
+                for _event in adbutils.adb.track_devices():
+                    time.sleep(0.3)  # let a burst of events settle
+                    self._events.put(None)
+            except Exception as exc:  # noqa: BLE001 - adb server restarts, sockets die
+                log(f"device tracking failed ({exc}); retrying in 5s")
+            time.sleep(5)
+
+
+def watch() -> int:
+    dirty = threading.Event()
+    events: queue.Queue[None] = queue.Queue()
+    worker = MetadataWorker(dirty)
+    worker.start()
+    DeviceWatcher(events).start()
+
+    cameras = CameraLister()
+    connected: set[str] = set()
+    ready: set[str] = set()
+
+    while True:
+        triggered = False
+        try:
+            events.get(timeout=1)
+            triggered = True
+        except queue.Empty:
+            pass
+        if not (triggered or dirty.is_set() or events.qsize()):
+            continue
+        dirty.clear()
+        try:
+            labels, published, _slugs = reconcile(cameras, worker)
+            current = set(labels.values())
+            for label in sorted(current - connected):
+                notify("Adb device connected", label)
+            for label in sorted(connected - current):
+                notify("Adb device disconnected", label)
+            for label in published:
+                if label not in ready:
+                    notify("scrcpy entries ready", label)
+            ready = {label for label in published if label in current}
+            connected = current
+            cameras.forget_missing(set(labels))
+        except Exception as exc:  # noqa: BLE001 - keep the service alive
+            log(f"reconcile failed: {exc}")
+
+
+# --------------------------------------------------------------------------- main
+
+
+def main(argv: list[str]) -> int:
+    command = argv[1] if len(argv) > 1 else "reconcile"
+    if command == "watch":
+        return watch()
+    if command == "reconcile":
+        reconcile(CameraLister(), MetadataWorker(threading.Event()))
+        return 0
+    if command == "devices":
+        return print_devices()
+    if command == "apps":
+        return print_apps(argv[2]) if len(argv) > 2 else print_devices()
+    if command == "run-app":
+        return cli_run_app(argv[2:])
+    if command == "mirror":
+        if len(argv) < 3:
+            log("usage: scrcpy-desktop mirror <device>")
+            return 2
+        return run_mirror(argv[2])
+    if command == "camera":
+        if len(argv) < 4:
+            log("usage: scrcpy-desktop camera <device> <camera-id>")
+            return 2
+        return run_camera(argv[2], argv[3])
+    if command == "app":
+        if len(argv) < 4:
+            log("usage: scrcpy-desktop app <device> <package>")
+            return 2
+        return run_app(argv[2], argv[3])
+    log(f"unknown command {command!r}")
+    return 2
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
