@@ -8,6 +8,24 @@
 let
   decky = config.jovian.decky-loader;
 
+  # nixpkgs' lsfg-vk-ui builds only qtdeclarative and keeps its QML inside a
+  # qrc, so qmlimportscanner cannot see the Kirigami/KDE imports and the UI
+  # aborts with "module org.kde.kirigami is not installed". Add the import
+  # paths at runtime; NIXPKGS_QT6_QML_IMPORT_PATH is what nixpkgs' Qt reads.
+  lsfg-vk-ui = pkgs.symlinkJoin {
+    name = "lsfg-vk-ui-kirigami";
+    paths = [ pkgs.lsfg-vk-ui ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram "$out/bin/lsfg-vk-ui" \
+        --prefix NIXPKGS_QT6_QML_IMPORT_PATH : "${kdeQmlDirs}"
+    '';
+  };
+  kdeQmlDirs = lib.concatStringsSep ":" [
+    "${pkgs.kdePackages.kirigami.unwrapped}/lib/qt-6/qml"
+    "${pkgs.kdePackages.qqc2-desktop-style}/lib/qt-6/qml"
+  ];
+
   # Pinned by ./update-decky-plugins.py from decky-plugins.txt: the exact
   # hash-addressed artifacts the Decky store installs, with the plugin directory
   # name recorded from the zip.
@@ -118,7 +136,7 @@ in
   hardware.graphics.extraPackages = [ pkgs.lsfg-vk ];
   hardware.graphics.extraPackages32 = [ pkgs.pkgsi686Linux.lsfg-vk ];
   environment.systemPackages = [
-    pkgs.lsfg-vk-ui
+    lsfg-vk-ui
     my-pkgs.mako-renderer
   ];
 
