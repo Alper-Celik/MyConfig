@@ -4,6 +4,13 @@
 # program, so it keeps normal priority — including its compile step, which is a
 # deliberate trade: the program you launch wins over the build that produces it.
 # LOWPRIO=1 makes lowprio exec the real cargo directly instead of nicing it.
+#
+# Half the cores by default: a full-width rust build is the biggest single
+# memory consumer on these machines, and the desktop needs the other half.
+# An explicit `-j N` on the command line still wins.
+CARGO_BUILD_JOBS=${CARGO_BUILD_JOBS:-$(( $(nproc) / 2 ))}
+export CARGO_BUILD_JOBS
+
 case ${1:-} in
   run) LOWPRIO=1 exec lowprio cargo "$@" ;;
   *) exec lowprio cargo "$@" ;;

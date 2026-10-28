@@ -60,6 +60,9 @@
     IOWeight = 20;
     Nice = 15;
     OOMScoreAdjust = 1000; # a build dies before the compositor does
+    # Keep a runaway build from pushing the whole machine into swap: above this
+    # the kernel reclaims inside the build cgroup instead of globally.
+    MemoryHigh = "60%";
   };
 
   #use lix

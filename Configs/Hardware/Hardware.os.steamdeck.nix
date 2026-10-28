@@ -44,6 +44,25 @@
     }
   ];
 
+  # 14 GiB, shared with the GPU: a full-width rust or gcc build is the largest
+  # single memory consumer on this machine. max-jobs = concurrent derivations,
+  # cores = NIX_BUILD_CORES (what cargo -j and make -j see inside a build), so
+  # 2 x 4 keeps peak memory bounded while still filling 8 threads.
+  nix.settings = {
+    max-jobs = 2;
+    cores = 4;
+  };
+
+  # zram is the first swap tier here (priority 100, zstd). These keep the kernel
+  # compressing anonymous pages into it instead of dropping page cache, and start
+  # reclaiming before a burst becomes a direct-reclaim stall — which shows up as
+  # frame drops and input lag, not as CPU load.
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 100;
+    "vm.page-cluster" = 0; # zram reads are cheap; readahead only wastes decompression
+    "vm.watermark_scale_factor" = 125; # reclaim earlier, less direct reclaim
+  };
+
   sops.age.keyFile = lib.mkForce "/persistent/keys.txt";
 
 }
