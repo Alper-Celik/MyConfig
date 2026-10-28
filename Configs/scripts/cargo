@@ -1,0 +1,10 @@
+#! /bin/sh
+# PATH shim: cargo builds run at low priority, so rustc/cc1/ld cannot starve
+# the editor or the compositor (see lowprio). `cargo run` executes the built
+# program, so it keeps normal priority — including its compile step, which is a
+# deliberate trade: the program you launch wins over the build that produces it.
+# LOWPRIO=1 makes lowprio exec the real cargo directly instead of nicing it.
+case ${1:-} in
+  run) LOWPRIO=1 exec lowprio cargo "$@" ;;
+  *) exec lowprio cargo "$@" ;;
+esac

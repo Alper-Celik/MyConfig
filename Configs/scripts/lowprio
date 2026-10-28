@@ -1,0 +1,59 @@
+#! /bin/sh
+# lowprio TOOL [ARG...] — run a build driver at low CPU and I/O priority.
+#
+# nice and ionice are inherited across fork/exec, so one call deprioritizes the
+# whole compile tree (rustc, cc1, ld) without touching the terminal that started
+# it: an editor at nice 0 keeps winning over a build at nice 19, and the
+# compositor keeps winning over both.
+#
+# The PATH shims next to this script (cargo, make, ninja, cmake) call it, so
+# TOOL is always resolved through PATH while skipping our own directory —
+# otherwise the shim would find itself and recurse.
+set -eu
+
+[ "$#" -gt 0 ] || {
+  echo "usage: lowprio TOOL [ARG...]" >&2
+  exit 2
+}
+
+tool=$1
+shift
+
+case $0 in
+  */*) selfdir=$(dirname -- "$0") ;;
+  *) selfdir= ;;
+esac
+
+real=
+old_ifs=$IFS
+IFS=:
+for dir in $PATH; do
+  while [ "${dir%/}" != "$dir" ]; do dir=${dir%/}; done
+  [ -n "$dir" ] || continue
+  [ "$dir" = "$selfdir" ] && continue
+  [ -x "$dir/$tool" ] && [ ! -d "$dir/$tool" ] || continue
+  [ -n "$selfdir" ] && [ "$dir/$tool" -ef "$0" ] && continue
+  real=$dir/$tool
+  break
+done
+IFS=$old_ifs
+
+[ -n "$real" ] || {
+  echo "lowprio: '$tool' not found in PATH" >&2
+  exit 127
+}
+
+# Nested call (a build script invoking make, recursive make, ...) or a shim
+# asking for normal priority: the parent already carries nice/ionice, so run the
+# tool as-is instead of walking the wrapper chain again for every invocation.
+if [ -n "${LOWPRIO:-}" ]; then
+  exec "$real" "$@"
+fi
+
+LOWPRIO=1
+export LOWPRIO
+
+if command -v nice >/dev/null 2>&1 && command -v ionice >/dev/null 2>&1; then
+  exec nice -n 19 ionice -c 3 -- "$real" "$@"
+fi
+exec "$real" "$@"

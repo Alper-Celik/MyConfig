@@ -28,8 +28,11 @@
     # Making legacy nix commands consistent as well, awesome!
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
+    # Builds must never outrank the compositor. SCHED_BATCH and the idle I/O
+    # class are inherited by everything the daemon forks (rustc, cc1, ld), so a
+    # compile tree yields to interactive work without any per-tool wrapper.
     daemonCPUSchedPolicy = "batch";
-    daemonIOSchedPriority = 6;
+    daemonIOSchedClass = "idle";
     settings = {
       trusted-users = [ "alper" ];
       # Enable flakes and new 'nix' command
@@ -48,9 +51,15 @@
     # };
   };
 
+  # Weights, not CPUQuota: a quota is a percentage of *one* core for the whole
+  # daemon (85% = all builds capped at 0.85 core), while weights only bite under
+  # contention — full 8-thread speed when the desktop is idle, ~1/5 of a busy
+  # CPU when it is not. Weight and nice are inherited by every builder.
   systemd.services.nix-daemon.serviceConfig = {
-    CPUQuota = "85%";
-    Nice = 10;
+    CPUWeight = 20;
+    IOWeight = 20;
+    Nice = 15;
+    OOMScoreAdjust = 1000; # a build dies before the compositor does
   };
 
   #use lix

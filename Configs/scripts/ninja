@@ -1,0 +1,4 @@
+#! /bin/sh
+# PATH shim: ninja runs at low priority (see lowprio). Sub-ninja/build-script
+# invocations inherit it and skip the wrapper chain via $LOWPRIO.
+exec lowprio ninja "$@"

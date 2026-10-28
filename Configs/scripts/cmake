@@ -1,0 +1,4 @@
+#! /bin/sh
+# PATH shim: cmake (configure and `cmake --build`) runs at low priority; the
+# compiler jobs it spawns inherit it (see lowprio).
+exec lowprio cmake "$@"
