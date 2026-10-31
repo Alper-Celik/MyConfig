@@ -13,7 +13,7 @@ nonewprivs
 ipc-namespace
 machine-id
 private-tmp
-private-dev
+# private-dev
 #protocol inet,inet6
 
 # === Hardware / subsystem isolation ===
@@ -36,6 +36,18 @@ whitelist  ${HOME}/.local/state/opencode
 whitelist  ${HOME}/.local/share/direnv/allow
 whitelist  ${HOME}/.omp
 whitelist  ${HOME}/MyConfig
+
+# === Android SDK, AVDs and the emulator ===
+# The SDK and the system images are gigabytes, so they live on the roomy volume
+# under HOME instead of the sandbox's private /tmp: `ANDROID_HOME`/`ANDROID_SDK_ROOT`
+# should point at ${HOME}/Android, AVDs and the adb key at ${HOME}/.android (both
+# of which need write access, hence the whitelists). The emulator opens
+# /dev/kvm — `/dev/kvm` is mode 0666 on this host and `private-dev` is off above,
+# so no group or capability is needed; `-no-window -gpu swiftshader_indirect`
+# avoids the GL device `novideo` hides.
+whitelist  ${HOME}/Android
+whitelist  ${HOME}/.android
+whitelist  ${HOME}/.cache/android
 
 # === Runtime agents and system secret directories ===
 blacklist ${RUNUSER}

@@ -71,7 +71,9 @@ let
     chown ${lib.escapeShellArg decky.user}: "$plugins_dir"
 
     : > "$new_manifest"
-    ${lib.concatMapStrings (name: "printf '%s\\n' ${lib.escapeShellArg name} >> \"$new_manifest\"\n") (map (p: p.dir) pluginSources)}
+    ${lib.concatMapStrings (name: "printf '%s\\n' ${lib.escapeShellArg name} >> \"$new_manifest\"\n") (
+      map (p: p.dir) pluginSources
+    )}
     touch "$manifest"
 
     # Drop plugins that a previous generation installed but this one no longer declares.
@@ -134,11 +136,11 @@ in
   # Both need a licensed Lossless Scaling: lsfg-vk wants the `lsfg-vk` beta
   # branch (lsfg-vk.dll), MAKO the default branch (Lossless.dll) - one branch
   # at a time on the Steam app.
-  hardware.graphics.extraPackages = [ pkgs.lsfg-vk ];
-  hardware.graphics.extraPackages32 = [ pkgs.pkgsi686Linux.lsfg-vk ];
+  # hardware.graphics.extraPackages = [ pkgs.lsfg-vk ];
+  # hardware.graphics.extraPackages32 = [ pkgs.pkgsi686Linux.lsfg-vk ];
   environment.systemPackages = [
-    lsfg-vk-ui
-    my-pkgs.mako-renderer
+    # lsfg-vk-ui
+    # my-pkgs.mako-renderer
   ];
 
   # Jovian deliberately does not create Steam's CEF remote-debugging marker:
