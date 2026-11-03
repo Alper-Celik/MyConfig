@@ -64,6 +64,55 @@ in
   boot.kernelPackages =
     lib.mkForce
       inputs.nixos-apple-silicon.packages."aarch64-linux".installer-bootstrap.config.boot.kernelPackages;
+  # That kernel comes from nixos-apple-silicon's own nixpkgs pin, so it is
+  # always a prebuilt download. Nixpkgs' `aggregateModules` (which builds
+  # `system.modulesTree`) appends the per-module signature digests current
+  # nixpkgs kernels put in `modules.cer`; pins that predate that signing rule
+  # ship a module tree without any `.cer` files, so the merge aborts.
+  # This kernel has `CONFIG_MODULE_SIG` unset anyway, so there is nothing to
+  # merge: keep the depmod part of the aggregator, drop the digest merge.
+  nixpkgs.overlays = [
+    (final: prev: {
+      # Mirrors nixpkgs' `pkgs/os-specific/linux/kmod/aggregator.nix`, minus
+      # the `modules.cer` digest merge described above.
+      aggregateModules =
+        modules:
+        prev.buildEnv {
+          name = "kernel-modules";
+          paths = modules;
+          pathsToLink = [
+            "/lib/modules"
+            "/etc/depmod.d"
+          ];
+          postBuild = ''
+            source ${final.stdenvNoCC}/setup
+
+            if ! test -d "$out/lib/modules"; then
+              echo "No modules found."
+              # To support a kernel without modules
+              exit 0
+            fi
+
+            kernelVersion=$(cd $out/lib/modules && ls -d *)
+            if test "$(echo $kernelVersion | wc -w)" != 1; then
+              echo "inconsistent kernel versions: $kernelVersion"
+              exit 1
+            fi
+
+            echo "kernel version is $kernelVersion"
+
+            shopt -s extglob
+
+            # Regenerate the depmod map files.  Be sure to pass an explicit
+            # kernel version number, otherwise depmod will use `uname -r'.
+            if test -w $out/lib/modules/$kernelVersion; then
+              rm -f $out/lib/modules/$kernelVersion/modules.!(builtin*|order*|cer)
+              ${final.buildPackages.kmod}/bin/depmod -b $out -C $out/etc/depmod.d -a $kernelVersion
+            fi
+          '';
+        };
+    })
+  ];
   hardware.asahi.peripheralFirmwareDirectory = inputs.macbook-m1-alper-firmware;
   boot.extraModprobeConfig = ''
     options hid_apple swap_opt_cmd=1
