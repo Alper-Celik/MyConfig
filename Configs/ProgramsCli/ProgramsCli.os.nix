@@ -67,6 +67,7 @@ in
       lazygit
       git-lfs
       gh # github cli
+      forgejo-cli
 
       restic
       rclone
@@ -149,6 +150,7 @@ in
       ## build tools
       gnumake
       ninja
+      sccache # RUSTC_WRAPPER below: cached rustc invocations across builds
 
       ## networking
       ipcalc

@@ -29,6 +29,9 @@ whitelist  ${HOME}/.agents
 whitelist  ${HOME}/.nuget
 whitelist  ${HOME}/.cache/opencode
 whitelist  ${HOME}/.cache/codebase-memory-mcp
+# sccache's local cache (RUSTC_WRAPPER): rustc results are read and written
+# here, and the daemon it spawns inherits this profile.
+whitelist  ${HOME}/.cache/sccache
 whitelist  ${HOME}/.cargo
 whitelist  ${HOME}/.config/opencode
 whitelist  ${HOME}/.local/share/opencode
