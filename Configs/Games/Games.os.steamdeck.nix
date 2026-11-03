@@ -115,32 +115,16 @@ in
     "L+ /usr/share/applications - - - - /run/current-system/sw/share/applications"
   ];
 
-  # Default the gaming session to zink: GL clients get a Vulkan swapchain, so
-  # implicit Vulkan layers (frame generation, vkBasalt, MangoHud) apply to them
-  # too. Proton/DXVK games are Vulkan already and unaffected. Measured here:
-  # glmark2 off-screen is ~22% slower than radeonsi. Escape hatch per game:
-  #   MESA_LOADER_DRIVER_OVERRIDE=radeonsi %command%
-  jovian.steam.environment.MESA_LOADER_DRIVER_OVERRIDE = "zink";
+  # No zink default: session-wide it broke Steam's CEF/UI in Game Mode. Opt in
+  # per game with MESA_LOADER_DRIVER_OVERRIDE=zink %command%.
 
-  # Same for the desktop sessions on this deck (niri + every GL client in it),
-  # so apps like Kodi/Fladder are on Vulkan too. Experimental: a broken session
-  # is recoverable via a TTY and `nixos-rebuild switch --rollback`.
-  environment.sessionVariables.MESA_LOADER_DRIVER_OVERRIDE = "zink";
-
-  # Frame generation layers.
-  # lsfg-vk: upstream, store-pinned, implicit layer gated on profile `active_in`
-  # matches; lsfg-vk-ui configures profiles, lsfg-vk-cli validates.
-  # MAKO: built from source in my-pkgs; only activates under its own
-  # `mako-launch` wrapper (per-game launch option), which exports
-  # DISABLE_LSFGVK=1 so the two never chain in one process.
-  # Both need a licensed Lossless Scaling: lsfg-vk wants the `lsfg-vk` beta
-  # branch (lsfg-vk.dll), MAKO the default branch (Lossless.dll) - one branch
-  # at a time on the Steam app.
-  # hardware.graphics.extraPackages = [ pkgs.lsfg-vk ];
-  # hardware.graphics.extraPackages32 = [ pkgs.pkgsi686Linux.lsfg-vk ];
+  # Frame generation layers; both need a licensed Lossless Scaling. MAKO runs
+  # per game via `mako-launch`, which disables lsfg-vk so they never chain.
+  hardware.graphics.extraPackages = [ pkgs.lsfg-vk ];
+  hardware.graphics.extraPackages32 = [ pkgs.pkgsi686Linux.lsfg-vk ];
   environment.systemPackages = [
-    # lsfg-vk-ui
-    # my-pkgs.mako-renderer
+    lsfg-vk-ui
+    my-pkgs.mako-renderer
   ];
 
   # Jovian deliberately does not create Steam's CEF remote-debugging marker:
