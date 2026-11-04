@@ -19,14 +19,6 @@ in
     '';
   };
 
-  home.file.".local/bin/run-app" = {
-    executable = true;
-    text = ''
-      #!${pkgs.runtimeShell}
-      exec ${python}/bin/python3 ${script} run-app "$@"
-    '';
-  };
-
   systemd.user.services.scrcpy-desktop-entries = {
     Unit = {
       Description = "Generate .desktop entries for connected adb devices (scrcpy)";

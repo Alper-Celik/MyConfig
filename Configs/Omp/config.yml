@@ -34,6 +34,13 @@ task:
     enabled: true
   enableEffort: true
   maxConcurrency: 64
+  agentModelOverrides:
+    task: opencode-go/deepseek-v4.1-flash
+    scout: opencode-go/deepseek-v4.1-flash
+    reviewer: opencode-go/deepseek-v4.1-flash
+    security-reviewer: opencode-go/deepseek-v4.1-flash
+    seance: opencode-go/deepseek-v4.1-flash
+    sonic: opencode-go/deepseek-v4.1-flash
 tools:
   approvalMode: yolo
 steeringMode: all
@@ -92,9 +99,19 @@ bashInterceptor:
 isolation:
   backend: rcopy
 advisor:
-  enabled: false
+  enabled: true
   maxNotesPerUpdate: 5
-  syncBacklog: "off"
+  syncBacklog: "5"
+  continueSeverity: nit
+  reviewMode: turn
 theme:
   dark: titanium
 followUpMode: all
+cycleOrder:
+  - smol
+  - default
+  - slow
+retry:
+  fallbackChains:
+    default:
+      - opencode-go/deepseek-v4.1-flash

@@ -8,6 +8,25 @@
 let
   decky = config.jovian.decky-loader;
 
+  # nixpkgs' lsfg-vk-ui builds only qtdeclarative and keeps its QML inside a
+  # qrc, so qmlimportscanner cannot see the Kirigami/KDE imports and the UI
+  # aborts with "module org.kde.kirigami is not installed". Add the import
+  # paths at runtime; NIXPKGS_QT6_QML_IMPORT_PATH is what nixpkgs' Qt reads.
+  lsfg-vk-ui = pkgs.symlinkJoin {
+    name = "lsfg-vk-ui-kirigami";
+    paths = [ pkgs.lsfg-vk-ui ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram "$out/bin/lsfg-vk-ui" \
+        --prefix NIXPKGS_QT6_QML_IMPORT_PATH : "${kdeQmlDirs}"
+    '';
+  };
+  kdeQmlDirs = lib.concatStringsSep ":" [
+    "${pkgs.kdePackages.kirigami.unwrapped}/lib/qt-6/qml"
+    "${pkgs.kdePackages.qqc2-desktop-style}/lib/qt-6/qml"
+    "${pkgs.kdePackages.sonnet}/lib/qt-6/qml"
+  ];
+
   # Pinned by ./update-decky-plugins.py from decky-plugins.txt: the exact
   # hash-addressed artifacts the Decky store installs, with the plugin directory
   # name recorded from the zip.
@@ -52,7 +71,9 @@ let
     chown ${lib.escapeShellArg decky.user}: "$plugins_dir"
 
     : > "$new_manifest"
-    ${lib.concatMapStrings (name: "printf '%s\\n' ${lib.escapeShellArg name} >> \"$new_manifest\"\n") (map (p: p.dir) pluginSources)}
+    ${lib.concatMapStrings (name: "printf '%s\\n' ${lib.escapeShellArg name} >> \"$new_manifest\"\n") (
+      map (p: p.dir) pluginSources
+    )}
     touch "$manifest"
 
     # Drop plugins that a previous generation installed but this one no longer declares.
@@ -94,31 +115,15 @@ in
     "L+ /usr/share/applications - - - - /run/current-system/sw/share/applications"
   ];
 
-  # Default the gaming session to zink: GL clients get a Vulkan swapchain, so
-  # implicit Vulkan layers (frame generation, vkBasalt, MangoHud) apply to them
-  # too. Proton/DXVK games are Vulkan already and unaffected. Measured here:
-  # glmark2 off-screen is ~22% slower than radeonsi. Escape hatch per game:
-  #   MESA_LOADER_DRIVER_OVERRIDE=radeonsi %command%
-  jovian.steam.environment.MESA_LOADER_DRIVER_OVERRIDE = "zink";
+  # No zink default: session-wide it broke Steam's CEF/UI in Game Mode. Opt in
+  # per game with MESA_LOADER_DRIVER_OVERRIDE=zink %command%.
 
-  # Same for the desktop sessions on this deck (niri + every GL client in it),
-  # so apps like Kodi/Fladder are on Vulkan too. Experimental: a broken session
-  # is recoverable via a TTY and `nixos-rebuild switch --rollback`.
-  environment.sessionVariables.MESA_LOADER_DRIVER_OVERRIDE = "zink";
-
-  # Frame generation layers.
-  # lsfg-vk: upstream, store-pinned, implicit layer gated on profile `active_in`
-  # matches; lsfg-vk-ui configures profiles, lsfg-vk-cli validates.
-  # MAKO: built from source in my-pkgs; only activates under its own
-  # `mako-launch` wrapper (per-game launch option), which exports
-  # DISABLE_LSFGVK=1 so the two never chain in one process.
-  # Both need a licensed Lossless Scaling: lsfg-vk wants the `lsfg-vk` beta
-  # branch (lsfg-vk.dll), MAKO the default branch (Lossless.dll) - one branch
-  # at a time on the Steam app.
+  # Frame generation layers; both need a licensed Lossless Scaling. MAKO runs
+  # per game via `mako-launch`, which disables lsfg-vk so they never chain.
   hardware.graphics.extraPackages = [ pkgs.lsfg-vk ];
   hardware.graphics.extraPackages32 = [ pkgs.pkgsi686Linux.lsfg-vk ];
   environment.systemPackages = [
-    pkgs.lsfg-vk-ui
+    lsfg-vk-ui
     my-pkgs.mako-renderer
   ];
 
