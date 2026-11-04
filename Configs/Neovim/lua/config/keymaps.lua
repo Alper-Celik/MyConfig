@@ -27,6 +27,16 @@ vim.keymap.set("n", "<leader><tab><Right>", "<cmd>tabnext<cr>", { desc = "Next T
 vim.keymap.set("n", "<leader><tab><", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 vim.keymap.set("n", "<leader><tab><Left>", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
+-- agent pane keybindings (config/agent.lua)
+map("n", "<leader>aa", function() require("config.agent").toggle() end, { desc = "Toggle omp agent" })
+map("n", "<leader>af", function() require("config.agent").toggle_flavor() end, { desc = "Toggle agent panel/float" })
+map("n", "<leader>an", function() require("config.agent").new_session() end, { desc = "New omp agent session" })
+map("n", "<leader>ar", function() require("config.agent").continue_session() end, { desc = "Continue omp agent session" })
+map({ "n", "x" }, "<leader>al", function() require("config.agent").select_session() end, { desc = "Select omp agent session" })
+map({ "n", "x" }, "<leader>as", function() require("config.agent").add_to_context() end, { desc = "Add file/selection to omp agent" })
+map({ "n", "x" }, "<leader>aq", function() require("config.agent").ask() end, { desc = "Inline ask omp (selection in visual)" })
+map("n", "<leader>ax", function() require("config.agent").stop() end, { desc = "Stop omp agent generation" })
+
 --picker bindings
 -- map("n", "<leader>fd", "<cmd>Telescope<cr>", {})
 
