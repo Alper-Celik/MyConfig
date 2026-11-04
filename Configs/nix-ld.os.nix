@@ -40,7 +40,6 @@
       gst_all_1.gst-plugins-base
       gst_all_1.gst-plugins-ugly
       gst_all_1.gstreamer
-      gtk2
       harfbuzz
       icu
       keyutils.lib
@@ -59,7 +58,6 @@
       libjpeg
       libmikmod
       libogg
-      libpng12
       libpulseaudio
       librsvg
       libsamplerate
@@ -158,7 +156,6 @@
       libpciaccess
 
       glib
-      gtk2
       bzip2
       zlib
       gdk-pixbuf
@@ -217,7 +214,6 @@
       flac
       freeglut
       libjpeg
-      libpng12
       libpulseaudio
       libsamplerate
       libmikmod
@@ -294,7 +290,6 @@
       gst_all_1.gst-plugins-base
       gst_all_1.gst-plugins-ugly
       gst_all_1.gstreamer
-      gtk2
       harfbuzz
       icu
       keyutils.lib
@@ -313,7 +308,6 @@
       libjpeg
       libmikmod
       libogg
-      libpng12
       libpulseaudio
       librsvg
       libsamplerate

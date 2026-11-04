@@ -209,7 +209,7 @@
       "w": 5,
       "h": 1,
       "instanceId": "mvletqdhbjh4q69brd86p1sxek1t7",
-      "deviceName": "software:DP-4",
+      "deviceName": "backlight:amdgpu_bl0",
       "col": 3,
       "row": 13.5
     }
