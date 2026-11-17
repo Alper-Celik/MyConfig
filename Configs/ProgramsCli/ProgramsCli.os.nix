@@ -49,7 +49,7 @@ let
     postBuild = ''
       for bin in zellij zellij-terminal; do
         wrapProgram "$out/bin/$bin" --prefix LD_LIBRARY_PATH ':' \
-          ${lib.makeLibraryPath (with pkgs; [ wayland fontconfig.lib libxkbcommon libGL ])}
+          ${lib.makeLibraryPath (with pkgs; [ wayland fontconfig.lib libxkbcommon libGL mesa ])}
       done
     '';
   };
