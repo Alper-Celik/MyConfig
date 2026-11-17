@@ -67,6 +67,7 @@ in
       lazygit
       git-lfs
       gh # github cli
+      wrangler
 
       restic
       rclone

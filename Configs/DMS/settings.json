@@ -928,5 +928,6 @@
   ],
   "osdAudioOutputEnabled": true,
   "osdMediaVolumeEnabled": false,
-  "widgetColorMode": "default"
+  "widgetColorMode": "default",
+  "lockScreenVideoEnabled": false
 }
