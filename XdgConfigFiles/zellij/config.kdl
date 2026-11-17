@@ -212,7 +212,6 @@ keybinds preset="default" secondary="Super" {
 
                 move_mod "alt";
                 use_arrow_keys "true";
-                niri "true";
             }
         }
         bind "Alt Right" {
@@ -222,7 +221,6 @@ keybinds preset="default" secondary="Super" {
 
                 move_mod "alt";
                 use_arrow_keys "true";
-                niri "true";
             }
         }
         bind "Alt Down" {
@@ -232,7 +230,6 @@ keybinds preset="default" secondary="Super" {
 
                 move_mod "alt";
                 use_arrow_keys "true";
-                niri "true";
             }
         }
         bind "Alt Up" {
@@ -242,7 +239,6 @@ keybinds preset="default" secondary="Super" {
 
                 move_mod "alt";
                 use_arrow_keys "true";
-                niri "true";
             }
         }
         bind "Alt =" "Alt +" { Resize "Increase"; }
@@ -792,8 +788,13 @@ theme_light "dayfox"
 // NOTE: This only applies to web clients at the moment."#;
 // client_async_worker_tasks 4
 
-show_startup_tips false
+show_startup_tips true
 
 web_client {
     font "monospace"
 }
+mirror_session true
+serialize_pane_viewport true
+scrollback_lines_to_serialize 5000
+serialization_interval 20
+focus_follows_mouse true

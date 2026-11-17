@@ -8,7 +8,7 @@ let
 in
 wasm.rustPlatform.buildRustPackage {
   pname = "zellij-navigator";
-  version = "0.3.0-niri";
+  version = "0.3.1";
   src = ./.;
 
   cargoLock.lockFile = ./Cargo.lock;

@@ -6,39 +6,41 @@ use std::str::FromStr;
 struct State {
     permissions_granted: bool,
     current_term_command: Option<String>,
-    current_pane: Option<PaneId>,
     command_queue: VecDeque<Command>,
-    phase: Phase,
+    // Entry edge to snap vim to once the zellij move settles, if it landed
+    // on a vim pane.
+    pending_snap: Option<Direction>,
 
     // Configuration
     move_mod: Vec<Mod>,
     resize_mod: Vec<Mod>,
     use_arrow_keys: bool,
-    niri: bool,
-}
-
-// A zellij action cannot report whether it moved anything, so a move that is
-// allowed to escape into niri is observed: ask who we are, act, wait out a
-// short settle delay, then ask again. An unchanged focused pane means zellij
-// had nowhere to go (this also covers stacked, floating and fullscreen panes,
-// where the geometry alone would lie). Only one query is ever in flight.
-enum Phase {
-    Idle,
-    Before(Command),
-    Settling {
-        direction: Direction,
-        before: Option<PaneId>,
-    },
-    After {
-        direction: Direction,
-        before: Option<PaneId>,
-    },
 }
 
 enum Command {
     MoveFocus(Direction),
     MoveFocusOrTab(Direction),
     Resize(Direction),
+}
+
+impl Command {
+    fn direction(&self) -> Option<Direction> {
+        match self {
+            Command::MoveFocus(d) | Command::MoveFocusOrTab(d) => Some(*d),
+            Command::Resize(_) => None,
+        }
+    }
+}
+
+// Moving in one direction enters a neighbouring pane through its opposite
+// edge: moving left lands on the right edge of the pane to the left.
+fn opposite(direction: Direction) -> Direction {
+    match direction {
+        Direction::Left => Direction::Right,
+        Direction::Right => Direction::Left,
+        Direction::Up => Direction::Down,
+        Direction::Down => Direction::Up,
+    }
 }
 
 #[derive(Debug)]
@@ -59,20 +61,16 @@ impl ZellijPlugin for State {
     fn load(&mut self, configuration: BTreeMap<String, String>) {
         self.parse_configuration(configuration);
 
-        let mut permissions = vec![
+        let permissions = vec![
             PermissionType::WriteToStdin,
             PermissionType::ChangeApplicationState,
             PermissionType::ReadApplicationState,
         ];
-        if self.niri {
-            permissions.push(PermissionType::RunCommands);
-        }
         request_permission(&permissions);
-        // Timer is subscription-gated like every other event, and the settle
-        // delay that observes a move depends on it.
         subscribe(&[
             EventType::PermissionRequestResult,
             EventType::ListClients,
+            // The settle delay that observes where a move landed depends on it.
             EventType::Timer,
         ]);
         if self.permissions_granted {
@@ -84,7 +82,6 @@ impl ZellijPlugin for State {
         match event {
             Event::ListClients(list) => {
                 self.current_term_command = term_command_from_client_list(&list);
-                self.current_pane = current_pane_id(&list);
                 self.on_client_list();
             }
             Event::Timer(_) => self.on_timer(),
@@ -104,7 +101,10 @@ impl ZellijPlugin for State {
 
     fn pipe(&mut self, pipe_message: PipeMessage) -> bool {
         if let Some(command) = parse_command(pipe_message) {
-            self.handle_command(command);
+            // The command needs a fresh client list first: the reply refreshes
+            // current_term_command, which decides where the command goes.
+            self.command_queue.push_back(command);
+            list_clients();
         }
         true
     }
@@ -115,102 +115,71 @@ impl Default for State {
         Self {
             permissions_granted: false,
             current_term_command: None,
-            current_pane: None,
             command_queue: VecDeque::new(),
-            phase: Phase::Idle,
+            pending_snap: None,
 
             move_mod: vec![Mod::Ctrl],
             resize_mod: vec![Mod::Alt],
             use_arrow_keys: false,
-            niri: false,
         }
     }
 }
 
 impl State {
-    fn handle_command(&mut self, command: Command) {
-        self.command_queue.push_back(command);
-        // Queries are serialized: anything arriving while one is outstanding
-        // is drained by the reply handler once the current move is verified.
-        if matches!(self.phase, Phase::Idle) {
-            self.start_next_command();
-        }
-    }
-
-    fn start_next_command(&mut self) {
-        if let Some(command) = self.command_queue.pop_front() {
-            self.phase = Phase::Before(command);
-            list_clients();
-        }
-    }
-
     fn on_client_list(&mut self) {
-        match std::mem::replace(&mut self.phase, Phase::Idle) {
-            Phase::Before(command) => {
+        // Resolve a settled move first: the event's client list is the
+        // post-move state, exactly what the snap check needs.
+        if let Some(entry) = self.pending_snap.take() {
+            // Focus entered vim moving in `entry` direction, i.e. through its
+            // opposite edge. Tell neolij to jump to the window on that edge so
+            // the buffer is adjacent to the shared zellij border instead of
+            // wherever vim last had focus.
+            if self.current_pane_is_vim() {
+                write_chars(&arrow_kitty_keybinding(
+                    &opposite(entry),
+                    &[Mod::Alt, Mod::Shift],
+                ));
+            }
+        }
+        if let Some(command) = self.command_queue.pop_front() {
+            if self.current_pane_is_vim() {
+                write_chars(&self.command_to_keybind(&command));
+            } else {
+                let direction = command.direction();
                 self.execute_command(command);
-                if !matches!(self.phase, Phase::Idle) {
-                    return; // the move is being verified before the next command
+                // A zellij-side move may have landed on a vim pane; re-query
+                // after a short settle delay, since a query sent together
+                // with the move can still race it.
+                if let Some(direction) = direction {
+                    self.pending_snap = Some(direction);
+                    set_timeout(0.05);
+                    return; // settle before draining the queue
                 }
             }
-            Phase::After { direction, before } => {
-                if before.is_some() && before == self.current_pane {
-                    self.focus_in_niri(direction);
-                }
-            }
-            Phase::Idle | Phase::Settling { .. } => {}
         }
         self.start_next_command();
     }
 
     fn on_timer(&mut self) {
-        if !matches!(self.phase, Phase::Settling { .. }) {
-            return;
+        if self.pending_snap.is_some() {
+            list_clients();
         }
-        if let Phase::Settling { direction, before } =
-            std::mem::replace(&mut self.phase, Phase::Idle)
-        {
-            self.phase = Phase::After { direction, before };
+    }
+
+    fn start_next_command(&mut self) {
+        if !self.command_queue.is_empty() {
             list_clients();
         }
     }
 
     fn execute_command(&mut self, command: Command) {
-        if self.current_pane_is_vim() {
-            write_chars(&self.command_to_keybind(&command));
-            return;
-        }
-
         match command {
-            Command::MoveFocus(direction) => {
-                move_focus(direction);
-                self.watch_move(direction);
-            }
-            Command::MoveFocusOrTab(direction) => {
-                move_focus_or_tab(direction);
-                self.watch_move(direction);
-            }
+            Command::MoveFocus(direction) => move_focus(direction),
+            Command::MoveFocusOrTab(direction) => move_focus_or_tab(direction),
             Command::Resize(direction) => {
                 resize_focused_pane_with_direction(Resize::Increase, direction)
             }
         }
-    }
-
-    // Observe the move only when there is somewhere outside zellij to go.
-    fn watch_move(&mut self, direction: Direction) {
-        if self.niri {
-            self.phase = Phase::Settling {
-                direction,
-                before: self.current_pane.clone(),
-            };
-            set_timeout(0.05);
-        }
-    }
-
-    fn focus_in_niri(&self, direction: Direction) {
-        run_command(
-            &["niri", "msg", "action", niri_action(direction)],
-            BTreeMap::new(),
-        );
     }
 
     fn current_pane_is_vim(&self) -> bool {
@@ -231,9 +200,6 @@ impl State {
         });
         self.use_arrow_keys = configuration
             .get("use_arrow_keys")
-            .is_some_and(|v| v.to_lowercase() == "true");
-        self.niri = configuration
-            .get("niri")
             .is_some_and(|v| v.to_lowercase() == "true");
     }
 
@@ -281,23 +247,6 @@ fn term_command_from_client_list(clients: &[ClientInfo]) -> Option<String> {
     None
 }
 
-fn current_pane_id(clients: &[ClientInfo]) -> Option<PaneId> {
-    clients
-        .iter()
-        .find(|c| c.is_current_client)
-        .map(|c| c.pane_id.clone())
-}
-
-// Continuation of each direction outside zellij, matching the niri keybinds:
-// H/L cross columns, J/K cross windows then workspaces.
-fn niri_action(direction: Direction) -> &'static str {
-    match direction {
-        Direction::Left => "focus-column-left",
-        Direction::Right => "focus-column-right",
-        Direction::Up => "focus-window-or-workspace-up",
-        Direction::Down => "focus-window-or-workspace-down",
-    }
-}
 
 fn mod_to_kitty_protocol(modifier: &Mod) -> u8 {
     match modifier {

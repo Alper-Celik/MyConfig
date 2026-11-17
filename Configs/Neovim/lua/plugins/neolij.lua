@@ -9,46 +9,6 @@ local function is_explorer(win)
   return vim.bo[vim.api.nvim_win_get_buf(win)].filetype == "neo-tree"
 end
 
--- Where focus goes once zellij itself has nowhere left to move, matching the
--- niri keybinds (Mod+H/L cross columns, Mod+J/K cross windows then workspaces).
-local niri_actions = {
-  left = "focus-column-left",
-  right = "focus-column-right",
-  up = "focus-window-or-workspace-up",
-  down = "focus-window-or-workspace-down",
-}
-
--- Focused zellij pane id, or nil outside zellij / when the query fails. Pane
--- ids are session-unique, so an unchanged id after an action means the action
--- was a no-op: no pane (or tab, for left/right) that way.
--- ai generated
-local function zellij_focused_pane()
-  if not vim.env.ZELLIJ then
-    return nil
-  end
-  local out = vim.fn.system({ "zellij", "action", "list-panes", "--state", "--json" })
-  if vim.v.shell_error ~= 0 then
-    return nil
-  end
-  local ok, panes = pcall(vim.json.decode, out)
-  if not ok or type(panes) ~= "table" then
-    return nil
-  end
-  for _, pane in ipairs(panes) do
-    if pane.is_focused then
-      return pane.id
-    end
-  end
-  return nil
-end
-
-local function niri_focus(direction)
-  if not vim.env.NIRI_SOCKET then
-    return
-  end
-  vim.fn.system({ "niri", "msg", "action", niri_actions[direction] })
-end
-
 local function move(direction)
   local vim_key = ({ left = "h", right = "l", up = "k", down = "j" })[direction]
   local from = vim.api.nvim_get_current_win()
@@ -76,11 +36,29 @@ local function move(direction)
     -- up/down to tab cycling (route.rs: Up => SwitchTabNext, Down =>
     -- SwitchTabPrev), so vertical escapes must use MoveFocus instead.
     local action = (direction == "up" or direction == "down") and "move-focus" or "move-focus-or-tab"
-    local pane = zellij_focused_pane()
     require("neolij").zellij_action(action .. " " .. direction)
-    -- zellij moved: another pane, or (left/right) the next/previous tab.
-    if pane and zellij_focused_pane() == pane then
-      niri_focus(direction)
+  end
+end
+
+-- Entry snap: right after a zellij move_focus lands in this nvim pane, the
+-- navigator wasm sends Alt+Shift+arrow naming the shared edge (opposite of
+-- the move direction), so focus continues from the border instead of
+-- wherever nvim last had it. wincmd t/b is a one-shot edge jump with no
+-- fall-through into tabs or zellij.
+-- ai generated
+local function snap(direction)
+  -- The explorer is always open on the left: snapping left must not
+  -- disappear into it, stop one short instead.
+  for _ = 1, 20 do
+    local before = vim.fn.winnr()
+    vim.cmd("wincmd " .. ({ left = "h", right = "l", up = "k", down = "j" })[direction])
+    local after = vim.fn.winnr()
+    if after == before then
+      return -- reached the edge
+    end
+    if direction == "left" and is_explorer(vim.api.nvim_get_current_win()) then
+      vim.cmd("wincmd l")
+      return
     end
   end
 end
@@ -96,8 +74,7 @@ return {
       -- nvim while nvim is the focused pane (it never moves focus itself in
       -- that case), hence the Alt maps; `move` above keeps the nvim-split step,
       -- then hands off: left/right go to the nvim tab, then to the zellij pane
-      -- or tab, while up/down only go to the zellij pane. When zellij has
-      -- nowhere left to move, focus continues into niri.
+      -- or tab, while up/down only go to the zellij pane.
       -- Tab movement is a plain zellij bind (Alt+Shift+...) and deliberately
       -- does not reach nvim: the wasm plugin carries only four distinguishable
       -- keys and keeps the config of its first message, so a second modifier
@@ -136,6 +113,44 @@ return {
         end,
         mode = { "n", "t" },
         desc = "Move right (nvim split, else next tab/pane)",
+        silent = true,
+      },
+
+      -- Entry snap from the navigator wasm (see `snap` above).
+      {
+        "<A-S-Right>",
+        function()
+          snap("right")
+        end,
+        mode = { "n", "t" },
+        desc = "Snap to rightmost window (zellij entry)",
+        silent = true,
+      },
+      {
+        "<A-S-Left>",
+        function()
+          snap("left")
+        end,
+        mode = { "n", "t" },
+        desc = "Snap to leftmost window (zellij entry)",
+        silent = true,
+      },
+      {
+        "<A-S-Up>",
+        function()
+          snap("up")
+        end,
+        mode = { "n", "t" },
+        desc = "Snap to topmost window (zellij entry)",
+        silent = true,
+      },
+      {
+        "<A-S-Down>",
+        function()
+          snap("down")
+        end,
+        mode = { "n", "t" },
+        desc = "Snap to bottommost window (zellij entry)",
         silent = true,
       },
 
