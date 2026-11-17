@@ -786,7 +786,7 @@ theme_light "dayfox"
 // NOTE: This only applies to web clients at the moment."#;
 // client_async_worker_tasks 4
 
-show_startup_tips true
+show_startup_tips false
 
 web_client {
     font "monospace"
@@ -796,3 +796,16 @@ serialize_pane_viewport true
 scrollback_lines_to_serialize 5000
 serialization_interval 20
 focus_follows_mouse true
+terminal {
+    font "JetBrainsMono Nerd Font"
+    font_size 8
+    font_weight 400
+    opacity 0.9
+    blur true
+    padding_balance true
+    line_height 0.95
+    minimum_contrast 5
+    scroll_animation_duration 40
+    scroll_momentum_friction 1.5
+    padding_left 0
+}

@@ -1,4 +1,7 @@
 {
+  "outputTemps": {
+    "eDP-1": 6200
+  },
   "outputBrightness": {
     "DP-2": 85,
     "DP-3": 85,

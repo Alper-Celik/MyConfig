@@ -1,4 +1,4 @@
-setupVersion: 2
+setupVersion: 3
 modelRoles:
   web: web/exa
   default: opencode-go/glm-5.3-flash
@@ -56,6 +56,8 @@ browser:
 composer:
   shape: rule
   tokenRate: true
+  predictions: true
+  predictionAlternatives: true
 edit:
   mode: hashline
 eval:
@@ -115,3 +117,10 @@ retry:
   fallbackChains:
     default:
       - opencode-go/deepseek-v4.1-flash
+  waitForUsageReset: false
+spelling:
+  autocomplete: smollm
+emojiAutocomplete: false
+providers:
+  autoThinkingMaxEffort: max
+colorBlindMode: false

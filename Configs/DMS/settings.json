@@ -212,6 +212,12 @@
       "deviceName": "backlight:amdgpu_bl0",
       "col": 3,
       "row": 13.5
+    },
+    {
+      "id": "plugin_quickCapture",
+      "enabled": true,
+      "w": 4,
+      "h": 1
     }
   ],
   "audioWheelScrollAmount": -5,
@@ -369,6 +375,10 @@
           "launcherLogoMode": "os"
         },
         {
+          "id": "unifiedTaskbar",
+          "enabled": false
+        },
+        {
           "id": "dankPomodoroTimer",
           "enabled": false
         },
@@ -417,14 +427,6 @@
       ],
       "rightWidgets": [
         {
-          "id": "systemTray",
-          "enabled": true,
-          "trayUseInlineExpansion": false,
-          "trayPopupSingleLine": false,
-          "trayAutoOverflow": false,
-          "trayMaxVisibleItems": 2
-        },
-        {
           "id": "memUsage",
           "enabled": true,
           "minimumWidth": false,
@@ -438,7 +440,9 @@
         },
         {
           "id": "network_speed_monitor",
-          "enabled": true
+          "enabled": true,
+          "overflowPriority": -1,
+          "compactMode": true
         },
         {
           "id": "separator",
@@ -446,25 +450,32 @@
         },
         {
           "id": "dankKDEConnect",
-          "enabled": false
-        },
-        {
-          "id": "battery",
-          "enabled": true,
-          "showBatteryPercentOnlyOnBattery": false,
-          "showBatteryTime": true,
-          "showBatteryTimeOnlyOnBattery": true,
-          "batteryPillPercentSign": false,
-          "batteryStyle": "solid"
-        },
-        {
-          "id": "separator",
           "enabled": true
         },
-        "notificationButton",
         {
           "id": "dankscale",
           "enabled": false
+        },
+        {
+          "id": "diskUsage",
+          "enabled": true,
+          "mountPath": "/"
+        },
+        {
+          "id": "systemTray",
+          "enabled": true,
+          "trayUseInlineExpansion": false,
+          "trayPopupSingleLine": false,
+          "trayAutoOverflow": false,
+          "trayMaxVisibleItems": 2
+        },
+        {
+          "id": "notificationButton",
+          "enabled": false
+        },
+        {
+          "id": "quickCapture",
+          "enabled": true
         },
         {
           "id": "controlCenterButton",
@@ -478,6 +489,15 @@
           "showScreenSharingIcon": true,
           "showIdleInhibitorIcon": false,
           "showDoNotDisturbIcon": false
+        },
+        {
+          "id": "battery",
+          "enabled": true,
+          "showBatteryPercentOnlyOnBattery": false,
+          "showBatteryTime": true,
+          "showBatteryTimeOnlyOnBattery": true,
+          "batteryPillPercentSign": false,
+          "batteryStyle": "solid"
         }
       ],
       "spacing": 0,
@@ -554,7 +574,53 @@
       "islandHighContrast": true,
       "island": true,
       "islandNotificationPopups": true,
-      "islandSatelliteGap": 6
+      "islandSatelliteGap": 6,
+      "islandHomeLayout": [
+        {
+          "id": "workspaces",
+          "enabled": false
+        },
+        {
+          "id": "media",
+          "enabled": false
+        },
+        {
+          "id": "clock",
+          "enabled": true
+        },
+        {
+          "id": "weather",
+          "enabled": false
+        },
+        {
+          "id": "status",
+          "enabled": false
+        },
+        {
+          "id": "volume",
+          "enabled": false
+        },
+        {
+          "id": "brightness",
+          "enabled": false
+        },
+        {
+          "id": "notifications",
+          "enabled": true
+        },
+        {
+          "id": "privacy",
+          "enabled": true
+        },
+        {
+          "id": "keyboardLayout",
+          "enabled": false
+        },
+        {
+          "id": "tray",
+          "enabled": false
+        }
+      ]
     },
     {
       "id": "dot1792765105379",
@@ -934,5 +1000,7 @@
   "widgetColorMode": "default",
   "lockScreenVideoEnabled": false,
   "interfaceStyle": "expressive",
-  "density": "dense"
+  "density": "dense",
+  "muxUseCustomCommand": false,
+  "displayProfileAutoSelect": false
 }

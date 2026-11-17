@@ -1,10 +1,36 @@
 {
   "lockfileVersion": 1,
   "plugins": {
+    "aiOverviewControl": {
+      "repo": "https://github.com/bernardopg/AiOverviewControl",
+      "commit": "15b29f6f5239c4caa1ae8c0eabb528c33898387c"
+    },
+    "dankKDEConnect": {
+      "repo": "https://github.com/duxlabs-dev/dux-plugins",
+      "path": "DankKDEConnect",
+      "commit": "7a964dad725964550734e43dbbcf88c72829d847"
+    },
     "dankPomodoroTimer": {
       "repo": "https://github.com/AvengeMedia/dms-plugins",
       "path": "DankPomodoroTimer",
       "commit": "3ad0e7845b62a9aca56f7959dd086b2a85655079"
+    },
+    "dankSoftwareDepot": {
+      "repo": "https://github.com/vinceecniv/DuxSoftwareDepot",
+      "commit": "41ae00755fe8c4d926b3344a86450d036fe98893"
+    },
+    "displayManager": {
+      "repo": "https://github.com/felri/display-manager-plugin-niri-dank-linux",
+      "commit": "ba8e9418e0393ca3e9bbcda76be044f126cbed14"
+    },
+    "quickCapture": {
+      "repo": "https://github.com/hthienloc/dms-plugins",
+      "path": "quickCapture",
+      "commit": "0280f174aabd86c8b604bfc92cee3a703c12cf16"
+    },
+    "unifiedTaskbar": {
+      "repo": "https://github.com/jslandau/dms-unified-taskbar",
+      "commit": "76a7da58395fc6fa71141bae29f2a85e5475f16a"
     }
   }
 }

@@ -13,9 +13,11 @@
           },
           "scale": 1.5,
           "transform": "Normal",
-          "vrr": false,
+          "vrr": true,
           "disabled": false,
-          "niri": {}
+          "niri": {
+            "vrrOnDemand": null
+          }
         }
       }
     }

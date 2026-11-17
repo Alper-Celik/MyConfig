@@ -6,3 +6,17 @@
 --
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+
+-- ai generated: focus follows mouse inside nvim (split hover, no click)
+-- <MouseMove> is a mapping pseudo-key (not an autocmd event), needs 'mousemoveevent'
+vim.keymap.set("n", "<MouseMove>", function()
+  local win = vim.fn.getmousepos().winid
+  if win <= 0 or win == vim.api.nvim_get_current_win() then
+    return
+  end
+  -- don't steal focus for floating windows (pickers etc.)
+  if vim.api.nvim_win_get_config(win).relative ~= "" then
+    return
+  end
+  vim.api.nvim_set_current_win(win)
+end)

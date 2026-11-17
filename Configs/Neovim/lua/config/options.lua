@@ -8,6 +8,9 @@ vim.opt.wrap = true
 -- first use git for rot dir detection
 vim.g.root_spec = { { ".git", "lua" }, "lsp", "cwd" }
 
+-- ai generated: emit MouseMove events so hover can move nvim focus
+vim.o.mousemoveevent = true
+
 -- vim.g.lazyvim_picker = "telescope"
 
 vim.lsp.enable("qmlls")

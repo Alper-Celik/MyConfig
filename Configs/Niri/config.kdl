@@ -18,3 +18,4 @@ include "dms/binds.kdl"
 include "dms/windowrules.kdl"
 
 include "noctalia.kdl"
+include "dms/outputs.kdl"
