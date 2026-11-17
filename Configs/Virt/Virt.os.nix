@@ -30,7 +30,6 @@
   environment.systemPackages = [
     pkgs.distrobox
     pkgs.freerdp
-    pkgs.vagrant
     pkgs.act
     pkgs.docker-compose
   ];

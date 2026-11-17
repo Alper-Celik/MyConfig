@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2026 Alper Çelik <alper@alper-celik.dev>
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# Global cargo defaults for this user. Cargo only reads $CARGO_HOME/config.toml
+# (the XDG config dir is not consulted), so this file is symlinked there.
+
+# Every Rust link on Linux goes through mold: rustc hands `-fuse-ld=mold` to the
+# C driver (nixpkgs' gcc wrapper, GCC >= 12 understands it), which runs ld.mold
+# from the mold package on PATH.
+[target.'cfg(target_os = "linux")']
+rustflags = ["-C", "link-arg=-fuse-ld=mold"]
+
+# sccache (system package) caches rlib/staticlib compilations across clean
+# builds. Binaries and incremental units are not cacheable by design.
+[build]
+rustc-wrapper = "sccache"

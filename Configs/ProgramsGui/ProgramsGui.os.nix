@@ -18,6 +18,9 @@
       vlc
       audacity
       haruna
+      mpv
+      jellyfin-mpv-shim
+      fladder
 
       feishin
       puddletag
