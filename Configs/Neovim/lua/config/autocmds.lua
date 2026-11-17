@@ -20,3 +20,16 @@ vim.keymap.set("n", "<MouseMove>", function()
   end
   vim.api.nvim_set_current_win(win)
 end)
+
+-- ai generated: editor buffers use the terminal background (transparent Normal/NormalNC);
+-- floats, statusline and other UI keep their theme backgrounds
+local terminal_bg_group = vim.api.nvim_create_augroup("terminal-background-buffers", { clear = true })
+local function use_terminal_background()
+  for _, name in ipairs({ "Normal", "NormalNC" }) do
+    local hl = vim.api.nvim_get_hl(0, { name = name, link = false })
+    hl.bg = nil
+    vim.api.nvim_set_hl(0, name, hl)
+  end
+end
+vim.api.nvim_create_autocmd("ColorScheme", { group = terminal_bg_group, callback = use_terminal_background })
+use_terminal_background()
