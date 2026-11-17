@@ -48,7 +48,7 @@
       # neochat
       telegram-desktop
       ## office suits
-      libreoffice-qt6
+      collabora-desktop
 
       ## file mangement
       ark

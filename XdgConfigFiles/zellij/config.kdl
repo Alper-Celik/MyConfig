@@ -1,5 +1,5 @@
 // If you'd like to override the default keybindings completely, be sure to change "keybinds" to "keybinds clear-defaults=true"
-keybinds {
+keybinds preset="default" secondary="Super" {
     // Ctrl+o stays with the pane (e.g. Neovim's jumplist); Session mode uses Ctrl+ş instead
     unbind "Ctrl o"
     normal {

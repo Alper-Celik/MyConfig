@@ -481,7 +481,7 @@
         }
       ],
       "spacing": 0,
-      "innerPadding": 2,
+      "innerPadding": -4,
       "barInsetPadding": 4,
       "bottomGap": 0,
       "transparency": 1,
@@ -490,7 +490,7 @@
       "noBackground": false,
       "maximizeWidgetIcons": false,
       "maximizeWidgetText": false,
-      "widgetPadding": 8,
+      "widgetPadding": 5,
       "gothCornersEnabled": true,
       "gothCornerRadiusOverride": false,
       "gothCornerRadiusValue": 16,
@@ -528,7 +528,7 @@
       "batteryColorMode": "theme",
       "islandFloating": false,
       "islandUseOverlayLayer": false,
-      "islandCompactThickness": 38,
+      "islandCompactThickness": 32,
       "islandAlongOffset": 0,
       "islandOuterGap": 4,
       "islandReserveThickness": 36,
@@ -553,7 +553,8 @@
       "islandPalette": "default",
       "islandHighContrast": true,
       "island": true,
-      "islandNotificationPopups": true
+      "islandNotificationPopups": true,
+      "islandSatelliteGap": 6
     },
     {
       "id": "dot1792765105379",
@@ -692,7 +693,7 @@
       "noBackground": false,
       "maximizeWidgetIcons": false,
       "maximizeWidgetText": false,
-      "widgetPadding": 8,
+      "widgetPadding": 5,
       "gothCornersEnabled": true,
       "gothCornerRadiusOverride": false,
       "gothCornerRadiusValue": 16,
@@ -730,7 +731,7 @@
       "batteryColorMode": "theme",
       "islandFloating": false,
       "islandUseOverlayLayer": false,
-      "islandCompactThickness": 38,
+      "islandCompactThickness": 32,
       "islandAlongOffset": 0,
       "islandOuterGap": 4,
       "islandReserveThickness": 28,
@@ -745,7 +746,8 @@
       "islandSystemOsd": true,
       "islandNotificationExpand": false,
       "islandHoverCloseDelay": 150,
-      "islandPlacement": "edge"
+      "islandPlacement": "edge",
+      "islandSatelliteGap": 6
     }
   ],
   "builtInPluginSettings": {
@@ -791,10 +793,11 @@
       "showOnLastDisplay": true,
       "position": 3,
       "mode": "compact",
+      "middleClickAction": "close",
       "taskbarAlign": "center",
       "widgetExpansion": "popout",
       "iconSize": 54,
-      "spacing": 8,
+      "spacing": 4,
       "itemSpacing": 4.32,
       "margin": 0,
       "bottomGap": 0,
@@ -929,5 +932,7 @@
   "osdAudioOutputEnabled": true,
   "osdMediaVolumeEnabled": false,
   "widgetColorMode": "default",
-  "lockScreenVideoEnabled": false
+  "lockScreenVideoEnabled": false,
+  "interfaceStyle": "expressive",
+  "density": "dense"
 }
