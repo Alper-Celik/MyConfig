@@ -1,7 +1,7 @@
 # kitty-hints / tmux-thumbs style labeled URL/path overlay for zellij.
 # Source comes from the `zellij-hints` flake input so it bumps with
-# `nix flake update zellij-hints`; only ./Cargo.lock (and the tile pin below)
-# is maintained here.
+# `nix flake update zellij-hints`; only the cargoHash (and, if ever needed,
+# a tile-pin patch) is maintained here.
 { pkgs, inputs, ... }:
 let
   # zellij plugins are wasm32-wasip1 modules and nixpkgs only ships that cross
