@@ -50,6 +50,13 @@
       flake = false;
     };
 
+    # kitty-hints style URL/path overlay plugin, consumed by
+    # my-pkgs/zellij-hints/zellij-hints.nix. Bump with `nix flake update zellij-hints`.
+    zellij-hints = {
+      url = "github:viktomas/zellij-hints";
+      flake = false;
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";

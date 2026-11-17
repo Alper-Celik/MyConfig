@@ -7,6 +7,13 @@
 - **`my-lib/`**: Contains core helpers. Use `my-lib.maybeOutOfStore` for live editable path resolution.
 - **`my-pkgs/`**: Local package definitions (e.g., `qml-material`) which is possible to use outside the config by including this flake on other projects.
 
+## my-pkgs: External Sources & Update Cycle
+
+- **Source from flake inputs, not vendored trees**: packages built from third-party sources (e.g. `my-pkgs/mako-renderer.nix`, `my-pkgs/zellij-hints/zellij-hints.nix`) take their `src` from a `flake = false` input in `flake.nix`, so they can be bumped properly with `nix flake update <input-name>`. NEVER copy the source tree into `my-pkgs/`.
+- **Hash management**: Rust crates built with `buildRustPackage` + an external `src` use `cargoHash` (nixpkgs' cargo vendor follows the src's own `Cargo.lock`; a hand-maintained lock fights it). Update cycle for a bump: `nix flake update <input>` → if deps changed, set `cargoHash = ""`, run `nix build`, copy the printed `got: sha256-…` back, build again.
+- **Keep wasm/host pairs consistent**: zellij plugins are wasm32-wasip1 modules cross-built via `pkgsCross.wasm32-wasip1.rustPlatform.buildRustPackage` from `nixpkgs-unstable` (26.05 pkgs lacks that cross set). When zellij itself is bumped, check the plugin's `zellij-tile` pin against the new host version — if a bump is needed, pair the pin change with a regenerated `Cargo.lock` (a `postPatch`-only bump breaks the offline vendor step).
+- **Verify a package change with the narrowest build**: `nix build .#packages.aarch64-linux.<pname>`, then confirm the expected artifact exists in the output path.
+
 ## Live-Editing (Out-of-Store Symlinks)
 
 frequently edited GUI/App configs use a symlinking pattern to allow editing files without a `nixos-rebuild`.
