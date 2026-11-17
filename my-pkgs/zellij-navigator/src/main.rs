@@ -19,14 +19,13 @@ struct State {
 
 enum Command {
     MoveFocus(Direction),
-    MoveFocusOrTab(Direction),
     Resize(Direction),
 }
 
 impl Command {
     fn direction(&self) -> Option<Direction> {
         match self {
-            Command::MoveFocus(d) | Command::MoveFocusOrTab(d) => Some(*d),
+            Command::MoveFocus(d) => Some(*d),
             Command::Resize(_) => None,
         }
     }
@@ -175,7 +174,6 @@ impl State {
     fn execute_command(&mut self, command: Command) {
         match command {
             Command::MoveFocus(direction) => move_focus(direction),
-            Command::MoveFocusOrTab(direction) => move_focus_or_tab(direction),
             Command::Resize(direction) => {
                 resize_focused_pane_with_direction(Resize::Increase, direction)
             }
@@ -209,14 +207,12 @@ impl State {
 
     fn command_to_keybind(&mut self, command: &Command) -> String {
         let modifiers = match command {
-            Command::MoveFocus(_) | Command::MoveFocusOrTab(_) => &self.move_mod,
+            Command::MoveFocus(_) => &self.move_mod,
             Command::Resize(_) => &self.resize_mod,
         };
 
         let direction = match command {
-            Command::MoveFocus(direction)
-            | Command::MoveFocusOrTab(direction)
-            | Command::Resize(direction) => direction,
+            Command::MoveFocus(direction) | Command::Resize(direction) => direction,
         };
 
         // Use the ASCII control characters for single modifier keybindings
@@ -350,7 +346,6 @@ fn parse_command(pipe_message: PipeMessage) -> Option<Command> {
 
     match command.as_str() {
         "move_focus" => Some(Command::MoveFocus(direction)),
-        "move_focus_or_tab" => Some(Command::MoveFocusOrTab(direction)),
         "resize" => Some(Command::Resize(direction)),
         _ => None,
     }

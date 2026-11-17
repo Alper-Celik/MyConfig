@@ -26,18 +26,10 @@ local function move(direction)
       vim.api.nvim_set_current_win(from)
     end
   end
-  local current, last = vim.fn.tabpagenr(), vim.fn.tabpagenr("$")
-  if direction == "left" and current > 1 then
-    vim.cmd("tabprevious")
-  elseif direction == "right" and current < last then
-    vim.cmd("tabnext")
-  else
-    -- zellij only treats left/right as focus moves in MoveFocusOrTab; it maps
-    -- up/down to tab cycling (route.rs: Up => SwitchTabNext, Down =>
-    -- SwitchTabPrev), so vertical escapes must use MoveFocus instead.
-    local action = (direction == "up" or direction == "down") and "move-focus" or "move-focus-or-tab"
-    require("neolij").zellij_action(action .. " " .. direction)
-  end
+  -- Tab switching is disabled on Alt+arrows: focus crossing panes stops at
+  -- the zellij edge (plain move-focus never cycles tabs, unlike
+  -- move-focus-or-tab).
+  require("neolij").zellij_action("move-focus " .. direction)
 end
 
 -- Entry snap: right after a zellij move_focus lands in this nvim pane, the
@@ -73,19 +65,15 @@ return {
       -- the vim-zellij-navigator wasm, which writes the arrow sequence into
       -- nvim while nvim is the focused pane (it never moves focus itself in
       -- that case), hence the Alt maps; `move` above keeps the nvim-split step,
-      -- then hands off: left/right go to the nvim tab, then to the zellij pane
-      -- or tab, while up/down only go to the zellij pane.
-      -- Tab movement is a plain zellij bind (Alt+Shift+...) and deliberately
-      -- does not reach nvim: the wasm plugin carries only four distinguishable
-      -- keys and keeps the config of its first message, so a second modifier
-      -- variant cannot be routed reliably.
+      -- then hands off to the zellij pane. Tab switching is deliberately not
+      -- on Alt+arrows anywhere.
       {
         "<A-Left>",
         function()
           move("left")
         end,
         mode = { "n", "t" },
-        desc = "Move left (nvim split, else previous tab/pane)",
+        desc = "Move left (nvim split, else zellij pane)",
         silent = true,
       },
       {
@@ -112,7 +100,7 @@ return {
           move("right")
         end,
         mode = { "n", "t" },
-        desc = "Move right (nvim split, else next tab/pane)",
+        desc = "Move right (nvim split, else zellij pane)",
         silent = true,
       },
 
