@@ -35,6 +35,25 @@ let
     '';
   };
 
+  # zellij 0.46's `zellij terminal` GUI dlopens wayland/xkbcommon/fontconfig/GL
+  # at runtime; the nixpkgs package ships no rpath for any of them, so it dies
+  # with "The wayland library could not be loaded". Same wrapper pattern as
+  # browser/omp above. The env leaks into zellij panes; benign, all libs are
+  # from the same nixpkgs set.
+  zellij-wrapped = pkgs.symlinkJoin {
+    pname = "zellij-wrapped";
+    version = lib.getVersion pkgs.zellij;
+    paths = [ pkgs.zellij ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    meta = pkgs.zellij.meta;
+    postBuild = ''
+      for bin in zellij zellij-terminal; do
+        wrapProgram "$out/bin/$bin" --prefix LD_LIBRARY_PATH ':' \
+          ${lib.makeLibraryPath (with pkgs; [ wayland fontconfig.lib libxkbcommon libGL ])}
+      done
+    '';
+  };
+
   # omp's managed Chromium can not install itself on aarch64 (Chrome for
   # Testing publishes no linux/arm64 builds) and would download ~150 MB
   # elsewhere, so point puppeteer at the copy above.
@@ -105,7 +124,7 @@ in
       bash
       ncurses
       tmux
-      zellij
+      zellij-wrapped
       findutils
       psmisc
 

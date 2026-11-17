@@ -20,6 +20,16 @@ export GH_TOKEN
 GIT_CONFIG_GLOBAL=/home/alper/MyConfig/Configs/Omp/gitconfig
 export GIT_CONFIG_GLOBAL
 
+# omp's in-process git (gitoxide in pi-vcs) denies the GIT_* env catch-all, which also drops
+# GIT_CONFIG_GLOBAL — so eval `commit` died with "committer identity is not configured". The
+# identity env vars go through gitoxide's allowed "identity" permission, so they reach commits
+# both in-process and from the git CLI (they override config, same identity, no conflict).
+GIT_AUTHOR_NAME=Alper-Celiks-Agent
+GIT_AUTHOR_EMAIL=agent@alper-celik.dev
+GIT_COMMITTER_NAME=Alper-Celiks-Agent
+GIT_COMMITTER_EMAIL=agent@alper-celik.dev
+export GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL
+
 case "${1:-}" in
   acp) ;; # the ACP client drives the flags
   *) set -- --yolo --allow-home "$@" ;;

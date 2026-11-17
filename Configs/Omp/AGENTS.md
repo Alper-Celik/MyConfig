@@ -35,7 +35,7 @@ When the prompt is scoped and decisive ("just do it", "add X", "convert these to
 ## Git commits
 
 - Inside worktrees under `~/.omp/wt/`, you are free to commit without asking; always commit your changes there (leave the worktree dirty only on failure).
-- Every commit carries both parties. If the commit's author is Alper (his change, you committing it), append `Co-authored-by: Alper-Celiks-Agent <agent@alper-celik.dev>`; if you are the author, append `Co-authored-by: Alper Çelik <alper@alper-celik.dev>`. Use `git commit --trailer` rather than editing the message by hand. Identities: agent = `GIT_CONFIG_GLOBAL` set by `Configs/scripts/omp-sandboxed`; Alper = `Configs/Git.home.nix`.
+- Every commit carries both parties. If the commit's author is Alper (his change, you committing it), append `Co-authored-by: Alper-Celiks-Agent <agent@alper-celik.dev>`; if you are the author, append `Co-authored-by: Alper Çelik <alper@alper-celik.dev>`. Use `git commit --trailer` rather than editing the message by hand. Identities: agent = `GIT_CONFIG_GLOBAL` plus the `GIT_AUTHOR_*/GIT_COMMITTER_*` env vars set by `Configs/scripts/omp-sandboxed` (omp's in-process gitoxide drops `GIT_CONFIG_GLOBAL` via its denied `GIT_*` catch-all, so the eval `commit` tool needs the env vars); Alper = `Configs/Git.home.nix`.
 
 ## Memory is shared with the Hermes agent
 
