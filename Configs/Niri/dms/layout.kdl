@@ -36,7 +36,7 @@ layer-rule {
 }
 
 window-rule {
-    match app-id="^(dev.duxlabs.shell|com.danklinux.dms|dev.duxlabs.files|dev.duxlabs.calendar)$"
+    match app-id="^(dev.duxlabs.shell|com.danklinux.dms)$"
     background-effect {
         xray false
     }
