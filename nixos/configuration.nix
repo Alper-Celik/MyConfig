@@ -16,6 +16,13 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  # Modules resolve their declared args from specialArgs // _module.args, and
+  # the module system bypasses Nix's own `? default` (lib/modules.nix:758) —
+  # so a host without `nproc` in specialArgs would fail to evaluate. This
+  # fallback keeps hosts without the specialArg (legacy, commented out in
+  # flake.nix) evaluable: Systemd.os.nix then sets no CPU ceiling.
+  _module.args.nproc = 0;
+
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.

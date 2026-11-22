@@ -331,6 +331,10 @@ load_plugins {
 // Default: $SHELL
 //
 // default_shell "fish"
+// Every pane is its own systemd-run scope at half the terminal
+// scope's weight (see zellij-pane-shell in ProgramsCli.os.nix), so one
+// runaway pane cannot freeze the zellij server or sibling panes.
+default_shell "zellij-pane-shell"
 
 // Choose the path to override cwd that zellij will use for opening new panes
 //
