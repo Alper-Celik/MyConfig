@@ -26,7 +26,7 @@
          "name": "catppuccin-frappe"
       },
       "dark": {
-         "name": "ayu-dark"
+         "name": "tokyo-night-storm"
       }
    },
    "telemetry": {
@@ -48,6 +48,9 @@
       },
       "material": "blur"
    },
+   "keybinds": {
+      "toggle-action-panel": "control+B"
+   },
    "providers": {
       "@c4n4m1/vicinae-extension-zoxide-recent-directories-0": {
          "preferences": {
@@ -57,6 +60,11 @@
             "recent-directories": {
                "alias": "!z"
             }
+         }
+      },
+      "@dagimg-dot/vicinae-extension-player-pilot-0": {
+         "preferences": {
+            "playerctl-players": "%any"
          }
       },
       "@dagimg-dot/vicinae-extension-wifi-commander-0": {
@@ -90,6 +98,11 @@
          }
       },
       "@knoopx/vicinae-extension-github-0": {
+         "preferences": {
+            "numberOfResults": "50",
+            "defaultIssueFilter": "my",
+            "defaultRepositoryFilter": "my"
+         },
          "entrypoints": {
             "myRepositories": {
                "alias": "!g"
@@ -97,6 +110,12 @@
             "workflowRuns": {
                "alias": "!r"
             }
+         }
+      },
+      "@knoopx/vicinae-extension-nix-0": {
+         "preferences": {
+            "searchUrl": "https://search.nixos.org/backend/latest-48-nixos-unstable/_search",
+            "homeManagerOptionsUrl": "https://home-manager-options.extranix.com/data/options-master.json"
          }
       },
       "@system7/vicinae-extension-keepassxc-0": {
@@ -131,6 +150,27 @@
                "/nix/var/nix/profiles/default/share/applications",
                "/run/current-system/sw/share/applications"
             ]
+         }
+      },
+      "scripts": {
+         "preferences": {
+            "customDirs": []
+         }
+      },
+      "shortcuts": {
+         "entrypoints": {
+            "sct-4510d9490307": {
+               "enabled": false
+            }
+         }
+      },
+      "snippets": {
+         "preferences": {
+            "enabled": true,
+            "undo": true,
+            "layout": "",
+            "prePasteDelay": "0",
+            "keyDelay": "2"
          }
       },
       "system": {
