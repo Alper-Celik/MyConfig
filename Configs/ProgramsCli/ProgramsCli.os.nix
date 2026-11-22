@@ -55,6 +55,15 @@ let
     '';
   };
 
+  # zellij spawns every pane through default_shell; wrapping it in a
+  # systemd-run scope gives each pane its own cgroup at half the terminal
+  # scope's weight (the terminal scope runs at CPUWeight 20), so one
+  # runaway pane cannot starve the zellij server or sibling panes.
+  zellij-pane-shell = pkgs.writeShellScriptBin "zellij-pane-shell" ''
+    exec ${pkgs.systemd}/bin/systemd-run --user --scope -q --collect \
+      -p CPUWeight=10 -p IOWeight=10 ${pkgs.fish}/bin/fish "$@"
+  '';
+
   # omp's managed Chromium can not install itself on aarch64 (Chrome for
   # Testing publishes no linux/arm64 builds) and would download ~150 MB
   # elsewhere, so point puppeteer at the copy above.
@@ -126,6 +135,7 @@ in
       ncurses
       tmux
       zellij-wrapped
+      zellij-pane-shell
       findutils
       psmisc
 

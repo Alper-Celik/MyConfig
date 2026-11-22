@@ -20,7 +20,7 @@
       # Every terminal window is its own cgroup at half the weight of the rest
       # of the session, so an editor, an LSP or a build inside it cannot starve
       # the compositor. Builds inside it are further niced down by lowprio.
-      shell = "systemd-run --user --scope -p MemoryMax=90% -p TasksMax=1000 -p CPUWeight=50 -p IOWeight=50 zellij";
+      shell = "systemd-run --user --scope -p MemoryMax=90% -p TasksMax=1000 -p CPUWeight=20 -p IOWeight=20 zellij";
       shell_integration = "enabled";
       allow_remote_control = true;
 
