@@ -5,11 +5,12 @@
   pkgs,
   pkgs-stable,
   my-pkgs,
+  my-lib,
   specialArgs,
   ...
 }:
 let
-  ompUpstream = inputs.omp.packages.${pkgs.stdenv.hostPlatform.system}.omp;
+  ompUpstream = my-lib.markBigParallel (inputs.omp.packages.${pkgs.stdenv.hostPlatform.system}.omp);
 
   # Chromium for omp's builtin browser only -- pkgs.chromium itself is left
   # alone, because it is only ever broken when it is spawned from an
