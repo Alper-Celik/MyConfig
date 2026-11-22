@@ -7,6 +7,14 @@
     };
   };
 
+  # nix-daemon (root) authenticates to nixbuild.net with the machine host key,
+  # whose .pub is registered on the nixbuild account.
+  programs.ssh.extraConfig = ''
+    Host eu.nixbuild.net
+      IdentityFile /etc/ssh/ssh_host_ed25519_key
+      IdentitiesOnly yes
+  '';
+
   nix = {
     distributedBuilds = true;
     settings.builders-use-substitutes = true;
