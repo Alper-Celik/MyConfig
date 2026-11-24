@@ -124,3 +124,8 @@ emojiAutocomplete: false
 providers:
   autoThinkingMaxEffort: max
 colorBlindMode: false
+
+extensionRenderers:
+  # dart-fence-alias.ts re-labels dart fences to a syntect-supported grammar;
+  # its renderer runs only while this is on.
+  assistantText: true

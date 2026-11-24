@@ -71,6 +71,7 @@ in
   home.file.".omp/agent/mcp.json".source = outOfStrore "mcp.json";
   home.file.".omp/agent/AGENTS.md".source = outOfStrore "AGENTS.md";
   home.file.".omp/agent/ssh/config".source = outOfStrore "ssh/config";
+  home.file.".omp/agent/extensions/dart-fence-alias.ts".source = ./extensions/dart-fence-alias.ts;
 
   # key hooks referenced by models.yml (paths are load-bearing there).
   # .text instead of out-of-store symlinks: the executable flag makes HM copy
