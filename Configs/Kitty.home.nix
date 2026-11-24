@@ -28,6 +28,11 @@
       # so those colors are made transparent here explicitly.
       background_opacity = "0.9";
       transparent_background_colors = "#161616@0.9 #2a2a2a@0.9";
+      # kitten @ over the tty DCS path cannot cross zellij (it does not
+      # forward @kitty-cmd sequences), so expose a per-instance abstract
+      # socket; kitty exports KITTY_LISTEN_ON and kitten @ picks it up
+      # automatically inside panes. Requires allow_remote_control != no.
+      listen_on = "unix:@kitty-{kitty_pid}";
       shell_integration = "enabled";
       allow_remote_control = true;
 
