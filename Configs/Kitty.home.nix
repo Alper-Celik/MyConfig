@@ -21,6 +21,9 @@
       # systemd-run scope at CPUWeight 10 so a runaway pane cannot starve the
       # desktop or sibling panes.
       shell = "zellij";
+      # Background-only transparency (text stays opaque); niri's window rule
+      # provides the blur behind it, matching zellij-terminal's opacity 0.9.
+      background_opacity = "0.9";
       shell_integration = "enabled";
       allow_remote_control = true;
 

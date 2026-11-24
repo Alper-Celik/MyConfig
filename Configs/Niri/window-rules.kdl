@@ -6,7 +6,6 @@ window-rule {
     match app-id=r#"kitty"#
     match app-id=r#"dev.zellij.Zellij"#
     open-maximized-to-edges true
-    opacity 0.985
     background-effect{
       blur true
     }
