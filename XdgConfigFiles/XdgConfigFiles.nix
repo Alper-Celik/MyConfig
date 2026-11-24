@@ -23,9 +23,4 @@ in
   # XdgConfigFiles/zellij/config.kdl.
   home.file.".local/share/zellij/plugins/vim-zellij-navigator.wasm".source =
     "${my-pkgs.zellij-navigator}/vim_zellij_navigator.wasm";
-
-  # kitty-hints style URL/path opener (github.com/viktomas/zellij-hints);
-  # zellij loads it by this path from XdgConfigFiles/zellij/config.kdl.
-  home.file.".local/share/zellij/plugins/zellij-hints.wasm".source =
-    "${my-pkgs.zellij-hints}/zellij_hints.wasm";
 }

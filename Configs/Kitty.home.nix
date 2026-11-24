@@ -19,7 +19,9 @@
       # Kitty and the zellij server run unrestricted; the limiting happens in
       # zellij-pane-shell (default_shell), which wraps each pane in a
       # systemd-run scope at CPUWeight 10 so a runaway pane cannot starve the
-      # desktop or sibling panes.
+      # desktop or sibling panes. On pty close zellij detaches (default
+      # on_force_close "detach") and the session server keeps running; the
+      # session is reattached with `zellij attach` from a new terminal.
       shell = "zellij";
       # Background-only transparency (text stays opaque); niri's window rule
       # provides the blur behind it, matching zellij-terminal's opacity 0.9.
@@ -28,11 +30,11 @@
       # so those colors are made transparent here explicitly.
       background_opacity = "0.9";
       transparent_background_colors = "#161616@0.9 #2a2a2a@0.9";
-      # kitten @ over the tty DCS path cannot cross zellij (it does not
-      # forward @kitty-cmd sequences), so expose a per-instance abstract
-      # socket; kitty exports KITTY_LISTEN_ON and kitten @ picks it up
-      # automatically inside panes. Requires allow_remote_control != no.
-      listen_on = "unix:@kitty-{kitty_pid}";
+      # Sessions survive closing a kitty window, so never ask for
+      # confirmation when closing.
+      confirm_os_window_close = "0";
+      # Tabs are zellij's job; hide kitty's tab bar.
+      tab_bar_edge = "none";
       shell_integration = "enabled";
       allow_remote_control = true;
 
