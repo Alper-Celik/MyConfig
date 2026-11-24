@@ -1608,8 +1608,7 @@
         "stylix": "stylix",
         "tide-fish": "tide-fish",
         "vicinae": "vicinae",
-        "vicinae-extensions": "vicinae-extensions",
-        "zellij-hints": "zellij-hints"
+        "vicinae-extensions": "vicinae-extensions"
       }
     },
     "rust-overlay": {
@@ -1986,22 +1985,6 @@
       "original": {
         "owner": "vicinaehq",
         "repo": "vicinae",
-        "type": "github"
-      }
-    },
-    "zellij-hints": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1794494968,
-        "narHash": "sha256-WsrbJEtY/HnnOkqzIS4CHuNbh8w3hMe2fyBAW0C/940=",
-        "owner": "viktomas",
-        "repo": "zellij-hints",
-        "rev": "d7ce447b4840da092aba817e48b8b62974e933ea",
-        "type": "github"
-      },
-      "original": {
-        "owner": "viktomas",
-        "repo": "zellij-hints",
         "type": "github"
       }
     }
