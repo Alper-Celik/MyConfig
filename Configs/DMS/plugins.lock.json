@@ -26,7 +26,7 @@
     "quickCapture": {
       "repo": "https://github.com/hthienloc/dms-plugins",
       "path": "quickCapture",
-      "commit": "0280f174aabd86c8b604bfc92cee3a703c12cf16"
+      "commit": "02c227521db94aae8f805aa6b41db6a5ee33399b"
     },
     "unifiedTaskbar": {
       "repo": "https://github.com/jslandau/dms-unified-taskbar",
