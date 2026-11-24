@@ -16,11 +16,11 @@
       enableFishIntegration = true;
     };
     settings = {
-      # shell = "zellij";
-      # Every terminal window is its own cgroup at half the weight of the rest
-      # of the session, so an editor, an LSP or a build inside it cannot starve
-      # the compositor. Builds inside it are further niced down by lowprio.
-      shell = "systemd-run --user --scope -p MemoryMax=90% -p TasksMax=1000 -p CPUWeight=20 -p IOWeight=20 zellij";
+      # Kitty and the zellij server run unrestricted; the limiting happens in
+      # zellij-pane-shell (default_shell), which wraps each pane in a
+      # systemd-run scope at CPUWeight 10 so a runaway pane cannot starve the
+      # desktop or sibling panes.
+      shell = "zellij";
       shell_integration = "enabled";
       allow_remote_control = true;
 
