@@ -56,9 +56,10 @@ let
   };
 
   # zellij spawns every pane through default_shell; wrapping it in a
-  # systemd-run scope gives each pane its own cgroup at half the terminal
-  # scope's weight (the terminal scope runs at CPUWeight 20), so one
-  # runaway pane cannot starve the zellij server or sibling panes.
+  # systemd-run scope gives each pane its own low-weight cgroup
+  # (CPUWeight=10 vs the default 100), so one runaway pane cannot starve
+  # the desktop, the zellij server, or sibling panes. Kitty and the
+  # zellij server itself run unrestricted.
   zellij-pane-shell = pkgs.writeShellScriptBin "zellij-pane-shell" ''
     exec ${pkgs.systemd}/bin/systemd-run --user --scope -q --collect \
       -p CPUWeight=10 -p IOWeight=10 ${pkgs.fish}/bin/fish "$@"
