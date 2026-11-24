@@ -23,7 +23,11 @@
       shell = "zellij";
       # Background-only transparency (text stays opaque); niri's window rule
       # provides the blur behind it, matching zellij-terminal's opacity 0.9.
+      # zellij's carbonfox theme paints pane bodies with an explicit bg
+      # (#161616, selected #2a2a2a), which background_opacity does not affect,
+      # so those colors are made transparent here explicitly.
       background_opacity = "0.9";
+      transparent_background_colors = "#161616@0.9 #2a2a2a@0.9";
       shell_integration = "enabled";
       allow_remote_control = true;
 
