@@ -23,6 +23,20 @@
 
   };
 
+  # polkit 127 sandboxed polkit-agent-helper@.service with PrivateDevices=yes +
+  # DevicePolicy=strict (DeviceAllow only /dev/null), so pam_u2f in the polkit-1
+  # stack can't open the Yubikey's /dev/hidraw* in ANY agent (DMS, terminal).
+  # Same drop-in as Arch's packaging fix: allow hidraw + urandom.
+  systemd.services."polkit-agent-helper@" = {
+    serviceConfig = {
+      PrivateDevices = false;
+      DeviceAllow = [
+        "/dev/urandom r"
+        "char-hidraw rw"
+      ];
+    };
+  };
+
   # FIXME: Creates problems with keepassxc
   # services.udev.extraRules = ''
   #   ACTION=="remove",\
