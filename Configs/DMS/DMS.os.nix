@@ -36,7 +36,7 @@
 
   # The shell is the most latency-sensitive thing on the desktop after the
   # compositor: 10x the default user-service weight, so a build in a terminal
-  # (those scopes run at CPUWeight 50) or any busy app cannot make the bar,
+  # (those scopes run at CPUWeight 20) or any busy app cannot make the bar,
   # launcher or OSD stutter.
   systemd.user.services.dms.serviceConfig.CPUWeight = 1000;
 }

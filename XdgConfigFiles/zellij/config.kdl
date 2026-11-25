@@ -200,7 +200,6 @@ keybinds preset="default" secondary="Super" {
         // bind "Ctrl q" { Quit; }
         bind "Alt f" { ToggleFloatingPanes; }
         bind "Alt n" { NewPane; }
-        bind "Alt u" { LaunchOrFocusPlugin "hints"; }
         bind "Alt Shift t" { NewTab; }
         bind "Alt Shift h" "Alt Shift k" "Alt Shift Left" "Alt Shift Up" "Alt Shift i" "Alt Shift ı" { GoToPreviousTab; }
         bind "Alt Shift l" "Alt Shift j" "Alt Shift Right" "Alt Shift Down" "Alt Shift o" { GoToNextTab; }
@@ -291,8 +290,6 @@ plugins {
     plugin-manager location="zellij:plugin-manager"
     about location="zellij:about"
     vim_zellij_navigator location="file:/home/alper/.local/share/zellij/plugins/vim-zellij-navigator.wasm"
-    // zellij-hints: kitty-hints-style labeled URL/path overlay, launch with Alt+u
-    hints location="file:/home/alper/.local/share/zellij/plugins/zellij-hints.wasm"
 }
 
 // Plugins to load in the background when a new session starts
@@ -331,6 +328,10 @@ load_plugins {
 // Default: $SHELL
 //
 // default_shell "fish"
+// Every pane is its own systemd-run scope at half the terminal
+// scope's weight (see zellij-pane-shell in ProgramsCli.os.nix), so one
+// runaway pane cannot freeze the zellij server or sibling panes.
+default_shell "zellij-pane-shell"
 
 // Choose the path to override cwd that zellij will use for opening new panes
 //

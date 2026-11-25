@@ -5,11 +5,12 @@
   pkgs,
   pkgs-stable,
   my-pkgs,
+  my-lib,
   specialArgs,
   ...
 }:
 let
-  ompUpstream = inputs.omp.packages.${pkgs.stdenv.hostPlatform.system}.omp;
+  ompUpstream = my-lib.markBigParallel (inputs.omp.packages.${pkgs.stdenv.hostPlatform.system}.omp);
 
   # Chromium for omp's builtin browser only -- pkgs.chromium itself is left
   # alone, because it is only ever broken when it is spawned from an
@@ -53,6 +54,16 @@ let
       done
     '';
   };
+
+  # zellij spawns every pane through default_shell; wrapping it in a
+  # systemd-run scope gives each pane its own low-weight cgroup
+  # (CPUWeight=10 vs the default 100), so one runaway pane cannot starve
+  # the desktop, the zellij server, or sibling panes. Kitty and the
+  # zellij server itself run unrestricted.
+  zellij-pane-shell = pkgs.writeShellScriptBin "zellij-pane-shell" ''
+    exec ${pkgs.systemd}/bin/systemd-run --user --scope -q --collect \
+      -p CPUWeight=10 -p IOWeight=10 ${pkgs.fish}/bin/fish "$@"
+  '';
 
   # omp's managed Chromium can not install itself on aarch64 (Chrome for
   # Testing publishes no linux/arm64 builds) and would download ~150 MB
@@ -125,6 +136,7 @@ in
       ncurses
       tmux
       zellij-wrapped
+      zellij-pane-shell
       findutils
       psmisc
 

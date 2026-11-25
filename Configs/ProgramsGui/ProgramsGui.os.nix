@@ -5,6 +5,7 @@
   pkgs,
   pkgs-stable,
   my-pkgs,
+  my-lib,
   specialArgs,
   ...
 }:
@@ -65,7 +66,7 @@
       # jetbrains.pycharm
 
       # libresprite
-      aseprite
+      (my-lib.markBigParallel aseprite)
       ## editors
       kate
       obsidian

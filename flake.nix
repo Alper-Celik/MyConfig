@@ -50,13 +50,6 @@
       flake = false;
     };
 
-    # kitty-hints style URL/path overlay plugin, consumed by
-    # my-pkgs/zellij-hints/zellij-hints.nix. Bump with `nix flake update zellij-hints`.
-    zellij-hints = {
-      url = "github:viktomas/zellij-hints";
-      flake = false;
-    };
-
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -252,6 +245,10 @@
           };
 
           nixosConfigurations = {
+            /* Legacy hosts — commented out, re-enable by uncommenting
+               (they also need `nproc` in specialArgs or rely on the
+               _module.args.nproc fallback in nixos/configuration.nix).
+
             lenovo-ideapad-510 = withSystem "x86_64-linux" (
               { my-specialArgs, ... }:
               nixpkgs.lib.nixosSystem {
@@ -259,21 +256,6 @@
 
                   configDir = "/home/alper/MyConfig"; # TODO: abstract it ?
                   hardware = "lenovo-ideapad-510";
-                };
-                modules = [
-                  self.nixosModules.default-modules
-                  ./nixos/configuration.nix
-                ];
-              }
-            );
-
-            macbook-m1-alper = withSystem "aarch64-linux" (
-              { my-specialArgs, ... }:
-              nixpkgs.lib.nixosSystem {
-                specialArgs = my-specialArgs // {
-
-                  configDir = "/home/alper/MyConfig"; # TODO: abstract it ?
-                  hardware = "macbook-m1-alper";
                 };
                 modules = [
                   self.nixosModules.default-modules
@@ -296,6 +278,23 @@
                 ];
               }
             );
+            */
+
+            macbook-m1-alper = withSystem "aarch64-linux" (
+              { my-specialArgs, ... }:
+              nixpkgs.lib.nixosSystem {
+                specialArgs = my-specialArgs // {
+
+                  configDir = "/home/alper/MyConfig"; # TODO: abstract it ?
+                  hardware = "macbook-m1-alper";
+                  nproc = 8; # M1: 4P + 4E, no SMT
+                };
+                modules = [
+                  self.nixosModules.default-modules
+                  ./nixos/configuration.nix
+                ];
+              }
+            );
 
             steamdeck = withSystem "x86_64-linux" (
               { my-specialArgs, ... }:
@@ -304,6 +303,12 @@
 
                   configDir = "/home/alper/MyConfig"; # TODO: abstract it ?
                   hardware = "steamdeck";
+                  # TODO: move these per-host constants into a NixOS module
+                  # (e.g. a Hardware/Systemd module keyed off `hardware`) once
+                  # the legacy hosts are gone; modules derive from `nproc` for
+                  # now because NixOS/systemd has no "share of all cores"
+                  # CPU option. 4c/8t Zen 2 APU.
+                  nproc = 8;
                 };
                 modules = [
                   self.nixosModules.default-modules

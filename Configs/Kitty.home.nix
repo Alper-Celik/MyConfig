@@ -16,11 +16,25 @@
       enableFishIntegration = true;
     };
     settings = {
-      # shell = "zellij";
-      # Every terminal window is its own cgroup at half the weight of the rest
-      # of the session, so an editor, an LSP or a build inside it cannot starve
-      # the compositor. Builds inside it are further niced down by lowprio.
-      shell = "systemd-run --user --scope -p MemoryMax=90% -p TasksMax=1000 -p CPUWeight=50 -p IOWeight=50 zellij";
+      # Kitty and the zellij server run unrestricted; the limiting happens in
+      # zellij-pane-shell (default_shell), which wraps each pane in a
+      # systemd-run scope at CPUWeight 10 so a runaway pane cannot starve the
+      # desktop or sibling panes. On pty close zellij detaches (default
+      # on_force_close "detach") and the session server keeps running; the
+      # session is reattached with `zellij attach` from a new terminal.
+      shell = "zellij";
+      # Background-only transparency (text stays opaque); niri's window rule
+      # provides the blur behind it, matching zellij-terminal's opacity 0.9.
+      # zellij's carbonfox theme paints pane bodies with an explicit bg
+      # (#161616, selected #2a2a2a), which background_opacity does not affect,
+      # so those colors are made transparent here explicitly.
+      background_opacity = "0.9";
+      transparent_background_colors = "#161616@0.9 #2a2a2a@0.9";
+      # Sessions survive closing a kitty window, so never ask for
+      # confirmation when closing.
+      confirm_os_window_close = "0";
+      # Tabs are zellij's job; hide kitty's tab bar.
+      tab_bar_edge = "none";
       shell_integration = "enabled";
       allow_remote_control = true;
 
