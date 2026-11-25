@@ -26,7 +26,7 @@
     "lastAccount": "Alper-Celik@github"
   },
   "kaomojiPicker": {
-    "enabled": true
+    "enabled": false
   },
   "dankCalendarAgenda": {
     "enabled": true
@@ -39,5 +39,32 @@
   },
   "niriScaleOsd": {
     "enabled": true
+  },
+  "quickCapture": {
+    "enabled": true,
+    "menuRightClickAction": "copy",
+    "showToolbar": true,
+    "modalDisplayMode": "floating",
+    "scrollInterval": 200
+  },
+  "dankSoftwareDepot": {
+    "enabled": true
+  },
+  "displayManager": {
+    "enabled": true
+  },
+  "aiOverviewControl": {
+    "enabled": false
+  },
+  "unifiedTaskbar": {
+    "enabled": false,
+    "compactMode": true,
+    "groupByApp": true,
+    "allMonitors": false,
+    "reverseMonitorOrder": false,
+    "filledPills": false,
+    "iconPadding": 4,
+    "itemSpacing": 2,
+    "workspaceSpacing": 7
   }
 }
