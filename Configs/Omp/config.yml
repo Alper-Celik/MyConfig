@@ -1,8 +1,8 @@
 setupVersion: 3
 modelRoles:
   web: web/exa
-  default: opencode-go/glm-5.3-flash
-  advisor: opencode-go/deepseek-v4.1-flash:auto
+  default: opencode-go/glm-5.3
+  advisor: opencode-go/glm-5.3:auto
 defaultThinkingLevel: auto
 bash:
   enabled: true
@@ -104,7 +104,7 @@ advisor:
   enabled: true
   maxNotesPerUpdate: 5
   syncBacklog: "5"
-  continueSeverity: nit
+  continueSeverity: concern
   reviewMode: turn
 theme:
   dark: titanium

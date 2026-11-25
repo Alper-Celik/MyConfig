@@ -638,7 +638,10 @@ theme_light "dayfox"
 // (Requires restart)
 // Default: true (if the host terminal supports it)
 //
-// support_kitty_keyboard_protocol false
+// Explicitly on so multi-modifier binds like Ctrl+Shift+E are delivered
+// distinctly (legacy terminal encoding can't distinguish Ctrl+Shift+E from
+// Ctrl+E); the zellij terminal supports the protocol.
+support_kitty_keyboard_protocol true
 
 // Enable or disable support for the Kitty Graphics Protocol, used to display images (the host terminal must also support it)
 // (Requires restart)
